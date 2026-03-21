@@ -1,0 +1,14 @@
+<div class="home-page">
+  <app-welcome-banner [title]="pageTitle"></app-welcome-banner>
+
+  <div class="content-section">
+    <h2>Про Міт</h2>
+    <p>Це перша сторінка нашого додатку, створена на Angular 20.</p>
+
+    <app-button
+      [label]="'Дізнатись більше'"
+      [variant]="'primary'"
+      (onClick)="handleButtonClick()">
+    </app-button>
+  </div>
+</div>
