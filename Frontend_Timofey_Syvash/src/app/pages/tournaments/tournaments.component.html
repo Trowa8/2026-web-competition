@@ -1,0 +1,47 @@
+<div class="tournaments-container">
+  <div class="header">
+    <h1>Турніри</h1>
+    <button class="btn btn-primary" *ngIf="authService.isAuthenticated()">
+      Створити турнір
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Завантаження турнірів...
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div class="tournaments-grid" *ngIf="!isLoading && tournaments.length > 0">
+    <div *ngFor="let tournament of tournaments" class="tournament-card">
+      <div class="tournament-info">
+        <h3>{{ tournament.name }}</h3>
+        <p class="game">{{ tournament.game }}</p>
+        <p class="description">{{ tournament.description }}</p>
+        <div class="details">
+          <div class="players">
+            <span>👥</span> {{ tournament.currentPlayers }}/{{ tournament.maxPlayers }}
+          </div>
+          <div class="prize" *ngIf="tournament.prizePool">
+            <span>💰</span> {{ tournament.prizePool }} €
+          </div>
+        </div>
+        <div class="status" [class]="getStatusClass(tournament.status)">
+          {{ getStatusText(tournament.status) }}
+        </div>
+        <button
+          class="btn btn-join"
+          (click)="joinTournament(tournament.id)"
+          [disabled]="tournament.status !== 'upcoming'">
+          Приєднатися
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && tournaments.length === 0" class="no-tournaments">
+    <p>Немає доступних турнірів</p>
+  </div>
+</div>

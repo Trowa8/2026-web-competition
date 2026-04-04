@@ -1,0 +1,67 @@
+<div class="app-container">
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a routerLink="/home" class="nav-link">Головна</a>
+        <a href="#" class="nav-link">Цінності</a>
+        <a href="#" class="nav-link">Наша Спільнота</a>
+        <a routerLink="/tournaments" class="nav-link">Турніри</a>
+        <a href="#" class="nav-link">Моя Команда</a>
+        <a routerLink="/login" class="nav-link">Увійти</a>
+        <a href="#" class="nav-link user-name">Ім'я</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="dashboard-cards">
+        <div class="card deadline-card">
+          <h3>Дедлайн завдання</h3>
+          <p class="deadline-text">Завершується сьогодні!</p>
+        </div>
+
+        <div class="card progress-card">
+          <h3>Прогрес завдань</h3>
+          <p class="progress-text">{{ getCompletedCount() }}/{{ getTotalTasks() }} завдань виконано</p>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(getCompletedCount()/getTotalTasks())*100"></div>
+          </div>
+        </div>
+
+        <div class="card rating-card">
+          <h3>Рейтинг команди</h3>
+          <p class="rating-text">#1 🏆</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2>Мої завдання</h2>
+          <a href="#" class="view-all">Всі →</a>
+        </div>
+        <div class="tasks-list">
+          <div *ngFor="let task of tasks" class="task-item">
+            <input type="checkbox" [checked]="task.completed" class="task-checkbox">
+            <span [class.completed]="task.completed" class="task-name">{{ task.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2>Мої турніри</h2>
+          <a href="#" class="view-all">Всі →</a>
+        </div>
+        <div class="tournaments-grid">
+          <div *ngFor="let tournament of tournaments" class="tournament-card">
+            <h3 class="tournament-name">{{ tournament.name }}</h3>
+            <span class="status-badge" [class]="tournament.status">
+              {{ tournament.status === 'upcoming' ? 'Майбутній' : 'В процесі' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
