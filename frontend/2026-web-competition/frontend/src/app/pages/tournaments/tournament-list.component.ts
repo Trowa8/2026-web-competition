@@ -25,6 +25,6 @@ export class TournamentListComponent implements OnInit {
   constructor(private tournamentService: TournamentService) { }
 
   async ngOnInit() {
-    this.tournaments = await this.tournamentService.getAll();
+    this.tournaments = await this.tournamentService.getTournaments();
   }
 }
