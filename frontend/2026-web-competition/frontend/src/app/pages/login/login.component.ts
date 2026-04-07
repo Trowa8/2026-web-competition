@@ -33,16 +33,11 @@ export class LoginComponent {
 
   constructor(private auth: AuthService, private router: Router) { }
 
-  async onLogin() {
-    try {
-      await this.auth.login({
-        username: this.username,
-        password: this.password
-      });
-
+  onLogin() {
+    if (this.auth.login(this.username, this.password)) {
       this.router.navigate(['/tournaments']);
-    } catch (e) {
-      console.error('Login error', e);
+    } else {
+      this.message = 'Невірний логін або пароль. Спробуй admin / 123';
     }
   }
 }
