@@ -1,0 +1,240 @@
+.tournaments-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    color: #1a1a2e;
+}
+
+.btn-create {
+    background: linear-gradient(135deg, #e94560, #f5a623);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.btn-create:hover {
+    transform: translateY(-2px);
+}
+
+.loading {
+    text-align: center;
+    padding: 4rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #e94560;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error {
+    background: #ffe0e0;
+    color: #e94560;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.tournaments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2rem;
+}
+
+.tournament-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tournament-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.tournament-image {
+    height: 160px;
+    position: relative;
+    padding: 1rem;
+}
+
+.tournament-image.status-upcoming {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.tournament-image.status-ongoing {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.tournament-image.status-completed {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.tournament-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.status-upcoming {
+    color: #667eea;
+}
+
+.status-ongoing {
+    color: #f5576c;
+}
+
+.status-completed {
+    color: #4facfe;
+}
+
+.tournament-prize {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.6);
+    color: #f5a623;
+}
+
+.tournament-info {
+    padding: 1.5rem;
+}
+
+.tournament-info h3 {
+    color: #1a1a2e;
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.game {
+    color: #e94560;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.description {
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.detail span {
+    margin-right: 0.25rem;
+}
+
+.players-progress {
+    margin-bottom: 1rem;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 8px;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #e94560, #f5a623);
+    height: 100%;
+    transition: width 0.3s;
+    border-radius: 10px;
+}
+
+.btn-join {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #e94560, #f5a623);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-join:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+.btn-join:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.no-tournaments {
+    text-align: center;
+    padding: 4rem;
+    background: white;
+    border-radius: 20px;
+}
+
+.no-tournaments p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}

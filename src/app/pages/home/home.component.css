@@ -1,0 +1,136 @@
+.home-page {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card h3 {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a1a2e;
+}
+
+.stat-value.deadline {
+    color: #e94560;
+    font-size: 1rem;
+}
+
+.stat-value.rating {
+    color: #f5a623;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 8px;
+    margin-top: 0.5rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #e94560, #f5a623);
+    height: 100%;
+    transition: width 0.3s;
+}
+
+.tasks-section {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h2 {
+    color: #1a1a2e;
+}
+
+.view-all {
+    color: #e94560;
+    text-decoration: none;
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.task-name {
+    font-size: 1rem;
+    color: #333;
+}
+
+.task-name.completed {
+    text-decoration: line-through;
+    color: #888;
+}
