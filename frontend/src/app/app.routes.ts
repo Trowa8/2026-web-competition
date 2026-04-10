@@ -1,18 +1,17 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login';
+import { RegisterComponent } from './pages/register/register-resolver';
 import { MainLayoutComponent } from './layout/main-layout.component';
-import { LoginComponent } from './pages/login/login.component';
-import { TournamentListComponent } from './pages/tournaments/tournament-list.component';
-import { TeamListComponent } from './pages/teams/team-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: 'tournaments', component: TournamentListComponent },
-      { path: 'teams', component: TeamListComponent },
-      { path: '', redirectTo: 'tournaments', pathMatch: 'full' }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: MainLayoutComponent }
     ]
   }
 ];

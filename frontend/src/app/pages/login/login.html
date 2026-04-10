@@ -1,1 +1,15 @@
-<p>login works!</p>
+<div class="login-container">
+    <h2>Вхід до системи</h2>
+
+    @if (message) {
+    <p class="error">{{ message }}</p>
+    }
+
+    <form (ngSubmit)="onLogin()">
+        <input [(ngModel)]="username" placeholder="Логін" required />
+        <input type="password" [(ngModel)]="password" placeholder="Пароль" required />
+        <button type="submit">Увійти</button>
+    </form>
+
+    <p class="hint">Тест: <strong>admin / 123</strong></p>
+</div>
