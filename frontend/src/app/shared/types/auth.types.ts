@@ -1,9 +1,13 @@
-export interface LoginRequestDto {
-    username: string;
+export interface LoginRequest {
+    email: string;
     password: string;
 }
 
-export interface LoginResponseDto {
-    access_token: string;
-    token_type: string;
+export interface AuthResponse {
+    token: string;
+    user: {
+        id: number;
+        name: string;
+        email: string;
+    };
 }

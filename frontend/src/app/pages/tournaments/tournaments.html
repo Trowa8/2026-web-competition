@@ -1,0 +1,65 @@
+<app-main-layout>
+    <div class="tournaments-container">
+        <div class="page-header">
+            <h1>🎮 Турніри</h1>
+            <button class="btn-create">+ Створити турнір</button>
+        </div>
+        @if (isLoading) {
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Завантаження турнірів...</p>
+        </div>
+        }
+        @if (!isLoading && tournaments.length > 0) {
+        <div class="tournaments-grid">
+            @for (tournament of tournaments; track tournament.id) {
+            <div class="tournament-card">
+                <div class="tournament-header" [class]="getStatusClass(tournament.status)">
+                    <span class="status-badge">{{ getStatusText(tournament.status) }}</span>
+                    @if (tournament.prizePool) {
+                    <span class="prize-badge">💰 {{ tournament.prizePool | number }} $</span>
+                    }
+                </div>
+                <div class="tournament-body">
+                    <h3>{{ tournament.name }}</h3>
+                    <p class="game">{{ tournament.game }}</p>
+                    <p class="description">{{ tournament.description }}</p>
+                    <div class="details">
+                        <span>📅 {{ tournament.startDate | date:'dd.MM.yyyy' }}</span>
+                        <span>👥 {{ tournament.currentPlayers }}/{{ tournament.maxPlayers }}</span>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">
+                            <span>Місць заповнено</span>
+                            <span>{{ (tournament.currentPlayers / tournament.maxPlayers) * 100 | number:'1.0-0'
+                                }}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"
+                                [style.width.%]="(tournament.currentPlayers / tournament.maxPlayers) * 100"></div>
+                        </div>
+                    </div>
+                    <button class="btn-join" (click)="joinTournament(tournament.id)"
+                        [disabled]="tournament.status !== 'upcoming'">
+                        @if (tournament.status === 'upcoming') {
+                        🔗 Приєднатися
+                        } @else if (tournament.status === 'ongoing') {
+                        ⚡ В процесі
+                        } @else {
+                        ✅ Завершено
+                        }
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+        }
+
+        @if (!isLoading && tournaments.length === 0) {
+        <div class="no-tournaments">
+            <p>😢 Немає доступних турнірів</p>
+            <p>Створіть перший турнір!</p>
+        </div>
+        }
+    </div>
+</app-main-layout>

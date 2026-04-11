@@ -1,29 +1,38 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { LoginRequest } from '../../shared/types/auth.types';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  message = '';
+  credentials: LoginRequest = { email: '', password: '' };
+  errorMessage = '';
+  isLoading = false;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  async onLogin() {
-    const result = await this.auth.login(this.username, this.password);
-    if (result.success) {
-      this.router.navigate(['/home']);
-    } else {
-      this.message = result.message || 'Невірний логін або пароль';
+  public async onSubmit(): Promise<void> {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    try {
+      await this.authService.login(this.credentials);
+      this.router.navigate(['/tournaments']);
+    } catch (error: any) {
+      this.errorMessage = 'Помилка входу';
+    } finally {
+      this.isLoading = false;
     }
   }
 }
