@@ -1,0 +1,32 @@
+<div class="layout">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎮 GameHub</h1>
+            </div>
+            <nav class="nav">
+                <a routerLink="/home" routerLinkActive="active" class="nav-link">Головна</a>
+                <a routerLink="/tournaments" routerLinkActive="active" class="nav-link">Турніри</a>
+
+                @if (isAuthenticated) {
+                <a routerLink="/profile" routerLinkActive="active" class="nav-link">Профіль</a>
+                <button (click)="logout()" class="logout-btn">🚪 Вийти</button>
+                } @else {
+                <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
+                }
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {{ currentYear }} GameHub. Всі права захищені.</p>
+        </div>
+    </footer>
+</div>
