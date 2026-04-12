@@ -17,11 +17,14 @@ body {
 
 .nav-link {
     cursor: pointer;
+<<<<<<< HEAD
+=======
     transition: background 0.3s;
 }
 
 .nav-link:hover {
     background: rgba(255, 255, 255, 0.2);
+>>>>>>> upstream/main
 }
 
 .nav-link.active {

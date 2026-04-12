@@ -34,6 +34,8 @@
 .btn-join:disabled {
     background: #ccc;
     cursor: not-allowed;
+<<<<<<< HEAD
+=======
 }
 
 .btn-back {
@@ -59,4 +61,5 @@
     margin-bottom: 2rem;
     flex-wrap: wrap;
     gap: 1rem;
+>>>>>>> upstream/main
 }

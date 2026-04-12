@@ -32,6 +32,37 @@ export class TournamentService {
         }
     ];
 
+<<<<<<< HEAD
+    public async getTournaments(): Promise<Tournament[]> {
+        return this.tournaments;
+    }
+
+    public async joinTournament(tournamentId: number): Promise<any> {
+        const tournament = this.tournaments.find(t => t.id === tournamentId);
+        if (tournament && tournament.currentPlayers < tournament.maxPlayers) {
+            tournament.currentPlayers++;
+            console.log(`Joined tournament ${tournamentId}`);
+            return { success: true, message: 'Ви приєдналися до турніру!' };
+        }
+        return { success: false, message: 'Не вдалося приєднатися' };
+    }
+
+    public async leaveTournament(tournamentId: number): Promise<any> {
+        const tournament = this.tournaments.find(t => t.id === tournamentId);
+        if (tournament && tournament.currentPlayers > 0) {
+            tournament.currentPlayers--;
+            console.log(`Left tournament ${tournamentId}`);
+            return { success: true, message: 'Ви вийшли з турніру!' };
+        }
+        return { success: false, message: 'Не вдалося вийти з турніру' };
+    }
+
+    public async createTournament(tournament: Omit<Tournament, 'id'>): Promise<Tournament> {
+        const newId = Math.max(...this.tournaments.map(t => t.id), 0) + 1;
+        const newTournament = { ...tournament, id: newId };
+        this.tournaments.push(newTournament);
+        console.log(`Created tournament ${newId}`);
+=======
     async getTournaments(): Promise<Tournament[]> {
         return this.tournaments;
     }
@@ -70,6 +101,7 @@ export class TournamentService {
         };
         this.tournaments.push(newTournament);
         console.log('Створено турнір:', newTournament);
+>>>>>>> upstream/main
         return newTournament;
     }
 }

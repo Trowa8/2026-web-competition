@@ -1,7 +1,13 @@
+<<<<<<< HEAD
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
+=======
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
+>>>>>>> upstream/main
 
 @Component({
   selector: 'app-main-layout',
@@ -10,6 +16,10 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.css']
 })
+<<<<<<< HEAD
+export class MainLayout {
+  currentYear = new Date().getFullYear();
+=======
 export class MainLayoutComponent implements OnInit {
   currentYear = new Date().getFullYear();
   isAuthenticated = false;
@@ -28,4 +38,5 @@ export class MainLayoutComponent implements OnInit {
     this.isAuthenticated = false;
     this.router.navigate(['/login']);
   }
+>>>>>>> upstream/main
 }
