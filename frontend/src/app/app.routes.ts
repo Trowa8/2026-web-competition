@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
-import { LoginComponent } from './pages/login/login';
-import { TournamentsComponent } from './pages/tournaments/tournaments';
-import { CreateTournamentComponent } from './pages/create-tournament/create-tournament';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { TournamentsComponent } from './pages/tournaments/tournaments.component';
+import { CreateTournamentComponent } from './pages/create-tournament/create-tournament.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

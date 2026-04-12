@@ -1,0 +1,114 @@
+<div class="tournaments-page">
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-icon">⚡</div>
+            <h1>Турніри з програмування</h1>
+            <p>Змагайся з найкращими розробниками, вигравай призи та підвищуй свій рівень!</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">500+</div>
+                    <div class="hero-stat-label">Учасників</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">10+</div>
+                    <div class="hero-stat-label">Турнірів</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$250K+</div>
+                    <div class="hero-stat-label">Призових</div>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn-home" routerLink="/home">
+                    <i class="fas fa-home"></i> На головну
+                </button>
+                <button class="btn-create" routerLink="/create-tournament">
+                    <i class="fas fa-plus"></i> Створити турнір
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+    <div class="loader">
+        <div class="loader-spinner"></div>
+        <p>Завантаження турнірів...</p>
+    </div>
+    }
+
+    @if (!isLoading() && tournaments().length > 0) {
+    <div class="tournaments-grid">
+        @for (tournament of tournaments(); track tournament.id) {
+        <div class="tournament-card" [class]="'card-' + tournament.status">
+            <div class="card-glow"></div>
+            <div class="card-header">
+                <div class="card-status" [class]="tournament.status">
+                    <i class="fas" [class.fa-clock]="tournament.status === 'upcoming'"
+                        [class.fa-play]="tournament.status === 'ongoing'"
+                        [class.fa-check]="tournament.status === 'completed'"></i>
+                    {{ getStatusText(tournament.status) }}
+                </div>
+                <div class="card-prize">
+                    <i class="fas fa-trophy"></i> {{ tournament.prizePool | number }} $
+                </div>
+            </div>
+            <div class="card-body">
+                <h3>{{ tournament.name }}</h3>
+                <div class="card-game">
+                    <i class="fas fa-code"></i> {{ tournament.game }}
+                </div>
+                <p class="card-description">{{ tournament.description }}</p>
+                <div class="card-info">
+                    <div class="info-date">
+                        <i class="fas fa-calendar-alt"></i> {{ tournament.startDate | date:'dd.MM.yyyy' }}
+                    </div>
+                    <div class="info-players">
+                        <i class="fas fa-users"></i> {{ tournament.currentPlayers }}/{{ tournament.maxPlayers }}
+                    </div>
+                </div>
+                <div class="progress-wrapper">
+                    <div class="progress-label">
+                        <span>Реєстрація</span>
+                        <span>{{ (tournament.currentPlayers / tournament.maxPlayers) * 100 | number:'1.0-0' }}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"
+                            [style.width.%]="(tournament.currentPlayers / tournament.maxPlayers) * 100"></div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    @if (tournament.status === 'upcoming') {
+                    <button class="btn-join" (click)="joinTournament(tournament.id)">
+                        <i class="fas fa-sign-in-alt"></i> Приєднатися
+                    </button>
+                    <button class="btn-leave" (click)="leaveTournament(tournament.id)">
+                        <i class="fas fa-sign-out-alt"></i> Вийти
+                    </button>
+                    } @else if (tournament.status === 'ongoing') {
+                    <button class="btn-ongoing" disabled>
+                        <i class="fas fa-spinner fa-pulse"></i> В процесі
+                    </button>
+                    } @else {
+                    <button class="btn-completed" disabled>
+                        <i class="fas fa-check-circle"></i> Завершено
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+    @if (!isLoading() && tournaments().length === 0) {
+    <div class="empty-state">
+        <div class="empty-icon">🎯</div>
+        <h3>Немає активних турнірів</h3>
+        <p>Будьте першим, хто створить турнір!</p>
+        <button class="btn-create" routerLink="/create-tournament">
+            <i class="fas fa-plus"></i> Створити перший турнір
+        </button>
+    </div>
+    }
+</div>
