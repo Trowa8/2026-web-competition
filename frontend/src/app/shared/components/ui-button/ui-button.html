@@ -1,0 +1,9 @@
+<button
+  [ngClass]="['btn', 'btn-' + color, variant ? 'btn-' + variant : '']"
+  [disabled]="disabled"
+  (click)="handleClick()"
+>
+  <ng-content></ng-content>
+  {{ text }}
+</button>
+
