@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TournamentService } from '../../shared/services/tournament.service';
-import { MainLayout } from '../../layouts/main-layout/main-layout';
+import { MainLayoutComponent } from '../../layouts/main-layout/main-layout';
 
 @Component({
   selector: 'app-create-tournament',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, MainLayout],
+  imports: [CommonModule, FormsModule, RouterModule, MainLayoutComponent],
   templateUrl: './create-tournament.html',
   styleUrls: ['./create-tournament.css']
 })

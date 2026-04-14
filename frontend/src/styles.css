@@ -17,6 +17,11 @@ body {
 
 .nav-link {
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .nav-link.active {

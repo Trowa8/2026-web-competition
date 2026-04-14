@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -9,6 +10,22 @@ import { CommonModule } from '@angular/common';
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.css']
 })
-export class MainLayout {
+export class MainLayoutComponent implements OnInit {
   currentYear = new Date().getFullYear();
+  isAuthenticated = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.isAuthenticated = this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isAuthenticated = false;
+    this.router.navigate(['/login']);
+  }
 }
