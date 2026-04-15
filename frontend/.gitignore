@@ -1,0 +1,22 @@
+@"
+.angular/
+node_modules/
+dist/
+tmp/
+
+*.log
+npm-debug.log*
+
+.vscode/
+.idea/
+
+.DS_Store
+Thumbs.db
+
+.env
+.env.local
+"@ | Out-File -FilePath .gitignore -Encoding UTF8
+
+git add .gitignore
+git commit -m "chore: add .gitignore to exclude node_modules and cache"
+git push origin feat/Authorization_Timofey_Syvash --force
