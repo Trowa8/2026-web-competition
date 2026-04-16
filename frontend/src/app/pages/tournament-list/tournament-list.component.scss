@@ -1,0 +1,62 @@
+@'
+ .tournaments-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tournaments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.tournament-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.status.upcoming {
+    background: #ff9800;
+    color: white;
+}
+
+.status.ongoing {
+    background: #4caf50;
+    color: white;
+}
+
+.status.completed {
+    background: #9e9e9e;
+    color: white;
+}
+
+.tournament-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.tournament-card p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.details p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+'@ | Out-File -FilePath frontend/src/app/pages/tournament-list/tournament-list.component.css -Encoding UTF8
