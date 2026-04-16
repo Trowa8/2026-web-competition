@@ -7,12 +7,10 @@ from .base import Base, gen_uuid
 class Solution(Base):
     __tablename__ = "solutions"
 
-    id: Mapped[str] = mapped_column(String, primary_key=True, default=gen_uuid)
-    team_id: Mapped[str] = mapped_column(String, ForeignKey("teams.id"), nullable=False)
-    task_id: Mapped[str] = mapped_column(String, ForeignKey("tasks.id"), nullable=False)
-    tournament_id: Mapped[str] = mapped_column(String, ForeignKey("tournaments.id"), nullable=False)
-    file: Mapped[str] = mapped_column(String, nullable=False)
-    max_mark: Mapped[int] = mapped_column(Integer, nullable=False)
+    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
+    team_id: Mapped[str] = mapped_column(String(32), ForeignKey("teams.id"), nullable=False)
+    task_id: Mapped[str] = mapped_column(String(32), ForeignKey("tasks.id"), nullable=False)
+    file: Mapped[str] = mapped_column(String(256), nullable=False)
 
     team: Mapped["Team"] = relationship(back_populates="solutions")
     task: Mapped["Task"] = relationship(back_populates="solutions")

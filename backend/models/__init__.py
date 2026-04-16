@@ -1,7 +1,7 @@
 from .base import Base
 from .user import User
 from .team import Team
-from .user_team import UserTeam
+from .tournament_user_role import TournamentUserRole
 from .team_tournament import TeamTournament
 from .tournament import Tournament
 from .task import Task
@@ -13,7 +13,7 @@ __all__ = [
     "Base",
     "User",
     "Team",
-    "UserTeam",
+    "TournamentUserRole",
     "TeamTournament",
     "Tournament",
     "Task",
