@@ -1,9 +1,22 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { TournamentList } from './pages/tournament-list/tournament-list';
+import { HomeComponent } from './pages/home/home';
+import { LoginComponent } from './pages/login/login';
+import { TournamentsComponent } from './pages/tournaments/tournaments';
+import { CreateTournamentComponent } from './pages/create-tournament/create-tournament';
+<<<<<<< HEAD
+=======
+import { ProfileComponent } from './pages/profile/profile';
+>>>>>>> upstream/main
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: Login },
-  { path: 'tournaments', component: TournamentList },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'tournaments', component: TournamentsComponent },
+    { path: 'create-tournament', component: CreateTournamentComponent },
+<<<<<<< HEAD
+=======
+    { path: 'profile', component: ProfileComponent },
+>>>>>>> upstream/main
+    { path: '**', redirectTo: '/home' }
 ];
