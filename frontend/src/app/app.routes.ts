@@ -1,22 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
 import { LoginComponent } from './pages/login/login';
-import { TournamentsComponent } from './pages/tournaments/tournaments';
-import { CreateTournamentComponent } from './pages/create-tournament/create-tournament';
-<<<<<<< HEAD
-=======
-import { ProfileComponent } from './pages/profile/profile';
->>>>>>> upstream/main
+import { TournamentListComponent } from './pages/tournament-list/tournament-list';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'tournaments', component: TournamentsComponent },
-    { path: 'create-tournament', component: CreateTournamentComponent },
-<<<<<<< HEAD
-=======
-    { path: 'profile', component: ProfileComponent },
->>>>>>> upstream/main
-    { path: '**', redirectTo: '/home' }
+    { path: 'tournaments', component: TournamentListComponent },
+    { path: '', redirectTo: '/tournaments', pathMatch: 'full' }
 ];

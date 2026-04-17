@@ -1,29 +1,33 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Tournament, CreateTournamentRequest } from '../models/tournament.types';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
-    constructor(private http: HttpClient) { }
+    public tournaments = signal<Tournament[]>([
+        { id: 1, name: 'Hackathon 2026', status: 'active' },
+        { id: 2, name: 'AI Challenge', status: 'completed' },
+        { id: 3, name: 'Frontend Battle', status: 'active' }
+    ]);
 
-    async getTournaments(): Promise<any[]> {
-        try {
-            const data = await firstValueFrom(
-                this.http.get<any>('http://localhost:8000/healthcheck')
-            );
-            return Array.isArray(data) ? data : this.getMockTournaments();
-        } catch (err) {
-            console.warn('Бекенд не відповідає, використовуємо тестові дані');
-            return this.getMockTournaments();
-        }
+    public async getTournaments(): Promise<Tournament[]> {
+        // Повертаємо демо-дані без запиту до сервера
+        return this.tournaments();
     }
 
-    private getMockTournaments() {
-        return [
-            { id: 1, name: 'Чемпіонат України 2026' },
-            { id: 2, name: 'Кубок України' },
-            { id: 3, name: 'Ліга чемпіонів УЄФА' },
-            { id: 4, name: 'Турнір Dnipro Cup' }
-        ];
+    public async createTournament(data: CreateTournamentRequest): Promise<Tournament> {
+        const newTournament: Tournament = {
+            id: Date.now(),
+            name: data.name,
+            status: 'active'
+        };
+
+        const current = this.tournaments();
+        this.tournaments.set([...current, newTournament]);
+        return newTournament;
+    }
+
+    public async deleteTournament(id: number): Promise<void> {
+        const current = this.tournaments();
+        this.tournaments.set(current.filter(t => t.id !== id));
     }
 }
