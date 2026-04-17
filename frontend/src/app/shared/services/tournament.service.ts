@@ -32,7 +32,6 @@ export class TournamentService {
         }
     ];
 
-<<<<<<< HEAD
     public async getTournaments(): Promise<Tournament[]> {
         return this.tournaments;
     }
@@ -62,46 +61,6 @@ export class TournamentService {
         const newTournament = { ...tournament, id: newId };
         this.tournaments.push(newTournament);
         console.log(`Created tournament ${newId}`);
-=======
-    async getTournaments(): Promise<Tournament[]> {
-        return this.tournaments;
-    }
-
-    async joinTournament(id: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === id);
-        if (tournament && tournament.currentPlayers < tournament.maxPlayers) {
-            tournament.currentPlayers++;
-            return { success: true };
-        }
-        return { success: false };
-    }
-
-    async leaveTournament(id: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === id);
-        if (tournament && tournament.currentPlayers > 0) {
-            tournament.currentPlayers--;
-            return { success: true };
-        }
-        return { success: false };
-    }
-
-    async createTournament(data: any): Promise<Tournament> {
-        const newId = this.tournaments.length + 1;
-        const newTournament: Tournament = {
-            id: newId,
-            name: data.name,
-            game: data.game,
-            description: data.description,
-            maxPlayers: data.maxPlayers,
-            prizePool: data.prizePool,
-            startDate: data.startDate,
-            endDate: data.endDate,
-            currentPlayers: 0,
-            status: 'upcoming'
-        };
-        this.tournaments.push(newTournament);
-        console.log('Створено турнір:', newTournament);
->>>>>>> upstream/main
         return newTournament;
     }
 }

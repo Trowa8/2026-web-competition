@@ -1,9 +1,8 @@
 <button
-  [ngClass]="['btn', 'btn-' + color, variant ? 'btn-' + variant : '']"
-  [disabled]="disabled"
-  (click)="handleClick()"
+  [disabled]="disabled()"
+  [class]="'btn-' + color() + ' ' + variant()"
+  (click)="onClick.emit()"
 >
   <ng-content></ng-content>
-  {{ text }}
+  {{ text() }}
 </button>
-
