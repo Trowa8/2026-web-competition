@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="login-container">
     <div class="login-card">
         <h2>Ласкаво просимо!</h2>
@@ -34,38 +33,7 @@
                 Увійти
                 }
             </button>
+
         </form>
     </div>
 </div>
-=======
-<app-main-layout>
-    <div class="login-container">
-        <div class="login-card">
-            <h2>Ласкаво просимо!</h2>
-            <p>Увійдіть у свій акаунт</p>
-
-            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" [(ngModel)]="credentials.email" name="email" required class="form-control"
-                        placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label>Пароль</label>
-                    <input type="password" [(ngModel)]="credentials.password" name="password" required
-                        class="form-control" placeholder="********">
-                </div>
-
-                @if (errorMessage) {
-                <div class="error-message">{{ errorMessage }}</div>
-                }
-
-                <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-login">
-                    {{ isLoading ? 'Завантаження...' : 'Увійти' }}
-                </button>
-            </form>
-        </div>
-    </div>
-</app-main-layout>
->>>>>>> upstream/main
