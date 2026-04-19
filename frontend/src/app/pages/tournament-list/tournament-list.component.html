@@ -1,0 +1,18 @@
+@'
+<div class="tournaments-container">
+    <h2>🏟️ Турніри</h2>
+    <div class="tournaments-grid">
+        <div *ngFor="let tournament of tournaments" class="tournament-card">
+            <div class="status" [class]="tournament.status">{{ getStatusText(tournament.status) }}</div>
+            <h3>{{ tournament.name }}</h3>
+            <p>{{ tournament.description }}</p>
+            <div class="details">
+                <p>📅 {{ tournament.startDate | date }} - {{ tournament.endDate | date }}</p>
+                <p>📍 {{ tournament.location }}</p>
+                <p>👥 {{ tournament.currentParticipants }}/{{ tournament.maxParticipants }}</p>
+                <p *ngIf="tournament.prizePool">💰 {{ tournament.prizePool | number }} ₴</p>
+            </div>
+        </div>
+    </div>
+</div>
+'@ | Out-File -FilePath frontend/src/app/pages/tournament-list/tournament-list.component.html -Encoding UTF8

@@ -1,1 +1,23 @@
-<p>tournament-list works!</p>
+<div class="container">
+    <h1>Турніри</h1>
+
+    <input type="text" placeholder="Пошук турнірів..." [(ngModel)]="search" />
+
+    <div class="create">
+        <input type="text" placeholder="Назва турніру" [(ngModel)]="newTournament" />
+        <button (click)="create()">Створити турнір</button>
+    </div>
+
+    <div class="list">
+        @for (tournament of filtered; track tournament.id) {
+        <div class="card">
+            <div class="title">{{ tournament.name }}</div>
+
+            <div class="status" [class.active]="tournament.status === 'active'"
+                [class.finished]="tournament.status === 'finished'">
+                ● {{ tournament.status === 'active' ? 'Активний' : 'Завершений' }}
+            </div>
+        </div>
+        }
+    </div>
+</div>

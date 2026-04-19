@@ -1,71 +1,29 @@
-<<<<<<< HEAD
 <div class="login-container">
     <div class="login-card">
-        <h2>Ласкаво просимо!</h2>
-        <p>Увійдіть у свій акаунт</p>
+        <h2>Вхід до системи</h2>
 
         <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" [(ngModel)]="credentials.email" name="email" required #email="ngModel"
-                    class="form-control" placeholder="your@email.com">
-                @if (email.invalid && email.touched) {
-                <div class="error-message">Введіть коректний email</div>
-                }
+                <label for="username">Ім'я користувача</label>
+                <input type="text" id="username" name="username" [(ngModel)]="credentials.username" required
+                    placeholder="Введіть ім'я користувача" [disabled]="isLoading()">
             </div>
 
             <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" [(ngModel)]="credentials.password" name="password" required minlength="6"
-                    #password="ngModel" class="form-control" placeholder="********">
-                @if (password.invalid && password.touched) {
-                <div class="error-message">Пароль має бути не менше 6 символів</div>
-                }
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" [(ngModel)]="credentials.password" required
+                    placeholder="Введіть пароль" [disabled]="isLoading()">
             </div>
 
-            @if (errorMessage) {
-            <div class="error-message">{{ errorMessage }}</div>
-            }
-
-            <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-login">
-                @if (isLoading) {
-                Завантаження...
-                } @else {
-                Увійти
-                }
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid || isLoading()">
+                {{ isLoading() ? 'Вхід...' : 'Увійти' }}
             </button>
+
+            @if (errorMessage()) {
+            <div class="error-message">
+                {{ errorMessage() }}
+            </div>
+            }
         </form>
     </div>
 </div>
-=======
-<app-main-layout>
-    <div class="login-container">
-        <div class="login-card">
-            <h2>Ласкаво просимо!</h2>
-            <p>Увійдіть у свій акаунт</p>
-
-            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" [(ngModel)]="credentials.email" name="email" required class="form-control"
-                        placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label>Пароль</label>
-                    <input type="password" [(ngModel)]="credentials.password" name="password" required
-                        class="form-control" placeholder="********">
-                </div>
-
-                @if (errorMessage) {
-                <div class="error-message">{{ errorMessage }}</div>
-                }
-
-                <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-login">
-                    {{ isLoading ? 'Завантаження...' : 'Увійти' }}
-                </button>
-            </form>
-        </div>
-    </div>
-</app-main-layout>
->>>>>>> upstream/main
