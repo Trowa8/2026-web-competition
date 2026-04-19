@@ -8,16 +8,16 @@ import { FooterComponent } from './layout/footer/footer';
     standalone: true,
     imports: [RouterOutlet, HeaderComponent, FooterComponent],
     template: `
-        <app-header />
-        <main>
-            <router-outlet />
-        </main>
-        <app-footer />
-    `,
+    <app-header />
+    <main>
+      <router-outlet />
+    </main>
+    <app-footer />
+  `,
     styles: [`
-        main {
-            min-height: calc(100vh - 140px);
-        }
-    `]
+    main {
+      min-height: calc(100vh - 140px);
+    }
+  `]
 })
 export class AppComponent { }
