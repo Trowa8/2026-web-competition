@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
+from datetime import datetime
 
 
 class TeamSummaryResponse(BaseModel):
@@ -9,22 +10,28 @@ class TeamSummaryResponse(BaseModel):
 
 
 class TeamMemberResponse(BaseModel):
-    user_id: str
-    nickname: str
+    user_id: int
     role: str
 
 class TeamDetailResponse(BaseModel):
-    id: str
+    team_id: int
     name: str
     description: Optional[str]
-    team_code: str         
+    owner_id: int
     members: List[TeamMemberResponse]
+    created_at: datetime
 
 
 class TeamCreateRequest(BaseModel):
     name: str
     description: Optional[str] = None
 
+class TeamCreateResponse(BaseModel):
+    team_id: int
+    name: str
+    description: Optional[str]
+    owner_id: int
+    created_at: datetime
 
 class TeamUpdateRequest(BaseModel):
     name: Optional[str] = None

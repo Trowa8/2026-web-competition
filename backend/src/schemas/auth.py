@@ -2,20 +2,22 @@ from pydantic import BaseModel, EmailStr
 
 
 class SignInRequest(BaseModel):
-    email: EmailStr
+    login: str
     password: str
 
 class TokenResponse(BaseModel):
-    access_token: str
     refresh_token: str
+    access_token: str
+    user_id: int
     token_type: str = "bearer"
 
 class SignUpRequest(BaseModel):
-    email: EmailStr
-    username: str
+    login: str
     password: str
+    email: EmailStr
+    role: str
 
 class SignUpResponse(BaseModel):
-    id: str
-    email: str
-    username: str
+    refresh_token: str
+    access_token: str
+    user_id: int
