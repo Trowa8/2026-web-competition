@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TournamentService } from '../../services/tournament.service';
 
@@ -115,6 +115,8 @@ import { TournamentService } from '../../services/tournament.service';
 export class CreateTournamentDialogComponent {
     private tournamentService = inject(TournamentService);
 
+    public close = output<void>();
+
     public name = '';
     public location = '';
     public gameType = '';
@@ -140,15 +142,17 @@ export class CreateTournamentDialogComponent {
 
         try {
             await this.tournamentService.createTournament(tournament);
-            this.onClose();
+            this.close.emit();
             alert(`Турнір "${this.name}" створено!`);
         } catch (err) {
-            this.error.set('Помилка створення');
+            this.error.set('Помилка при створенні турніру');
         }
     }
 
     public onClose(): void {
-        const dialog = document.querySelector('app-create-tournament-dialog');
-        if (dialog) dialog.remove();
+        this.close.emit();
     }
+    const dialog = document.querySelector('app-create-tournament-dialog');
+    if(dialog) dialog.remove();
+}
 }

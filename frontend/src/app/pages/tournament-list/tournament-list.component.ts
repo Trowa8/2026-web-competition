@@ -1,66 +1,101 @@
-@'
-  import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-interface Tournament {
-  id: number;
-  name: string;
-  description: string;
-  startDate: Date;
-  endDate: Date;
-  location: string;
-  maxParticipants: number;
-  currentParticipants: number;
-  status: 'upcoming' | 'ongoing' | 'completed';
-  prizePool?: number;
-}
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { TournamentService } from '../../services/tournament.service';
+import { Tournament } from '../../models/tournament.types';
+import { CreateTournamentDialogComponent } from './create-tournament-dialog.component';
 
 @Component({
   selector: 'app-tournament-list',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './tournament-list.component.html',
-  styleUrls: ['./tournament-list.component.css']
+  imports: [CreateTournamentDialogComponent],
+  template: `
+        <div class="tournament-list">
+            <h1>Список турнірів</h1>
+            
+            <button (click)="showCreateDialog.set(true)" class="create-btn">
+                Створити турнір
+            </button>
+            
+            @if (loading()) {
+                <p>Завантаження... турнірів</p>
+            } @else {
+                <div class="tournaments">
+                    @for (tournament of tournaments(); track tournament.id) {
+                        <div class="tournament-card">
+                            <h3>{{ tournament.name }}</h3>
+                            <p>Статус: {{ tournament.status }}</p>
+                            <button (click)="deleteTournament(tournament.id)" class="delete-btn">
+                                Видалити
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+            
+            @if (showCreateDialog()) {
+                <app-create-tournament-dialog 
+                    (close)="showCreateDialog.set(false)"
+                />
+            }
+        </div>
+    `,
+  styles: [`
+        .tournament-list {
+            padding: 20px;
+        }
+        .create-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .tournaments {
+            display: grid;
+            gap: 16px;
+        }
+        .tournament-card {
+            border: 1px solid #ddd;
+            padding: 16px;
+            border-radius: 8px;
+            background: white;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    `]
 })
 export class TournamentListComponent implements OnInit {
-  tournaments: Tournament[] = [];
+  private tournamentService = inject(TournamentService);
+
+  public tournaments = signal<Tournament[]>([]);
+  public loading = signal<boolean>(true);
+  public showCreateDialog = signal<boolean>(false);
 
   ngOnInit(): void {
-    this.tournaments = [
-      {
-        id: 1,
-        name: '🏆 Чемпіонат Літа 2026',
-        description: 'Найбільший турнір літнього сезону',
-        startDate: new Date('2026-06-15'),
-        endDate: new Date('2026-06-20'),
-        location: 'Київ, Україна',
-        maxParticipants: 64,
-        currentParticipants: 45,
-        status: 'upcoming',
-        prizePool: 100000
-      },
-      {
-        id: 2,
-        name: '🎮 Кубок Зими 2026',
-        description: 'Зимовий турнір з великим призовим фондом',
-        startDate: new Date('2026-12-10'),
-        endDate: new Date('2026-12-15'),
-        location: 'Львів, Україна',
-        maxParticipants: 32,
-        currentParticipants: 28,
-        status: 'upcoming',
-        prizePool: 50000
-      }
-    ];
+    this.loadTournaments();
   }
 
-  getStatusText(status: string): string {
-    const statusMap: { [key: string]: string } = {
-      upcoming: 'СКОРО',
-      ongoing: 'ТРИВАЄ',
-      completed: 'ЗАВЕРШЕНО'
-    };
-    return statusMap[status] || status;
+  private async loadTournaments(): Promise<void> {
+    this.loading.set(true);
+    try {
+      const data = await this.tournamentService.getTournaments();
+      this.tournaments.set(data);
+    } catch (error) {
+      console.error('Помилка завантаження турнірів:', error);
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  public async deleteTournament(id: number): Promise<void> {
+    await this.tournamentService.deleteTournament(id);
+    // Tournaments will update via signal
   }
 }
-'@ | Out-File -FilePath frontend/src/app/pages/tournament-list/tournament-list.component.ts -Encoding UTF8
