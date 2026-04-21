@@ -11,10 +11,10 @@ class Mark(Base):
         UniqueConstraint("solution_id", "judge_id", name="uq_mark_solution_judge"),
     )
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
     score: Mapped[int] = mapped_column(Integer, nullable=False)
-    judge_id: Mapped[str] = mapped_column(String(32), ForeignKey("users.id"), nullable=False)
-    solution_id: Mapped[str] = mapped_column(String(32), ForeignKey("solutions.id"), nullable=False)
+    judge_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
+    solution_id: Mapped[str] = mapped_column(String(36), ForeignKey("solutions.id"), nullable=False)
 
     judge: Mapped["User"] = relationship(foreign_keys=[judge_id])
     solution: Mapped["Solution"] = relationship(back_populates="marks")

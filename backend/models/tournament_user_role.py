@@ -21,11 +21,11 @@ class TournamentUserRole(Base):
         ),
     )
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
-    user_id: Mapped[str] = mapped_column(String(32), ForeignKey("users.id"), nullable=False)
-    tournament_id: Mapped[str] = mapped_column(String(32), ForeignKey("tournaments.id"), nullable=False)
-    team_tournament_id: Mapped[Optional[str]] = mapped_column(String(32), ForeignKey("team_tournament.id"), nullable=True)
-    role: Mapped[str] = mapped_column(String(32), nullable=False)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
+    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id"), nullable=False)
+    team_tournament_id: Mapped[Optional[str]] = mapped_column(String(36), ForeignKey("team_tournament.id"), nullable=True)
+    role: Mapped[str] = mapped_column(String(36), nullable=False)
     user_name: Mapped[str] = mapped_column(String(64), nullable=False)
 
     user: Mapped["User"] = relationship(back_populates="tournament_roles")

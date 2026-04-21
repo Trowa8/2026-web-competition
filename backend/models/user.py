@@ -10,14 +10,14 @@ class User(Base):
 
     __table_args__ = (CheckConstraint("is_captain = FALSE OR team_id IS NOT NULL", name="ck_captain_req_team"),)
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
-    username: Mapped[str] = mapped_column(String(32), unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(256), unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(String(256), nullable=False)
-    refresh_token: Mapped[Optional[str]] = mapped_column(String(256), nullable=True)
-    team_id: Mapped[Optional[str]] = mapped_column(String(32), ForeignKey("teams.id"), nullable=True)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+    username: Mapped[str] = mapped_column(String(36), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
+    refresh_token: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    team_id: Mapped[Optional[str]] = mapped_column(String(36), ForeignKey("teams.id"), nullable=True)
     is_captain: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    joined_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    joined_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     team: Mapped[Optional["Team"]] = relationship(back_populates="members", foreign_keys=[team_id])
-    tournament_participations: Mapped[List["TournamentParticipant"]] = relationship(back_populates="user")
+    tournament_roles: Mapped[List["TournamentUserRole"]] = relationship(back_populates="user")

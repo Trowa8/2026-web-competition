@@ -8,9 +8,9 @@ from .base import Base, gen_uuid, utcnow
 class Team(Base):
     __tablename__ = "teams"
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
     name: Mapped[str] = mapped_column(String(64), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
 
     members: Mapped[List["User"]] = relationship(back_populates="team", foreign_keys="User.team_id")
     team_tournaments: Mapped[List["TeamTournament"]] = relationship(back_populates="team")

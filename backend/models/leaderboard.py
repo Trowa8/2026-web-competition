@@ -10,9 +10,9 @@ class Leaderboard(Base):
         UniqueConstraint("tournament_id", "team_id", name="uq_leaderboard_tournament_team"),
     )
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=gen_uuid)
-    tournament_id: Mapped[str] = mapped_column(String(32), ForeignKey("tournaments.id"), nullable=False)
-    team_id: Mapped[str] = mapped_column(String(32), ForeignKey("teams.id"), nullable=False)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id"), nullable=False)
+    team_id: Mapped[str] = mapped_column(String(36), ForeignKey("teams.id"), nullable=False)
     place: Mapped[int] = mapped_column(Integer, nullable=False)
     total_score: Mapped[int] = mapped_column(Integer, nullable=False)
 
