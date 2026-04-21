@@ -1,0 +1,60 @@
+<div class="input-wrapper" [class]="wrapperClasses()">
+
+  @if (label()) {
+    <label class="input-label" [for]="inputId">
+      {{ label() }}
+      @if (required()) {
+        <span class="input-required">*</span>
+      }
+    </label>
+  }
+
+  <div class="input-field-wrapper">
+
+    @if (hasPrefixIcon()) {
+      <span class="input-icon input-icon--prefix">
+        <i class="fa-solid" [class]="prefixIconClass()"></i>
+      </span>
+    }
+
+    <input
+      ngDefaultControl
+      [id]="inputId"
+      class="input-field"
+      [type]="showPassword() ? 'text' : type()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [value]="value()"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+
+    @if (type() === 'password') {
+      <button
+        type="button"
+        class="input-icon input-icon--suffix input-toggle-btn"
+        (click)="togglePassword()"
+        tabindex="-1"
+      >
+        <i class="fa-solid" [class]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
+      </button>
+    }
+
+    @if (currentStatus() !== 'default' && type() !== 'password') {
+      <span class="input-icon input-icon--suffix status-icon--{{ currentStatus() }}">
+        <i class="fa-solid" [class]="statusIconClass()"></i>
+      </span>
+    }
+
+  </div>
+
+  @if (error()) {
+    <p class="input-hint input-hint--error">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ error() }}
+    </p>
+  } @else if (hint()) {
+    <p class="input-hint">{{ hint() }}</p>
+  }
+
+</div>

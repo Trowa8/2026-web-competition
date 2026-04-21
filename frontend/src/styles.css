@@ -1,3 +1,42 @@
+  :root{
+  --color-white: #ffffff;
+  --color-fill: #f4f4f5;
+  --color-fill-hover: #ebebec;
+  --color-border-default: #d4d4d8;
+  --color-grey: #a1a1aa;
+  --color-text-primary: #18181b;
+  --color-text-label: #52525b;
+  --color-border-disabled: #e4e4e7;
+  --color-icon: #71717a;
+  --color-required: #f43f5e;
+
+  /* Focus */
+  --color-focus-border: #6366f1;
+  --color-focus-ring: rgba(99, 102, 241, 0.22);
+
+  /* Status: success */
+  --color-success-border: #22c55e;
+  --color-success-border-focus: #16a34a;
+  --color-success-ring: rgba(34, 197, 94, 0.18);
+  --color-success-icon: #16a34a;
+  --color-success-hint: #15803d;
+
+  /* Status: error */
+  --color-error-border: #f43f5e;
+  --color-error-border-focus: #e11d48;
+  --color-error-ring: rgba(244, 63, 94, 0.18);
+  --color-error-icon: #e11d48;
+  --color-error-hint: #be123c;
+
+  /* Status: warning */
+  --color-warning-border: #f59e0b;
+  --color-warning-border-focus: #d97706;
+  --color-warning-ring: rgba(245, 158, 11, 0.18);
+  --color-warning-icon: #b45309;
+  --color-warning-hint: #92400e;
+
+  --color-transparent: transparent; 
+}
 * {
     margin: 0;
     padding: 0;
@@ -17,14 +56,6 @@ body {
 
 .nav-link {
     cursor: pointer;
-<<<<<<< HEAD
-=======
-    transition: background 0.3s;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.2);
->>>>>>> upstream/main
 }
 
 .nav-link.active {

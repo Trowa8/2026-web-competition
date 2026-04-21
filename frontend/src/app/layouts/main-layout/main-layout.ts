@@ -1,42 +1,17 @@
-<<<<<<< HEAD
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-=======
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../shared/services/auth.service';
->>>>>>> upstream/main
+import { InputStatus, UiInputComponent } from '../../shared/ui-input/ui-input';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, UiInputComponent],
   templateUrl: './main-layout.html',
   styleUrls: ['./main-layout.css']
 })
-<<<<<<< HEAD
 export class MainLayout {
   currentYear = new Date().getFullYear();
-=======
-export class MainLayoutComponent implements OnInit {
-  currentYear = new Date().getFullYear();
-  isAuthenticated = false;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated();
-  }
-
-  logout() {
-    this.authService.logout();
-    this.isAuthenticated = false;
-    this.router.navigate(['/login']);
-  }
->>>>>>> upstream/main
+  emailError: string = '';
+emailStatus: InputStatus = 'default';
 }
