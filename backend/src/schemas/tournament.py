@@ -12,7 +12,7 @@ class TournamentSummaryResponse(BaseModel):
 class TournamentDetailResponse(BaseModel):
     id: str
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
     start_date: datetime
     registration_deadline: datetime
     created_by: str

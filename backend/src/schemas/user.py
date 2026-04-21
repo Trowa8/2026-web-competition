@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class UserResponse(BaseModel):
-    user_id: int
+    user_id: str
     login: str
     email: EmailStr
     role: str
@@ -17,7 +17,7 @@ class UserUpdateRequest(BaseModel):
     password: Optional[str] = None
 
 class UserUpdateResponse(BaseModel):
-    user_id: int
+    user_id: str
     login: str
     email: EmailStr
     role: str

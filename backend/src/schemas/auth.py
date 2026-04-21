@@ -8,7 +8,7 @@ class SignInRequest(BaseModel):
 class TokenResponse(BaseModel):
     refresh_token: str
     access_token: str
-    user_id: int
+    user_id: str
     token_type: str = "bearer"
 
 class SignUpRequest(BaseModel):
@@ -20,4 +20,4 @@ class SignUpRequest(BaseModel):
 class SignUpResponse(BaseModel):
     refresh_token: str
     access_token: str
-    user_id: int
+    user_id: str

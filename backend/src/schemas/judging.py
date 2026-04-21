@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 
 
@@ -25,4 +25,4 @@ class UpdateScoreRequest(BaseModel):
 class MyScoreResponse(BaseModel):
     solution_id: str
     score: int
-    comment: Optional[str]
+    comment: Optional[str] = None

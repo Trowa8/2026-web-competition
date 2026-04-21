@@ -10,14 +10,14 @@ class TeamSummaryResponse(BaseModel):
 
 
 class TeamMemberResponse(BaseModel):
-    user_id: int
+    user_id: str
     role: str
 
 class TeamDetailResponse(BaseModel):
-    team_id: int
+    team_id: str
     name: str
-    description: Optional[str]
-    owner_id: int
+    description: Optional[str] = None
+    owner_id: str
     members: List[TeamMemberResponse]
     created_at: datetime
 
@@ -27,10 +27,10 @@ class TeamCreateRequest(BaseModel):
     description: Optional[str] = None
 
 class TeamCreateResponse(BaseModel):
-    team_id: int
+    team_id: str
     name: str
-    description: Optional[str]
-    owner_id: int
+    description: Optional[str] = None
+    owner_id: str
     created_at: datetime
 
 class TeamUpdateRequest(BaseModel):
