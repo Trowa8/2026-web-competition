@@ -7,27 +7,60 @@
             <nav class="nav">
                 <a routerLink="/home" routerLinkActive="active" class="nav-link">Головна</a>
                 <a routerLink="/tournaments" routerLinkActive="active" class="nav-link">Турніри</a>
-<<<<<<< HEAD
                 <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-=======
-
-                @if (isAuthenticated) {
-                <a routerLink="/profile" routerLinkActive="active" class="nav-link">Профіль</a>
-                <button (click)="logout()" class="logout-btn">🚪 Вийти</button>
-                } @else {
-                <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-                }
->>>>>>> upstream/main
             </nav>
         </div>
     </header>
-
+    
     <main class="main">
         <div class="container">
+        <ui-input [label]="'Текст'"   [type]="'text'"     [placeholder]="'Введіть текст'" />
+        <ui-input [label]="'Email'"   [type]="'email'"    [placeholder]="'you@example.com'" />
+        <ui-input [label]="'Пароль'"  [type]="'password'" [placeholder]="'••••••••'" />
+        <ui-input [label]="'Число'"   [type]="'number'"   [placeholder]="'0'" />
+        <ui-input [label]="'Пошук'"   [type]="'search'"   [placeholder]="'Пошук...'" />
+        <ui-input [label]="'Телефон'" [type]="'tel'"      [placeholder]="'+380 (99) 000-0000'" />
+
+        <ui-input [label]="'Email'" [type]="'email'" [placeholder]="'you@example.com'" [required]="true"/>
+
+        <ui-input [label]="'Email'"      [type]="'email'" [icon]="'fa-envelope'" [placeholder]="'you@example.com'" />
+        <ui-input [label]="'Телефон'"    [type]="'tel'"   [icon]="'fa-phone'"    [placeholder]="'+380 (99) 000-0000'" />
+        <ui-input [label]="'Сайт'"       [type]="'text'"  [icon]="'fa-globe'"    [placeholder]="'https://example.com'" />
+        <ui-input [label]="'Користувач'" [type]="'text'"  [icon]="'fa-user'"     [placeholder]="'@username'" />
+
+        <ui-input [label]="'Default'" [variant]="'default'" [placeholder]="'Стандартний'" />
+        <ui-input [label]="'Filled'"  [variant]="'filled'"  [placeholder]="'Заповнений'" />
+        <ui-input [label]="'Ghost'"   [variant]="'ghost'"   [placeholder]="'Тільки лінія'" />
+
+
+        <ui-input [label]="'Small'"  [size]="'sm'" [placeholder]="'Маленький'" />
+        <ui-input [label]="'Medium'" [size]="'md'" [placeholder]="'Стандартний'" />
+        <ui-input [label]="'Large'"  [size]="'lg'" [placeholder]="'Великий'" />
+
+        <ui-input [label]="'Success'" [status]="'success'" [hint]="'Email підтверджено'" />
+        <ui-input [label]="'Warning'" [status]="'warning'" [hint]="'Рекомендуємо довший пароль'" />
+        <ui-input [label]="'Error'"   [status]="'error'"   [hint]="'Перевірте значення'" />
+
+        <ui-input [label]="'Email'" [type]="'email'" [error]="'Невірний формат email'" />
+
+        <ui-input [label]="'Заблокований'" [disabled]="true" [placeholder]="'Недоступний'" />
+
+
+        <ui-input
+  [label]="'Email'"
+  [type]="'email'"
+  [placeholder]="'you@example.com'"
+  [variant]="'default'"
+  [size]="'md'"
+  [icon]="'fa-envelope'"
+  [required]="true"
+  [hint]="''"
+  [error]="emailError"
+  [status]="emailStatus"
+/>
             <router-outlet></router-outlet>
         </div>
     </main>
-
     <footer class="footer">
         <div class="container">
             <p>&copy; {{ currentYear }} GameHub. Всі права захищені.</p>
