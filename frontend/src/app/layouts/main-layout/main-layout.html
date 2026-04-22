@@ -7,17 +7,7 @@
             <nav class="nav">
                 <a routerLink="/home" routerLinkActive="active" class="nav-link">Головна</a>
                 <a routerLink="/tournaments" routerLinkActive="active" class="nav-link">Турніри</a>
-<<<<<<< HEAD
                 <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-=======
-
-                @if (isAuthenticated) {
-                <a routerLink="/profile" routerLinkActive="active" class="nav-link">Профіль</a>
-                <button (click)="logout()" class="logout-btn">🚪 Вийти</button>
-                } @else {
-                <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-                }
->>>>>>> upstream/main
             </nav>
         </div>
     </header>
