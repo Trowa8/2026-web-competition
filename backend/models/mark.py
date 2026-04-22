@@ -1,6 +1,5 @@
-from sqlalchemy import String, Integer, ForeignKey, UniqueConstraint, CheckConstraint, Text
+from sqlalchemy import String, Integer, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from typing import Optional
 from .base import Base, gen_uuid
 
 
@@ -13,8 +12,8 @@ class Mark(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
     score: Mapped[int] = mapped_column(Integer, nullable=False)
-    judge_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
+    judge_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournament_user_role.id"), nullable=False)
     solution_id: Mapped[str] = mapped_column(String(36), ForeignKey("solutions.id"), nullable=False)
 
-    judge: Mapped["User"] = relationship(foreign_keys=[judge_id])
+    judge: Mapped["TournamentUserRole"] = relationship(foreign_keys=[judge_id])
     solution: Mapped["Solution"] = relationship(back_populates="marks")

@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-from sqlalchemy import String, DateTime, ForeignKey, Boolean, CheckConstraint, UniqueConstraint
+from sqlalchemy import String, DateTime, ForeignKey, Boolean, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base, gen_uuid, utcnow
 
