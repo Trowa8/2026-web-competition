@@ -1,13 +1,59 @@
-export interface Tournament {
+export type TournamentStatus = 'draft' | 'registration' | 'ongoing' | 'completed' | 'cancelled';
+
+export type Tournament = {
     id: number;
     name: string;
-    game: string;
+    description?: string;
     startDate: Date;
     endDate: Date;
+    location: string;
     maxPlayers: number;
-    currentPlayers: number;
-    status: 'upcoming' | 'ongoing' | 'completed';
-    prizePool: number;
-    description: string;
-    imageUrl?: string;
-}
+    status: TournamentStatus;
+    gameType: string;
+    prizePool?: number;
+};
+
+export type CreateTournamentRequest = {
+    name: string;
+    description?: string;
+    startDate: Date;
+    endDate: Date;
+    location: string;
+    maxPlayers: number;
+    gameType: string;
+    prizePool?: number;
+};
+
+export type UpdateTournamentRequest = {
+    name?: string;
+    description?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+    maxPlayers?: number;
+    status?: TournamentStatus;
+    gameType?: string;
+    prizePool?: number;
+};
+
+export type TournamentsResponse = {
+    tournaments: Tournament[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+};
+
+export type TournamentFilters = {
+    status?: TournamentStatus;
+    gameType?: string;
+    search?: string;
+    page?: number;
+    pageSize?: number;
+};
+
+export type TournamentStats = {
+    total: number;
+    active: number;
+    completed: number;
+};

@@ -1,8 +1,15 @@
-<nav class="nav">
-    <div class="logo">Турніри</div>
-
-    <div class="links">
-        <a routerLink="/login">Вхід</a>
-        <a routerLink="/tournaments">Турніри</a>
-    </div>
-</nav>
+<header>
+    <nav>
+        <div class="logo">
+            <span>Tournament App</span>
+        </div>
+        <div class="nav-links">
+            @if (authService.isAuthenticated()) {
+            <span class="username">{{ authService.user()?.username }}</span>
+            <button class="logout-btn" (click)="logout()">Вийти</button>
+            } @else {
+            <a routerLink="/login" class="login-link">Вхід</a>
+            }
+        </div>
+    </nav>
+</header>

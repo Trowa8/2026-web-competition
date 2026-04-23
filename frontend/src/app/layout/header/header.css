@@ -1,17 +1,62 @@
-.nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background-color: #1976d2;
+header {
+    background: linear-gradient(90deg, #6a5af9, #8b7bff);
     color: white;
+    padding: 16px 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.links a {
-    margin-left: 15px;
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo span,
+.logo a {
     color: white;
     text-decoration: none;
 }
 
-.links a:hover {
-    text-decoration: underline;
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.username {
+    color: #ffd700;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.login-link {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+}
+
+.login-link:hover {
+    background: rgba(255, 255, 255, 0.3);
 }

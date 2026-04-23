@@ -1,36 +1,49 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
-import { LoginRequest } from '../../shared/types/auth.types';
+import { AuthService } from '../../services/auth.service';
+import { LoginRequest } from '../../shared/types/user.types';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class LoginComponent {
-  credentials: LoginRequest = { email: '', password: '' };
-  errorMessage = '';
-  isLoading = false;
+export class Login {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
+  public username: string = '';
+  public password: string = '';
+  public isLoading: boolean = false;
+  public error: string = '';
 
   public async onSubmit(): Promise<void> {
+    console.log('Form submitted', { username: this.username, password: this.password });
+
+    if (!this.username || !this.password) {
+      this.error = 'Будь ласка, заповніть всі поля';
+      return;
+    }
+
     this.isLoading = true;
-    this.errorMessage = '';
+    this.error = '';
+
+    const credentials: LoginRequest = {
+      username: this.username,
+      password: this.password
+    };
 
     try {
-      await this.authService.login(this.credentials);
-      this.router.navigate(['/tournaments']);
-    } catch (error: any) {
-      this.errorMessage = 'Помилка входу';
+      console.log('Calling login...');
+      await this.authService.login(credentials);
+      console.log('Login success, navigating...');
+      await this.router.navigate(['/tournaments']);
+    } catch (error) {
+      console.error('Login error:', error);
+      this.error = 'Помилка входу. Спробуйте ще раз.';
     } finally {
       this.isLoading = false;
     }
