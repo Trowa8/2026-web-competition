@@ -1,14 +1,10 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
-import { LoginComponent } from './pages/login/login';
-import { TournamentsComponent } from './pages/tournaments/tournaments';
-import { CreateTournamentComponent } from './pages/create-tournament/create-tournament';
+import { Login } from './pages/login/login';
+import { TournamentList } from './pages/tournament-list/tournament-list';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'tournaments', component: TournamentsComponent },
-    { path: 'create-tournament', component: CreateTournamentComponent },
-    { path: '**', redirectTo: '/home' }
+    { path: 'login', component: Login },
+    { path: 'tournaments', component: TournamentList, canActivate: [authGuard] },
+    { path: '', redirectTo: '/tournaments', pathMatch: 'full' }
 ];

@@ -1,66 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Tournament } from '../types/tournament.types';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Tournament, CreateTournamentRequest } from '../shared/types/tournament.types';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class TournamentService {
-    private tournaments: Tournament[] = [
-        {
-            id: 1,
-            name: '🏆 Кібер Кубок 2024',
-            game: 'Counter-Strike 2',
-            startDate: new Date('2024-12-15'),
-            endDate: new Date('2024-12-20'),
-            maxPlayers: 16,
-            currentPlayers: 12,
-            status: 'upcoming',
-            prizePool: 50000,
-            description: 'Найбільший кіберспортивний турнір року'
-        },
-        {
-            id: 2,
-            name: '🎮 Чемпіонат Dota 2',
-            game: 'Dota 2',
-            startDate: new Date('2024-12-10'),
-            endDate: new Date('2024-12-18'),
-            maxPlayers: 12,
-            currentPlayers: 12,
-            status: 'ongoing',
-            prizePool: 100000,
-            description: 'Міжнародний турнір з Dota 2'
-        }
-    ];
+    constructor(private http: HttpClient) { }
 
     public async getTournaments(): Promise<Tournament[]> {
-        return this.tournaments;
-    }
-
-    public async joinTournament(tournamentId: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === tournamentId);
-        if (tournament && tournament.currentPlayers < tournament.maxPlayers) {
-            tournament.currentPlayers++;
-            console.log(`Joined tournament ${tournamentId}`);
-            return { success: true, message: 'Ви приєдналися до турніру!' };
+        try {
+            const response = await firstValueFrom<{ tournaments: Tournament[] }>(
+                this.http.get<{ tournaments: Tournament[] }>(`${environment.apiUrl}/tournaments`)
+            );
+            return response.tournaments;
+        } catch (error) {
+            // Демо-дані
+            return [
+                { id: 1, name: 'CS2 Cup', status: 'active' },
+                { id: 2, name: 'Dota 2 League', status: 'completed' }
+            ];
         }
-        return { success: false, message: 'Не вдалося приєднатися' };
     }
 
-    public async leaveTournament(tournamentId: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === tournamentId);
-        if (tournament && tournament.currentPlayers > 0) {
-            tournament.currentPlayers--;
-            console.log(`Left tournament ${tournamentId}`);
-            return { success: true, message: 'Ви вийшли з турніру!' };
+    public async createTournament(data: CreateTournamentRequest): Promise<Tournament> {
+        try {
+            return await firstValueFrom<Tournament>(
+                this.http.post<Tournament>(`${environment.apiUrl}/tournaments`, data)
+            );
+        } catch (error) {
+            // Демо-створення
+            return {
+                id: Date.now(),
+                name: data.name,
+                status: 'active',
+                location: data.location,
+                gameType: data.gameType,
+                maxPlayers: data.maxPlayers,
+                prizePool: data.prizePool
+            };
         }
-        return { success: false, message: 'Не вдалося вийти з турніру' };
     }
 
-    public async createTournament(tournament: Omit<Tournament, 'id'>): Promise<Tournament> {
-        const newId = Math.max(...this.tournaments.map(t => t.id), 0) + 1;
-        const newTournament = { ...tournament, id: newId };
-        this.tournaments.push(newTournament);
-        console.log(`Created tournament ${newId}`);
-        return newTournament;
+    public async deleteTournament(id: number): Promise<void> {
+        try {
+            await firstValueFrom(
+                this.http.delete(`${environment.apiUrl}/tournaments/${id}`)
+            );
+        } catch (error) {
+            console.log('Демо-видалення:', id);
+        }
     }
 }

@@ -1,1 +1,146 @@
-<p>tournament-list works!</p>
+<div class="tournament-container">
+    <div class="tournament-header">
+        <h1>Управління турнірами</h1>
+        <p class="subtitle">Створюйте та керуйте кіберспортивними змаганнями</p>
+    </div>
+
+    @if (showForm) {
+    <div class="create-form-overlay">
+        <div class="create-form-modal">
+            <div class="form-modal-header">
+                <div class="header-icon">✨</div>
+                <h2>Створення нового турніру</h2>
+                <button class="close-modal-btn" (click)="closeForm()">×</button>
+            </div>
+
+            <div class="form-modal-body">
+                <div class="form-section">
+                    <div class="form-group full-width">
+                        <label>Назва турніру <span class="required">*</span></label>
+                        <input type="text" [(ngModel)]="newTournament.name"
+                            placeholder="Наприклад: Міжнародний чемпіонат з CS2" class="form-input" autofocus />
+                        <small class="input-hint">Введіть унікальну назву турніру</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>🏟️ Місце проведення</label>
+                            <input type="text" [(ngModel)]="newTournament.location"
+                                placeholder="Київ, Лондон, Онлайн..." class="form-input" />
+                        </div>
+                        <div class="form-group">
+                            <label>🎮 Тип гри</label>
+                            <input type="text" [(ngModel)]="newTournament.gameType"
+                                placeholder="CS2, Dota 2, Valorant..." class="form-input" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>👥 Максимум учасників</label>
+                            <input type="number" [(ngModel)]="newTournament.maxPlayers" min="2" max="100"
+                                class="form-input" />
+                            <small class="input-hint">Від 2 до 100 команд</small>
+                        </div>
+                        <div class="form-group">
+                            <label>💰 Призовий фонд</label>
+                            <div class="currency-input">
+                                <span class="currency-symbol">₴</span>
+                                <input type="number" [(ngModel)]="newTournament.prizePool" placeholder="0"
+                                    class="form-input with-currency" />
+                            </div>
+                            <small class="input-hint">Загальна сума призового фонду</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>📅 Дата початку</label>
+                            <input type="date" [(ngModel)]="newTournament.startDate" class="form-input" />
+                        </div>
+                        <div class="form-group">
+                            <label>📅 Дата завершення</label>
+                            <input type="date" [(ngModel)]="newTournament.endDate" class="form-input" />
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>📝 Опис турніру</label>
+                        <textarea [(ngModel)]="newTournament.description" rows="3"
+                            placeholder="Опишіть формат турніру, правила, умови участі..."
+                            class="form-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-modal-footer">
+                <button class="btn-cancel-modal" (click)="closeForm()">
+                    <span>✕</span> Скасувати
+                </button>
+                <button class="btn-create-modal" (click)="createTournament()" [disabled]="!newTournament.name">
+                    <span>✨</span> Створити турнір
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="controls-bar">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" [value]="searchTerm()" (input)="onSearchInput($event)"
+                placeholder="Пошук турнірів за назвою..." class="search-input" />
+        </div>
+        <button class="btn-create-tournament" (click)="openForm()">
+            <span>+</span> Створити турнір
+        </button>
+    </div>
+
+    <div class="tournaments-table-wrapper">
+        <table class="tournaments-table">
+            <thead>
+                <tr>
+                    <th>Назва турніру</th>
+                    <th>Статус</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (tournament of filteredTournaments(); track tournament.id) {
+                <tr class="tournament-row">
+                    <td class="tournament-name">
+                        <div class="tournament-info">
+                            <span class="tournament-icon">🏆</span>
+                            <strong>{{ tournament.name }}</strong>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge" [class]="tournament.status">
+                            <span class="status-dot"></span>
+                            {{ tournament.status === 'active' ? 'Активний' : 'Завершений' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-delete" (click)="deleteTournament(tournament.id)">
+                            🗑️ Видалити
+                        </button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr class="empty-state">
+                    <td colspan="3">
+                        <div class="empty-content">
+                            <span class="empty-icon">🏆</span>
+                            <h3>Ще немає турнірів</h3>
+                            <p>Створіть свій перший турнір та почніть змагання!</p>
+                            <button class="btn-create-first" (click)="openForm()">
+                                + Створити перший турнір
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
