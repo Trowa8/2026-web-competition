@@ -1,0 +1,28 @@
+<div class="table-wrapper">
+    @if (isLoading) {
+    <div class="loading">Завантаження...</div>
+    } @else if (tournaments.length === 0) {
+    <div class="empty">🏆 Немає турнірів</div>
+    } @else {
+    <table>
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Статус</th>
+                <th>Команди</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (tournament of tournaments; track tournament.id) {
+            <tr class="tournament-row">
+                <td class="name">{{ tournament.name }}</td>
+                <td><span [class]="getStatusClass(tournament.status)">{{ getStatusText(tournament.status) }}</span></td>
+                <td>{{ tournament.registeredTeams }}/{{ tournament.maxTeams }}</td>
+                <td><button class="delete-btn">Видалити</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

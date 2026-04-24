@@ -3,57 +3,109 @@ export type TournamentStatus = 'draft' | 'registration' | 'ongoing' | 'completed
 export type Tournament = {
     id: number;
     name: string;
-    description?: string;
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    maxPlayers: number;
+    description: string;
+    startDate: string;
+    registrationDeadline: string;
     status: TournamentStatus;
-    gameType: string;
+    createdBy: number;
+    createdAt: string;
+    maxTeams: number;
+    registeredTeams: number;
+    location?: string;
     prizePool?: number;
+};
+
+export type TournamentDetails = Tournament & {
+    rules?: string;
+    imageUrl?: string;
 };
 
 export type CreateTournamentRequest = {
     name: string;
-    description?: string;
-    startDate: Date;
-    endDate: Date;
-    location: string;
-    maxPlayers: number;
-    gameType: string;
+    description: string;
+    startDate: string;
+    registrationDeadline: string;
+    maxTeams: number;
+    location?: string;
     prizePool?: number;
+};
+
+export type CreateTournamentResponse = {
+    id: number;
+    name: string;
+    description: string;
+    startDate: string;
+    registrationDeadline: string;
+    createdBy: number;
+    createdAt: string;
 };
 
 export type UpdateTournamentRequest = {
     name?: string;
     description?: string;
-    startDate?: Date;
-    endDate?: Date;
-    location?: string;
-    maxPlayers?: number;
+    startDate?: string;
+    registrationDeadline?: string;
     status?: TournamentStatus;
-    gameType?: string;
+    maxTeams?: number;
+    location?: string;
     prizePool?: number;
 };
 
-export type TournamentsResponse = {
-    tournaments: Tournament[];
-    total: number;
-    page: number;
-    pageSize: number;
-    totalPages: number;
+export type UpdateTournamentResponse = {
+    id: number;
+    name: string;
+    description: string;
+    startDate: string;
+    registrationDeadline: string;
+    status: TournamentStatus;
+    updatedAt: string;
+};
+
+export type DeleteTournamentResponse = {
+    success: boolean;
+    message?: string;
+};
+
+export type RegisterTeamRequest = {
+    teamId: number;
+};
+
+export type RegisterTeamResponse = {
+    success: boolean;
+    message: string;
+    registeredAt: string;
+};
+
+export type LeaderboardEntry = {
+    rank: number;
+    teamId: number;
+    teamName: string;
+    totalScore: number;
+    taskScores: {
+        taskId: number;
+        taskName: string;
+        score: number;
+    }[];
+};
+
+export type UserTournamentsResponse = {
+    registered: Tournament[];
+    created: Tournament[];
 };
 
 export type TournamentFilters = {
     status?: TournamentStatus;
-    gameType?: string;
     search?: string;
     page?: number;
-    pageSize?: number;
+    limit?: number;
+    sortBy?: 'startDate' | 'createdAt' | 'name';
+    sortOrder?: 'asc' | 'desc';
 };
 
-export type TournamentStats = {
+export type PaginatedResponse<T> = {
+    data: T[];
     total: number;
-    active: number;
-    completed: number;
+    page: number;
+    limit: number;
+    totalPages: number;
 };

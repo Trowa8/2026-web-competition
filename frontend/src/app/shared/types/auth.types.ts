@@ -1,13 +1,17 @@
-export interface LoginRequest {
+export type User = {
+    id: number;
+    login: string;
     email: string;
-    password: string;
-}
+    role: string;
+    createdAt: string;
+};
 
-export interface AuthResponse {
+export type LoginRequest = {
+    login: string;
+    password: string;
+};
+
+export type LoginResponse = {
+    user: User;
     token: string;
-    user: {
-        id: number;
-        name: string;
-        email: string;
-    };
-}
+};
