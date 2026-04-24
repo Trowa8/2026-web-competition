@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './tournament-list.html',
   styleUrl: './tournament-list.scss',
 })
-export class TournamentList {
-
-}
+export class TournamentList {}

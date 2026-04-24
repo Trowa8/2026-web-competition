@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TournamentList } from './tournament-list';
+import { UiCheckbox } from './ui-checkbox';
 
-describe('TournamentList', () => {
-  let component: TournamentList;
-  let fixture: ComponentFixture<TournamentList>;
+describe('UiCheckbox', () => {
+  let component: UiCheckbox;
+  let fixture: ComponentFixture<UiCheckbox>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TournamentList],
+      imports: [UiCheckbox],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TournamentList);
+    fixture = TestBed.createComponent(UiCheckbox);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

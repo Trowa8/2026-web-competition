@@ -1,42 +1,15 @@
-<<<<<<< HEAD
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-=======
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../shared/services/auth.service';
->>>>>>> upstream/main
+import { UiCheckbox } from '../../shared/ui-checkbox/ui-checkbox';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, UiCheckbox],
   templateUrl: './main-layout.html',
-  styleUrls: ['./main-layout.css']
+  styleUrls: ['./main-layout.css'],
 })
-<<<<<<< HEAD
 export class MainLayout {
   currentYear = new Date().getFullYear();
-=======
-export class MainLayoutComponent implements OnInit {
-  currentYear = new Date().getFullYear();
-  isAuthenticated = false;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated();
-  }
-
-  logout() {
-    this.authService.logout();
-    this.isAuthenticated = false;
-    this.router.navigate(['/login']);
-  }
->>>>>>> upstream/main
 }

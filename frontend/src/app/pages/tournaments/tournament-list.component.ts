@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TournamentService } from '../../services/tournament.service';
 
-interface Tournament { id?: number; name?: string; status?: string; }
+interface Tournament {
+  id?: number;
+  name?: string;
+  status?: string;
+}
 
 @Component({
   selector: 'app-tournament-list',
@@ -17,12 +21,12 @@ interface Tournament { id?: number; name?: string; status?: string; }
       </li>
     </ul>
     <a routerLink="/teams" style="margin-top:20px; display:inline-block;">Перейти до команд →</a>
-  `
+  `,
 })
 export class TournamentListComponent implements OnInit {
   tournaments: Tournament[] = [];
 
-  constructor(private tournamentService: TournamentService) { }
+  constructor(private tournamentService: TournamentService) {}
 
   async ngOnInit() {
     this.tournaments = await this.tournamentService.getTournaments();

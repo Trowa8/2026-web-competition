@@ -9,14 +9,14 @@ import { Tournament } from '../../shared/types/tournament.types';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './tournaments.html',
-  styleUrls: ['./tournaments.css']
+  styleUrls: ['./tournaments.css'],
 })
 export class TournamentsComponent implements OnInit {
   tournaments: Tournament[] = [];
   isLoading = true;
   protected readonly Math = Math;
 
-  constructor(private tournamentService: TournamentService) { }
+  constructor(private tournamentService: TournamentService) {}
 
   async ngOnInit() {
     await this.loadTournaments();
@@ -42,19 +42,27 @@ export class TournamentsComponent implements OnInit {
 
   getStatusClass(status: string): string {
     switch (status) {
-      case 'upcoming': return 'status-upcoming';
-      case 'ongoing': return 'status-ongoing';
-      case 'completed': return 'status-completed';
-      default: return '';
+      case 'upcoming':
+        return 'status-upcoming';
+      case 'ongoing':
+        return 'status-ongoing';
+      case 'completed':
+        return 'status-completed';
+      default:
+        return '';
     }
   }
 
   getStatusText(status: string): string {
     switch (status) {
-      case 'upcoming': return '🟢 Скоро';
-      case 'ongoing': return '🟡 В процесі';
-      case 'completed': return '🔵 Завершено';
-      default: return status;
+      case 'upcoming':
+        return '🟢 Скоро';
+      case 'ongoing':
+        return '🟡 В процесі';
+      case 'completed':
+        return '🔵 Завершено';
+      default:
+        return status;
     }
   }
 }
