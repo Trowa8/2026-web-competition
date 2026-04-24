@@ -1,0 +1,31 @@
+<div class="login-card">
+    <div class="login-header">
+        <div class="icon">🔐</div>
+        <h1>Ласкаво просимо!</h1>
+        <p>Увійдіть у свій акаунт</p>
+    </div>
+
+    @if (error()) {
+    <div class="error">{{ error() }}</div>
+    }
+
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Логін</label>
+            <input type="text" [value]="login()" (input)="login.set($any($event.target).value)"
+                placeholder="Введіть логін" />
+        </div>
+
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" [value]="password()" (input)="password.set($any($event.target).value)"
+                placeholder="Введіть пароль" />
+        </div>
+
+        <button type="submit" class="btn-login" [disabled]="isLoading()">
+            {{ isLoading() ? 'Завантаження...' : 'Увійти' }}
+        </button>
+    </form>
+
+    <p class="demo-hint">💡 Демо: будь-який логін/пароль</p>
+</div>

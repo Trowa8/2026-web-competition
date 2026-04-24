@@ -1,0 +1,15 @@
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a routerLink="/">🏆 TournamentApp</a>
+        </div>
+        <nav class="nav">
+            <a routerLink="/tournaments" class="nav-link">Турніри</a>
+            @if (auth.isAuthenticated()) {
+            <button class="logout-btn" (click)="auth.logout()">Вийти</button>
+            } @else {
+            <a routerLink="/login" class="nav-link login-link">Вхід</a>
+            }
+        </nav>
+    </div>
+</header>
