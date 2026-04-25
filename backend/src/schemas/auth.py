@@ -14,8 +14,8 @@ class TokenResponse(BaseModel):
 class SignUpRequest(BaseModel):
     login: str
     password: str
-    email: EmailStr
-    role: str
+    email: EmailStr 
+    role: str = "participant"
 
 class SignUpResponse(BaseModel):
     refresh_token: str
@@ -25,3 +25,6 @@ class SignUpResponse(BaseModel):
 class TokenData(BaseModel):
     user_id: str
     token_type: str
+    
+class RefreshRequest(BaseModel):
+    refresh_token: str
