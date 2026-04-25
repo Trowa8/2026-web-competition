@@ -1,8 +1,8 @@
-"""Code Revisions
+"""Final Polish
 
-Revision ID: c1230d3d72e8
-Revises: cc2b51e82723
-Create Date: 2026-04-22 22:34:17.904928
+Revision ID: 2bcd3188be35
+Revises: c1230d3d72e8
+Create Date: 2026-04-25 20:48:57.369337
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'c1230d3d72e8'
-down_revision: Union[str, Sequence[str], None] = 'cc2b51e82723'
+revision: str = '2bcd3188be35'
+down_revision: Union[str, Sequence[str], None] = 'c1230d3d72e8'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -48,12 +48,14 @@ def upgrade() -> None:
     sa.Column('name', sa.String(length=256), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('start_date', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('end_date', sa.DateTime(timezone=True), nullable=False),
     sa.Column('registration_deadline', sa.DateTime(timezone=True), nullable=False),
     sa.Column('max_teams', sa.Integer(), nullable=True),
     sa.Column('status', sa.String(length=36), nullable=False),
     sa.Column('created_by', sa.String(length=36), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
     sa.CheckConstraint("status IN ('draft', 'registration', 'active', 'finished', 'cancelled')", name='ck_tournament_status'),
+    sa.CheckConstraint('end_date > start_date', name='ck_tournament_end_after_start'),
     sa.CheckConstraint('max_teams > 0', name='ck_tournament_max_teams_positive'),
     sa.CheckConstraint('start_date > registration_deadline', name='ck_tournament_start_after_registration_deadline'),
     sa.ForeignKeyConstraint(['created_by'], ['users.id'], ),

@@ -12,12 +12,14 @@ class Tournament(Base):
         CheckConstraint("max_teams > 0", name="ck_tournament_max_teams_positive"),
         CheckConstraint("status IN ('draft', 'registration', 'active', 'finished', 'cancelled')", name="ck_tournament_status"),
         CheckConstraint("start_date > registration_deadline", name="ck_tournament_start_after_registration_deadline"),
+        CheckConstraint("end_date > start_date", name="ck_tournament_end_after_start"),
     )
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
     name: Mapped[str] = mapped_column(String(256), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     start_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    end_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     registration_deadline: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     max_teams: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     status: Mapped[str] = mapped_column(String(36), nullable=False, default="draft")
