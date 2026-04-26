@@ -1,76 +1,36 @@
-import { Injectable } from '@angular/core';
-import { LoginRequest, AuthResponse } from '../types/auth.types';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
-@Injectable({
-    providedIn: 'root'
-})
+type User = { id: number; login: string; email: string; role: string; createdAt: string };
+type LoginResponse = { user: User; accessToken: string; refreshToken: string };
+
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-    private tokenKey = 'auth_token';
-<<<<<<< HEAD
+  private http = inject(HttpClient);
+  private state = signal<{ user: User | null; accessToken: string | null }>({ user: null, accessToken: null });
 
-    public async login(credentials: LoginRequest): Promise<AuthResponse> {
-        console.log('Login:', credentials);
+  user = computed(() => this.state().user);
+  isAuthenticated = computed(() => !!this.state().user);
+  accessToken = computed(() => this.state().accessToken);
 
-=======
-    private userKey = 'user_data';
+  constructor() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) this.state.set({ user: JSON.parse(user), accessToken: token });
+  }
 
-    public async login(credentials: LoginRequest): Promise<AuthResponse> {
->>>>>>> upstream/main
-        const response: AuthResponse = {
-            token: 'fake-token-' + Date.now(),
-            user: {
-                id: 1,
-<<<<<<< HEAD
-                name: 'Test User',
-=======
-                name: 'Користувач',
->>>>>>> upstream/main
-                email: credentials.email
-            }
-        };
-        localStorage.setItem(this.tokenKey, response.token);
-<<<<<<< HEAD
-=======
-        localStorage.setItem(this.userKey, JSON.stringify(response.user));
->>>>>>> upstream/main
-        return response;
-    }
+  async login(creds: { login: string; password: string }): Promise<User> {
+    const res = await firstValueFrom<LoginResponse>(this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, creds));
+    this.state.set({ user: res.user, accessToken: res.accessToken });
+    localStorage.setItem('token', res.accessToken);
+    localStorage.setItem('user', JSON.stringify(res.user));
+    return res.user;
+  }
 
-    public logout(): void {
-        localStorage.removeItem(this.tokenKey);
-<<<<<<< HEAD
-    }
-
-    public getToken(): string | null {
-        return localStorage.getItem(this.tokenKey);
-    }
-
-    public isAuthenticated(): boolean {
-        return !!this.getToken();
-=======
-        localStorage.removeItem(this.userKey);
-    }
-
-    public getToken(): string | null {
-        if (typeof localStorage !== 'undefined') {
-            return localStorage.getItem(this.tokenKey);
-        }
-        return null;
-    }
-
-    public getUser(): any {
-        if (typeof localStorage !== 'undefined') {
-            const user = localStorage.getItem(this.userKey);
-            return user ? JSON.parse(user) : { name: 'Гість', email: 'guest@example.com' };
-        }
-        return { name: 'Гість', email: 'guest@example.com' };
-    }
-
-    public isAuthenticated(): boolean {
-        if (typeof localStorage !== 'undefined') {
-            return !!this.getToken();
-        }
-        return false;
->>>>>>> upstream/main
-    }
+  async logout() {
+    this.state.set({ user: null, accessToken: null });
+    localStorage.clear();
+  }
 }
