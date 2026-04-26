@@ -5,6 +5,15 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     background: #f5f7fa;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus,
+input:focus {
+    outline: none;
 }

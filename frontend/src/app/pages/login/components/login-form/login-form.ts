@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../../shared/services/auth';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -11,26 +11,24 @@ import { AuthService } from '../../../../shared/services/auth';
   styleUrls: ['./login-form.css'],
 })
 export class LoginForm {
-  private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
-  protected readonly login = signal('');
-  protected readonly password = signal('');
-  protected readonly isLoading = signal(false);
-  protected readonly error = signal('');
+  login = signal('');
+  password = signal('');
+  isLoading = signal(false);
+  error = signal('');
 
-  public async onSubmit(): Promise<void> {
+  async onSubmit() {
     if (!this.login() || !this.password()) {
       this.error.set('Заповніть всі поля');
       return;
     }
-
     this.isLoading.set(true);
     this.error.set('');
-
     try {
       await this.auth.login({ login: this.login(), password: this.password() });
-      await this.router.navigate(['/tournaments']);
+      this.router.navigate(['/tournaments']);
     } catch {
       this.error.set('Невірний логін або пароль');
     } finally {

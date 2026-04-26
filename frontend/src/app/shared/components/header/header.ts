@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth';
+import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +10,14 @@ import { AuthService } from '../../services/auth';
   styleUrls: ['./header.css'],
 })
 export class Header {
-  public readonly auth = inject(AuthService);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+  get user() { return this.auth.user; }
+  get isAuthenticated() { return this.auth.isAuthenticated; }
+
+  async logout() {
+    await this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 }

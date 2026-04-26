@@ -1,10 +1,12 @@
 <div class="tournaments-page">
     <h1>Турніри</h1>
-
     <div class="controls">
-        <app-tournament-search (search)="onSearch($event)" />
+        <app-tournament-search (search)="onSearch($event)"></app-tournament-search>
         <button class="btn-create">+ Створити турнір</button>
     </div>
-
-    <app-tournament-table [tournaments]="filteredTournaments()" [isLoading]="isLoading()" />
+    @if (isLoading()) {
+    <div class="loading">Завантаження...</div>
+    } @else {
+    <app-tournament-table [tournaments]="filteredTournaments()"></app-tournament-table>
+    }
 </div>
