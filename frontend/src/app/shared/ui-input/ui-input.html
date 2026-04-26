@@ -1,5 +1,4 @@
 <div class="input-wrapper" [class]="wrapperClasses()">
-
   @if (label()) {
     <label class="input-label" [for]="inputId">
       {{ label() }}
@@ -8,9 +7,7 @@
       }
     </label>
   }
-
   <div class="input-field-wrapper">
-
     @if (hasPrefixIcon()) {
       <span class="input-icon input-icon--prefix">
         <i class="fa-solid" [class]="prefixIconClass()"></i>
@@ -18,14 +15,17 @@
     }
 
     <input
+      #input
       ngDefaultControl
       [id]="inputId"
       class="input-field"
       [type]="showPassword() ? 'text' : type()"
       [placeholder]="placeholder()"
+      [required]="required()"
+      [attr.aria-required]="required() ? true : null"
       [disabled]="disabled()"
       [value]="value()"
-      (input)="onInput($event)"
+      (input)="handleInput($event)"
       (focus)="onFocus()"
       (blur)="onBlur()"
     />
@@ -35,7 +35,6 @@
         type="button"
         class="input-icon input-icon--suffix input-toggle-btn"
         (click)="togglePassword()"
-        tabindex="-1"
       >
         <i class="fa-solid" [class]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
       </button>
@@ -46,15 +45,13 @@
         <i class="fa-solid" [class]="statusIconClass()"></i>
       </span>
     }
-
   </div>
-
   @if (error()) {
-    <p class="input-hint input-hint--error">
-      <i class="fa-solid fa-circle-exclamation"></i> {{ error() }}
-    </p>
+    <span class="input-hint input-hint--error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      {{ error() }}
+    </span>
   } @else if (hint()) {
-    <p class="input-hint">{{ hint() }}</p>
+    <span class="input-hint">{{ hint() }}</span>
   }
-
 </div>
