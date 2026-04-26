@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AuthService {
-  login(username: string, password: string): boolean {
-    return username === 'admin' && password === '123';
-  }
+    login(username: string, password: string): boolean {
+        return username === "admin" && password === "123";
+    }
 }

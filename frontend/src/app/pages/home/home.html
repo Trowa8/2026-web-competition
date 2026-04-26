@@ -1,49 +1,46 @@
 <app-main-layout>
-  <div class="home-page">
-    <div class="welcome-section">
-      <h1>Ласкаво просимо до GameHub!</h1>
-      <p>Найкраща платформа для кіберспортивних турнірів</p>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">📅</div>
-        <h3>Дедлайн завдання</h3>
-        <p class="stat-value deadline">Завершується сьогодні!</p>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon">📊</div>
-        <h3>Прогрес завдань</h3>
-        <p class="stat-value">{{ getCompletedCount() }}/{{ getTotalTasks() }}</p>
-        <div class="progress-bar">
-          <div
-            class="progress-fill"
-            [style.width.%]="(getCompletedCount()/getTotalTasks())*100"
-          ></div>
+    <div class="home-page">
+        <div class="welcome-section">
+            <h1>Ласкаво просимо до GameHub!</h1>
+            <p>Найкраща платформа для кіберспортивних турнірів</p>
         </div>
-      </div>
 
-      <div class="stat-card">
-        <div class="stat-icon">🏆</div>
-        <h3>Рейтинг команди</h3>
-        <p class="stat-value rating">#1</p>
-      </div>
-    </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <h3>Дедлайн завдання</h3>
+                <p class="stat-value deadline">Завершується сьогодні!</p>
+            </div>
 
-    <div class="tasks-section">
-      <div class="section-header">
-        <h2>Мої завдання</h2>
-        <a href="#" class="view-all">Всі →</a>
-      </div>
-      <div class="tasks-list">
-        @for (task of tasks; track task.id) {
-        <div class="task-item">
-          <input type="checkbox" [checked]="task.completed" class="task-checkbox" />
-          <span [class.completed]="task.completed" class="task-name">{{ task.name }}</span>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <h3>Прогрес завдань</h3>
+                <p class="stat-value">{{ getCompletedCount() }}/{{ getTotalTasks() }}</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="(getCompletedCount()/getTotalTasks())*100"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <h3>Рейтинг команди</h3>
+                <p class="stat-value rating">#1</p>
+            </div>
         </div>
-        }
-      </div>
+
+        <div class="tasks-section">
+            <div class="section-header">
+                <h2>Мої завдання</h2>
+                <a href="#" class="view-all">Всі →</a>
+            </div>
+            <div class="tasks-list">
+                @for (task of tasks; track task.id) {
+                <div class="task-item">
+                    <input type="checkbox" [checked]="task.completed" class="task-checkbox" />
+                    <span [class.completed]="task.completed" class="task-name">{{ task.name }}</span>
+                </div>
+                }
+            </div>
+        </div>
     </div>
-  </div>
 </app-main-layout>

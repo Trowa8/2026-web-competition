@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TournamentList } from './tournament-list';
+import { TournamentList } from "./tournament-list";
 
-describe('TournamentList', () => {
-  let component: TournamentList;
-  let fixture: ComponentFixture<TournamentList>;
+describe("TournamentList", () => {
+    let component: TournamentList;
+    let fixture: ComponentFixture<TournamentList>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TournamentList],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TournamentList],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(TournamentList);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(TournamentList);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

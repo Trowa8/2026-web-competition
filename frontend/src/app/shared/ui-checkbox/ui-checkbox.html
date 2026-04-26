@@ -1,4 +1,11 @@
-<label class="checkbox" [class.checkbox--checked]="isChecked()" (click)="toggle()">
-  <span class="checkbox__box"> </span>
-  <span class="checkbox__label">{{ label() }}</span>
+<label class="checkbox" [class.is-error]="isError()" [class.is-disabled]="isDisabled()" [for]="inputId">
+    <input
+        type="checkbox"
+        [id]="inputId"
+        name="option"
+        [checked]="checked()"
+        [disabled]="isDisabled()"
+        (change)="toggle()"
+    />
+    {{ label() }}
 </label>
