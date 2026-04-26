@@ -1,0 +1,138 @@
+<div class="tournament-detail-container">
+    <div class="breadcrumb">
+        <a routerLink="/">Головна</a> / <a routerLink="/tournaments">Турніри</a> / <span>{{ tournament().name }}</span>
+    </div>
+
+    <div class="tournament-header">
+        <div class="header-left">
+            <div class="tournament-icon">🏆</div>
+            <div class="header-info">
+                <h1>{{ tournament().name }}</h1>
+                <div class="status-wrapper">
+                    <span [class]="getStatusClass(tournament().status)">
+                        {{ getStatusText(tournament().status) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button class="btn-register">Зареєструвати команду</button>
+    </div>
+
+    <div class="tournament-content">
+        <div class="content-main">
+            <div class="info-card">
+                <h2>Про турнір</h2>
+                <p class="description">{{ tournament().description }}</p>
+            </div>
+
+            <!-- Деталі -->
+            <div class="info-card">
+                <h2>Деталі турніру</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Дата початку</span>
+                            <span class="detail-value">{{ tournament().startDate }}</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">📅</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Дата завершення</span>
+                            <span class="detail-value">{{ tournament().endDate }}</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">⏰</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Дедлайн реєстрації</span>
+                            <span class="detail-value">{{ tournament().registrationDeadline }}</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">📍</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Місце проведення</span>
+                            <span class="detail-value">{{ tournament().location }}</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🎮</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Гра</span>
+                            <span class="detail-value">{{ tournament().gameType }}</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">💰</span>
+                        <div class="detail-info">
+                            <span class="detail-label">Призовий фонд</span>
+                            <span class="detail-value highlight">{{ tournament().prizePool }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>Команди-учасниці</h2>
+                <div class="teams-progress">
+                    <div class="progress-stats">
+                        <span>{{ tournament().registeredTeams }} / {{ tournament().maxTeams }} команд</span>
+                        <span>{{ (tournament().registeredTeams / tournament().maxTeams) * 100 }}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" [style.width.%]="getProgressWidth()"></div>
+                    </div>
+                </div>
+                <div class="teams-list">
+                    <div class="team-item">
+                        <span class="team-icon">👥</span>
+                        <span>Team Alpha</span>
+                    </div>
+                    <div class="team-item">
+                        <span class="team-icon">👥</span>
+                        <span>Team Beta</span>
+                    </div>
+                    <div class="team-item">
+                        <span class="team-icon">👥</span>
+                        <span>Team Gamma</span>
+                    </div>
+                    <div class="team-item">
+                        <span class="team-icon">👥</span>
+                        <span>Team Delta</span>
+                    </div>
+                    <div class="team-item">
+                        <span class="team-icon">👥</span>
+                        <span>+ ще 4 команд</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>Правила турніру</h2>
+                <p class="rules">{{ tournament().rules }}</p>
+            </div>
+        </div>
+
+        <div class="content-sidebar">
+            <div class="action-card">
+                <h3>Дії</h3>
+                <button class="btn-action btn-primary">Зареєструвати команду</button>
+                <button class="btn-action btn-outline">Поділитися</button>
+                <button class="btn-action btn-outline">Завантажити розклад</button>
+            </div>
+
+            <div class="info-card-small">
+                <h3>Організатор</h3>
+                <p>{{ tournament().organizer }}</p>
+            </div>
+
+            <div class="info-card-small">
+                <h3>Контакти</h3>
+                <p>📧 support@tournament.com</p>
+                <p>📞 +38 (044) 123-45-67</p>
+            </div>
+        </div>
+    </div>
+</div>
