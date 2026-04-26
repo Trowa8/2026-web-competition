@@ -5,9 +5,9 @@ import { routes } from './app.routes';
 import { authInterceptor } from './shared/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
-    providers: [
-        provideZonelessChangeDetection(),
-        provideRouter(routes),
-        provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-    ],
+  providers: [
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+  ],
 };

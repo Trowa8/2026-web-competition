@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 export const authGuard = () => {
-  const auth = inject(AuthService);
-  const router = inject(Router);
-  return auth.isAuthenticated() ? true : router.parseUrl('/login');
+    const auth = inject(AuthService);
+    const router = inject(Router);
+    return auth.isAuthenticated() ? true : router.parseUrl('/login');
 };
