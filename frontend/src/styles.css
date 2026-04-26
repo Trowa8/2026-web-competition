@@ -5,29 +5,6 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f5f5;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.nav-link {
-    cursor: pointer;
-<<<<<<< HEAD
-=======
-    transition: background 0.3s;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.2);
->>>>>>> upstream/main
-}
-
-.nav-link.active {
-    background: #e94560;
-    border-radius: 8px;
+    font-family: system-ui, sans-serif;
+    background: #f5f7fa;
 }
