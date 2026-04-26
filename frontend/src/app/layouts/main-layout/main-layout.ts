@@ -1,15 +1,13 @@
-import { Component } from "@angular/core";
-import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { UiCheckbox } from "../../shared/ui-checkbox/ui-checkbox";
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Header } from '../../shared/components/header/header';
+import { Footer } from '../../shared/components/footer/footer';
 
 @Component({
-    selector: "app-main-layout",
-    standalone: true,
-    imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, UiCheckbox],
-    templateUrl: "./main-layout.html",
-    styleUrls: ["./main-layout.css"],
+  selector: 'app-main-layout',
+  standalone: true,
+  imports: [RouterOutlet, Header, Footer],
+  templateUrl: './main-layout.html',
+  styleUrls: ['./main-layout.css'],
 })
-export class MainLayout {
-    currentYear = new Date().getFullYear();
-}
+export class MainLayout { }
