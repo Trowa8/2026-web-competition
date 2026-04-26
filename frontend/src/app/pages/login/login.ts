@@ -1,50 +1,45 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { LoginRequest } from '../../shared/types/auth.types';
-<<<<<<< HEAD
-=======
-import { MainLayoutComponent } from '../../layouts/main-layout/main-layout';
->>>>>>> upstream/main
 
 @Component({
   selector: 'app-login',
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule, FormsModule, RouterModule],
-=======
-  imports: [CommonModule, FormsModule, RouterModule, MainLayoutComponent],
->>>>>>> upstream/main
+  imports: [RouterLink],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
 })
 export class LoginComponent {
-  credentials: LoginRequest = { email: '', password: '' };
-  errorMessage = '';
-  isLoading = false;
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
+  login = signal('');
+  password = signal('');
+  isLoading = signal(false);
+  error = signal('');
 
-  public async onSubmit(): Promise<void> {
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    try {
-      await this.authService.login(this.credentials);
-      this.router.navigate(['/tournaments']);
-    } catch (error: any) {
-<<<<<<< HEAD
-      this.errorMessage = 'Помилка входу';
-=======
-      this.errorMessage = 'Помилка входу. Спробуйте ще раз.';
->>>>>>> upstream/main
-    } finally {
-      this.isLoading = false;
+  async onSubmit() {
+    if (!this.login() || !this.password()) {
+      this.error.set('Заповніть всі поля');
+      return;
     }
+    this.isLoading.set(true);
+    this.error.set('');
+    try {
+      await this.auth.login({ login: this.login(), password: this.password() });
+      this.router.navigate(['/tournaments']);
+    } catch {
+      this.error.set('Невірний логін або пароль');
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  onLoginChange(value: string) {
+    this.login.set(value);
+  }
+
+  onPasswordChange(value: string) {
+    this.password.set(value);
   }
 }

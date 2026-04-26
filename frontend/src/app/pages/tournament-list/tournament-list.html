@@ -1,1 +1,72 @@
-<p>tournament-list works!</p>
+<div class="tournaments-container">
+    <div class="page-header">
+        <h1>Турніри</h1>
+        <p>Керуйте та беріть участь у кіберспортивних змаганнях</p>
+    </div>
+
+    <div class="controls-bar">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" [value]="searchTerm()" (input)="onSearch($event)"
+                placeholder="Пошук турнірів за назвою..." />
+        </div>
+        <button class="btn-create">
+            <span class="btn-icon">+</span>
+            Створити турнір
+        </button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="tournaments-table">
+            <thead>
+                <tr>
+                    <th>Назва турніру</th>
+                    <th>Статус</th>
+                    <th>Дата старту</th>
+                    <th>Команди</th>
+                    <th>Призовий фонд</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (tournament of filteredTournaments(); track tournament.id) {
+                <tr class="tournament-row">
+                    <td class="tournament-name">
+                        <span class="tournament-icon">🏆</span>
+                        <strong>{{ tournament.name }}</strong>
+                    </td>
+                    <td>
+                        <span [class]="getStatusClass(tournament.status)">
+                            {{ getStatusText(tournament.status) }}
+                        </span>
+                    </td>
+                    <td>{{ tournament.startDate }}</td>
+                    <td class="teams-cell">
+                        <div class="progress-bar">
+                            <div class="progress-fill"
+                                [style.width.%]="getProgressWidth(tournament.currentTeams, tournament.maxTeams)"></div>
+                        </div>
+                        <span>{{ tournament.currentTeams }}/{{ tournament.maxTeams }}</span>
+                    </td>
+                    <td class="prize">{{ tournament.prizePool }}</td>
+                    <td>
+                        <button class="btn-details">Детальніше</button>
+                        <button class="btn-delete">Видалити</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr class="empty-row">
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <span class="empty-icon">🎮</span>
+                            <h3>Немає турнірів</h3>
+                            <p>Створіть свій перший турнір та почніть змагання!</p>
+                            <button class="btn-create-empty">+ Створити турнір</button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,107 +1,154 @@
-import { Injectable } from '@angular/core';
-import { Tournament } from '../types/tournament.types';
+import { Injectable, signal, inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import {
+    Tournament,
+    TournamentStatus,
+    CreateTournamentRequest,
+    CreateTournamentResponse,
+    UpdateTournamentRequest,
+    UpdateTournamentResponse,
+    DeleteTournamentResponse,
+    RegisterTeamRequest,
+    RegisterTeamResponse,
+    LeaderboardEntry,
+} from '../types/tournament.types';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class TournamentService {
-    private tournaments: Tournament[] = [
-        {
-            id: 1,
-            name: '🏆 Кібер Кубок 2024',
-            game: 'Counter-Strike 2',
-            startDate: new Date('2024-12-15'),
-            endDate: new Date('2024-12-20'),
-            maxPlayers: 16,
-            currentPlayers: 12,
-            status: 'upcoming',
-            prizePool: 50000,
-            description: 'Найбільший кіберспортивний турнір року'
-        },
-        {
-            id: 2,
-            name: '🎮 Чемпіонат Dota 2',
-            game: 'Dota 2',
-            startDate: new Date('2024-12-10'),
-            endDate: new Date('2024-12-18'),
-            maxPlayers: 12,
-            currentPlayers: 12,
-            status: 'ongoing',
-            prizePool: 100000,
-            description: 'Міжнародний турнір з Dota 2'
+    private readonly http = inject(HttpClient);
+    private readonly API_URL = `${environment.apiUrl}/tournaments`;
+
+    private readonly tournamentsState = signal<Tournament[]>([]);
+    private readonly loadingState = signal(false);
+    private readonly errorState = signal<string | null>(null);
+    private readonly totalState = signal(0);
+
+    public readonly tournaments = this.tournamentsState.asReadonly();
+    public readonly isLoading = this.loadingState.asReadonly();
+    public readonly error = this.errorState.asReadonly();
+    public readonly total = this.totalState.asReadonly();
+
+    public async getAllTournaments(): Promise<Tournament[]> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            const data = await firstValueFrom<Tournament[]>(this.http.get<Tournament[]>(this.API_URL));
+            this.tournamentsState.set(data);
+            this.totalState.set(data.length);
+            return data;
+        } catch (err) {
+            this.errorState.set('Помилка завантаження турнірів');
+            return [];
+        } finally {
+            this.loadingState.set(false);
         }
-    ];
-
-<<<<<<< HEAD
-    public async getTournaments(): Promise<Tournament[]> {
-        return this.tournaments;
     }
 
-    public async joinTournament(tournamentId: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === tournamentId);
-        if (tournament && tournament.currentPlayers < tournament.maxPlayers) {
-            tournament.currentPlayers++;
-            console.log(`Joined tournament ${tournamentId}`);
-            return { success: true, message: 'Ви приєдналися до турніру!' };
+    public async getTournamentById(id: number): Promise<Tournament | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            return await firstValueFrom<Tournament>(this.http.get<Tournament>(`${this.API_URL}/${id}`));
+        } catch (err) {
+            this.errorState.set('Помилка завантаження турніру');
+            return null;
+        } finally {
+            this.loadingState.set(false);
         }
-        return { success: false, message: 'Не вдалося приєднатися' };
     }
 
-    public async leaveTournament(tournamentId: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === tournamentId);
-        if (tournament && tournament.currentPlayers > 0) {
-            tournament.currentPlayers--;
-            console.log(`Left tournament ${tournamentId}`);
-            return { success: true, message: 'Ви вийшли з турніру!' };
+    public async createTournament(data: CreateTournamentRequest): Promise<CreateTournamentResponse | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            const res = await firstValueFrom<CreateTournamentResponse>(this.http.post<CreateTournamentResponse>(this.API_URL, data));
+            await this.getAllTournaments();
+            return res;
+        } catch (err) {
+            this.errorState.set('Помилка створення турніру');
+            return null;
+        } finally {
+            this.loadingState.set(false);
         }
-        return { success: false, message: 'Не вдалося вийти з турніру' };
     }
 
-    public async createTournament(tournament: Omit<Tournament, 'id'>): Promise<Tournament> {
-        const newId = Math.max(...this.tournaments.map(t => t.id), 0) + 1;
-        const newTournament = { ...tournament, id: newId };
-        this.tournaments.push(newTournament);
-        console.log(`Created tournament ${newId}`);
-=======
-    async getTournaments(): Promise<Tournament[]> {
-        return this.tournaments;
-    }
-
-    async joinTournament(id: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === id);
-        if (tournament && tournament.currentPlayers < tournament.maxPlayers) {
-            tournament.currentPlayers++;
-            return { success: true };
+    public async updateTournament(id: number, data: UpdateTournamentRequest): Promise<UpdateTournamentResponse | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            const res = await firstValueFrom<UpdateTournamentResponse>(this.http.put<UpdateTournamentResponse>(`${this.API_URL}/${id}`, data));
+            await this.getAllTournaments();
+            return res;
+        } catch (err) {
+            this.errorState.set('Помилка оновлення турніру');
+            return null;
+        } finally {
+            this.loadingState.set(false);
         }
-        return { success: false };
     }
 
-    async leaveTournament(id: number): Promise<any> {
-        const tournament = this.tournaments.find(t => t.id === id);
-        if (tournament && tournament.currentPlayers > 0) {
-            tournament.currentPlayers--;
-            return { success: true };
+    public async deleteTournament(id: number): Promise<DeleteTournamentResponse | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            const res = await firstValueFrom<DeleteTournamentResponse>(this.http.delete<DeleteTournamentResponse>(`${this.API_URL}/${id}`));
+            await this.getAllTournaments();
+            return res;
+        } catch (err) {
+            this.errorState.set('Помилка видалення турніру');
+            return null;
+        } finally {
+            this.loadingState.set(false);
         }
-        return { success: false };
     }
 
-    async createTournament(data: any): Promise<Tournament> {
-        const newId = this.tournaments.length + 1;
-        const newTournament: Tournament = {
-            id: newId,
-            name: data.name,
-            game: data.game,
-            description: data.description,
-            maxPlayers: data.maxPlayers,
-            prizePool: data.prizePool,
-            startDate: data.startDate,
-            endDate: data.endDate,
-            currentPlayers: 0,
-            status: 'upcoming'
-        };
-        this.tournaments.push(newTournament);
-        console.log('Створено турнір:', newTournament);
->>>>>>> upstream/main
-        return newTournament;
+    public async registerTeam(tournamentId: number, teamId: number): Promise<RegisterTeamResponse | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        const request: RegisterTeamRequest = { teamId };
+        try {
+            return await firstValueFrom<RegisterTeamResponse>(this.http.post<RegisterTeamResponse>(`${this.API_URL}/${tournamentId}/register`, request));
+        } catch (err) {
+            this.errorState.set('Помилка реєстрації команди');
+            return null;
+        } finally {
+            this.loadingState.set(false);
+        }
+    }
+
+    public async unregisterTeam(tournamentId: number, teamId: number): Promise<{ success: boolean } | null> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            return await firstValueFrom<{ success: boolean }>(this.http.delete<{ success: boolean }>(`${this.API_URL}/${tournamentId}/register`, { body: { teamId } }));
+        } catch (err) {
+            this.errorState.set('Помилка відписки команди');
+            return null;
+        } finally {
+            this.loadingState.set(false);
+        }
+    }
+
+    public async getLeaderboard(tournamentId: number): Promise<LeaderboardEntry[]> {
+        this.loadingState.set(true);
+        this.errorState.set(null);
+        try {
+            return await firstValueFrom<LeaderboardEntry[]>(this.http.get<LeaderboardEntry[]>(`${this.API_URL}/${tournamentId}/leaderboard`));
+        } catch (err) {
+            this.errorState.set('Помилка завантаження турнірної таблиці');
+            return [];
+        } finally {
+            this.loadingState.set(false);
+        }
+    }
+
+    public async updateTournamentStatus(id: number, status: TournamentStatus): Promise<UpdateTournamentResponse | null> {
+        return this.updateTournament(id, { status });
+    }
+
+    public clearError(): void {
+        this.errorState.set(null);
     }
 }
