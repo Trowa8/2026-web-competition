@@ -1,3 +1,8 @@
+:root {
+    --color-primary: #e24b4a;
+    --color-disabled: #888;
+}
+
 * {
     margin: 0;
     padding: 0;
