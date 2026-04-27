@@ -1,3 +1,11 @@
+:host {
+  --button-color: var(--main-font-color);
+  --button-bg: var(--secondary-color);
+  --button-hover-color: var(--white-color);
+  --button-hover-bg: var(--main-color);
+  --button-disabled-color: var(--main-font-color);
+}
+
 button {
   position: relative;
   overflow: hidden;
@@ -6,7 +14,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 1 rem;
+  font-size: 1rem;
   letter-spacing: 0.02em;
   transition: all 0.2s ease;
   min-width: 140px;
@@ -15,39 +23,48 @@ button {
   justify-content: center;
   gap: 0.5rem;
 }
+
 button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
-.btn-primary:disabled:hover {
-  transform: scale(1);
-  filter: none;        
-  cursor: not-allowed;
-}
 
 .btn-primary {
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-white-color);
+  --button-color: var(--white-color);
+  --button-bg: var(--main-color);
+  --button-hover-bg: var(--main-hover-color);
+  background-color: var(--button-bg);
+  color: var(--button-color);
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
   transform: scale(1);
 }
+
 .btn-primary:active {
   transform: scale(0.98);
 }
 
+.btn-primary:disabled:hover {
+  transform: scale(1);
+  filter: none;
+  cursor: not-allowed;
+}
 .btn-secondary {
-  background-color: var(--btn-secondary-bg);
-  color: var(--btn-secondary-color);
+  --button-color: var(--main-font-color);
+  --button-bg: var(--secondary-color);
+  --button-hover-color: var(--white-color);
+  --button-fill-color: var(--main-color);
+  background-color: var(--button-bg);
+  color: var(--button-color);
   transition: color 0.2s ease;
   position: relative;
   z-index: 1;
-  transform:none;
+  transform: none;
 }
 
 .btn-secondary:hover {
-  color:var(--btn-white-color);
+  color: var(--button-hover-color);
 }
 
 .btn-secondary::before {
@@ -57,33 +74,29 @@ button:disabled {
   left: 0;
   width: 0;
   height: 100%;
-  background-color: var(--btn-primary-bg);
+  background-color: var(--button-fill-color);
   z-index: -1;
   transition: width 0.75s ease;
 }
 
-.btn-secondary:hover::before {
-  width: 100%;
-}
-
-.btn-secondary:disabled:hover::before {
-  width: 0;
-}
-
-.btn-secondary:disabled:hover {
-  color: var(--btn-secondary-color);
-}
-
+.btn-secondary:hover::before{ width: 100%; }
+.btn-secondary:disabled:hover::before { width: 0; }
+.btn-secondary:disabled:hover{ color: var(--button-color); }
 .btn-outline {
-  background: transparent;
-  border: var(--btn-outline-border);
+  --button-border-color: var(--outline-border-color);
+  border: 1px solid var(--button-border-color);
   color: inherit;
-  transform:none;
+  transform: none;
 }
 
 .btn-leave {
-  background-color: var(--btn-secondary-bg);
-  color: var(--btn-secondary-color);
+  --button-color: var(--main-font-color);
+  --button-bg: var(--secondary-color);
+  --button-hover-color: var(--white-color);
+  --button-fill-color: var(--danger-color);
+
+  background-color: var(--button-bg);
+  color: var(--button-color);
   transition: color 0.25s ease;
   position: relative;
   z-index: 1;
@@ -91,7 +104,7 @@ button:disabled {
 }
 
 .btn-leave:hover {
-  color: var(--btn-white-color);
+  color: var(--button-hover-color);
 }
 
 .btn-leave::before {
@@ -101,12 +114,9 @@ button:disabled {
   left: -100%;
   width: 0;
   height: 100%;
-  background-color: var(--btn-leave-hover-color);
+  background-color: var(--button-fill-color);
   z-index: -1;
   transition: width 0.45s ease;
 }
 
-.btn-leave:hover::before {
-  width: 220%;
-}
-
+.btn-leave:hover::before { width: 220%; }

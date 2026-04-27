@@ -1,17 +1,14 @@
-:root{
-  --btn-primary-bg: #7670e8;
-  --btn-primary-hover-bg: #5a5cd8;
-  --btn-white-color: #ffffff;
-  --btn-leave-hover-color:#ff0000;
-  --btn-secondary-color: #111827;
-  --color-accent: #4338ca;
-  --btn-secondary-bg: #e5e7eb;
-  --btn-outline-border: 1px solid currentColor;
-  --link-color:#e94560;
-
+:root {
+  --white-color: #ffffff;
+  --main-color: #7670e8;
+  --main-hover-color: #5a5cd8;
+  --danger-color: #ff0000;
+  --main-font-color: #111827;
+  --accent-color: #4338ca;
+  --secondary-color: #e5e7eb;
+  --outline-border-color: #000000;
+  --link-color: #e94560;
   --bg-gradient: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
-  --panel-shadow: 0 28px 80px rgba(15, 23, 42, 0.08);
-
 }
 * {
     margin: 0;

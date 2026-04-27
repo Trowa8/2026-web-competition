@@ -1,8 +1,17 @@
 <button
   [disabled]="disabled()"
-  [class]="'btn-' + color() + ' ' + variant()"
+  class="button"
+  [ngClass]="{
+  'btn-primary':   color() === 'primary',
+  'btn-secondary': color() === 'secondary',
+  'btn-outline':   color() === 'outline',
+  'btn-leave':     color() === 'leave',
+  'btn-outline-variant': variant() === 'outline',
+  'btn-ghost-variant':   variant() === 'ghost'
+}"
   (click)="onClick.emit()"
 >
-  <ng-content></ng-content>
-  {{ text() }}
+<ng-content select="[iconLeftSlot]"></ng-content>
+<ng-content select="[labelSlot]"></ng-content>
+<ng-content select="[iconRightSlot]"></ng-content>  {{ text() }}
 </button>
