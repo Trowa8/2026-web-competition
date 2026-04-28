@@ -1,39 +1,58 @@
-<div class="login-container">
-    <div class="login-card">
-        <h2>Ласкаво просимо!</h2>
-        <p>Увійдіть у свій акаунт</p>
+<div class="login-page">
+  <div class="login-card">
 
-        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" [(ngModel)]="credentials.email" name="email" required #email="ngModel"
-                    class="form-control" placeholder="your@email.com">
-                @if (email.invalid && email.touched) {
-                <div class="error-message">Введіть коректний email</div>
-                }
-            </div>
-
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" [(ngModel)]="credentials.password" name="password" required minlength="6"
-                    #password="ngModel" class="form-control" placeholder="********">
-                @if (password.invalid && password.touched) {
-                <div class="error-message">Пароль має бути не менше 6 символів</div>
-                }
-            </div>
-
-            @if (errorMessage) {
-            <div class="error-message">{{ errorMessage }}</div>
-            }
-
-            <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-login">
-                @if (isLoading) {
-                Завантаження...
-                } @else {
-                Увійти
-                }
-            </button>
-
-        </form>
+    <div class="login-card__header">
+      <div class="login-card__logo">
+        <span class="login-card__logo-text">Name</span>
+      </div>
+      <h1 class="login-card__title">Вхід до акаунту</h1>
     </div>
+
+    <form class="login-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="login-card__fields">
+        <ui-input
+          label="Email"
+          type="email"
+          placeholder="you@gamehub.gg"
+          [value]="form.get('email')?.value ?? ''"
+          (valueChange)="form.get('email')?.setValue($event)"
+          [error]="emailError"
+          [required]="true"
+        />
+
+        <ui-input
+          label="Пароль"
+          type="password"
+          placeholder="Введіть пароль"
+          [value]="form.get('password')?.value ?? ''"
+          [error]="passwordError"
+          [required]="true"
+        />
+      </div>
+
+      <div class="login-card__forgot">
+        <a routerLink="/auth/forgot-password" class="login-card__link">Забули пароль?</a>
+      </div>
+
+      <ui-button
+        type="submit"
+        text="Увійти"
+        color="primary"
+        [IsFullWidth]="true"
+        align="center"
+        variant="solid"
+      />
+    </form>
+
+    <div class="login-card__divider">
+      <span>або</span>
+    </div>
+
+    <div class="login-card__footer">
+      <span class="login-card__footer-text">Ще немає акаунту?</span>
+      <a routerLink="/auth/register" class="login-card__link login-card__link--accent">
+        Зареєструватись
+      </a>
+    </div>
+  </div>
 </div>

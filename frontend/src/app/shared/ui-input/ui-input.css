@@ -205,11 +205,11 @@
 .input-icon--suffix { right: var(--padding-x); }
 
 .input-field-wrapper:has(.input-icon--prefix) .input-field {
-  padding-left: calc(var(--padding-x) + var(--icon-size) + 6px);
+  padding-left: 35px;
 }
 
 .input-field-wrapper:has(.input-icon--suffix) .input-field {
-  padding-right: calc(var(--padding-x) + var(--icon-size) + 6px);
+  padding-right: 35px;
 }
 
 .input-toggle-btn {

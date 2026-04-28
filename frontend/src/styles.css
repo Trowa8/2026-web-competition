@@ -10,6 +10,16 @@
   --color-icon: #71717a;
   --color-required: #f43f5e;
 
+
+  --main-color: #6366f1;
+  --main-hover-color: #4f46e5;
+  --secondary-color: #e5e7eb;
+  --main-font-color: #18181b;
+  --outline-border-color: #d4d4d8;
+
+
+
+
   /* Focus */
   --color-focus-border: #6366f1;
   --color-focus-ring: rgba(99, 102, 241, 0.22);
@@ -43,21 +53,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f5f5;
+    background: #ebe8c4;
     
 }
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
 .nav-link {
     cursor: pointer;
+
 }
 
 .nav-link.active {
-    background:var(--link-color);
     border-radius: 8px;
 }

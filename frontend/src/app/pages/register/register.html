@@ -1,0 +1,90 @@
+<div class="register-page">
+  <div class="register-card">
+
+    <div class="register-card__header">
+      <div class="register-card__logo">
+        <span class="register-card__logo-text">Name</span>
+      </div>
+      <h1 class="register-card__title">Створити акаунт</h1>
+    </div>
+
+    <form class="register-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="register-card__fields">
+
+        <ui-input
+          label="Нікнейм"
+          type="text"
+          placeholder="ProGamer2025"
+          [value]="form.get('username')?.value ?? ''"
+          (valueChange)="form.get('username')?.setValue($event)"
+          [error]="usernameError"
+          [required]="true"
+          icon="fa-user"
+        />
+        <ui-input
+            label="Номер телефону"
+            type="tel"
+            placeholder="+380 67 123 45 67"
+            [value]="form.get('phone')?.value ?? ''"
+            (valueChange)="form.get('phone')?.setValue($event)"
+            [required]="true"
+            icon="fa-phone"
+         />
+        <ui-input
+          label="Email"
+          type="email"
+          placeholder="you@gamehub.gg"
+          [value]="form.get('email')?.value ?? ''"
+          (valueChange)="form.get('email')?.setValue($event)"
+          [error]="emailError"
+          [required]="true"
+          icon="fa-envelope"
+        />
+
+        <ui-input
+          label="Пароль"
+          type="password"
+          placeholder="Мінімум 6 символів"
+          [value]="form.get('password')?.value ?? ''"
+          (valueChange)="form.get('password')?.setValue($event)"
+          [error]="passwordError"
+          [required]="true"
+          hint="Використовуй літери, цифри та символи"
+          icon="fa-lock"
+        />
+
+        <ui-input
+          label="Підтвердити пароль"
+          type="password"
+          placeholder="Повтори пароль"
+          [value]="form.get('confirmPassword')?.value ?? ''"
+          (valueChange)="form.get('confirmPassword')?.setValue($event)"
+          [error]="confirmPasswordError"
+          [required]="true"
+          icon="fa-lock"
+        />
+
+      </div>
+      <ui-button
+        type="submit"
+        text="Зареєструватись"
+        color="primary"
+        [IsFullWidth]="true"
+        align="center"
+        variant="solid"
+      />
+    </form>
+
+    <div class="register-card__divider">
+      <span>або</span>
+    </div>
+
+    <div class="register-card__footer">
+      <span class="register-card__footer-text">Вже є акаунт?</span>
+      <a routerLink="/auth/login" class="register-card__link register-card__link--accent">
+        Увійти
+      </a>
+    </div>
+
+  </div>
+</div>

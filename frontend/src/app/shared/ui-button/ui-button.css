@@ -1,7 +1,7 @@
 :host {
   --button-color: var(--main-font-color);
   --button-bg: var(--secondary-color);
-  --button-hover-color: var(--white-color);
+  --button-hover-color: var(--color-white);
   --button-hover-bg: var(--main-color);
   --button-disabled-color: var(--main-font-color);
 }
@@ -30,7 +30,7 @@ button:disabled {
 }
 
 .btn-primary {
-  --button-color: var(--white-color);
+  --button-color: var(--color-white);
   --button-bg: var(--main-color);
   --button-hover-bg: var(--main-hover-color);
   background-color: var(--button-bg);
@@ -53,7 +53,7 @@ button:disabled {
 .btn-secondary {
   --button-color: var(--main-font-color);
   --button-bg: var(--secondary-color);
-  --button-hover-color: var(--white-color);
+  --button-hover-color: var(--color-white);
   --button-fill-color: var(--main-color);
   background-color: var(--button-bg);
   color: var(--button-color);
@@ -93,7 +93,7 @@ button:disabled {
   --button-color: var(--main-font-color);
   --button-bg: var(--secondary-color);
   --button-hover-color: var(--white-color);
-  --button-fill-color: var(--danger-color);
+  --button-fill-color: var(--color-error-border)  ;
 
   background-color: var(--button-bg);
   color: var(--button-color);

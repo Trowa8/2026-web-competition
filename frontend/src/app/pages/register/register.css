@@ -1,0 +1,146 @@
+:host {
+  --card-max-width: 440px;
+  --card-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--color-fill);
+  background-image:
+    radial-gradient(circle at 80% 10%, rgba(216, 109, 63, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 20% 90%, rgba(99, 249, 199, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(52, 55, 221, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 30% 30%, rgba(16, 230, 158, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(220, 40, 130, 0.06) 0%, transparent 50%);
+}
+
+.register-card {
+  width: 100%;
+  max-width: var(--card-max-width);
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: var(--card-shadow);
+  animation: slideUp 0.35s ease both;
+}
+
+.register-card__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.register-card__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.register-card__logo-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.register-card__logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.register-card__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.register-card__subtitle {
+  font-size: 14px;
+  color: var(--color-text-label);
+  margin: 0;
+}
+
+.register-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.register-card__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.register-card__terms {
+  font-size: 12px;
+  color: var(--color-grey);
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+}
+
+.register-card__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--color-grey);
+  font-size: 13px;
+}
+
+.register-card__divider::before,
+.register-card__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-default);
+}
+
+.register-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.register-card__footer-text {
+  color: var(--color-text-label);
+}
+
+.register-card__link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-color);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.register-card__link:hover {
+  color: var(--main-hover-color);
+  text-decoration: underline;
+}
+
+.register-card__link--accent {
+  font-weight: 700;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

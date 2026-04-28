@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MainLayout } from '../../layouts/main-layout/main-layout';
+import { AuthLayout } from '../../layout/auth-layout/auth-layout';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, RouterModule, MainLayout],
+  imports: [CommonModule, RouterModule,   AuthLayout],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })

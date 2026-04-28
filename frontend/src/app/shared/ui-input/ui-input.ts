@@ -25,21 +25,20 @@ export type InputStatus  = 'default' | 'success' | 'error' | 'warning';
   styleUrls: ['./ui-input.css'],
 })
 export class UiInputComponent {
-  // Вхідні параметри
-  public readonly label: InputSignal<string>         = input<string>('');
-  public readonly placeholder: InputSignal<string>   = input<string>('');
-  public readonly type: InputSignal<InputType>       = input<InputType>('text');
+  public readonly label: InputSignal<string> = input<string>('');
+  public readonly placeholder: InputSignal<string> = input<string>('');
+  public readonly type: InputSignal<InputType> = input<InputType>('text');
   public readonly variant: InputSignal<InputVariant> = input<InputVariant>('default');
-  public readonly size: InputSignal<InputSize>       = input<InputSize>('md');
-  public readonly hint: InputSignal<string>          = input<string>('');
-  public readonly error: InputSignal<string>         = input<string>('');
-  public readonly required: InputSignal<boolean>     = input<boolean>(false);
-  public readonly disabled: InputSignal<boolean>     = input<boolean>(false);
-  public readonly icon: InputSignal<string>          = input<string>('');
+  public readonly size: InputSignal<InputSize> = input<InputSize>('md');
+  public readonly hint: InputSignal<string> = input<string>('');
+  public readonly error: InputSignal<string> = input<string>('');
+  public readonly required: InputSignal<boolean> = input<boolean>(false);
+  public readonly disabled: InputSignal<boolean> = input<boolean>(false);
+  public readonly icon: InputSignal<string> = input<string>('');
 
   // Двостороннє зв'язування
   public readonly status: ModelSignal<InputStatus> = model<InputStatus>('default');
-  public readonly value: ModelSignal<string>       = model.required<string>();
+  public readonly value: ModelSignal<string> = model.required<string>();
 
   // Посилання на DOM-елемент інпута через #input у шаблоні
   protected readonly inputRef: Signal<ElementRef<HTMLInputElement>> =
@@ -97,8 +96,6 @@ export class UiInputComponent {
   public blurInput(): void {
     this.inputRef().nativeElement.blur();
   }
-
-  // Обробка вводу з урахуванням типу
   protected handleInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     let val = input.value;
