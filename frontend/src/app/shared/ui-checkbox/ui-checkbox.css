@@ -1,0 +1,27 @@
+:host {
+    --checkbox-gap: 10px;
+    --checkbox-outline-width: 1.5px;
+    --checkbox-outline-offset: 1px;
+    display: block;
+    font-family: sans-serif;
+}
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--checkbox-gap);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    color: var(--color-disabled);
+}
+
+.checkbox.is-error {
+    accent-color: var(--color-primary);
+    outline: var(--checkbox-outline-width) solid var(--color-primary);
+    outline-offset: var(--checkbox-outline-offset);
+}

@@ -1,0 +1,11 @@
+<label class="checkbox" [class.is-error]="isError()" [class.is-disabled]="isDisabled()" [for]="inputId">
+    <input
+        type="checkbox"
+        [id]="inputId"
+        name="option"
+        [checked]="checked()"
+        [disabled]="isDisabled()"
+        (change)="toggle()"
+    />
+    {{ label() }}
+</label>

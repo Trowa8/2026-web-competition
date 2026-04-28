@@ -1,3 +1,8 @@
+:root {
+    --color-primary: #e24b4a;
+    --color-disabled: #888;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +10,7 @@
 }
 
 body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     background: #f5f7fa;
 }
 
