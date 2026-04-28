@@ -1,8 +1,8 @@
-"""Final Polish
+"""Added Cascades
 
-Revision ID: 2bcd3188be35
-Revises: c1230d3d72e8
-Create Date: 2026-04-25 20:48:57.369337
+Revision ID: 9f8eca86f06e
+Revises: 6767f5ba2832
+Create Date: 2026-04-28 23:17:37.105119
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '2bcd3188be35'
-down_revision: Union[str, Sequence[str], None] = 'c1230d3d72e8'
+revision: str = '9f8eca86f06e'
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -68,7 +68,7 @@ def upgrade() -> None:
     sa.Column('deadline', sa.DateTime(timezone=True), nullable=False),
     sa.Column('tournament_id', sa.String(length=36), nullable=False),
     sa.Column('max_mark', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ),
+    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('tournament_participation',
@@ -81,7 +81,7 @@ def upgrade() -> None:
     sa.Column('total_score', sa.Integer(), nullable=True),
     sa.CheckConstraint("status IN ('registered', 'approved', 'disqualified', 'finished', 'withdrawn')", name='ck_tournament_participation_status'),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'], ),
-    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ),
+    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('team_id', 'tournament_id', name='uq_tournament_participation'),
     sa.UniqueConstraint('tournament_id', 'place', name='uq_leaderboard_tournament_place')
@@ -91,7 +91,7 @@ def upgrade() -> None:
     sa.Column('team_id', sa.String(length=36), nullable=False),
     sa.Column('task_id', sa.String(length=36), nullable=False),
     sa.Column('file', sa.String(length=255), nullable=False),
-    sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ),
+    sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -104,9 +104,9 @@ def upgrade() -> None:
     sa.Column('user_name', sa.String(length=64), nullable=False),
     sa.CheckConstraint("(role = 'participant' AND tournament_participation_id IS NOT NULL) OR (role != 'participant' AND tournament_participation_id IS NULL)", name='ck_tur_participant_needs_team'),
     sa.CheckConstraint("role IN ('participant', 'judge', 'organizer')", name='ck_tur_role'),
-    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ),
-    sa.ForeignKeyConstraint(['tournament_participation_id'], ['tournament_participation.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['tournament_id'], ['tournaments.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['tournament_participation_id'], ['tournament_participation.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('user_id', 'tournament_id', name='uq_tur_user_tournament')
     )
@@ -115,8 +115,8 @@ def upgrade() -> None:
     sa.Column('score', sa.Integer(), nullable=False),
     sa.Column('judge_id', sa.String(length=36), nullable=False),
     sa.Column('solution_id', sa.String(length=36), nullable=False),
-    sa.ForeignKeyConstraint(['judge_id'], ['tournament_user_role.id'], ),
-    sa.ForeignKeyConstraint(['solution_id'], ['solutions.id'], ),
+    sa.ForeignKeyConstraint(['judge_id'], ['tournament_user_role.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['solution_id'], ['solutions.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('solution_id', 'judge_id', name='uq_mark_solution_judge')
     )

@@ -19,12 +19,12 @@ class TournamentUserRole(Base):
     )
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
-    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
-    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id"), nullable=False)
-    tournament_participation_id: Mapped[Optional[str]] = mapped_column(String(36), ForeignKey("tournament_participation.id"), nullable=True)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id", ondelete="CASCADE"), nullable=False)
+    tournament_participation_id: Mapped[Optional[str]] = mapped_column(String(36), ForeignKey("tournament_participation.id", ondelete="CASCADE"), nullable=True)
     role: Mapped[str] = mapped_column(String(36), nullable=False)
     user_name: Mapped[str] = mapped_column(String(64), nullable=False)
-
+ 
     user: Mapped["User"] = relationship(back_populates="tournament_roles")
     tournament: Mapped["Tournament"] = relationship(back_populates="user_roles")
     tournament_participation: Mapped[Optional["TournamentParticipation"]] = relationship(back_populates="participants")
