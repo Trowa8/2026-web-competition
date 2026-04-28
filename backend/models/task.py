@@ -12,8 +12,8 @@ class Task(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     deadline: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id"), nullable=False)
+    tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id", ondelete="CASCADE"), nullable=False)
     max_mark: Mapped[int] = mapped_column(Integer, nullable=False)
-
+ 
     tournament: Mapped["Tournament"] = relationship(back_populates="tasks")
-    solutions: Mapped[List["Solution"]] = relationship(back_populates="task")
+    solutions: Mapped[List["Solution"]] = relationship(back_populates="task", cascade="all, delete-orphan")

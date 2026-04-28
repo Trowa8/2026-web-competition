@@ -20,4 +20,4 @@ class User(Base):
     joined_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
     team: Mapped[Optional["Team"]] = relationship(back_populates="members", foreign_keys=[team_id])
-    tournament_roles: Mapped[List["TournamentUserRole"]] = relationship(back_populates="user")
+    tournament_roles: Mapped[List["TournamentUserRole"]] = relationship(back_populates="user", passive_deletes=True)
