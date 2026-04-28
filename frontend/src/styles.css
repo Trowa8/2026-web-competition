@@ -58,6 +58,6 @@ body {
 }
 
 .nav-link.active {
-    background: #e94560;
+    background:var(--link-color);
     border-radius: 8px;
 }
