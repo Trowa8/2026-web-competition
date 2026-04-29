@@ -17,6 +17,7 @@ export type InputType    = 'text' | 'email' | 'password' | 'number' | 'search' |
 export type InputVariant = 'default' | 'filled' | 'ghost';
 export type InputSize    = 'sm' | 'md' | 'lg';
 export type InputStatus  = 'default' | 'success' | 'error' | 'warning';
+export type InputAlign   = 'left' | 'center' | 'right';
 
 @Component({
   selector: 'ui-input',
@@ -45,7 +46,7 @@ export class UiInputComponent {
     viewChild.required<ElementRef<HTMLInputElement>>('input');
 
   // Локальні змінні
-  protected readonly isFocused: WritableSignal<boolean>    = signal(false);
+  protected readonly isFocused: WritableSignal<boolean> = signal(false);
   protected readonly showPassword: WritableSignal<boolean> = signal(false);
   protected readonly inputId: string = `ui-input-${Math.random().toString(36).slice(2, 8)}`;
 

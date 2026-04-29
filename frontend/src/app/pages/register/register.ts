@@ -36,8 +36,9 @@ export class RegisterComponent {
       {
         username: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?!.*\s)(?=.*[\p{L}])(?=.*\d)(?=.*[!@#$%^&*]).*$/u)]],
         confirmPassword: ['', Validators.required],
+        phone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
       },
       { validators: passwordMatchValidator },
     );
@@ -61,9 +62,17 @@ export class RegisterComponent {
 
   get passwordError(): string {
     const ctrl = this.form.get('password');
+    const val = ctrl?.value || '';
     if (!ctrl?.touched || !ctrl.errors) return '';
     if (ctrl.errors['required']) return 'Пароль обов\'язковий';
     if (ctrl.errors['minlength']) return 'Мінімум 6 символів';
+
+    if (ctrl.errors['pattern']) {
+      if (/\s/.test(val)) return 'Пароль не має містити пробілів';
+      if (!/\p{L}/u.test(val)) return 'Дoдайте хоча б одну літеру';
+      if (!/[0-9]/.test(val)) return 'Дoдайте хоча б одну цифру';
+      if (!/[!@#$%^&*]/.test(val)) return 'Дoдайте спецсимвол';
+    }
     return '';
   }
 
@@ -74,6 +83,12 @@ export class RegisterComponent {
     if (this.form.errors?.['passwordMismatch']) return 'Паролі не збігаються';
     return '';
   }
+  get phoneError(): string {
+    const ctrl = this.form.get('phone');
+    if (!ctrl?.touched || !ctrl.errors) return '';
+    if (ctrl.errors['required']) return 'Номер телефону обов\'язковий';
+    return '';
+  }
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) {
@@ -82,7 +97,6 @@ export class RegisterComponent {
     }
     this.isLoading = true;
     try {
-      // TODO: auth service
       await new Promise(r => setTimeout(r, 1000));
       this.router.navigate(['/home']);
     } finally {

@@ -18,6 +18,7 @@
           (valueChange)="form.get('email')?.setValue($event)"
           [error]="emailError"
           [required]="true"
+          fa-icon="fa-envelope"
         />
 
         <ui-input
@@ -25,8 +26,10 @@
           type="password"
           placeholder="Введіть пароль"
           [value]="form.get('password')?.value ?? ''"
+          (valueChange)="form.get('password')?.setValue($event)"
           [error]="passwordError"
           [required]="true"
+          fa-icon="fa-lock"
         />
       </div>
 

@@ -29,7 +29,7 @@
             (valueChange)="form.get('phone')?.setValue($event)"
             [required]="true"
             icon="fa-phone"
-         />
+            [error]="phoneError"         />
         <ui-input
           label="Email"
           type="email"
