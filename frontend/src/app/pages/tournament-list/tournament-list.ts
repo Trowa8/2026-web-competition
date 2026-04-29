@@ -6,7 +6,7 @@ import { Component, signal } from '@angular/core';
   templateUrl: './tournament-list.html',
   styleUrls: ['./tournament-list.css'],
 })
-export class TournamentListComponent {
+export class TournamentList {
   searchTerm = signal('');
 
   tournaments = signal([
