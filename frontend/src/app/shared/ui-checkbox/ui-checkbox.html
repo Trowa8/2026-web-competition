@@ -1,7 +1,6 @@
-<label class="checkbox" [class.is-error]="isError()" [class.is-disabled]="isDisabled()" [for]="inputId">
+<label class="checkbox" [class.is-error]="isError()" [class.is-disabled]="isDisabled()">
     <input
         type="checkbox"
-        [id]="inputId"
         name="option"
         [checked]="checked()"
         [disabled]="isDisabled()"

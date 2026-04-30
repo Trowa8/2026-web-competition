@@ -1,4 +1,4 @@
-import { Component, InputSignal, output, input, signal, model } from "@angular/core";
+import { Component, InputSignal, output, input, signal, model,ModelSignal } from "@angular/core";
 
 let nextId = 0;
 @Component({
@@ -9,7 +9,7 @@ let nextId = 0;
 })
 export class UiCheckbox {
     public readonly label: InputSignal<string> = input("Option");
-    public readonly checked = model<boolean>(false);
+    public readonly checked: ModelSignal<boolean> = model<boolean>(false);
     public readonly isError: InputSignal<boolean> = input(false);
     public readonly isDisabled: InputSignal<boolean> = input(false);
     readonly inputId = `ui-checkbox-${nextId++}`;
