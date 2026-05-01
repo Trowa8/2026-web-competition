@@ -1,14 +1,18 @@
+<<<<<<< HEAD
 export type TeamMember = {
     userId: number;
     role: 'captain' | 'member';
     joinedAt: string;
 };
 
+=======
+>>>>>>> main
 export type Team = {
     teamId: number;
     name: string;
     description: string;
     ownerId: number;
+<<<<<<< HEAD
     members: TeamMember[];
     createdAt: string;
     updatedAt?: string;
@@ -62,6 +66,8 @@ export type GetTeamResponse = {
     name: string;
     description: string;
     ownerId: number;
+=======
+>>>>>>> main
     members: { userId: number; role: string; joinedAt: string }[];
     createdAt: string;
 };

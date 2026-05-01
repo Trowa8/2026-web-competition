@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-<div class="tournament-detail-container">
-    <div class="breadcrumb">
-        <a routerLink="/">Головна</a> / <a routerLink="/tournaments">Турніри</a> / <span>{{ tournament().name }}</span>
-    </div>
-
-    <div class="tournament-header">
-        <div class="header-left">
-            <div class="tournament-icon">🏆</div>
-            <div class="header-info">
-                <h1>{{ tournament().name }}</h1>
-                <div class="status-wrapper">
-                    <span [class]="getStatusClass(tournament().status)">
-                        {{ getStatusText(tournament().status) }}
-                    </span>
-                </div>
-=======
 <div class="detail-container">
     <div class="breadcrumb">
         <a routerLink="/">Головна</a> /
@@ -28,30 +11,11 @@
             <div class="header-info">
                 <h1>{{ tournament.name }}</h1>
                 <span [class]="getStatusClass(tournament.status)">{{ getStatusText(tournament.status) }}</span>
->>>>>>> main
             </div>
         </div>
         <button class="btn-register">Зареєструвати команду</button>
     </div>
 
-<<<<<<< HEAD
-    <div class="tournament-content">
-        <div class="content-main">
-            <div class="info-card">
-                <h2>Про турнір</h2>
-                <p class="description">{{ tournament().description }}</p>
-            </div>
-
-            <!-- Деталі -->
-            <div class="info-card">
-                <h2>Деталі турніру</h2>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <span class="detail-icon">📅</span>
-                        <div class="detail-info">
-                            <span class="detail-label">Дата початку</span>
-                            <span class="detail-value">{{ tournament().startDate }}</span>
-=======
     <div class="detail-content">
         <div class="content-main">
             <div class="info-card">
@@ -67,72 +31,41 @@
                         <div>
                             <div class="detail-label">Дата початку</div>
                             <div class="detail-value">{{ tournament.startDate }}</div>
->>>>>>> main
                         </div>
                     </div>
                     <div class="detail-item">
                         <span class="detail-icon">📅</span>
-<<<<<<< HEAD
-                        <div class="detail-info">
-                            <span class="detail-label">Дата завершення</span>
-                            <span class="detail-value">{{ tournament().endDate }}</span>
-=======
                         <div>
                             <div class="detail-label">Дата завершення</div>
                             <div class="detail-value">{{ tournament.endDate }}</div>
->>>>>>> main
                         </div>
                     </div>
                     <div class="detail-item">
                         <span class="detail-icon">⏰</span>
-<<<<<<< HEAD
-                        <div class="detail-info">
-                            <span class="detail-label">Дедлайн реєстрації</span>
-                            <span class="detail-value">{{ tournament().registrationDeadline }}</span>
-=======
                         <div>
                             <div class="detail-label">Дедлайн реєстрації</div>
                             <div class="detail-value">{{ tournament.registrationDeadline }}</div>
->>>>>>> main
                         </div>
                     </div>
                     <div class="detail-item">
                         <span class="detail-icon">📍</span>
-<<<<<<< HEAD
-                        <div class="detail-info">
-                            <span class="detail-label">Місце проведення</span>
-                            <span class="detail-value">{{ tournament().location }}</span>
-=======
                         <div>
                             <div class="detail-label">Місце</div>
                             <div class="detail-value">{{ tournament.location }}</div>
->>>>>>> main
                         </div>
                     </div>
                     <div class="detail-item">
                         <span class="detail-icon">🎮</span>
-<<<<<<< HEAD
-                        <div class="detail-info">
-                            <span class="detail-label">Гра</span>
-                            <span class="detail-value">{{ tournament().gameType }}</span>
-=======
                         <div>
                             <div class="detail-label">Гра</div>
                             <div class="detail-value">{{ tournament.gameType }}</div>
->>>>>>> main
                         </div>
                     </div>
                     <div class="detail-item">
                         <span class="detail-icon">💰</span>
-<<<<<<< HEAD
-                        <div class="detail-info">
-                            <span class="detail-label">Призовий фонд</span>
-                            <span class="detail-value highlight">{{ tournament().prizePool }}</span>
-=======
                         <div>
                             <div class="detail-label">Призовий фонд</div>
                             <div class="detail-value prize">{{ tournament.prizePool }}</div>
->>>>>>> main
                         </div>
                     </div>
                 </div>
@@ -142,48 +75,14 @@
                 <h2>Команди-учасниці</h2>
                 <div class="teams-progress">
                     <div class="progress-stats">
-<<<<<<< HEAD
-                        <span>{{ tournament().registeredTeams }} / {{ tournament().maxTeams }} команд</span>
-                        <span>{{ (tournament().registeredTeams / tournament().maxTeams) * 100 }}%</span>
-=======
                         <span>{{ tournament.registeredTeams }} / {{ tournament.maxTeams }} команд</span>
                         <span>{{ getProgressWidth() }}%</span>
->>>>>>> main
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" [style.width.%]="getProgressWidth()"></div>
                     </div>
                 </div>
                 <div class="teams-list">
-<<<<<<< HEAD
-                    <div class="team-item">
-                        <span class="team-icon">👥</span>
-                        <span>Team Alpha</span>
-                    </div>
-                    <div class="team-item">
-                        <span class="team-icon">👥</span>
-                        <span>Team Beta</span>
-                    </div>
-                    <div class="team-item">
-                        <span class="team-icon">👥</span>
-                        <span>Team Gamma</span>
-                    </div>
-                    <div class="team-item">
-                        <span class="team-icon">👥</span>
-                        <span>Team Delta</span>
-                    </div>
-                    <div class="team-item">
-                        <span class="team-icon">👥</span>
-                        <span>+ ще 4 команд</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h2>Правила турніру</h2>
-                <p class="rules">{{ tournament().rules }}</p>
-            </div>
-=======
                     <div class="team-item">👥 Team Alpha</div>
                     <div class="team-item">👥 Team Beta</div>
                     <div class="team-item">👥 Team Gamma</div>
@@ -191,7 +90,6 @@
                     <div class="team-item">+ ще 4 команд</div>
                 </div>
             </div>
->>>>>>> main
         </div>
 
         <div class="content-sidebar">
@@ -204,11 +102,7 @@
 
             <div class="info-card-small">
                 <h3>Організатор</h3>
-<<<<<<< HEAD
-                <p>{{ tournament().organizer }}</p>
-=======
                 <p>{{ tournament.organizer }}</p>
->>>>>>> main
             </div>
 
             <div class="info-card-small">

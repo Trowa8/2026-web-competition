@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-.tournament-detail-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 32px 24px;
-}
-
-.breadcrumb {
-    margin-bottom: 24px;
-=======
 .detail-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -16,7 +6,6 @@
 
 .breadcrumb {
     margin-bottom: 20px;
->>>>>>> main
     font-size: 14px;
     color: #666;
 }
@@ -30,19 +19,6 @@
     text-decoration: underline;
 }
 
-<<<<<<< HEAD
-.breadcrumb span {
-    color: #333;
-}
-
-.tournament-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-    gap: 20px;
-=======
 .detail-header {
     display: flex;
     justify-content: space-between;
@@ -50,7 +26,6 @@
     margin-bottom: 30px;
     flex-wrap: wrap;
     gap: 15px;
->>>>>>> main
 }
 
 .header-left {
@@ -60,17 +35,10 @@
 }
 
 .tournament-icon {
-<<<<<<< HEAD
-    font-size: 64px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    width: 80px;
-    height: 80px;
-=======
     font-size: 50px;
     width: 70px;
     height: 70px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
->>>>>>> main
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -78,31 +46,8 @@
 }
 
 .header-info h1 {
-<<<<<<< HEAD
-    font-size: 32px;
-    margin: 0 0 8px 0;
-    color: #1a1a2e;
-}
-
-.btn-register {
-    padding: 14px 32px;
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-register:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-=======
     margin: 0 0 8px 0;
     font-size: 28px;
->>>>>>> main
 }
 
 .status {
@@ -110,15 +55,6 @@
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 12px;
-<<<<<<< HEAD
-    font-weight: 500;
-}
-
-.status-draft {
-    background: #e0e0e0;
-    color: #666;
-=======
->>>>>>> main
 }
 
 .status-registration {
@@ -136,17 +72,6 @@
     color: #383d41;
 }
 
-<<<<<<< HEAD
-.status-cancelled {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.tournament-content {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 32px;
-=======
 .btn-register {
     padding: 12px 24px;
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
@@ -161,28 +86,10 @@
     display: grid;
     grid-template-columns: 1fr 320px;
     gap: 30px;
->>>>>>> main
 }
 
 .info-card {
     background: white;
-<<<<<<< HEAD
-    border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.info-card h2 {
-    font-size: 20px;
-    margin: 0 0 16px 0;
-    color: #333;
-}
-
-.description {
-    line-height: 1.6;
-    color: #555;
-=======
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
@@ -192,17 +99,12 @@
 .info-card h2 {
     margin: 0 0 15px 0;
     font-size: 18px;
->>>>>>> main
 }
 
 .details-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-<<<<<<< HEAD
-    gap: 20px;
-=======
     gap: 15px;
->>>>>>> main
 }
 
 .detail-item {
@@ -215,14 +117,6 @@
     font-size: 24px;
 }
 
-<<<<<<< HEAD
-.detail-info {
-    display: flex;
-    flex-direction: column;
-}
-
-=======
->>>>>>> main
 .detail-label {
     font-size: 12px;
     color: #999;
@@ -230,39 +124,22 @@
 
 .detail-value {
     font-weight: 500;
-<<<<<<< HEAD
-    color: #333;
-}
-
-.detail-value.highlight {
-=======
 }
 
 .prize {
->>>>>>> main
     color: #ffc107;
     font-weight: 600;
 }
 
 .teams-progress {
-<<<<<<< HEAD
-    margin-bottom: 20px;
-=======
     margin-bottom: 15px;
->>>>>>> main
 }
 
 .progress-stats {
     display: flex;
     justify-content: space-between;
-<<<<<<< HEAD
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #666;
-=======
     margin-bottom: 5px;
     font-size: 13px;
->>>>>>> main
 }
 
 .progress-bar {
@@ -276,56 +153,11 @@
     height: 100%;
     background: linear-gradient(90deg, #28a745, #20c997);
     border-radius: 3px;
-<<<<<<< HEAD
-    transition: width 0.3s;
-=======
->>>>>>> main
 }
 
 .teams-list {
     display: flex;
     flex-wrap: wrap;
-<<<<<<< HEAD
-    gap: 12px;
-}
-
-.team-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-.team-icon {
-    font-size: 16px;
-}
-
-.rules {
-    line-height: 1.6;
-    color: #555;
-    margin: 0;
-}
-
-.content-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.action-card {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.action-card h3 {
-    margin: 0 0 16px 0;
-    font-size: 18px;
-=======
     gap: 10px;
 }
 
@@ -349,25 +181,15 @@
 .info-card-small h3 {
     margin: 0 0 15px 0;
     font-size: 16px;
->>>>>>> main
 }
 
 .btn-action {
     width: 100%;
-<<<<<<< HEAD
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: all 0.3s;
-=======
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 10px;
     font-weight: 500;
->>>>>>> main
 }
 
 .btn-primary {
@@ -376,43 +198,6 @@
     border: none;
 }
 
-<<<<<<< HEAD
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.btn-outline {
-    background: white;
-    border: 2px solid #e0e0e0;
-    color: #333;
-}
-
-.btn-outline:hover {
-    border-color: #667eea;
-    background: #f8f9fa;
-}
-
-.info-card-small {
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.info-card-small h3 {
-    margin: 0 0 12px 0;
-    font-size: 16px;
-}
-
-.info-card-small p {
-    margin: 0 0 8px 0;
-    color: #555;
-}
-
-@media (max-width: 900px) {
-    .tournament-content {
-=======
 .btn-outline {
     background: white;
     border: 1px solid #ddd;
@@ -426,7 +211,6 @@
 
 @media (max-width: 800px) {
     .detail-content {
->>>>>>> main
         grid-template-columns: 1fr;
     }
 
@@ -434,11 +218,7 @@
         grid-template-columns: 1fr;
     }
 
-<<<<<<< HEAD
-    .tournament-header {
-=======
     .detail-header {
->>>>>>> main
         flex-direction: column;
         text-align: center;
     }

@@ -7,20 +7,10 @@
     <div class="controls-bar">
         <div class="search-box">
             <span class="search-icon">🔍</span>
-<<<<<<< HEAD
-            <input type="text" [value]="searchTerm()" (input)="onSearch($event)"
-                placeholder="Пошук турнірів за назвою..." />
-        </div>
-        <button class="btn-create">
-            <span class="btn-icon">+</span>
-            Створити турнір
-        </button>
-=======
             <input type="text" [value]="searchTerm()" (input)="onSearch($any($event.target).value)"
                 placeholder="Пошук турнірів..." />
         </div>
         <button class="btn-create">+ Створити турнір</button>
->>>>>>> main
     </div>
 
     <div class="table-wrapper">
@@ -36,28 +26,6 @@
                 </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-                @for (tournament of filteredTournaments(); track tournament.id) {
-                <tr class="tournament-row">
-                    <td class="tournament-name">
-                        <span class="tournament-icon">🏆</span>
-                        <strong>{{ tournament.name }}</strong>
-                    </td>
-                    <td>
-                        <span [class]="getStatusClass(tournament.status)">
-                            {{ getStatusText(tournament.status) }}
-                        </span>
-                    </td>
-                    <td>{{ tournament.startDate }}</td>
-                    <td class="teams-cell">
-                        <div class="progress-bar">
-                            <div class="progress-fill"
-                                [style.width.%]="getProgressWidth(tournament.currentTeams, tournament.maxTeams)"></div>
-                        </div>
-                        <span>{{ tournament.currentTeams }}/{{ tournament.maxTeams }}</span>
-                    </td>
-                    <td class="prize">{{ tournament.prizePool }}</td>
-=======
                 @for (t of filteredTournaments; track t.id) {
                 <tr class="tournament-row">
                     <td class="tournament-name">
@@ -70,7 +38,6 @@
                     <td>{{ t.date }}</td>
                     <td class="teams-cell">{{ t.teams }}</td>
                     <td class="prize">{{ t.prize }}</td>
->>>>>>> main
                     <td>
                         <button class="btn-details">Детальніше</button>
                         <button class="btn-delete">Видалити</button>

@@ -52,19 +52,11 @@
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     font-size: 14px;
-<<<<<<< HEAD
-    transition: all 0.3s;
-=======
->>>>>>> main
 }
 
 .search-box input:focus {
     outline: none;
     border-color: #667eea;
-<<<<<<< HEAD
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-=======
->>>>>>> main
 }
 
 .btn-create {
@@ -75,18 +67,6 @@
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
-<<<<<<< HEAD
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-}
-
-.btn-create:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-=======
->>>>>>> main
 }
 
 .table-wrapper {
@@ -119,10 +99,6 @@
 
 .tournament-row:hover {
     background: #f8f9fa;
-<<<<<<< HEAD
-    transition: background 0.3s;
-=======
->>>>>>> main
 }
 
 .tournament-name {
@@ -143,14 +119,6 @@
     font-weight: 500;
 }
 
-<<<<<<< HEAD
-.status-draft {
-    background: #e0e0e0;
-    color: #666;
-}
-
-=======
->>>>>>> main
 .status-registration {
     background: #d4edda;
     color: #155724;
@@ -166,34 +134,8 @@
     color: #383d41;
 }
 
-<<<<<<< HEAD
-.status-cancelled {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.teams-cell {
-    min-width: 120px;
-}
-
-.progress-bar {
-    width: 80px;
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 6px;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    border-radius: 4px;
-    transition: width 0.3s;
-=======
 .teams-cell {
     font-weight: 500;
->>>>>>> main
 }
 
 .prize {
@@ -201,62 +143,32 @@
     color: #ffc107;
 }
 
-<<<<<<< HEAD
-.btn-details {
-    padding: 6px 14px;
-    background: #667eea;
-    color: white;
-=======
 .btn-details,
 .btn-delete {
     padding: 6px 14px;
->>>>>>> main
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 12px;
     margin-right: 8px;
-<<<<<<< HEAD
-    transition: all 0.3s;
-=======
 }
 
 .btn-details {
     background: #667eea;
     color: white;
->>>>>>> main
 }
 
 .btn-details:hover {
     background: #5a67d8;
-<<<<<<< HEAD
-    transform: scale(1.05);
-}
-
-.btn-delete {
-    padding: 6px 14px;
-    background: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.3s;
-=======
 }
 
 .btn-delete {
     background: #dc3545;
     color: white;
->>>>>>> main
 }
 
 .btn-delete:hover {
     background: #c82333;
-<<<<<<< HEAD
-    transform: scale(1.05);
-=======
->>>>>>> main
 }
 
 .empty-row td {
@@ -276,10 +188,6 @@
 .empty-state h3 {
     margin: 0 0 8px 0;
     color: #333;
-<<<<<<< HEAD
-    font-size: 20px;
-=======
->>>>>>> main
 }
 
 .empty-state p {
@@ -297,14 +205,6 @@
     font-weight: 600;
 }
 
-<<<<<<< HEAD
-.btn-create-empty:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-=======
->>>>>>> main
 @media (max-width: 768px) {
     .tournaments-container {
         padding: 20px 16px;
