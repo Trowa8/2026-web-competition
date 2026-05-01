@@ -1,68 +1,7 @@
-<div class="layout">
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1>🎮 GameHub</h1>
-            </div>
-            <nav class="nav">
-                <a routerLink="/home" routerLinkActive="active" class="nav-link">Головна</a>
-                <a routerLink="/tournaments" routerLinkActive="active" class="nav-link">Турніри</a>
-                <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-            </nav>
-        </div>
-    </header>
-    
-    <main class="main">
-        <div class="container">
-        <ui-input [label]="'Текст'"   [type]="'text'"     [placeholder]="'Введіть текст'"  [value]="'text'" />
-        <ui-input [label]="'Email'"   [type]="'email'"    [placeholder]="'you@example.com'" [value]="'text@gmail.com'" />
-        <ui-input [label]="'Пароль'"  [type]="'password'" [placeholder]="'••••••••'"[value]="'password777'" />
-        <ui-input [label]="'Число'"   [type]="'number'"   [placeholder]="'0'"  [value]="'09'"/>
-        <ui-input [label]="'Пошук'"   [type]="'search'"   [placeholder]="'Пошук...'" [value]="'text'"/>
-        <ui-input [label]="'Телефон'" [type]="'tel'"      [placeholder]="'+380 (99) 000-0000'" [value]="'09385'"/>
-
-        <ui-input [label]="'Email'" [type]="'email'" [placeholder]="'you@example.com'" [required]="true" [value]="'text@gmail.com'"/>
-
-        <ui-input [label]="'Email'"      [type]="'email'" [icon]="'fa-envelope'" [placeholder]="'you@example.com'" [value]="'text@gmail.com'" />
-        <ui-input [label]="'Телефон'"    [type]="'tel'"   [icon]="'fa-phone'"    [placeholder]="'+380 (99) 000-0000'" [value]="'9865'" />
-        <ui-input [label]="'Сайт'"       [type]="'text'"  [icon]="'fa-globe'"    [placeholder]="'https://example.com'" [value]="'example.com'" />
-        <ui-input [label]="'Користувач'" [type]="'text'"  [icon]="'fa-user'"     [placeholder]="'@username'" [value]="'@username'" />
-
-        <ui-input [label]="'Default'" [variant]="'default'" [placeholder]="'Стандартний'"[value]="''"  />
-        <ui-input [label]="'Filled'"  [variant]="'filled'"  [placeholder]="'Заповнений'"[value]="''"  />
-        <ui-input [label]="'Ghost'"   [variant]="'ghost'"   [placeholder]="'Тільки лінія'" [value]="''" />
-
-
-        <ui-input [label]="'Small'"  [size]="'sm'" [placeholder]="'Маленький'" [value]="''" />
-        <ui-input [label]="'Medium'" [size]="'md'" [placeholder]="'Стандартний'"[value]="''"  />
-        <ui-input [label]="'Large'"  [size]="'lg'" [placeholder]="'Великий'"[value]="''"  />
-
-        <ui-input [label]="'Success'" [status]="'success'" [hint]="'Email підтверджено'"[value]="''" />
-        <ui-input [label]="'Warning'" [status]="'warning'" [hint]="'Рекомендуємо довший пароль'" [value]="''"/>
-        <ui-input [label]="'Error'"   [status]="'error'"   [hint]="'Перевірте значення'" [value]="''" />
-
-        <ui-input [label]="'Email'" [type]="'email'" [error]="'Невірний формат email'" [value]="''" />
-
-        <ui-input [label]="'Заблокований'" [disabled]="true" [placeholder]="'Недоступний'" [value]="''"  />
-        <ui-input
-  [label]="'Email'"
-  [type]="'email'"
-  [placeholder]="'you@example.com'"
-  [variant]="'default'"
-  [size]="'md'"
-  [icon]="'fa-envelope'"
-  [required]="true"
-  [hint]="''"
-  [error]="emailError"
-  [status]="emailStatus"
-  [value]="''"
-/>
-            <router-outlet></router-outlet>
-        </div>
-    </main>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; {{ currentYear }} GameHub. Всі права захищені.</p>
-        </div>
-    </footer>
-</div>
+<app-header></app-header>
+<main>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<app-footer></app-footer>
