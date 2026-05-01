@@ -1,0 +1,31 @@
+.tournament-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #d4edda;
+    color: #155724;
+    margin-left: 10px;
+}
+
+.info-block {
+    margin: 20px 0;
+}
+
+.info-block p {
+    margin: 8px 0;
+}
+
+.register-btn {
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
