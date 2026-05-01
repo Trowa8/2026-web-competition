@@ -1,0 +1,72 @@
+<div class="tournaments-container">
+    <div class="page-header">
+        <h1>Турніри</h1>
+        <p>Керуйте та беріть участь у кіберспортивних змаганнях</p>
+    </div>
+
+    <div class="controls-bar">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" [value]="searchText" (input)="searchText = $any($event.target).value"
+                placeholder="Пошук турнірів за назвою..." />
+        </div>
+        <button class="btn-create">+ Створити турнір</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Назва турніру</th>
+                    <th>Статус</th>
+                    <th>Дата старту</th>
+                    <th>Команди</th>
+                    <th>Призовий фонд</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (t of filteredList; track t.id) {
+                <tr class="tournament-row">
+                    <td class="tournament-name">
+                        <span class="tournament-icon">🏆</span>
+                        <span class="name-text">{{ t.name }}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge" [class]="'status-' + t.status">
+                            {{ getStatusText(t.status) }}
+                        </span>
+                    </td>
+                    <td>{{ t.date }}</td>
+                    <td class="teams-cell">
+                        <div class="teams-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" [style.width.%]="getProgressWidth(t.teams)"></div>
+                            </div>
+                            <span class="teams-count">{{ t.teams }}</span>
+                        </div>
+                    </td>
+                    <td class="prize-cell">
+                        <span class="prize-amount">{{ t.prize }}</span>
+                    </td>
+                    <td>
+                        <button class="btn-details">Детальніше</button>
+                        <button class="btn-delete">Видалити</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr class="empty-row">
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <span class="empty-icon">🎮</span>
+                            <h3>Немає турнірів</h3>
+                            <p>Створіть свій перший турнір та почніть змагання!</p>
+                            <button class="btn-create-empty">+ Створити турнір</button>
+                        </div>
+                    <td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
