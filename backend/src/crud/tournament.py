@@ -33,6 +33,14 @@ async def create_tournament(db: AsyncSession, tournament: Tournament, organizer_
 async def delete_tournament(db: AsyncSession, tournament: Tournament) -> None:
     await db.delete(tournament)
     await db.commit()
+
+async def register_team(db: AsyncSession, participation: TournamentParticipation, roles: list[TournamentUserRole]) -> None:
+    db.add(participation)   
+    await db.flush()
+    for role in roles:
+        role.tournament_participation_id = participation.id
+        db.add(role)
+    await db.commit()
     
 async def get_participation(db: AsyncSession, tournament_id: str, team_id: str) -> TournamentParticipation | None:
     result = await db.execute(
