@@ -5,6 +5,7 @@
 }
 
 body {
+<<<<<<< HEAD
     font-family: 'Inter', system-ui, sans-serif;
     background: #f5f7fa;
 }
@@ -16,4 +17,8 @@ button {
 button:focus,
 input:focus {
     outline: none;
+=======
+    font-family: system-ui, sans-serif;
+    background: #f5f7fa;
+>>>>>>> 7e5c85abc519916356228fa3a4364425cd5d1b25
 }
