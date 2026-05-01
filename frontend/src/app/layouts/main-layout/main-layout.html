@@ -1,52 +1,7 @@
-<div class="layout">
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1>🎮 GameHub</h1>
-            </div>
-            <nav class="nav">
-                <a routerLink="/home" routerLinkActive="active" class="nav-link">Головна</a>
-                <a routerLink="/tournaments" routerLinkActive="active" class="nav-link">Турніри</a>
-                <a routerLink="/login" routerLinkActive="active" class="nav-link">Увійти</a>
-            </nav>
-        </div>
-    </header>
-    
-    <main class="main">
-        <div class="container">
-            <ui-button
-                text="Зареєструватися" 
-                class="btn-register">
-            </ui-button>
-
-            <ui-button 
-                text="Вийти" 
-                color="leave" 
-                class="btn-leave">
-            </ui-button>
-
-            <ui-button
-                text="Прикріпити завдання"
-                color=outline
-                class="btn-add-task">
-                <i class="fa-solid fa-plus"></i>
-            </ui-button>
-
-            <ui-button
-                text="неактивна кнопка"
-                [disabled]="true">
-            </ui-button>
-
-            <ui-button
-                text="Приєднатися"
-                color=secondary>
-            </ui-button>
-            <router-outlet></router-outlet>
-        </div>
-    </main>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; {{ currentYear }} GameHub. Всі права захищені.</p>
-        </div>
-    </footer>
-</div>
+<app-header></app-header>
+<main>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<app-footer></app-footer>
