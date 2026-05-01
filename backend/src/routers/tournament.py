@@ -9,6 +9,8 @@ from src.schemas.tournament import (
     TournamentDetailResponse,
     TournamentSummaryResponse,
     TournamentUpdateRequest,
+    RegisterTeamRequest, 
+    RegisterTeamResponse,
 )
 from src.services.tournament import (
     create_tournament_service,
@@ -16,6 +18,7 @@ from src.services.tournament import (
     get_tournament_service,
     list_tournaments_service,
     update_tournament_service,
+    register_team_service,
 )
 from src.utils.jwt import get_current_user_id
 
@@ -60,3 +63,12 @@ async def delete_tournament(
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     return await delete_tournament_service(db, tournament_id, current_user_id)
+
+@router.post("/{tournament_id}/register", response_model=RegisterTeamResponse)
+async def register_team(
+    tournament_id: str,
+    data: RegisterTeamRequest,
+    current_user_id: Annotated[str, Depends(get_current_user_id)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+):
+    return await register_team_service(db, tournament_id, data, current_user_id)
