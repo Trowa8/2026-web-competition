@@ -1,0 +1,382 @@
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-avatar">
+      <img *ngIf="avatarUrl()" [src]="avatarUrl()" alt="avatar" />
+     <i class="fa-solid fa-user-tie"></i>
+    </div>
+    <span class="topbar-name">{{ displayName() }}</span>
+  </div>
+  <div class="topbar-title">Account</div>
+  <a class="topbar-back" href="#">← Back to homepage</a>
+</div>
+<div class="page-wrapper">
+  <aside class="sidebar sidebar-left">
+    <div class="card avatar-card">
+      <div class="avatar-circle">
+        <img *ngIf="avatarUrl()" [src]="avatarUrl()" alt="avatar" />
+        <i class="fa-solid fa-user-tie"></i>
+      </div>
+      <div class="avatar-name">{{ displayName() }}</div>
+      <div class="avatar-role">{{ role() }}</div>
+      <div class="avatar-actions">
+        <ui-button text="Upload photo" color="primary" variant="solid" (onClick)="triggerUpload()" />
+        <ui-button text="Remove" color="leave" variant="outline" [disabled]="!avatarUrl()" (onClick)="removeAvatar()" />
+      </div>
+    </div>
+
+    <div class="card stats-card">
+      <div class="stat-item">
+        <span class="stat-value">{{ tournaments() }}</span>
+        <span class="stat-label">Tournaments</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value wins">{{ wins() }}</span>
+        <span class="stat-label">Wins</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value rate">{{ rate() }}</span>
+        <span class="stat-label">Rating</span>
+      </div>
+    </div>
+
+    <div class="card activity__card">
+      <p class="card-section__label">Recent activity</p>
+      <ul class="activity-list">
+        <li *ngFor="let item of recentActivity()" class="activity-row">
+          <span class="activity-dot" [style.background]="item.color"></span>
+          <span class="activity-text">{{ item.label }}</span>
+          <span class="activity-time">{{ item.time }}</span>
+        </li>
+      </ul>
+    </div>
+
+  </aside>
+
+  <main class="main-area">
+    <section class="settings-section card">
+
+      <div class="settings-header">
+        <h3 class="settings-title">Account Settings</h3>
+        <div class="settings-tabs">
+          <button
+            *ngFor="let tab of settingsTabs"
+            class="tab-btn"
+            [class.active]="activeTab() === tab.id"
+            (click)="setTab(tab.id)"
+          >{{ tab.label }}</button>
+        </div>
+      </div>
+
+      <div class="settings-body">
+
+        <ng-container *ngIf="activeTab() === 'personal'">
+          <div class="fields-group">
+            <p class="fields-group-label">Basic details</p>
+            <div class="fields-row">
+              <ui-input
+                label="First name"
+                type="text"
+                placeholder="Ім'я"
+                [value]="firstNameField().value"
+                [status]="firstNameField().touched && !firstNameField().value ? 'error' : firstNameField().value ? 'success' : 'default'"
+                (valueChange)="setField(firstNameField, $event)"
+              />
+              <ui-input
+                label="Last name"
+                type="text"
+                placeholder="Прізвище"
+                [value]="lastNameField().value"
+                [status]="lastNameField().touched && !lastNameField().value ? 'error' : lastNameField().value ? 'success' : 'default'"
+                (valueChange)="setField(lastNameField, $event)"
+              />
+            </div>
+            <div class="fields-row">
+              <ui-input
+                label="Date of birth"
+                type="date"
+                [value]="birthdayField().value"
+                [status]="birthdayField().value ? 'success' : 'default'"
+                (valueChange)="setField(birthdayField, $event)"
+              />
+              <div class="field-group">
+                <label class="field-label">Gender</label>
+                <select
+                  class="field-select"
+                  [value]="genderField().value"
+                  (change)="setField(genderField, $any($event.target).value)"
+                >
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="fields-group">
+            <p class="fields-group-label">Location</p>
+            <div class="fields-row">
+              <ui-input
+                label="Country"
+                type="text"
+                placeholder="Країна"
+                [value]="countryField().value"
+                [status]="countryField().value ? 'success' : 'default'"
+                (valueChange)="setField(countryField, $event)"
+              />
+              <ui-input
+                label="City"
+                type="text"
+                placeholder="Місто"
+                [value]="cityField().value"
+                [status]="cityField().value ? 'success' : 'default'"
+                (valueChange)="setField(cityField, $event)"
+              />
+            </div>
+          </div>
+
+          <div class="fields-group">
+            <p class="fields-group-label">About you</p>
+            <div class="field-group">
+              <label class="field-label">Biography</label>
+              <textarea
+                class="field-textarea"
+                placeholder="Розкажіть про себе - хто ви, звідки, ваші захоплення..."
+                rows="5"
+                [value]="bioField().value"
+                (input)="setField(bioField, $any($event.target).value)"
+              ></textarea>
+              <div class="field-hint-row">
+                <span *ngIf="bioField().value.length > 500" class="field-err">Максимум 500 символів</span>
+                <span class="field-char-count">{{ bioField().value.length }}/500</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activeTab() === 'gaming'">
+          <div class="fields-group">
+            <p class="fields-group-label">Player identity</p>
+            <ui-input
+              label="Username / Nickname"
+              type="text"
+              placeholder="Ваш нікнейм"
+              [value]="usernameField().value"
+              [status]="usernameField()!.touched && !usernameField()!.value ? 'error' : usernameField()!.value!.length >= 3 ? 'success' : 'default'"
+              (valueChange)="setField(usernameField, $event)"
+            />
+            <ui-input
+              label="Team / Clan"
+              type="text"
+              placeholder="Назва команди або клану"
+              [value]="teamField().value"
+              [status]="teamField().value ? 'success' : 'default'"
+              (valueChange)="setField(teamField, $event)"
+            />
+          </div>
+
+          <div class="fields-group">
+            <div class="field-group">
+              <label class="field-label">Role</label>
+              <select
+                class="field-select"
+                [value]="gameStyleField().value"
+                (change)="setField(gameStyleField, $any($event.target).value)"
+              >
+                <option value="" disabled selected>Виберіть роль</option>
+                <option value="designer">UI/UX Designer</option>
+                <option value="qa">QA Engineer</option>
+                <option value="devops">DevOps Engineer</option>
+                <option value="frontend">Frontend Developer</option>
+                <option value="backend">Backend Developer</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Achievements</label>
+              <textarea
+                class="field-textarea"
+                placeholder="Ваші досягнення, титули, найкращі результати..."
+                rows="4"
+                [value]="achievementsField().value"
+                (input)="setField(achievementsField, $any($event.target).value)"
+              ></textarea>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="activeTab() === 'contacts'">
+          <div class="fields-group">
+            <p class="fields-group-label">Primary contacts</p>
+            <ui-input
+              label="Email"
+              type="email"
+              placeholder="your@email.com"
+              [value]="emailField().value"
+              [error]="emailField().touched ? '' : ''"
+              [status]="emailField().value && !emailField().touched ? 'success' : emailField().value ? 'success' : 'default'"
+              (valueChange)="setField(emailField, $event)"
+            />
+
+            <div class="field-group">
+              <label class="field-label">Phone number</label>
+              <div class="phone-wrap">
+                <div class="code-picker" (click)="toggleCodeDropdown()">
+                  <span class="code-flag">
+                    {{ countryCodes | slice:0:999 | json | slice:0:0 }}
+                    {{ (countryCodes | slice:0:999)[0].flag }}
+                  </span>
+                  <span class="code-val">{{ selectedCode() }}</span>
+                  <span class="code-arrow">▾</span>
+
+                  <div class="code-dropdown" *ngIf="showCodeDropdown()" (click)="$event.stopPropagation()">
+                    <div
+                      *ngFor="let c of countryCodes"
+                      class="code-option"
+                      [class.selected]="c.code === selectedCode()"
+                      (click)="selectCode(c.code)"
+                    >
+                      <span>{{ c.flag }}</span>
+                      <span class="code-name">{{ c.name }}</span>
+                      <span class="code-num">{{ c.code }}</span>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  class="phone-input"
+                  type="tel"
+                  placeholder="XXXXXXXXX"
+                  [value]="phoneField().value"
+                  (input)="setField(phoneField, $any($event.target).value)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="fields-group">
+            <p class="fields-group-label">Social / Messenger</p>
+            <ui-input
+              label="Discord"
+              type="text"
+              placeholder="username#0000"
+              [value]="discordField().value"
+              [status]="discordField().value ? 'success' : 'default'"
+              (valueChange)="setField(discordField, $event)"
+            />
+            <ui-input
+              label="Telegram"
+              type="text"
+              placeholder="@username"
+              [value]="telegramField().value"
+              [status]="telegramField().value ? 'success' : 'default'"
+              (valueChange)="setField(telegramField, $event)"
+            />
+          </div>
+        </ng-container>
+
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-track">
+            <div
+              class="progress-bar-fill"
+              [style.width.%]="profileCompletion()"
+              [style.background]="progressColor()"
+            ></div>
+          </div>
+          <span class="progress-bar-label">{{ profileCompletion() }}% profile filled</span>
+        </div>
+
+        <div class="submit-row">
+          <div *ngIf="isSaved()" class="save-success">✓ Збережено!</div>
+          <ui-button
+            [text]="isLoading() ? 'Збереження...' : 'Save changes'"
+            color="primary"
+            variant="solid"
+            [disabled]="isLoading()"
+            (onClick)="onSubmit()"
+          />
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <aside class="sidebar sidebar-right">
+
+    <div class="card completion-card">
+      <p class="card-section-label">Profile completion</p>
+
+      <div class="donut-row">
+        <div class="donut-wrapper">
+          <svg class="donut" viewBox="0 0 64 64">
+            <circle class="donut-bg" cx="32" cy="32" r="26" />
+            <circle
+              class="donut-progress"
+              cx="32" cy="32" r="26"
+              [attr.stroke]="progressColor()"
+              [style.stroke-dasharray]="circumference"
+              [style.stroke-dashoffset]="dashOffset()"
+            />
+          </svg>
+          <span class="donut-text">{{ profileCompletion() }}%</span>
+        </div>
+        <div class="donut-info">
+          <span class="donut-pct">{{ profileCompletion() }}%</span>
+          <span class="donut-sub">complete</span>
+        </div>
+      </div>
+
+      <ul class="checklist">
+        <li *ngFor="let item of allProfileItems" class="checklist-item">
+          <span class="check-icon" [class.done]="completedFields()[item.key]">✓</span>
+          <span class="check-label" [class.done-text]="completedFields()[item.key]">{{ item.label }}</span>
+          <span class="field-weight">+{{ item.weight }}%</span>
+        </li>
+      </ul>
+
+      <div *ngIf="profileCompletion() === 100" class="complete-badge">
+        Profile complete!
+      </div>
+    </div>
+
+    <div class="card calendar-card">
+      <div class="calendar-header">
+        <button class="cal-nav" (click)="prevMonth()">‹</button>
+        <span class="calendar-month-label">{{ calendarMonthLabel() }}</span>
+        <button class="cal-nav" (click)="nextMonth()">›</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div *ngFor="let wd of weekDays" class="cal-weekday">{{ wd }}</div>
+
+        <div
+          *ngFor="let cell of calendarDays()"
+          class="cal-cell"
+          [class.cal-today]="cell.day !== null && isToday(cell.dateStr)"
+          [class.cal-has-event]="cell.day !== null && getEventsForDate(cell.dateStr).length > 0"
+          [class.cal-empty]="cell.day === null"
+        >
+          <span *ngIf="cell.day !== null" class="cal-day-num">{{ cell.day }}</span>
+          <span
+            *ngFor="let ev of getEventsForDate(cell.dateStr)"
+            class="cal-event-dot"
+            [style.background]="ev.color"
+            [title]="ev.label"
+          ></span>
+        </div>
+      </div>
+
+      <div class="events-list" *ngIf="calendarEvents().length > 0">
+        <p class="events-list-label">Upcoming events</p>
+        <div *ngFor="let ev of calendarEvents()" class="event-row">
+          <span class="event-color-bar" [style.background]="ev.color"></span>
+          <span class="event-label">{{ ev.label }}</span>
+          <span class="event-date">{{ ev.date | slice:8:10 }}.{{ ev.date | slice:5:7 }}</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>

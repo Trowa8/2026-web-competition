@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-export type InputType    = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel';
+export type InputType    = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'date';
 export type InputVariant = 'default' | 'filled' | 'ghost';
 export type InputSize    = 'sm' | 'md' | 'lg';
 export type InputStatus  = 'default' | 'success' | 'error' | 'warning';
