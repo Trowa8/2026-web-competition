@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-tournament-detail',
-    standalone: true,
     templateUrl: './tournament-detail.html',
     styleUrls: ['./tournament-detail.css'],
 })
-export class TournamentDetailComponent {
+export class TournamentDetail {
     tournament = {
         name: 'CS2 Cup 2024',
         status: 'registration',
@@ -20,10 +19,8 @@ export class TournamentDetailComponent {
         organizer: 'CyberSport Ukraine',
     };
 
-    getStatusText(): string {
-        if (this.tournament.status === 'registration') return 'Реєстрація';
-        if (this.tournament.status === 'ongoing') return 'Триває';
-        if (this.tournament.status === 'completed') return 'Завершено';
-        return this.tournament.status;
+    getStatusText() {
+        const map: any = { registration: 'Реєстрація', ongoing: 'Триває', completed: 'Завершено' };
+        return map[this.tournament.status] || this.tournament.status;
     }
 }
