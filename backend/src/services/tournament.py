@@ -18,7 +18,7 @@ from src.schemas.tournament import (
     TournamentSummaryResponse,
     TournamentUpdateRequest,
 )
-
+ 
 async def _get_tournament_or_404(db: AsyncSession, tournament_id: str) -> Tournament:
     tournament = await get_tournament_by_id(db, tournament_id)
     if not tournament:
