@@ -34,6 +34,8 @@ async def create_tournament_service(
     db: AsyncSession, data: TournamentCreateRequest, current_user_id: str
 ) -> TournamentCreateResponse:
     user = await get_user_by_id(db, current_user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
 
     tournament = Tournament(
         name=data.name,
