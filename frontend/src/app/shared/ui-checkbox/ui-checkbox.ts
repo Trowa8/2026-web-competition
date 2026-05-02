@@ -12,7 +12,6 @@ export class UiCheckbox {
     public readonly checked: ModelSignal<boolean> = model<boolean>(false);
     public readonly isError: InputSignal<boolean> = input(false);
     public readonly isDisabled: InputSignal<boolean> = input(false);
-    readonly inputId = `ui-checkbox-${nextId++}`;
     toggle(): void {
         if (!this.isDisabled()) {
             this.checked.update(state => !state);
