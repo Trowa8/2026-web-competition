@@ -8,7 +8,7 @@ export interface Task {
     description: string;
     deadline: string;
     tournamentId: number;
-    status?: 'draft' | 'active' | 'closed';
+    status: 'draft' | 'active' | 'closed';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -28,16 +28,22 @@ export class TaskService {
                 return data;
             })
             .catch(() => {
-                console.warn('Використовуємо мок дані для задач');
                 const mock: Task[] = [
-                    { id: 1, title: 'Розробка фронтенду', description: 'Створити сторінку турнірів', deadline: '2026-05-10', tournamentId: 1, status: 'active' }
+                    {
+                        id: 1,
+                        title: 'Розробка фронтенду',
+                        description: 'Створити сторінку списку турнірів',
+                        deadline: '2026-05-15',
+                        tournamentId: 1,
+                        status: 'active'
+                    }
                 ];
                 this.tasksSignal.set(mock);
                 return mock;
             });
     }
 
-    public async createTask(tournamentId: number, title: string, description: string) {
-        console.log('Створено завдання', { tournamentId, title });
+    public async createTask(tournamentId: number, title: string, description: string, deadline: string) {
+        console.log('Створено завдання для турніру', tournamentId);
     }
 }
