@@ -2,12 +2,16 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.tournament import Tournament
 from models.tournament_user_role import TournamentUserRole
+from models.tournament_participation import TournamentParticipation
+
 from src.crud.tournament import (
     create_tournament,
     delete_tournament,
     get_all_tournaments,
     get_organizer_role,
     get_tournament_by_id,
+    get_participation,
+    register_team,
 )
 from src.crud.user import get_user_by_id
 from src.schemas.tournament import (
@@ -17,8 +21,16 @@ from src.schemas.tournament import (
     TournamentDetailResponse,
     TournamentSummaryResponse,
     TournamentUpdateRequest,
+    RegisterTeamRequest,
+    RegisterTeamResponse,
 )
- 
+from src.crud.team import (
+    get_team_by_id,
+    get_team_members,
+    get_captain_by_team,
+)
+
+
 async def _get_tournament_or_404(db: AsyncSession, tournament_id: str) -> Tournament:
     tournament = await get_tournament_by_id(db, tournament_id)
     if not tournament:
@@ -125,3 +137,37 @@ async def delete_tournament_service(
     await _require_organizer(db, tournament_id, current_user_id)
     await delete_tournament(db, tournament)
     return TournamentDeleteResponse(success=True)
+
+async def register_team_service(
+    db: AsyncSession, tournament_id: str, data: RegisterTeamRequest, current_user_id: str
+) -> RegisterTeamResponse:
+    await _get_tournament_or_404(db, tournament_id)
+
+    team = await get_team_by_id(db, data.team_id)
+    if not team:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Team not found")
+
+    captain = await get_captain_by_team(db, data.team_id, current_user_id)
+    if not captain:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only the team captain can register")
+
+    if await get_participation(db, tournament_id, data.team_id):
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Team already registered")
+
+    members = await get_team_members(db, data.team_id)
+    participation = TournamentParticipation(
+        team_id=data.team_id,
+        tournament_id=tournament_id,
+        team_name=team.name,
+    )
+    roles = [
+        TournamentUserRole(
+            user_id=m.id,
+            tournament_id=tournament_id,
+            role="participant",
+            user_name=m.username,
+        )
+        for m in members
+    ]
+    await register_team(db, participation, roles)
+    return RegisterTeamResponse(success=True)
