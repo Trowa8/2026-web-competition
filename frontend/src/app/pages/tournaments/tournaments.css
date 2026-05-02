@@ -1,37 +1,30 @@
-.button-group {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+.tournaments-page {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.btn-join,
-.btn-leave {
-    flex: 1;
-    padding: 0.75rem;
+h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.btn-create {
+    padding: 12px 24px;
+    background: #28a745;
+    color: white;
     border: none;
     border-radius: 12px;
-    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.3s;
 }
 
-.btn-join {
-    background: linear-gradient(135deg, #e94560, #f5a623);
-    color: white;
-}
-
-.btn-leave {
-    background: #f0f0f0;
-    color: #666;
-    border: 1px solid #e0e0e0;
-}
-
-.btn-join:hover:not(:disabled),
-.btn-leave:hover {
-    transform: translateY(-2px);
-}
-
-.btn-join:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+.loading {
+    text-align: center;
+    padding: 60px;
+    color: #999;
 }
