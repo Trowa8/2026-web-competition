@@ -16,7 +16,7 @@ class TeamDetailResponse(BaseModel):
     team_id: str
     name: str
     description: Optional[str] = None
-    captain_id: Optional[str]
+    owner_id: str
     members: List[TeamMemberResponse]
     created_at: datetime
 
@@ -28,7 +28,7 @@ class TeamCreateResponse(BaseModel):
     team_id: str
     name: str
     description: Optional[str] = None
-    captain_id: str
+    owner_id: str
     created_at: datetime
 
 class TeamUpdateRequest(BaseModel):
@@ -46,18 +46,3 @@ class TeamHistoryItemResponse(BaseModel):
     name: str
     place: int
     score: int
-    
-class TeamDeleteResponse(BaseModel):
-    success: bool
-
-class TeamCodeResponse(BaseModel):
-    team_code: str
-
-class TeamJoinRequest(BaseModel):
-    team_code: str
-
-class TeamJoinResponse(BaseModel):
-    success: bool
-
-class AppointCaptainRequest(BaseModel):
-    user_id: str
