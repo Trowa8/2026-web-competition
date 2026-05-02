@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.tournament import Tournament
 from models.tournament_user_role import TournamentUserRole
-
+ 
 async def get_tournament_by_id(db: AsyncSession, tournament_id: str) -> Tournament | None:
     result = await db.execute(select(Tournament).where(Tournament.id == tournament_id))
     return result.scalar_one_or_none()
