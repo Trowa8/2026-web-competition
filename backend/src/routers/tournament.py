@@ -18,7 +18,7 @@ from src.services.tournament import (
     update_tournament_service,
 )
 from src.utils.jwt import get_current_user_id
-
+ 
 router = APIRouter(prefix="/tournaments", tags=["tournaments"])
 
 @router.post("", response_model=TournamentCreateResponse, status_code=201)
