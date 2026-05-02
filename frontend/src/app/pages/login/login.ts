@@ -14,6 +14,7 @@ import { UiButton } from '../../shared/ui-button/ui-button';
   imports: [ReactiveFormsModule, RouterLink, UiInputComponent, UiButton],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
+  styleUrls: ['./login.css'],
 })
 export class LoginComponent {
   form: FormGroup;

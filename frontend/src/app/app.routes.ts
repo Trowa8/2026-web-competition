@@ -1,25 +1,33 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
-import { LoginComponent } from './pages/login/login';
-import { TournamentsComponent } from './pages/tournaments/tournaments';
-import { RegisterComponent } from './pages/register/register';
-import { CreateTournamentComponent } from './pages/create-tournament/create-tournament';
-import { AuthLayout } from './layout/auth-layout/auth-layout';
+import { authGuard } from './shared/core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+    {
+        path: '',
+        loadComponent: () => import('./layouts/main-layout/main-layout').then(m => m.MainLayout),
+        children: [
+            {
+                path: 'tournaments',
+                loadComponent: () => import('./pages/tournaments/tournaments').then(m => m.Tournaments),
+                canActivate: [authGuard],
+            },
+            { path: '', redirectTo: '/tournaments', pathMatch: 'full' },
+        ],
+    },
+    {
+        path: 'auth',
+        loadComponent: () => import('./layout/auth-layout/auth-layout').then(m => m.AuthLayout),
+        children: [
+            {
+                path: 'login',
+                loadChildren: () => import('./pages/login/login').then(m => m.LoginComponent),
+            },
+            {
+                path: 'register',
+                loadChildren: () => import('./pages/register/register').then(m => m.RegisterComponent),
+            }
+        ],
+    },
 
-  {
-    path: '',
-    component: AuthLayout,
-    children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'tournaments', component: TournamentsComponent },
-      { path: 'create-tournament', component: CreateTournamentComponent },
-      { path: 'auth/login', component: LoginComponent },
-      { path: 'auth/register', component: RegisterComponent },
-    ],
-  },
-
-  { path: '**', redirectTo: '/home' },
+    { path: '**', redirectTo: '/tournaments' },
 ];
