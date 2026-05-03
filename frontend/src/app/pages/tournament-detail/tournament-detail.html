@@ -1,0 +1,93 @@
+<div class="detail-container">
+    <div class="breadcrumb">
+        <a routerLink="/">Головна</a> / <a routerLink="/tournaments">Турніри</a> / <span>{{ tournament.name }}</span>
+    </div>
+
+    <div class="detail-header">
+        <div class="header-left">
+            <div class="tournament-icon">🏆</div>
+            <div class="header-info">
+                <h1>{{ tournament.name }}</h1>
+                <span class="status-badge">{{ getStatusText() }}</span>
+            </div>
+        </div>
+        <button class="register-btn">Зареєструвати команду</button>
+    </div>
+
+    <div class="detail-content">
+        <div class="content-main">
+            <div class="info-card">
+                <h2>Про турнір</h2>
+                <p>{{ tournament.description }}</p>
+            </div>
+
+            <div class="info-card">
+                <h2>Деталі</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-icon">📅</span>
+                        <div>
+                            <div class="detail-label">Дата початку</div>
+                            <div class="detail-value">{{ tournament.startDate }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">📅</span>
+                        <div>
+                            <div class="detail-label">Дата завершення</div>
+                            <div class="detail-value">{{ tournament.endDate }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">📍</span>
+                        <div>
+                            <div class="detail-label">Місце</div>
+                            <div class="detail-value">{{ tournament.location }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🎮</span>
+                        <div>
+                            <div class="detail-label">Гра</div>
+                            <div class="detail-value">{{ tournament.gameType }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">👥</span>
+                        <div>
+                            <div class="detail-label">Команди</div>
+                            <div class="detail-value">{{ tournament.teams }}</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">💰</span>
+                        <div>
+                            <div class="detail-label">Призовий фонд</div>
+                            <div class="detail-value prize">{{ tournament.prize }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-sidebar">
+            <div class="action-card">
+                <h3>Дії</h3>
+                <button class="btn-action btn-primary">Зареєструвати команду</button>
+                <button class="btn-action btn-outline">Поділитися</button>
+                <button class="btn-action btn-outline">Завантажити розклад</button>
+            </div>
+
+            <div class="info-card-small">
+                <h3>Організатор</h3>
+                <p>{{ tournament.organizer }}</p>
+            </div>
+
+            <div class="info-card-small">
+                <h3>Контакти</h3>
+                <p>📧 support@tournament.com</p>
+                <p>📞 +38 (044) 123-45-67</p>
+            </div>
+        </div>
+    </div>
+</div>
