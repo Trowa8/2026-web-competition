@@ -1,5 +1,6 @@
-import { Component, signal, computed ,InputSignal, input,ModelSignal,model} from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UiInputComponent } from '../../shared/ui-input/ui-input';
 import { UiButton } from '../../shared/ui-button/ui-button';
 
@@ -8,196 +9,132 @@ interface FieldState {
   touched: boolean;
 }
 
-interface ActivityItem {
-  label: string;
-  time: string;
-  color: string;
-}
-
-interface CalendarEvent {
+interface TournamentHistory {
+  id: number;
+  name: string;
   date: string;
-  label: string;
-  color: string;
+  result: string;
+  status: 'перемога' | 'поразка';
 }
 
-const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phone_pattern = /^\d{6,14}$/;
+interface TeamMember {
+  id: number;
+  name: string;
+}
 
-function validateEmail(v: string): string {
-  if (!v) return 'Email обов\'язковий';
-  if (!email_pattern.test(v)) return 'Некоректний формат email';
-  return '';
-}
-function validatePhone(v: string): string {
-  if (!v) return 'Номер обов\'язковий';
-  if (!phone_pattern.test(v)) return 'Введіть коректний номер';
-  return '';
-}
-function validateBio(v: string): string {
-  if (v.length > 500) return 'Максимум 500 символів';
-  return '';
-}
+const PHONE_PATTERN = /^\+?\d{10,15}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function validateUsername(v: string): string {
   if (!v) return 'Нікнейм обов\'язковий';
   if (v.length < 3) return 'Мінімум 3 символи';
   return '';
 }
 
-export const country_codes = [
-  { code: '+380', flag: '🇺🇦', name: 'Ukraine' },
-  { code: '+1',   flag: '🇺🇸', name: 'USA / Canada' },
-  { code: '+44',  flag: '🇬🇧', name: 'UK' },
-  { code: '+49',  flag: '🇩🇪', name: 'Germany' },
-  { code: '+33',  flag: '🇫🇷', name: 'France' },
-  { code: '+48',  flag: '🇵🇱', name: 'Poland' },
-  { code: '+86',  flag: '🇨🇳', name: 'China' },
-  { code: '+81',  flag: '🇯🇵', name: 'Japan' },
-  { code: '+34',  flag: '🇪🇸', name: 'Spain' },
-  { code: '+39',  flag: '🇮🇹', name: 'Italy' },
-  { code: '+31',  flag: '🇳🇱', name: 'Netherlands' },
-  { code: '+90',  flag: '🇹🇷', name: 'Turkey' },
-  { code: '+82',  flag: '🇰🇷', name: 'South Korea' },
-  { code: '+55',  flag: '🇧🇷', name: 'Brazil' },
-  { code: '+91',  flag: '🇮🇳', name: 'India' },
-];
+function validateEmail(v: string): string {
+  if (!v) return 'Email обов\'язковий';
+  if (!EMAIL_PATTERN.test(v)) return 'Некоректний формат email';
+  return '';
+}
+
+function validatePhone(v: string): string {
+  if (!v) return 'Номер телефону обов\'язковий';
+  if (!PHONE_PATTERN.test(v)) return 'Формат: +380XXXXXXXXX';
+  return '';
+}
+
+function validateBio(v: string): string {
+  if (v.length > 300) return 'Максимум 300 символів';
+  return '';
+}
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, UiInputComponent, UiButton],
+  imports: [CommonModule, FormsModule, UiInputComponent, UiButton],
   templateUrl: './user-profile.html',
   styleUrls: ['./user-profile.css'],
 })
-export class UserProfile {
+export class ProfileComponent {
+  activeTab = signal<'info' | 'history'>('info');
+  isEditing = signal(false);
+  isLoading = signal(false);
+  isSaved = signal(false);
 
-  public readonly avatarUrl:ModelSignal<string>=model<string>('');
-  public readonly activeTab:ModelSignal<string>=model<string>('personal');
+  usernameField = signal<FieldState>({ value: '', touched: false });
+  emailField = signal<FieldState>({ value: '', touched: false });
+  phoneField = signal<FieldState>({ value: '', touched: false });
+  bioField = signal<FieldState>({ value: '', touched: false });
 
-  settingsTabs = [
-    { id: 'personal', label: 'Personal info' },
-    { id: 'gaming',   label: 'Gaming profile' },
-    { id: 'contacts', label: 'Contacts' },
-  ];
+  editUsername = signal('');
+  editEmail = signal('');
+  editPhone = signal('');
+  editBio = signal('');
 
-  public readonly firstNameField :InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly lastNameField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly birthdayField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly genderField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly countryField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly cityField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly bioField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
+  editErrors = signal<{ username?: string; email?: string; phone?: string; bio?: string }>({});
 
-  public readonly usernameField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly gameStyleField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly teamField         : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly achievementsField : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-
-  public readonly emailField       : InputSignal<FieldState>=input<FieldState>({ value: '', touched: false });
-  public readonly phoneField       : InputSignal<FieldState>=input  <FieldState>({ value: '', touched: false });
-  public readonly selectedCode     : ModelSignal<string>=model<string>('+380');
-  public readonly discordField     : ModelSignal<FieldState>=model<FieldState>({ value: '', touched: false });
-  public readonly telegramField    : ModelSignal<FieldState>=model<FieldState>({ value: '', touched: false });
-  public readonly showCodeDropdown : ModelSignal<boolean>=model<boolean>(false);
-
-  public readonly displayName :ModelSignal<string>=model<string>('Name Surname');
-  public readonly role :ModelSignal<string>=model<string>('Participant');
-  public readonly tournaments :ModelSignal<number>=model<number>(15);
-  public readonly wins :ModelSignal<number>=model<number>(9);
-  public readonly rate :ModelSignal<string>=model<string>('#7');
-
-  readonly countryCodes = country_codes;
-
-  recentActivity = signal<ActivityItem[]>([
-    { label: 'Won tournament #14', time: '2d ago', color: '#1D9E75' },
-    { label: 'Joined Kyiv Open',   time: '5d ago', color: '#534AB7' },
-    { label: 'Profile updated',    time: '1w ago', color: '#BA7517' },
-    { label: 'Rank reached #7',    time: '2w ago', color: '#378ADD' },
+  teamMembers = signal<TeamMember[]>([
+    { id: 1, name: 'Олексій Ковальчук' },
+    { id: 2, name: 'Марія Іванова' },
+    { id: 3, name: 'Дмитро Петров' },
+    { id: 4, name: 'Ірина Сидоренко' },
+    { id: 5, name: 'Артем Мороз' },
   ]);
 
-  private _today = new Date();
-  calendarYear  = signal<number>(this._today.getFullYear());
-  calendarMonth = signal<number>(this._today.getMonth());
-
-  private fmt(y: number, m: number, d: number): string {
-    return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-  }
-
-  calendarEvents = signal<CalendarEvent[]>([
-    { date: this.fmt(this._today.getFullYear(), this._today.getMonth(), 5),  label: 'Kyiv Open',     color: '#534AB7' },
-    { date: this.fmt(this._today.getFullYear(), this._today.getMonth(), 12), label: 'Team practice', color: '#1D9E75' },
-    { date: this.fmt(this._today.getFullYear(), this._today.getMonth(), 18), label: 'LAN final',     color: '#E24B4A' },
-    { date: this.fmt(this._today.getFullYear(), this._today.getMonth(), 24), label: 'Online cup',    color: '#BA7517' },
+  tournamentHistory = signal<TournamentHistory[]>([
+    { id: 1, name: 'Kyiv Open 2024', date: '15.11.2024', result: '1 місце', status: 'перемога' },
+    { id: 2, name: 'UA Championship Q3', date: '02.09.2024', result: '4 місце', status: 'поразка' },
+    { id: 3, name: 'Summer Cup 2024', date: '20.07.2024', result: '2 місце', status: 'поразка' },
+    { id: 4, name: 'Dnipro Invitational', date: '10.05.2024', result: 'Чвертьфінал', status: 'поразка' },
+    { id: 5, name: 'Spring Battle 2024', date: '22.03.2024', result: '1 місце', status: 'перемога' },
+    { id: 6, name: 'Winter Series 2023', date: '18.12.2023', result: '3 місце', status: 'поразка' },
   ]);
 
-  calendarDays = computed(() => {
-    const y = this.calendarYear();
-    const m = this.calendarMonth();
-    const firstDay = new Date(y, m, 1).getDay();
-    const daysInMonth = new Date(y, m + 1, 0).getDate();
-    const offset = (firstDay + 6) % 7;
-    const days: { day: number | null; dateStr: string }[] = [];
-    for (let i = 0; i < offset; i++) days.push({ day: null, dateStr: '' });
-    for (let d = 1; d <= daysInMonth; d++) {
-      days.push({ day: d, dateStr: this.fmt(y, m, d) });
-    }
-    return days;
+  totalWins = computed(() => this.tournamentHistory().filter(t => t.status === 'перемога').length);
+  totalTournaments = computed(() => this.tournamentHistory().length);
+
+  usernameError = computed(() => {
+    const { value, touched } = this.usernameField();
+    return touched ? validateUsername(value) : '';
   });
 
-  calendarMonthLabel = computed(() =>
-    new Date(this.calendarYear(), this.calendarMonth(), 1)
-      .toLocaleString('en-US', { month: 'long', year: 'numeric' })
-  );
+  emailError = computed(() => {
+    const { value, touched } = this.emailField();
+    return touched ? validateEmail(value) : '';
+  });
 
-  readonly weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  phoneError = computed(() => {
+    const { value, touched } = this.phoneField();
+    return touched ? validatePhone(value) : '';
+  });
 
-  prevMonth(): void {
-    if (this.calendarMonth() === 0) { this.calendarMonth.set(11); this.calendarYear.update(y => y - 1); }
-    else { this.calendarMonth.update(m => m - 1); }
-  }
-  nextMonth(): void {
-    if (this.calendarMonth() === 11) { this.calendarMonth.set(0); this.calendarYear.update(y => y + 1); }
-    else { this.calendarMonth.update(m => m + 1); }
-  }
-
-  getEventsForDate(dateStr: string): CalendarEvent[] {
-    return this.calendarEvents().filter(e => e.date === dateStr);
-  }
-
-  isToday(dateStr: string): boolean {
-    return dateStr === this.fmt(this._today.getFullYear(), this._today.getMonth(), this._today.getDate());
-  }
-
-  readonly allProfileItems = [
-    { key: 'avatar',    label: 'Profile picture', weight: 15 },
-    { key: 'firstName', label: 'First name',      weight: 10 },
-    { key: 'lastName',  label: 'Last name',       weight: 10 },
-    { key: 'birthday',  label: 'Birthday',        weight: 5  },
-    { key: 'username',  label: 'Username',        weight: 15 },
-    { key: 'email',     label: 'Email',           weight: 15 },
-    { key: 'phone',     label: 'Phone',           weight: 10 },
-    { key: 'country',   label: 'Country',         weight: 10 },
-    { key: 'bio',       label: 'Biography',       weight: 10 },
-  ];
+  bioError = computed(() => {
+    const { value, touched } = this.bioField();
+    return touched ? validateBio(value) : '';
+  });
 
   completedFields = computed<Record<string, boolean>>(() => ({
-    avatar:    this.avatarUrl().length > 0,
-    firstName: !!this.firstNameField().value.trim(),
-    lastName:  !!this.lastNameField().value.trim(),
-    birthday:  !!this.birthdayField().value,
-    username:  !validateUsername(this.usernameField().value),
-    email:     !validateEmail(this.emailField().value),
-    phone:     !validatePhone(this.phoneField().value),
-    country:   !!this.countryField().value.trim(),
-    bio:       this.bioField().value.trim().length > 0,
+    username: !validateUsername(this.usernameField().value),
+    email: !validateEmail(this.emailField().value),
+    phone: !validatePhone(this.phoneField().value),
+    bio: this.bioField().value.trim().length > 0,
   }));
+
+  readonly allProfileItems = [
+    { key: 'username', label: 'Нікнейм', weight: 25 },
+    { key: 'email', label: 'Email', weight: 25 },
+    { key: 'phone', label: 'Телефон', weight: 25 },
+    { key: 'bio', label: 'Біографія', weight: 25 },
+  ];
 
   profileCompletion = computed(() =>
     this.allProfileItems.reduce(
-      (sum, item) => sum + (this.completedFields()[item.key] ? item.weight : 0), 0
+      (sum, item) => sum + (this.completedFields()[item.key] ? item.weight : 0),
+      0
     )
   );
 
-  readonly circumference = 2 * Math.PI * 26;
+  readonly circumference = 2 * Math.PI * 36;
 
   dashOffset = computed(() =>
     this.circumference * (1 - this.profileCompletion() / 100)
@@ -205,53 +142,87 @@ export class UserProfile {
 
   progressColor = computed(() => {
     const p = this.profileCompletion();
-    if (p < 40) return '#E24B4A';
-    if (p < 70) return '#BA7517';
-    return '#1D9E75';
+    if (p < 40) return '#e57373';
+    if (p < 70) return '#ffb74d';
+    return '#5cb85c';
   });
 
-   public readonly isLoading:ModelSignal<boolean>=model<boolean>(false);
-  public readonly isSaved:ModelSignal<boolean>=model<boolean>(false);
-  setField(sig: any, value: string): void {
-    sig.set({ value, touched: true });
+  onUsernameChange(value: string): void {
+    this.usernameField.set({ value, touched: true });
   }
 
-  setTab(id: string): void { this.activeTab.set(id); }
-
-  toggleCodeDropdown(): void { this.showCodeDropdown.update(v => !v); }
-
-  selectCode(code: string): void {
-    this.selectedCode.set(code);
-    this.showCodeDropdown.set(false);
+  onEmailChange(value: string): void {
+    this.emailField.set({ value, touched: true });
   }
 
-  triggerUpload(): void {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = (e: Event) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => this.avatarUrl.set(reader.result as string);
-      reader.readAsDataURL(file);
-    };
-    input.click();
+  onPhoneChange(value: string): void {
+    this.phoneField.set({ value, touched: true });
   }
 
-  removeAvatar(): void { this.avatarUrl.set(''); }
+  onBioChange(value: string): void {
+    this.bioField.set({ value, touched: true });
+  }
 
-  async onSubmit(): Promise<void> {
-    this.isLoading.set(true);
+  startEdit(): void {
+    this.editUsername.set(this.usernameField().value);
+    this.editEmail.set(this.emailField().value);
+    this.editPhone.set(this.phoneField().value);
+    this.editBio.set(this.bioField().value);
+    this.editErrors.set({});
+    this.isEditing.set(true);
     this.isSaved.set(false);
-    try {
-      await new Promise(r => setTimeout(r, 900));
-      this.isSaved.set(true);
-      const fn = this.firstNameField().value;
-      const ln = this.lastNameField().value;
-      if (fn || ln) this.displayName.set(`${fn} ${ln}`.trim());
-    } finally {
-      this.isLoading.set(false);
-    }
+  }
+
+  cancelEdit(): void {
+    this.isEditing.set(false);
+    this.editErrors.set({});
+  }
+
+  onEditUsernameChange(value: string): void {
+    this.editUsername.set(value);
+    this.editErrors.update(e => ({ ...e, username: '' }));
+  }
+
+  onEditEmailChange(value: string): void {
+    this.editEmail.set(value);
+    this.editErrors.update(e => ({ ...e, email: '' }));
+  }
+
+  onEditPhoneChange(value: string): void {
+    this.editPhone.set(value);
+    this.editErrors.update(e => ({ ...e, phone: '' }));
+  }
+
+  onEditBioChange(value: string): void {
+    this.editBio.set(value);
+    this.editErrors.update(e => ({ ...e, bio: '' }));
+  }
+
+  async saveEdit(): Promise<void> {
+    const errors: { username?: string; email?: string; phone?: string; bio?: string } = {};
+    const user = validateUsername(this.editUsername());
+    const email = validateEmail(this.editEmail());
+    const phone = this.editPhone() && !PHONE_PATTERN.test(this.editPhone()) ? 'Формат: +380XXXXXXXXX' : '';
+    const bio = validateBio(this.editBio());
+    if (user) errors.username = user;
+    if (email) errors.email = email;
+    if (phone) errors.phone = phone;
+    if (bio) errors.bio = bio;
+    this.editErrors.set(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    this.isLoading.set(true);
+    this.usernameField.set({ value: this.editUsername(), touched: true });
+    this.emailField.set({ value: this.editEmail(), touched: true });
+    this.phoneField.set({ value: this.editPhone(), touched: !!this.editPhone() });
+    this.bioField.set({ value: this.editBio(), touched: !!this.editBio() });
+    this.isLoading.set(false);
+    this.isEditing.set(false);
+    this.isSaved.set(true);
+    setTimeout(() => this.isSaved.set(false), 3000);
+  }
+
+  setTab(tab: 'info' | 'history'): void {
+    this.activeTab.set(tab);
   }
 }
