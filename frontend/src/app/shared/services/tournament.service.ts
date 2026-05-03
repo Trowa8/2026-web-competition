@@ -1,27 +1,42 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import {
+  Tournament,
+  CreateTournamentDto,
+  UpdateTournamentDto,
+  TournamentFilters,
+} from '../types/tournament.types';
 import { environment } from '../../../environments/environment';
 
-type Tournament = { id: number; name: string; status: string; maxTeams: number; registeredTeams: number };
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class TournamentService {
-  private http = inject(HttpClient);
-  private tournamentsState = signal<Tournament[]>([]);
-  private loadingState = signal(false);
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/tournaments`;
 
-  tournaments = this.tournamentsState.asReadonly();
-  isLoading = this.loadingState.asReadonly();
+  getAll(filters?: TournamentFilters) {
+    return this.http.get<Tournament[]>(this.apiUrl, {
+      params: {
+        ...(filters?.status && { status: filters.status }),
+        ...(filters?.search && { search: filters.search }),
+      },
+    });
+  }
 
-  async getAllTournaments(): Promise<Tournament[]> {
-    this.loadingState.set(true);
-    try {
-      const data = await firstValueFrom<Tournament[]>(this.http.get<Tournament[]>(`${environment.apiUrl}/tournaments`));
-      this.tournamentsState.set(data);
-      return data;
-    } finally {
-      this.loadingState.set(false);
-    }
+  getById(id: string) {
+    return this.http.get<Tournament>(`${this.apiUrl}/${id}`);
+  }
+
+  create(dto: CreateTournamentDto) {
+    return this.http.post<Tournament>(this.apiUrl, dto);
+  }
+
+  update(id: string, dto: UpdateTournamentDto) {
+    return this.http.patch<Tournament>(`${this.apiUrl}/${id}`, dto);
+  }
+
+  delete(id: string) {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
