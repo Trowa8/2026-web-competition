@@ -1,3 +1,61 @@
 <div class="login-page">
-    <app-login-form></app-login-form>
+  <div class="login-card">
+
+    <div class="login-card__header">
+      <div class="login-card__logo">
+        <span class="login-card__logo-text">Name</span>
+      </div>
+      <h1 class="login-card__title">Вхід до акаунту</h1>
+    </div>
+
+    <form class="login-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="login-card__fields">
+        <ui-input
+          label="Email"
+          type="email"
+          placeholder="you@gamehub.gg"
+          [value]="form.get('email')?.value ?? ''"
+          (valueChange)="form.get('email')?.setValue($event)"
+          [error]="emailError"
+          [required]="true"
+          fa-icon="fa-envelope"
+        />
+
+        <ui-input
+          label="Пароль"
+          type="password"
+          placeholder="Введіть пароль"
+          [value]="form.get('password')?.value ?? ''"
+          (valueChange)="form.get('password')?.setValue($event)"
+          [error]="passwordError"
+          [required]="true"
+          fa-icon="fa-lock"
+        />
+      </div>
+
+      <div class="login-card__forgot">
+        <a routerLink="/auth/forgot-password" class="login-card__link">Забули пароль?</a>
+      </div>
+
+      <ui-button
+        type="submit"
+        text="Увійти"
+        color="primary"
+        [IsFullWidth]="true"
+        align="center"
+        variant="solid"
+      />
+    </form>
+
+    <div class="login-card__divider">
+      <span>або</span>
+    </div>
+
+    <div class="login-card__footer">
+      <span class="login-card__footer-text">Ще немає акаунту?</span>
+      <a routerLink="/auth/register" class="login-card__link login-card__link--accent">
+        Зареєструватись
+      </a>
+    </div>
+  </div>
 </div>

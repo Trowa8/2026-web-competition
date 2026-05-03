@@ -1,0 +1,95 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ─── Logo ───────────────────────────────────────────────────────────────── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.header__logo-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.header__logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.03em;
+}
+
+/* ─── Nav ────────────────────────────────────────────────────────────────── */
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__nav-link {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-text-label);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.header__nav-link:hover {
+  background: var(--color-fill);
+  color: var(--color-text-primary);
+}
+
+.header__nav-link--active {
+  background: var(--color-fill);
+  color: var(--color-text-primary);
+}
+
+/* Реєстрація — виділена */
+.header__nav-link--register {
+  background: #6366f1;
+  color: #ffffff;
+}
+
+.header__nav-link--register:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.header__nav-link--register.header__nav-link--active {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+/* ─── Content ────────────────────────────────────────────────────────────── */
+.layout__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

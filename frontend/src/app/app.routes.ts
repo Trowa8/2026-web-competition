@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
-import { MainLayout } from './layouts/main-layout/main-layout';
-import { Login } from './pages/login/login';
 import { authGuard } from './shared/core/guards/auth.guard';
 
 export const routes: Routes = [
-    { path: 'login', component: Login },
     {
         path: '',
-        component: MainLayout,
+        loadComponent: () => import('./layouts/main-layout/main-layout').then(m => m.MainLayout),
         children: [
             {
                 path: 'tournaments',
@@ -15,6 +12,20 @@ export const routes: Routes = [
                 canActivate: [authGuard],
             },
             { path: '', redirectTo: '/tournaments', pathMatch: 'full' },
+        ],
+    },
+    {
+        path: 'auth',
+        loadComponent: () => import('./layouts/auth-layout/auth-layout').then(m => m.AuthLayout),
+        children: [
+            {
+                path: 'login',
+                loadChildren: () => import('./pages/login/login').then(m => m.LoginComponent),
+            },
+            {
+                path: 'register',
+                loadChildren: () => import('./pages/register/register').then(m => m.RegisterComponent),
+            }
         ],
     },
 
