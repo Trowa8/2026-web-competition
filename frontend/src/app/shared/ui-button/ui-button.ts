@@ -1,7 +1,7 @@
 import { Component, InputSignal, OutputEmitterRef, input, output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-export type ButtonColor = 'primary' | 'outline' | 'leave' | 'secondary' ;
+export type ButtonColor = 'primary' | 'outline' | 'leave' | 'secondary' | 'disabled';
 export type ButtonType = 'button' | 'submit' | 'reset';
 export type ButtonAlignment = 'left' | 'center' | 'right';
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
