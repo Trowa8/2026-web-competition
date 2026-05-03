@@ -20,4 +20,3 @@ export class Header {
     await this.auth.logout();
     this.router.navigate(['/login']);
   }
-}
