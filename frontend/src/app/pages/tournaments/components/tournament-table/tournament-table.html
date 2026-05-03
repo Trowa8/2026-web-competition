@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @for (t of tournaments; track t.id) {
+            @for (t of tournament; track t.id) {
             <tr class="tournament-row">
                 <td class="tournament-name">{{ t.name }}</td>
                 <td><span class="status-badge">{{ getStatusText(t.status) }}</span></td>
