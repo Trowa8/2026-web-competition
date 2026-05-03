@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Завантаження рішення</h2>
+
+    <form (ngSubmit)="submit()">
+        <div class="form-group">
+            <label>ID задачі</label>
+            <input type="text" [(ngModel)]="taskId" name="taskId" placeholder="Task ID" />
+        </div>
+
+        <div class="form-group">
+            <label>GitHub посилання</label>
+            <input type="text" [(ngModel)]="githubUrl" name="githubUrl" placeholder="https://github.com/..." />
+        </div>
+
+        <div class="form-group">
+            <label>Demo відео</label>
+            <input type="text" [(ngModel)]="demoUrl" name="demoUrl" placeholder="https://youtube.com/..." />
+        </div>
+
+        <button type="submit" [disabled]="isSubmitting()">
+            {{ isSubmitting() ? 'Відправка...' : 'Відправити' }}
+        </button>
+    </form>
+</div>
