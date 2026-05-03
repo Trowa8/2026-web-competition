@@ -1,8 +1,8 @@
 export type Task = {
-    taskId: number;
+    id: number;
     title: string;
     description: string;
     deadline: string;
-    submissionStart: string;
     tournamentId: number;
+    status: 'draft' | 'active' | 'closed';
 };

@@ -1,0 +1,52 @@
+<div class="jury-page">
+    <h1>Оцінювання робіт</h1>
+
+    <div class="jury-layout">
+        <div class="submissions-list">
+            <h3>Роботи на перевірку ({{ submissions.length }})</h3>
+            @for (sub of submissions; track sub.id) {
+            <div class="submission-card" [class.selected]="currentSubmission?.id === sub.id"
+                (click)="selectSubmission(sub)">
+                <strong>{{ sub.teamName }}</strong>
+                <span>{{ sub.taskTitle }}</span>
+            </div>
+            }
+        </div>
+
+        @if (currentSubmission) {
+        <div class="evaluation-form">
+            <h2>{{ currentSubmission.taskTitle }}</h2>
+            <p><strong>Команда:</strong> {{ currentSubmission.teamName }}</p>
+
+            <div class="criteria">
+                <label>
+                    Технічна частина:
+                    <input type="number" [(ngModel)]="criteria.technical" (change)="calculateTotal()" min="0" max="100">
+                </label>
+                <label>
+                    Функціональність:
+                    <input type="number" [(ngModel)]="criteria.functionality" (change)="calculateTotal()" min="0"
+                        max="100">
+                </label>
+                <label>
+                    Дизайн:
+                    <input type="number" [(ngModel)]="criteria.design" (change)="calculateTotal()" min="0" max="100">
+                </label>
+                <label>
+                    Презентація:
+                    <input type="number" [(ngModel)]="criteria.presentation" (change)="calculateTotal()" min="0"
+                        max="100">
+                </label>
+            </div>
+
+            <p class="total-score"><strong>Загальний бал: {{ score }}</strong></p>
+
+            <textarea [(ngModel)]="comment" placeholder="Коментар до роботи..."></textarea>
+
+            <button (click)="submitEvaluation()" class="submit-btn">Зберегти оцінку</button>
+        </div>
+        } @else {
+        <p class="no-selection">Оберіть роботу зі списку для оцінювання</p>
+        }
+    </div>
+</div>

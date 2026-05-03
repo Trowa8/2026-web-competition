@@ -1,27 +1,30 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
-
-type Tournament = { id: number; name: string; status: string; maxTeams: number; registeredTeams: number };
+import { Tournament } from '../types/tournament.types';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
-  private http = inject(HttpClient);
-  private tournamentsState = signal<Tournament[]>([]);
-  private loadingState = signal(false);
 
-  tournaments = this.tournamentsState.asReadonly();
-  isLoading = this.loadingState.asReadonly();
+  private tournamentsSignal = signal<Tournament[]>([]);
+  public tournaments = this.tournamentsSignal.asReadonly();
 
-  async getAllTournaments(): Promise<Tournament[]> {
-    this.loadingState.set(true);
+  public isLoading = signal(false);
+
+  constructor(private http: HttpClient) { }
+
+  public async getTournaments(): Promise<Tournament[]> {
+    this.isLoading.set(true);
     try {
-      const data = await firstValueFrom<Tournament[]>(this.http.get<Tournament[]>(`${environment.apiUrl}/tournaments`));
-      this.tournamentsState.set(data);
-      return data;
+      const data = await firstValueFrom(this.http.get<Tournament[]>('/api/tournaments'));
+      this.tournamentsSignal.set(data || []);
+      return data || [];
+    } catch (err) {
+      console.error('Помилка завантаження турнірів', err);
+      this.tournamentsSignal.set([]);
+      return [];
     } finally {
-      this.loadingState.set(false);
+      this.isLoading.set(false);
     }
   }
 }

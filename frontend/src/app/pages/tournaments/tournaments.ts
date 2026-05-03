@@ -23,7 +23,7 @@ export class Tournaments implements OnInit {
   });
 
   async ngOnInit() {
-    await this.tournamentService.getAllTournaments();
+    await this.tournamentService.getTournaments();
   }
 
   onSearch(value: string) {

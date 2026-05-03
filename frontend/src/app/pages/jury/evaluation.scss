@@ -1,0 +1,75 @@
+.jury-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.jury-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.submissions-list {
+    flex: 1;
+    max-width: 380px;
+}
+
+.submission-card {
+    padding: 16px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.submission-card:hover {
+    background: #f8fafc;
+    border-color: #e0e7ff;
+}
+
+.submission-card.selected {
+    border-color: #6366f1;
+    background: #f0f9ff;
+}
+
+.evaluation-form {
+    flex: 2;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.criteria label {
+    display: block;
+    margin: 12px 0;
+    font-weight: 500;
+}
+
+input[type="number"] {
+    width: 80px;
+    margin-left: 10px;
+    padding: 6px;
+}
+
+.total-score {
+    font-size: 1.3rem;
+    margin: 20px 0;
+    color: #1e40af;
+}
+
+.submit-btn {
+    background: #4f46e5;
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.no-selection {
+    color: #64748b;
+    font-style: italic;
+}

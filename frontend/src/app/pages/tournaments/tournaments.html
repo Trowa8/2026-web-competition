@@ -7,6 +7,6 @@
     @if (isLoading()) {
     <div class="loading">Завантаження...</div>
     } @else {
-    <app-tournament-table [tournaments]="filteredTournaments()"></app-tournament-table>
+    <app-tournament-table [tournament]="filteredTournaments()"></app-tournament-table>
     }
 </div>
