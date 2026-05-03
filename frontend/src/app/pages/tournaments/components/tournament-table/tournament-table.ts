@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Tournament } from '../../../../shared/types/tournament.types';
+
+type Tournament = { id: number; name: string; status: string; maxTeams: number; registeredTeams: number };
 
 @Component({
   selector: 'app-tournament-table',
@@ -8,7 +9,7 @@ import { Tournament } from '../../../../shared/types/tournament.types';
   styleUrls: ['./tournament-table.css'],
 })
 export class TournamentTable {
-  @Input() tournament: Tournament[] = [];
+  @Input() tournaments: Tournament[] = [];
 
   getStatusText(status: string): string {
     const map: Record<string, string> = {
