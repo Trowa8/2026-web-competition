@@ -1,0 +1,277 @@
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-avatar">
+      <i class="fa-solid fa-user-tie"></i>
+    </div>
+    <span class="topbar-name">{{ usernameField().value || 'Профіль' }}</span>
+  </div>
+  <div class="topbar-title">Акаунт</div>
+  <a class="topbar-back" href="#">На головну <span>→</span></a>
+</div>
+
+<div class="page-wrapper">
+
+  <aside class="sidebar">
+    <div class="completion-card">
+      <p class="completion-label">Заповніть<br />профіль</p>
+
+      <div class="donut-wrapper">
+        <svg class="donut" viewBox="0 0 80 80">
+          <circle class="donut-bg" cx="40" cy="40" r="36" />
+          <circle
+            class="donut-progress"
+            cx="40" cy="40" r="36"
+            [attr.stroke]="progressColor()"
+            [style.stroke-dasharray]="circumference"
+            [style.stroke-dashoffset]="dashOffset()"
+          />
+        </svg>
+        <span class="donut-text">{{ profileCompletion() }}%</span>
+      </div>
+
+      <ul class="checklist">
+        @for (item of allProfileItems; track item.key) {
+          <li class="checklist-item">
+            <span class="check-icon" [class.done]="completedFields()[item.key]">✓</span>
+            <span [class.done-text]="completedFields()[item.key]">{{ item.label }}</span>
+            <span class="field-weight">+{{ item.weight }}%</span>
+          </li>
+        }
+      </ul>
+
+      @if (profileCompletion() === 100) {
+        <div class="complete-badge"> Профіль заповнено!</div>
+      }
+    </div>
+
+    <div class="team-card">
+      <div class="team-card-header">
+        <h3 class="team-card-title">Команда</h3>
+        <span class="team-tag">Phoenix Squad</span>
+      </div>
+      <ul class="team-list">
+        @for (member of teamMembers(); track member.id) {
+          <li class="team-item">
+            <div class="member-avatar">{{ member.name.slice(0, 1) }}</div>
+            <span class="member-name">{{ member.name }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main-area">
+
+    <section class="profile-header-section">
+      <div class="profile-header-inner">
+        <div class="avatar-circle">
+          <i class="fa-solid fa-user-tie"></i>
+        </div>
+        <div class="profile-meta">
+          <h1 class="profile-username">{{ usernameField().value || 'Новий учасник' }}</h1>
+          <span class="profile-badge">Учасник</span>
+          @if (isSaved()) {
+            <span class="save-toast"><i class="fa-solid fa-check"></i> Збережено</span>
+          }
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-pill">
+          <span class="stat-label">Турнірів</span>
+          <span class="stat-value">{{ totalTournaments() }}</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Перемог</span>
+          <span class="stat-value">{{ totalWins() }}</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">У команді</span>
+          <span class="stat-value">{{ teamMembers().length }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <div class="settings-header">
+        <h3 class="settings-title">Налаштування акаунту</h3>
+        <div class="settings-tabs">
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === 'info'"
+            (click)="setTab('info')"
+          >Особисті дані</button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === 'history'"
+            (click)="setTab('history')"
+          >Історія турнірів</button>
+        </div>
+      </div>
+
+      <div class="settings-body">
+
+        @if (activeTab() === 'info') {
+          @if (!isEditing()) {
+            <div class="info-view">
+              <div class="info-section-row">
+                <span class="info-section-label">Основна інформація</span>
+                <ui-button
+                  text="Редагувати"
+                  color="primary"
+                  variant="solid"
+                  (onClick)="startEdit()"
+                />
+              </div>
+
+              <div class="settings-fields">
+                <div class="field-row">
+                  <div class="field-done-dot" [class.filled]="completedFields()['username']"></div>
+                  <span class="field-label">Нікнейм</span>
+                  <div class="field-value-wrap">
+                    <span class="field-value" [class.empty]="!usernameField().value">
+                      {{ usernameField().value || 'Не вказано' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field-done-dot" [class.filled]="completedFields()['email']"></div>
+                  <span class="field-label">Email</span>
+                  <div class="field-value-wrap">
+                    <span class="field-value" [class.empty]="!emailField().value">
+                      {{ emailField().value || 'Не вказано' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field-done-dot" [class.filled]="completedFields()['phone']"></div>
+                  <span class="field-label">Телефон</span>
+                  <div class="field-value-wrap">
+                    <span class="field-value" [class.empty]="!phoneField().value">
+                      {{ phoneField().value || 'Не вказано' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field-done-dot" [class.filled]="completedFields()['bio']"></div>
+                  <span class="field-label">Біографія</span>
+                  <div class="field-value-wrap">
+                    <span class="field-value" [class.empty]="!bioField().value">
+                      {{ bioField().value || 'Не вказано' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="progress-bar-wrap">
+                <div class="progress-bar-track">
+                  <div
+                    class="progress-bar-fill"
+                    [style.width.%]="profileCompletion()"
+                    [style.background]="progressColor()"
+                  ></div>
+                </div>
+                <span class="progress-bar-label">{{ profileCompletion() }}% профіль заповнено</span>
+              </div>
+            </div>
+          }
+
+          @if (isEditing()) {
+            <div class="edit-form-panel">
+              <div class="edit-form-title">Редагування профілю</div>
+
+              <div class="form-fields">
+                <ui-input
+                  label="Нікнейм"
+                  type="text"
+                  placeholder="ProGamer2025"
+                  [value]="editUsername()"
+                  [error]="editErrors().username || ''"
+                  [status]="editErrors().username ? 'error' : editUsername() && !editErrors().username ? 'success' : 'default'"
+                  (valueChange)="onEditUsernameChange($event)"
+                />
+                <ui-input
+                  label="Email"
+                  type="email"
+                  placeholder="your@email.com"
+                  [value]="editEmail()"
+                  [error]="editErrors().email || ''"
+                  [status]="editErrors().email ? 'error' : editEmail() && !editErrors().email ? 'success' : 'default'"
+                  (valueChange)="onEditEmailChange($event)"
+                />
+                <ui-input
+                  label="Телефон"
+                  type="tel"
+                  placeholder="+380XXXXXXXXX"
+                  [value]="editPhone()"
+                  [error]="editErrors().phone || ''"
+                  [status]="editErrors().phone ? 'error' : editPhone() && !editErrors().phone ? 'success' : 'default'"
+                  (valueChange)="onEditPhoneChange($event)"
+                />
+                <ui-input
+                  label="Біографія"
+                  type="text"
+                  placeholder="Розкажіть про себе (до 300 символів)"
+                  [value]="editBio()"
+                  [error]="editErrors().bio || ''"
+                  [hint]="editBio().length + '/300'"
+                  [status]="editErrors().bio ? 'error' : 'default'"
+                  (valueChange)="onEditBioChange($event)"
+                />
+              </div>
+
+              <div class="form-actions">
+                <ui-button
+                  text="Скасувати"
+                  color="leave"
+                  variant="outline"
+                  (onClick)="cancelEdit()"
+                />
+                <ui-button
+                  [text]="isLoading() ? 'Збереження...' : 'Зберегти зміни'"
+                  color="primary"
+                  variant="solid"
+                  [disabled]="isLoading()"
+                  (onClick)="saveEdit()"
+                />
+              </div>
+            </div>
+          }
+        }
+
+        @if (activeTab() === 'history') {
+          <div class="history-header">
+            <span class="history-title">Участь у турнірах</span>
+            <span class="history-count">{{ totalTournaments() }} записів</span>
+          </div>
+
+          <div class="history-table-wrap">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Турнір</th>
+                  <th>Дата</th>
+                  <th>Результат</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (t of tournamentHistory(); track t.id) {
+                  <tr class="history-row">
+                    <td class="tour-name">{{ t.name }}</td>
+                    <td class="tour-date">{{ t.date }}</td>
+                    <td class="tour-result">{{ t.result }}</td>
+                    <td>
+                      <span class="status-badge" [attr.data-status]="t.status">{{ t.status }}</span>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+
+      </div>
+    </section>
+
+  </main>
+</div>
