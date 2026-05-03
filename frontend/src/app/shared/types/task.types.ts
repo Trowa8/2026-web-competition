@@ -1,8 +1,22 @@
 export type Task = {
-    taskId: number;
+    id: string;
     title: string;
     description: string;
-    deadline: string;
-    submissionStart: string;
-    tournamentId: number;
+    tournamentId: string;
+    maxScore: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type CreateTaskDto = {
+    title: string;
+    description: string;
+    tournamentId: string;
+    maxScore: number;
+};
+
+export type UpdateTaskDto = {
+    title?: string;
+    description?: string;
+    maxScore?: number;
 };

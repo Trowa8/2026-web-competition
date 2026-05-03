@@ -1,26 +1,45 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import {
+    Task,
+    CreateTaskDto,
+    UpdateTaskDto,
+} from '../types/task.types';
+
 import { environment } from '../../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+    providedIn: 'root',
+})
 export class TaskService {
-    private http = inject(HttpClient);
-    private apiUrl = environment.apiUrl;
+    private readonly http = inject(HttpClient);
+    private readonly apiUrl = `${environment.apiUrl}/tasks`;
 
-    async getByTournament(tournamentId: number): Promise<any[]> {
-        return await firstValueFrom<any[]>(this.http.get<any[]>(`${this.apiUrl}/tournaments/${tournamentId}/tasks`));
+    getAll(): Observable<Task[]> {
+        return this.http.get<Task[]>(this.apiUrl);
     }
 
-    async getById(tournamentId: number, taskId: number): Promise<any> {
-        return await firstValueFrom<any>(this.http.get<any>(`${this.apiUrl}/tournaments/${tournamentId}/tasks/${taskId}`));
+    getById(id: string): Observable<Task> {
+        return this.http.get<Task>(`${this.apiUrl}/${id}`);
     }
 
-    async create(tournamentId: number, data: any): Promise<any> {
-        return await firstValueFrom<any>(this.http.post<any>(`${this.apiUrl}/tournaments/${tournamentId}/tasks`, data));
+    getByTournament(tournamentId: string): Observable<Task[]> {
+        return this.http.get<Task[]>(
+            `${this.apiUrl}/tournament/${tournamentId}`
+        );
     }
 
-    async update(tournamentId: number, taskId: number, data: any): Promise<any> {
-        return await firstValueFrom<any>(this.http.put<any>(`${this.apiUrl}/tournaments/${tournamentId}/tasks/${taskId}`, data));
+    create(dto: CreateTaskDto): Observable<Task> {
+        return this.http.post<Task>(this.apiUrl, dto);
+    }
+
+    update(id: string, dto: UpdateTaskDto): Observable<Task> {
+        return this.http.patch<Task>(`${this.apiUrl}/${id}`, dto);
+    }
+
+    delete(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 }
