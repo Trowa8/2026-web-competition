@@ -7,10 +7,8 @@ from src.schemas.team import (
     TeamCodeResponse,
     TeamCreateRequest,
     TeamCreateResponse,
-    TeamDeleteResponse,
     TeamDetailResponse,
     TeamJoinRequest,
-    TeamJoinResponse,
     TeamSummaryResponse,
     TeamUpdateRequest,
 )
@@ -20,7 +18,7 @@ from src.services.team import (
     delete_team_service,
     get_team_code_service,
     get_team_service,
-    join_team_service,
+    enroll_in_team_service,
     list_teams_service,
     remove_member_service,
     update_team_service,
@@ -61,13 +59,14 @@ async def update_team(
 ):
     return await update_team_service(db, team_id, data, current_user_id)
 
-@router.delete("/{team_id}", response_model=TeamDeleteResponse)
+@router.delete("/{team_id}")
 async def delete_team(
     team_id: str,
     current_user_id: Annotated[str, Depends(get_current_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await delete_team_service(db, team_id, current_user_id)
+    await delete_team_service(db, team_id, current_user_id)
+    return {"success": True}
 
 @router.get("/{team_id}/code", response_model=TeamCodeResponse)
 async def get_team_code(
@@ -77,29 +76,32 @@ async def get_team_code(
 ):
     return await get_team_code_service(db, team_id, current_user_id)
 
-@router.post("/{team_id}/join", response_model=TeamJoinResponse)
-async def join_team(
+@router.post("/{team_id}/join")
+async def enroll_in_team(
     team_id: str,
     data: TeamJoinRequest,
     current_user_id: Annotated[str, Depends(get_current_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await join_team_service(db, team_id, data, current_user_id)
+    await enroll_in_team_service(db, team_id, data, current_user_id)
+    return {"success": True}
 
-@router.delete("/{team_id}/members/{user_id}", response_model=TeamDeleteResponse)
+@router.delete("/{team_id}/members/{user_id}")
 async def remove_member(
     team_id: str,
     user_id: str,
     current_user_id: Annotated[str, Depends(get_current_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await remove_member_service(db, team_id, user_id, current_user_id)
+    await remove_member_service(db, team_id, user_id, current_user_id)
+    return {"success": True}
 
-@router.post("/{team_id}/appoint-captain", response_model=TeamDeleteResponse)
+@router.post("/{team_id}/appoint-captain")
 async def appoint_captain(
     team_id: str,
     data: AppointCaptainRequest,
     current_user_id: Annotated[str, Depends(get_current_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    return await appoint_captain_service(db, team_id, data, current_user_id)
+    await appoint_captain_service(db, team_id, data, current_user_id)
+    return {"success": True}

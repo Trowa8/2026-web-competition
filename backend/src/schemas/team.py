@@ -47,17 +47,11 @@ class TeamHistoryItemResponse(BaseModel):
     place: int
     score: int
     
-class TeamDeleteResponse(BaseModel):
-    success: bool
-
 class TeamCodeResponse(BaseModel):
     team_code: str
 
 class TeamJoinRequest(BaseModel):
     team_code: str
-
-class TeamJoinResponse(BaseModel):
-    success: bool
 
 class AppointCaptainRequest(BaseModel):
     user_id: str
