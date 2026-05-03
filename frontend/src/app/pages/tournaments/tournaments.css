@@ -18,13 +18,20 @@ h1 {
     padding: 12px 24px;
     background: #28a745;
     color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
 }
 
-.loading {
-    text-align: center;
-    padding: 60px;
-    color: #999;
+.btn-leave {
+    background: #f0f0f0;
+    color: #666;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-join:hover:not(:disabled),
+.btn-leave:hover {
+    transform: translateY(-2px);
+}
+
+.btn-join:disabled {
+    background: #ccc;
+    cursor: not-allowed;
 }
