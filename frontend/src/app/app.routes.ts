@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Login } from './pages/login/login';
 import { authGuard } from './shared/core/guards/auth.guard';
+import { CreateTask } from './pages/create-task/create-task';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -19,4 +20,5 @@ export const routes: Routes = [
     },
 
     { path: '**', redirectTo: '/tournaments' },
+    { path: 'create-task', component: CreateTask },
 ];
