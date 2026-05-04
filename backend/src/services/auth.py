@@ -6,8 +6,8 @@ from jwt.exceptions import InvalidTokenError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.config import settings
+from src.crud.user import create_user
 from src.crud.auth import (
-    create_user,
     get_user_by_email,
     get_user_by_id,
     get_user_by_username_or_email,

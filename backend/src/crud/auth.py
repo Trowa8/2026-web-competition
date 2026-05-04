@@ -16,12 +16,6 @@ async def get_user_by_username_or_email(db: AsyncSession, username: str, email: 
     )
     return result.scalar_one_or_none()
 
-async def create_user(db: AsyncSession, username: str, email: str, hashed_password: str) -> User:
-    user = User(username=username, email=email, password=hashed_password)
-    db.add(user)
-    await db.flush()
-    return user
-
 async def update_refresh_token(db: AsyncSession, user: User, refresh_token: str) -> None:
     user.refresh_token = refresh_token
     await db.commit()
