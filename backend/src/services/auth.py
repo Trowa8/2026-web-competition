@@ -20,6 +20,7 @@ from src.utils.jwt import (
     create_refresh_token,
     get_password_hash,
     verify_password,
+    hash_token,
 )
 
 _invalid_credentials_exception = HTTPException(
@@ -53,10 +54,9 @@ async def register(db: AsyncSession, data: SignUpRequest) -> TokenResponse:
 
     user = await create_user(db, data.login, data.email, get_password_hash(data.password))
     access_token, refresh_token = _make_token_pair(user.id)
-    await update_refresh_token(db, user, refresh_token)
+    await update_refresh_token(db, user, hash_token(refresh_token))
 
     return TokenResponse(access_token=access_token, refresh_token=refresh_token, user_id=user.id)
-
 
 async def login(db: AsyncSession, data: SignInRequest) -> TokenResponse:
     user = await get_user_by_email(db, data.email)
@@ -67,10 +67,9 @@ async def login(db: AsyncSession, data: SignInRequest) -> TokenResponse:
         raise _invalid_credentials_exception
 
     access_token, refresh_token = _make_token_pair(user.id)
-    await update_refresh_token(db, user, refresh_token)
+    await update_refresh_token(db, user, hash_token(refresh_token))
 
     return TokenResponse(access_token=access_token, refresh_token=refresh_token, user_id=user.id)
-
 
 async def refresh(db: AsyncSession, data: RefreshRequest) -> TokenResponse:
     try:
@@ -83,10 +82,10 @@ async def refresh(db: AsyncSession, data: RefreshRequest) -> TokenResponse:
         raise _invalid_token_exception
 
     user = await get_user_by_id(db, user_id)
-    if not user or user.refresh_token != data.refresh_token:
+    if not user or user.refresh_token != hash_token(data.refresh_token):
         raise _invalid_token_exception
 
     access_token, new_refresh_token = _make_token_pair(user.id)
-    await update_refresh_token(db, user, new_refresh_token)
+    await update_refresh_token(db, user, hash_token(new_refresh_token))
 
     return TokenResponse(access_token=access_token, refresh_token=new_refresh_token, user_id=user.id)
