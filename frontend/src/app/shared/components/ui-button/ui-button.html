@@ -7,8 +7,10 @@
   'btn-secondary': color() === 'secondary',
   'btn-outline':   color() === 'outline',
   'btn-leave':     color() === 'leave',
-  'btn-outline-variant': variant() === 'outline',
-  'btn-solid-variant': variant() === 'solid',
+
+  'btn-align-left': align() === 'left',
+  'btn-align-center': align() === 'center',
+  'btn-align-right': align() === 'right',
 }"
   (click)="onClick.emit()"
 >

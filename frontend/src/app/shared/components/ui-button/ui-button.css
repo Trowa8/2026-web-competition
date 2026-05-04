@@ -7,6 +7,8 @@
 }
 
 button {
+  background-color:var(--button-bg);
+  color: var(--button-color);
   position: relative;
   overflow: hidden;
   padding: 8px 22px;
@@ -33,8 +35,6 @@ button:disabled {
   --button-color: var(--white-color);
   --button-bg: var(--main-color);
   --button-hover-bg: var(--main-hover-color);
-  background-color: var(--button-bg);
-  color: var(--button-color);
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
@@ -55,8 +55,6 @@ button:disabled {
   --button-bg: var(--secondary-color);
   --button-hover-color: var(--white-color);
   --button-fill-color: var(--main-color);
-  background-color: var(--button-bg);
-  color: var(--button-color);
   transition: color 0.2s ease;
   position: relative;
   z-index: 1;
@@ -81,7 +79,6 @@ button:disabled {
 
 .btn-secondary:hover::before{ width: 100%; }
 .btn-secondary:disabled:hover::before { width: 0; }
-.btn-secondary:disabled:hover{ color: var(--button-color); }
 .btn-outline {
   --button-border-color: var(--outline-border-color);
   border: 1px solid var(--button-border-color);
@@ -94,9 +91,6 @@ button:disabled {
   --button-bg: var(--secondary-color);
   --button-hover-color: var(--white-color);
   --button-fill-color: var(--danger-color);
-
-  background-color: var(--button-bg);
-  color: var(--button-color);
   transition: color 0.25s ease;
   position: relative;
   z-index: 1;
@@ -120,3 +114,16 @@ button:disabled {
 }
 
 .btn-leave:hover::before { width: 220%; }
+
+.btn-align-left{
+  margin-right:auto;
+}
+
+.btn-align-right{
+  margin-left:auto;
+}
+
+.btn-align-center{
+  margin-left:auto;
+  margin-right:auto;
+}
