@@ -1,6 +1,14 @@
 :root {
-    --color-error: #e24b4a;
-    --color-disabled: #888;
+  --white-color: #ffffff;
+  --main-color: #7670e8;
+  --main-hover-color: #5a5cd8;
+  --danger-color: #ff0000;
+  --main-font-color: #111827;
+  --accent-color: #4338ca;
+  --secondary-color: #e5e7eb;
+  --outline-border-color: #000000;
+  --link-color: #e94560;
+  --bg-gradient: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
 }
 * {
     margin: 0;
