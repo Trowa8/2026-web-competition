@@ -1,4 +1,4 @@
-.submit-container {
+.submit-page {
     max-width: 720px;
     margin: 40px auto;
     padding: 40px;
@@ -20,6 +20,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
+    color: #374151;
 }
 
 .required {
@@ -45,7 +46,6 @@ textarea {
     font-size: 17px;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 .btn-submit:hover {

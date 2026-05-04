@@ -27,8 +27,8 @@ export class SubmitSolutionComponent {
     ) { }
 
     async onSubmit() {
-        if (!this.submission.taskId || !this.submission.githubLink) {
-            alert('Будь ласка, вкажіть ID завдання та посилання на GitHub');
+        if (!this.submission.taskId || !this.submission.githubLink.trim()) {
+            alert('ID завдання та посилання на GitHub є обов’язковими!');
             return;
         }
 
@@ -44,7 +44,7 @@ export class SubmitSolutionComponent {
             alert('Рішення успішно подано!');
             this.router.navigate(['/tournaments']);
         } catch (err) {
-            alert('Помилка при подачі рішення. Перевірте дані.');
+            alert('Помилка при подачі рішення');
         }
     }
 }

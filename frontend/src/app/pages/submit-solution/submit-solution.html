@@ -1,32 +1,32 @@
-<div class="submit-container">
-    <h1>Подати рішення</h1>
-    <p class="subtitle">Завантажте свою роботу на перевірку</p>
+<div class="submit-page">
+    <h1>Завантажити рішення</h1>
+    <p class="subtitle">Подайте свою роботу на перевірку журі</p>
 
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>ID завдання <span class="required">*</span></label>
-            <input type="number" [(ngModel)]="submission.taskId" placeholder="Наприклад: 5" required />
+            <input type="number" [(ngModel)]="submission.taskId" placeholder="Наприклад: 42" required />
         </div>
 
         <div class="form-group">
             <label>Посилання на GitHub <span class="required">*</span></label>
-            <input [(ngModel)]="submission.githubLink" placeholder="https://github.com/username/repo" required />
+            <input [(ngModel)]="submission.githubLink" placeholder="https://github.com/username/project" required />
         </div>
 
         <div class="form-group">
             <label>Посилання на Live Demo</label>
-            <input [(ngModel)]="submission.demoLink" placeholder="https://your-demo.com" />
+            <input [(ngModel)]="submission.demoLink" placeholder="https://your-demo-link.com" />
         </div>
 
         <div class="form-group">
-            <label>Посилання на відео (YouTube / Vimeo)</label>
+            <label>Посилання на відео (YouTube, Vimeo)</label>
             <input [(ngModel)]="submission.videoLink" placeholder="https://youtu.be/..." />
         </div>
 
         <div class="form-group">
             <label>Короткий опис рішення</label>
             <textarea [(ngModel)]="submission.description" rows="5"
-                placeholder="Що було реалізовано, які технології використовувались..."></textarea>
+                placeholder="Що було зроблено, які технології використовувались, основні фічі..."></textarea>
         </div>
 
         <button type="submit" class="btn-submit">Подати рішення</button>
