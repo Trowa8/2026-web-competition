@@ -31,7 +31,7 @@ async def create_tournament(db: AsyncSession, tournament: Tournament, organizer_
     return tournament
 
 async def delete_tournament(db: AsyncSession, tournament: Tournament) -> None:
-    db.delete(tournament)
+    await db.delete(tournament)
     await db.commit()
     
 async def get_participation(db: AsyncSession, tournament_id: str, team_id: str) -> TournamentParticipation | None:
