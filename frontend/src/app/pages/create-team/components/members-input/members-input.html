@@ -1,0 +1,15 @@
+<div class="members">
+    <h4>Учасники</h4>
+
+    <div class="input-row">
+        <input [(ngModel)]="member" placeholder="Імʼя учасника" />
+        <button (click)="add()">Додати</button>
+    </div>
+
+    <div class="list">
+        <div class="item" *ngFor="let m of members(); let i = index">
+            <span>{{ m }}</span>
+            <button (click)="remove(i)">✕</button>
+        </div>
+    </div>
+</div>

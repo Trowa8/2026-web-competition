@@ -1,0 +1,11 @@
+<div class="form">
+    <h2>Створення команди</h2>
+
+    <input [(ngModel)]="name" placeholder="Назва команди" />
+
+    <textarea [(ngModel)]="description" placeholder="Опис команди"></textarea>
+
+    <app-members-input (change)="updateMembers($event)" />
+
+    <button (click)="submit()">Створити</button>
+</div>
