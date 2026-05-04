@@ -36,7 +36,7 @@ async def _require_organizer(db, tournament_id, user_id):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only organizers can perform this action")
 
 def _is_open(task: Task) -> bool:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
     return task.submission_start <= now <= task.deadline
 
 
