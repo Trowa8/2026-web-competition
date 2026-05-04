@@ -19,4 +19,9 @@ export const routes: Routes = [
     },
 
     { path: '**', redirectTo: '/tournaments' },
+    {
+        path: 'team-profile',
+        loadComponent: () =>
+            import('./pages/team-profile/team-profile').then(m => m.TeamProfilePage),
+    }
 ];

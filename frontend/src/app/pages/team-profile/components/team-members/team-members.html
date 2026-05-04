@@ -1,0 +1,11 @@
+<div class="members">
+    <h3>Учасники</h3>
+
+    <div class="member" *ngFor="let member of members">
+        <div class="avatar"></div>
+        <div>
+            <div class="name">{{ member.name }}</div>
+            <div class="role">{{ member.role }}</div>
+        </div>
+    </div>
+</div>
