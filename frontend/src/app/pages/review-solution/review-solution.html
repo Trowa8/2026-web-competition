@@ -1,0 +1,43 @@
+<div class="review-page">
+    <h1>Перевірка рішень</h1>
+
+    <div class="review-layout">
+        <div class="submissions-list">
+            <h3>Рішення на перевірку</h3>
+            @for (sub of submissions; track sub.id) {
+            <div class="submission-item" (click)="selectSubmission(sub)">
+                <strong>{{ sub.teamName }}</strong> — {{ sub.taskTitle }}
+            </div>
+            }
+        </div>
+
+        @if (selectedSubmission) {
+        <div class="evaluation-panel">
+            <h2>{{ selectedSubmission.taskTitle }}</h2>
+            <p><strong>Команда:</strong> {{ selectedSubmission.teamName }}</p>
+
+            <a [href]="selectedSubmission.githubLink" target="_blank">→ GitHub</a>
+            @if (selectedSubmission.demoLink) {
+            <a [href]="selectedSubmission.demoLink" target="_blank">→ Live Demo</a>
+            }
+
+            <div class="criteria">
+                <label>Технічна частина: <input type="number" [(ngModel)]="evaluation.technical"
+                        (change)="calculateTotal()" min="0" max="100"></label>
+                <label>Функціональність: <input type="number" [(ngModel)]="evaluation.functionality"
+                        (change)="calculateTotal()" min="0" max="100"></label>
+                <label>Дизайн: <input type="number" [(ngModel)]="evaluation.design" (change)="calculateTotal()" min="0"
+                        max="100"></label>
+                <label>Презентація: <input type="number" [(ngModel)]="evaluation.presentation"
+                        (change)="calculateTotal()" min="0" max="100"></label>
+            </div>
+
+            <p><strong>Загальний бал: {{ evaluation.score }}</strong></p>
+
+            <textarea [(ngModel)]="evaluation.comment" placeholder="Коментар для команди..."></textarea>
+
+            <button (click)="submitEvaluation()" class="btn-evaluate">Зберегти оцінку</button>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,45 @@
+.review-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.review-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.submissions-list {
+    flex: 1;
+}
+
+.submission-item {
+    padding: 16px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.evaluation-panel {
+    flex: 2;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.criteria label {
+    display: block;
+    margin: 12px 0;
+}
+
+.btn-evaluate {
+    background: #4f46e5;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
