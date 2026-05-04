@@ -1,0 +1,21 @@
+.form {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input,
+textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    border: none;
+}

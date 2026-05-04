@@ -19,4 +19,11 @@ export const routes: Routes = [
     },
 
     { path: '**', redirectTo: '/tournaments' },
+
+    {
+        path: 'create-tournament',
+        loadComponent: () =>
+            import('./pages/create-tournament/create-tournament')
+                .then(m => m.CreateTournamentPage),
+    }
 ];

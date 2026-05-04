@@ -1,0 +1,9 @@
+<div class="leaderboard">
+    <h3>Лідерборд</h3>
+
+    <div class="item" *ngFor="let item of items; let i = index">
+        <span>{{ i + 1 }}.</span>
+        <span>{{ item.teamName }}</span>
+        <span>{{ item.score }}</span>
+    </div>
+</div>

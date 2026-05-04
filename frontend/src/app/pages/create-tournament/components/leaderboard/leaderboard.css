@@ -1,0 +1,10 @@
+.leaderboard {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}

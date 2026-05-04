@@ -1,0 +1,5 @@
+<div class="container">
+    <app-tournament-form (create)="onCreateTournament($event)" />
+
+    <app-leaderboard [items]="leaderboard()" />
+</div>
