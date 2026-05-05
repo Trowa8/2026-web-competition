@@ -1,18 +1,24 @@
 export type BaseEvaluation = {
     score: number;
     comment?: string;
+    criteriaScores?: { 
+        technical: number;
+        functionality: number;
+        design: number;
+        presentation: number;
+    };
 };
 
-export type CreateEvaluationDto = BaseEvaluation & {
-    solutionId: string;
+export type CreateEvaluationrequest = BaseEvaluation & {
+    submissionId: number;
 };
 
-export type UpdateEvaluationDto = Partial<BaseEvaluation>;
+export type UpdateEvaluationRequest = Partial<BaseEvaluation>;
 
-export type Evaluation = BaseEvaluation & {
-    id: string;
-    judgeId: string;
-    solutionId: string;
+export type EvaluationResponse = BaseEvaluation & {
+    id: string; 
+    juryId: string;
+    submissionId: string;
     createdAt: string;
     updatedAt: string;
 };
