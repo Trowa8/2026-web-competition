@@ -6,8 +6,8 @@ async def get_tasks_by_tournament(db: AsyncSession, tournament_id: str) -> list[
     result = await db.execute(select(Task).where(Task.tournament_id == tournament_id))
     return result.scalars().all()
 
-async def get_task_by_id(db: AsyncSession, task_id: str) -> Task | None:
-    result = await db.execute(select(Task).where(Task.id == task_id))
+async def get_task_by_id(db: AsyncSession, task_id: str, tournament_id: str) -> Task | None:
+    result = await db.execute(select(Task).where(Task.id == task_id, Task.tournament_id == tournament_id))
     return result.scalar_one_or_none()
 
 async def create_task(db: AsyncSession, task: Task) -> Task:

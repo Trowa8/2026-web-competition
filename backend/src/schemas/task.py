@@ -12,13 +12,13 @@ class TaskSummaryResponse(BaseModel):
 class TaskDetailResponse(BaseModel):
     task_id: str
     title: str
-    description: str
+    description: Optional[str] = None
     deadline: datetime
     submission_start: datetime
 
 class TaskCreateRequest(BaseModel):
     title: str
-    description: str
+    description: Optional[str] = None
     deadline: datetime
     submission_start: datetime
 
@@ -31,7 +31,7 @@ class TaskUpdateRequest(BaseModel):
 class TaskCreateResponse(BaseModel):
     task_id: str
     title: str
-    description: str
+    description: Optional[str] = None
     deadline: datetime
     submission_start: datetime
     tournament_id: str
