@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { TournamentDetail } from './pages/tournament-detail/tournament-detail';
+import { TournamentPage } from './pages/tournament/tournament.page';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/tournament/1', pathMatch: 'full' },
-    { path: 'tournament/:id', component: TournamentDetail },
+    { path: 'tournament', component: TournamentPage },
+    { path: '', redirectTo: '/tournament', pathMatch: 'full' }
 ];
