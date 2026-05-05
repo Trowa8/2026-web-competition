@@ -24,8 +24,8 @@ async def _get_tournament_or_404(db, tournament_id):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tournament not found")
     return tournament
 
-async def _get_task_or_404(db, task_id):
-    task = await get_task_by_id(db, task_id)
+async def _get_task_or_404(db, task_id, tournament_id):
+    task = await get_task_by_id(db, task_id, tournament_id)
     if not task:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
     return task
@@ -59,7 +59,7 @@ async def get_task_service(
     db: AsyncSession, tournament_id: str, task_id: str
 ) -> TaskDetailResponse:
     await _get_tournament_or_404(db, tournament_id)
-    task = await _get_task_or_404(db, task_id)
+    task = await _get_task_or_404(db, task_id, tournament_id)
     return TaskDetailResponse(
         task_id=task.id,
         title=task.title,
@@ -97,7 +97,7 @@ async def update_task_service(
 ) -> TaskDetailResponse:
     await _get_tournament_or_404(db, tournament_id)
     await _require_organizer(db, tournament_id, current_user_id)
-    task = await _get_task_or_404(db, task_id)
+    task = await _get_task_or_404(db, task_id, tournament_id)
 
     await update_task(db, task, data.title, data.description, data.deadline, data.submission_start)
 
@@ -114,5 +114,5 @@ async def delete_task_service(
 ) -> None:
     await _get_tournament_or_404(db, tournament_id)
     await _require_organizer(db, tournament_id, current_user_id)
-    task = await _get_task_or_404(db, task_id)
+    task = await _get_task_or_404(db, task_id, tournament_id)
     await delete_task(db, task)
