@@ -50,11 +50,3 @@ async def get_participation(db: AsyncSession, tournament_id: str, team_id: str) 
         )
     )
     return result.scalar_one_or_none()
-
-async def register_team(db: AsyncSession, participation: TournamentParticipation, roles: list[TournamentUserRole]) -> None:
-    db.add(participation)   
-    await db.flush()
-    for role in roles:
-        role.tournament_participation_id = participation.id
-        db.add(role)
-    await db.commit()
