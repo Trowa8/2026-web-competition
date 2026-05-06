@@ -1,29 +1,7 @@
 import { Routes } from '@angular/router';
-import { MainLayout } from './layouts/main-layout/main-layout';
-import { Login } from './pages/login/login';
-import { authGuard } from './shared/core/guards/auth.guard';
-import { CreateTask } from './pages/create-task/create-task'
+import { SubmitSolutionPage } from './pages/submit-solution/submit-solution.page';
 
 export const routes: Routes = [
-    { path: 'login', component: Login },
-    {
-        path: '',
-        component: MainLayout,
-        children: [
-            {
-                path: 'tournaments',
-                loadComponent: () => import('./pages/tournaments/tournaments').then(m => m.Tournaments),
-                canActivate: [authGuard],
-            },
-            { path: '', redirectTo: '/tournaments', pathMatch: 'full' },
-            {
-                path: 'create-task',
-                loadComponent: () =>
-                    import('./pages/create-task/create-task').then(m => m.CreateTask),
-            }
-        ],
-    },
-
-    { path: '**', redirectTo: '/tournaments' },
-    { path: 'create-task', component: CreateTask },
+    { path: '', redirectTo: '/submit-solution', pathMatch: 'full' },
+    { path: 'submit-solution', component: SubmitSolutionPage }
 ];

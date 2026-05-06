@@ -1,0 +1,52 @@
+<div class="submit-solution-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
+        <div class="user-menu">
+            <span>👤</span>
+            <span>Timofey</span>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Task Submission</h1>
+        <p>Submit your solution for the tournament task</p>
+    </div>
+
+    <div class="main-container">
+        <div class="left-column">
+            <app-team-info [teamName]="teamName"></app-team-info>
+            <app-problem-statement [title]="taskTitle" [description]="taskDescription"
+                [problemStatement]="problemStatement">
+            </app-problem-statement>
+            <app-members-list [members]="members"></app-members-list>
+        </div>
+
+        <div class="right-column">
+            <app-code-editor (submitted)="onSolutionSubmitted($event)"></app-code-editor>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>🏆 Judge Portal</span>
+                <p>© 2023 Judge Portal. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Contact us</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>
