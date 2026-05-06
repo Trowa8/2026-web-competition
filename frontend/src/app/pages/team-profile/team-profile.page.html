@@ -1,0 +1,73 @@
+<div class="team-profile-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
+        <div class="user-menu">
+            <span>👤</span>
+            <span>{{ teamName }}</span>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Team Profile</h1>
+        <p>Manage your team and track performance</p>
+    </div>
+
+    <div class="main-container">
+        <div class="left-column">
+            <app-team-header [teamName]="teamName" [teamLogo]="teamLogo" [teamDescription]="teamDescription"
+                (editProfile)="onEditProfile()">
+            </app-team-header>
+
+            <app-team-stats [stats]="stats"></app-team-stats>
+
+            <app-members-list [members]="members"></app-members-list>
+        </div>
+
+        <div class="right-column">
+            <div class="deadline-card">
+                <h3>⏰ Deadline of this task is ending</h3>
+                <div class="deadline-progress">
+                    <div class="progress-circle">
+                        <span class="progress-value">{{ completedTasksCount }}/{{ totalTasksCount }}</span>
+                    </div>
+                    <div class="deadline-info">
+                        <p>{{ completedTasksCount }} tasks are completed</p>
+                        <p>Team rating: {{ stats.rating }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <app-tasks-progress [tasks]="tasks" [completedCount]="completedTasksCount" [totalCount]="totalTasksCount"
+                (viewAll)="onViewAllTasks()">
+            </app-tasks-progress>
+
+            <app-tournament-history [tournaments]="tournaments" (viewHistory)="onViewHistory()"
+                (viewAll)="onViewAllTournaments()">
+            </app-tournament-history>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>🏆 Judge Portal</span>
+                <p>© 2023 Judge Portal. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Contact us</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>

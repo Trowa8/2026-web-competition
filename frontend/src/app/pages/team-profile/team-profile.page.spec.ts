@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TeamProfile } from './team-profile';
+import { TeamProfile } from './team-profile.page';
 
 describe('TeamProfile', () => {
   let component: TeamProfile;
@@ -10,7 +10,7 @@ describe('TeamProfile', () => {
     await TestBed.configureTestingModule({
       imports: [TeamProfile]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TeamProfile);
     component = fixture.componentInstance;
