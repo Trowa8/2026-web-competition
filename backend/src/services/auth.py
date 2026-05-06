@@ -1,3 +1,4 @@
+import hmac
 from datetime import timedelta
 
 import jwt
@@ -82,7 +83,10 @@ async def refresh(db: AsyncSession, data: RefreshRequest) -> TokenResponse:
         raise _invalid_token_exception
 
     user = await get_user_by_id(db, user_id)
-    if not user or user.refresh_token != hash_token(data.refresh_token):
+    if user is None:
+        raise _invalid_token_exception
+    stored_hash: str | None = user.refresh_token
+    if not stored_hash or not hmac.compare_digest(stored_hash, hash_token(data.refresh_token)):
         raise _invalid_token_exception
 
     access_token, new_refresh_token = _make_token_pair(user.id)
