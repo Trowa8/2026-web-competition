@@ -14,7 +14,7 @@ class TournamentParticipation(Base):
     )
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
-    team_id: Mapped[str] = mapped_column(String(36), ForeignKey("teams.id"), nullable=False)
+    team_id: Mapped[str] = mapped_column(String(36), ForeignKey("teams.id", ondelete="CASCADE"), nullable=False)
     tournament_id: Mapped[str] = mapped_column(String(36), ForeignKey("tournaments.id", ondelete="CASCADE"), nullable=False)
     team_name: Mapped[str] = mapped_column(String(128), nullable=False)
     status: Mapped[str] = mapped_column(String(36), nullable=False, default="registered")
