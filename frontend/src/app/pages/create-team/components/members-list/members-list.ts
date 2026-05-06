@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeamMember } from '../../create-team.page';
+
+export interface TeamMember {
+    id: number;
+    name: string;
+    role?: string;
+}
 
 @Component({
     selector: 'app-members-list',

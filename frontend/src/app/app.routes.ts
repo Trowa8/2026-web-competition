@@ -22,7 +22,7 @@ export const routes: Routes = [
     {
         path: 'create-team',
         loadComponent: () =>
-            import('./pages/create-team/create-team')
+            import('./pages/create-team/create-team.page')
                 .then(m => m.CreateTeamPage),
     }
 ];
