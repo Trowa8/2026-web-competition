@@ -7,7 +7,6 @@ class UserResponse(BaseModel):
     user_id: str
     login: str
     email: EmailStr
-    role: str
     created_at: datetime
 
 
@@ -20,7 +19,6 @@ class UserUpdateResponse(BaseModel):
     user_id: str
     login: str
     email: EmailStr
-    role: str
     updated_at: datetime
 
 class UserDeleteResponse(BaseModel):
