@@ -1,51 +1,53 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 import {
-    Solution,
-    CreateSolutionDto,
-    UpdateSolutionDto,
+    SolutionType,
+    SolutionListItemType,
+    SolutionDetailType,
+    UploadFileResponse,
+    CreateSolutionRequest,
+    UploadFileRequest,
 } from '../types/solution.types';
-
-import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SolutionService {
     private readonly http = inject(HttpClient);
-    private readonly apiUrl = `${environment.apiUrl}/solutions`;
-
-    getAll(): Observable<Solution[]> {
-        return this.http.get<Solution[]>(this.apiUrl);
-    }
-
-    getById(id: string): Observable<Solution> {
-        return this.http.get<Solution>(`${this.apiUrl}/${id}`);
-    }
-
-    getByTask(taskId: string): Observable<Solution[]> {
-        return this.http.get<Solution[]>(
-            `${this.apiUrl}/task/${taskId}`
+    public async createSolution(body: CreateSolutionRequest): Promise<SolutionType> {
+        return firstValueFrom(
+            this.http.post<SolutionType>(`${environment.apiUrl}/solutions`, body)
         );
     }
 
-    getByTeam(teamId: string): Observable<Solution[]> {
-        return this.http.get<Solution[]>(
-            `${this.apiUrl}/team/${teamId}`
+    public async uploadFile(body: UploadFileRequest): Promise<UploadFileResponse> {
+        const formData = new FormData();
+        formData.append('file', body.file);
+        formData.append('taskId', body.taskId);
+        formData.append('teamId', body.teamId);
+
+        return firstValueFrom(
+            this.http.post<UploadFileResponse>(
+                `${environment.apiUrl}/solutions/upload`,
+                formData
+            )
         );
     }
 
-    create(dto: CreateSolutionDto): Observable<Solution> {
-        return this.http.post<Solution>(this.apiUrl, dto);
+    public async getSolutionsByTask(taskId: string): Promise<SolutionListItemType[]> {
+        return firstValueFrom(
+            this.http.get<SolutionListItemType[]>(`${environment.apiUrl}/solutions/${taskId}`)
+        );
     }
 
-    update(id: string, dto: UpdateSolutionDto): Observable<Solution> {
-        return this.http.patch<Solution>(`${this.apiUrl}/${id}`, dto);
-    }
-
-    delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    public async getSolutionByTaskAndTeam(taskId: string, teamId: string): Promise<SolutionDetailType> {
+        return firstValueFrom(
+            this.http.get<SolutionDetailType>(
+                `${environment.apiUrl}/solutions/${taskId}/${teamId}`
+            )
+        );
     }
 }
