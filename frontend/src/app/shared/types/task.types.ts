@@ -1,22 +1,23 @@
-export type Task = {
-    id: string;
-    title: string;
-    description: string;
+export type TaskType = {
+    taskId: string;
     tournamentId: string;
-    maxScore: number;
-    createdAt: string;
-    updatedAt: string;
+    name: string;
+    description: string;
+    deadline: string;
 };
 
-export type CreateTaskDto = {
-    title: string;
+export type CreateTaskRequest = {
+    name: string;
     description: string;
-    tournamentId: string;
-    maxScore: number;
+    deadline: string;
 };
 
-export type UpdateTaskDto = {
-    title?: string;
+export type UpdateTaskRequest = {
+    name?: string;
     description?: string;
-    maxScore?: number;
+    deadline?: string;
+};
+
+export type DeleteTaskResponse = {
+    success: boolean;
 };

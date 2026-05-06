@@ -1,45 +1,48 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 import {
-    Task,
-    CreateTaskDto,
-    UpdateTaskDto,
+    TaskType,
+    CreateTaskRequest,
+    UpdateTaskRequest,
+    DeleteTaskResponse,
 } from '../types/task.types';
-
-import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TaskService {
     private readonly http = inject(HttpClient);
-    private readonly apiUrl = `${environment.apiUrl}/tasks`;
 
-    getAll(): Observable<Task[]> {
-        return this.http.get<Task[]>(this.apiUrl);
-    }
-
-    getById(id: string): Observable<Task> {
-        return this.http.get<Task>(`${this.apiUrl}/${id}`);
-    }
-
-    getByTournament(tournamentId: string): Observable<Task[]> {
-        return this.http.get<Task[]>(
-            `${this.apiUrl}/tournament/${tournamentId}`
+    public async createTask(tournamentId: string, body: CreateTaskRequest): Promise<TaskType> {
+        return await firstValueFrom(
+            this.http.post<TaskType>(`${environment.apiUrl}/tasks/${tournamentId}`, body)
         );
     }
 
-    create(dto: CreateTaskDto): Observable<Task> {
-        return this.http.post<Task>(this.apiUrl, dto);
+    public async getTasksByTournament(tournamentId: string): Promise<TaskType[]> {
+        return await firstValueFrom(
+            this.http.get<TaskType[]>(`${environment.apiUrl}/tasks/${tournamentId}`)
+        );
     }
 
-    update(id: string, dto: UpdateTaskDto): Observable<Task> {
-        return this.http.patch<Task>(`${this.apiUrl}/${id}`, dto);
+    public async getTaskById(taskId: string): Promise<TaskType> {
+        return await firstValueFrom(
+            this.http.get<TaskType>(`${environment.apiUrl}/tasks/${taskId}`)
+        );
     }
 
-    delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    public async updateTask(taskId: string, body: UpdateTaskRequest): Promise<TaskType> {
+        return await firstValueFrom(
+            this.http.put<TaskType>(`${environment.apiUrl}/tasks/${taskId}`, body)
+        );
+    }
+
+    public async deleteTask(taskId: string): Promise<DeleteTaskResponse> {
+        return await firstValueFrom(
+            this.http.delete<DeleteTaskResponse>(`${environment.apiUrl}/tasks/${taskId}`)
+        );
     }
 }
