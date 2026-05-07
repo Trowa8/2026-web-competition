@@ -10,6 +10,10 @@ async def get_task_by_id(db: AsyncSession, task_id: str, tournament_id: str) -> 
     result = await db.execute(select(Task).where(Task.id == task_id, Task.tournament_id == tournament_id))
     return result.scalar_one_or_none()
 
+async def get_task_by_id_only(db: AsyncSession, task_id: str) -> Task | None:
+    result = await db.execute(select(Task).where(Task.id == task_id))
+    return result.scalar_one_or_none()
+
 async def create_task(db: AsyncSession, task: Task) -> Task:
     db.add(task)
     await db.commit()
