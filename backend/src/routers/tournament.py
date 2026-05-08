@@ -1,5 +1,6 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_db
 from src.schemas.tournament import (
@@ -19,6 +20,8 @@ from src.services.tournament import (
     list_tournaments_service,
     update_tournament_service,
     register_team_service,
+    get_judge_code_service,
+    join_as_judge_service,
 )
 from src.utils.jwt import get_current_user_id
  
@@ -72,3 +75,24 @@ async def register_team(
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     return await register_team_service(db, tournament_id, data, current_user_id)
+
+class JudgeCodeRequest(BaseModel):
+    judge_code: str
+
+@router.get("/{tournament_id}/judge-code")
+async def get_judge_code(
+    tournament_id: str,
+    current_user_id: Annotated[str, Depends(get_current_user_id)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+):
+    return await get_judge_code_service(db, tournament_id, current_user_id)
+
+@router.post("/{tournament_id}/join-judge")
+async def join_as_judge(
+    tournament_id: str,
+    data: JudgeCodeRequest,
+    current_user_id: Annotated[str, Depends(get_current_user_id)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+):
+    await join_as_judge_service(db, tournament_id, data.judge_code, current_user_id)
+    return {"success": True}

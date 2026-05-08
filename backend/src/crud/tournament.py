@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.tournament import Tournament
 from models.tournament_user_role import TournamentUserRole
@@ -50,3 +50,21 @@ async def register_team(db: AsyncSession, participation: TournamentParticipation
         role.tournament_participation_id = participation.id
         db.add(role)
     await db.commit()
+    
+async def get_max_judge_code(db: AsyncSession) -> str | None:
+    result = await db.execute(select(func.max(Tournament.judge_code)))
+    return result.scalar_one_or_none()
+
+async def get_existing_judge_role(db: AsyncSession, tournament_id: str, user_id: str) -> TournamentUserRole | None:
+    result = await db.execute(
+        select(TournamentUserRole).where(
+            TournamentUserRole.tournament_id == tournament_id,
+            TournamentUserRole.user_id == user_id,
+            TournamentUserRole.role == "judge",
+        )
+    )
+    return result.scalar_one_or_none()
+
+async def create_judge_role(db: AsyncSession, role: TournamentUserRole) -> None:
+    db.add(role)
+    await db.commit()   

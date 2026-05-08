@@ -12,6 +12,10 @@ from src.crud.tournament import (
     get_tournament_by_id,
     get_participation,
     register_team,
+    get_max_judge_code,
+    create_judge_role,
+    get_existing_judge_role,
+    get_max_judge_code,
 )
 from src.crud.user import get_user_by_id
 from src.schemas.tournament import (
@@ -42,10 +46,14 @@ async def _require_organizer(db: AsyncSession, tournament_id: str, user_id: str)
     if not role:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only organizers can perform this action")
 
+def _next_judge_code(max_code: str | None) -> str:
+    return str(int(max_code) + 1).zfill(6) if max_code else "000001"
+
 async def create_tournament_service(
     db: AsyncSession, data: TournamentCreateRequest, current_user_id: str
 ) -> TournamentCreateResponse:
     user = await get_user_by_id(db, current_user_id)
+    max_code = await get_max_judge_code(db)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
 
@@ -56,6 +64,7 @@ async def create_tournament_service(
         end_date=data.end_date,
         registration_deadline=data.registration_deadline,
         created_by=current_user_id,
+        judge_code=_next_judge_code(max_code),
     )
     organizer_role = TournamentUserRole(
         user_id=current_user_id,
@@ -171,3 +180,33 @@ async def register_team_service(
     ]
     await register_team(db, participation, roles)
     return RegisterTeamResponse(success=True)
+
+async def get_judge_code_service(
+    db: AsyncSession, tournament_id: str, current_user_id: str
+) -> dict:
+    tournament = await _get_tournament_or_404(db, tournament_id)
+    await _require_organizer(db, tournament_id, current_user_id)
+    return {"judge_code": tournament.judge_code}
+
+async def join_as_judge_service(
+    db: AsyncSession, tournament_id: str, judge_code: str, current_user_id: str
+) -> None:
+    tournament = await _get_tournament_or_404(db, tournament_id)
+
+    if tournament.judge_code != judge_code:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid judge code")
+
+    if await get_existing_judge_role(db, tournament_id, current_user_id):
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User already has a role in this tournament")
+
+    user = await get_user_by_id(db, current_user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    role = TournamentUserRole(
+        user_id=current_user_id,
+        tournament_id=tournament_id,
+        role="judge",
+        user_name=user.username,
+    )
+    await create_judge_role(db, role)
