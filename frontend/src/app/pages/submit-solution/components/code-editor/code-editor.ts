@@ -24,9 +24,7 @@ export class CodeEditor implements OnInit {
 
   ngOnInit() {
     const saved = localStorage.getItem('solution');
-    if (saved) {
-      this.code = saved;
-    }
+    if (saved) this.code = saved;
   }
 
   saveToLocal() {
@@ -37,7 +35,6 @@ export class CodeEditor implements OnInit {
     if (this.code.trim()) {
       this.saveToLocal();
       this.submitted.emit(this.code);
-      alert('✅ Solution submitted successfully!');
     } else {
       alert('Please write your solution before submitting!');
     }
@@ -45,10 +42,7 @@ export class CodeEditor implements OnInit {
 
   loadExample() {
     this.code = `function solveTournament(teams) {
-  // Sort teams by score
   const sorted = [...teams].sort((a, b) => b.score - a.score);
-  
-  // Return winner
   return {
     winner: sorted[0].name,
     score: sorted[0].score

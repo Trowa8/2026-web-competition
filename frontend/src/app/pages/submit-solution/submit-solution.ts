@@ -17,11 +17,11 @@ export class SubmitSolution {
   isEditingTeam = false;
   newTeamName = '';
 
-  goHome() { alert('🏠 Головна сторінка'); }
-  goCommunity() { alert('👥 Наша спільнота'); }
-  goTournaments() { alert('🏆 Турніри'); }
-  goMyTeam() { alert('👤 Моя команда'); }
-  goProfile() { alert('👤 Профіль'); }
+  goHome() { alert('🏠 Головна сторінка - в розробці'); }
+  goCommunity() { alert('👥 Наша спільнота - в розробці'); }
+  goTournaments() { alert('🏆 Турніри - в розробці'); }
+  goMyTeam() { alert('👤 Моя команда - в розробці'); }
+  goProfile() { alert('👤 Профіль - в розробці'); }
 
   startEditTeam() {
     this.isEditingTeam = true;
@@ -45,6 +45,6 @@ export class SubmitSolution {
 
   onSolutionSubmitted(code: string) {
     alert('✅ Рішення успішно надіслано!');
-    console.log(code);
+    console.log('Надісланий код:', code);
   }
 }

@@ -3,16 +3,16 @@
         <h2 *ngIf="!isEditing">{{ teamName }}</h2>
         <input *ngIf="isEditing" type="text" [(ngModel)]="newTeamName" (input)="updateName.emit(newTeamName)"
             class="edit-input">
-        <span class="badge">Профіль команди</span>
+        <span class="badge">Team Profile</span>
     </div>
     <div class="card-body">
-        <p>Взаємодійте з командою та переглядайте історію учасників.</p>
+        <p>Interact your team and view teammate history.</p>
         <div class="buttons" *ngIf="!isEditing">
-            <button class="btn-edit" (click)="editTeam.emit()">✏️ Редагувати команду</button>
+            <button class="btn-edit" (click)="editTeam.emit()">✏️ Edit team</button>
         </div>
         <div class="buttons" *ngIf="isEditing">
-            <button class="btn-save" (click)="saveTeam.emit()">💾 Зберегти</button>
-            <button class="btn-cancel" (click)="cancelEdit.emit()">❌ Скасувати</button>
+            <button class="btn-save" (click)="saveTeam.emit()">💾 Save</button>
+            <button class="btn-cancel" (click)="cancelEdit.emit()">❌ Cancel</button>
         </div>
     </div>
 </div>

@@ -13,9 +13,9 @@ export class MembersList {
   @Output() addMember = new EventEmitter<string>();
 
   members = [
-    { name: 'VouPrchakero3000', role: 'Captain', active: true },
-    { name: 'Niksulini', role: 'Co-Captain', active: true },
-    { name: 'Stipek', role: 'Member', active: true }
+    { name: 'VouPrchakero3000', role: 'Captain' },
+    { name: 'Niksulini', role: 'Co-Captain' },
+    { name: 'Stipek', role: 'Member' }
   ];
 
   showAddForm = false;
@@ -26,9 +26,9 @@ export class MembersList {
     if (this.newMemberName.trim()) {
       this.members.push({
         name: this.newMemberName,
-        role: this.newMemberRole,
-        active: true
+        role: this.newMemberRole
       });
+      this.addMember.emit(this.newMemberName);
       this.newMemberName = '';
       this.showAddForm = false;
     }
@@ -36,11 +36,5 @@ export class MembersList {
 
   removeMember(index: number) {
     this.members.splice(index, 1);
-  }
-
-  toggleRole(index: number) {
-    const roles = ['Captain', 'Co-Captain', 'Member'];
-    const currentIndex = roles.indexOf(this.members[index].role);
-    this.members[index].role = roles[(currentIndex + 1) % roles.length];
   }
 }

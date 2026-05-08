@@ -15,7 +15,6 @@
 .card-header h2 {
     color: white;
     margin: 0;
-    font-size: 1.25rem;
 }
 
 .badge {
@@ -28,6 +27,21 @@
 
 .editor-container {
     padding: 1rem;
+}
+
+.toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-example,
+.btn-clear {
+    padding: 0.25rem 0.75rem;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 textarea {
@@ -53,53 +67,13 @@ textarea:focus {
     align-items: center;
     margin-top: 1rem;
     gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.editor-footer span {
-    font-size: 0.7rem;
-    color: #64748b;
 }
 
 .btn-submit {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     border: none;
-    padding: 0.6rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    font-weight: 600;
-}
-
-.editor-toolbar {
-    margin-bottom: 0.5rem;
-    text-align: right;
-}
-
-.btn-clear {
-    background: #f7fafc;
-    border: 1px solid #e2e8f0;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
-
-.editor-toolbar {
-    margin-bottom: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.btn-example,
-.btn-clear {
-    background: #f7fafc;
-    border: 1px solid #e2e8f0;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
-
-.btn-example:hover,
-.btn-clear:hover {
-    background: #edf2f7;
 }
