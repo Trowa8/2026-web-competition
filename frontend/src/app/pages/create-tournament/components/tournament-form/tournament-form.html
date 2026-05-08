@@ -1,0 +1,57 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Tournament Information</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label>Tournament Name *</label>
+            <input type="text" [(ngModel)]="tournamentName" (input)="onInputChange()"
+                placeholder="Enter tournament name">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea [(ngModel)]="description" (input)="onInputChange()" rows="3"
+                placeholder="Describe your tournament..."></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Start Date *</label>
+                <input type="date" [(ngModel)]="startDate" (change)="onInputChange()">
+            </div>
+            <div class="form-group">
+                <label>End Date *</label>
+                <input type="date" [(ngModel)]="endDate" (change)="onInputChange()">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Number of Teams</label>
+                <select [(ngModel)]="numberOfTeams" (change)="onInputChange()">
+                    <option [value]="4">4 Teams</option>
+                    <option [value]="8">8 Teams</option>
+                    <option [value]="16">16 Teams</option>
+                    <option [value]="32">32 Teams</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Prize Pool</label>
+                <input type="text" [(ngModel)]="prizePool" (input)="onInputChange()" placeholder="$0">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tournament Format</label>
+            <div class="radio-group">
+                <label><input type="radio" value="single" [(ngModel)]="format" (change)="onInputChange()"> Single
+                    Elimination</label>
+                <label><input type="radio" value="double" [(ngModel)]="format" (change)="onInputChange()"> Double
+                    Elimination</label>
+                <label><input type="radio" value="round" [(ngModel)]="format" (change)="onInputChange()"> Round
+                    Robin</label>
+            </div>
+        </div>
+    </div>
+</div>

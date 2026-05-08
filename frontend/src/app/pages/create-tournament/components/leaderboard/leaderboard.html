@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <h2>🏆 Leaderboard</h2>
+        <span class="badge">Top Teams</span>
+    </div>
+    <div class="card-body">
+        <div class="leaderboard-header">
+            <span>#</span><span>Team</span><span>Points</span><span>W/L</span>
+        </div>
+        <div *ngFor="let team of teams; let i = index" class="leaderboard-row" [class.top-three]="i < 3">
+            <span class="rank">{{ i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i+1) }}</span>
+            <span class="team">{{ team.name }}</span>
+            <span class="points">{{ team.points }}</span>
+            <span class="record">{{ team.wins }} - {{ team.losses }}</span>
+        </div>
+        <button class="btn-view-all">View All Teams →</button>
+    </div>
+</div>

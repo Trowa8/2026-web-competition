@@ -1,0 +1,40 @@
+<div class="create-tournament-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+    </nav>
+
+    <div class="hero">
+        <h1>Create Tournament</h1>
+        <p>Set up a new competition and invite teams</p>
+    </div>
+
+    <div class="breadcrumb">
+        <span>Home</span> → <span>Tournaments</span> → <span>Create</span>
+    </div>
+
+    <div class="main-container">
+        <div class="left-column">
+            <app-tournament-form (tournamentInfoUpdated)="onTournamentInfoUpdated($event)"></app-tournament-form>
+            <app-teams-list [teams]="tournament.teams" (teamRemoved)="onTeamRemoved($event)"
+                (teamAdded)="onTeamAdded($event)">
+            </app-teams-list>
+        </div>
+
+        <div class="right-column">
+            <app-leaderboard [teams]="leaderboardTeams"></app-leaderboard>
+            <app-bracket-preview [teams]="tournament.teams" [numberOfTeams]="tournament.numberOfTeams">
+            </app-bracket-preview>
+            <button class="btn-create" (click)="onCreateTournament()">🚀 Create Tournament</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>
