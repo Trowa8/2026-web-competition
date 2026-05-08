@@ -1,0 +1,65 @@
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.description {
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.team-info-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.team-info-section h3 {
+    font-size: 0.75rem;
+    color: #64748b;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.links {
+    display: flex;
+    gap: 1rem;
+}
+
+.links a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.problem-section h3 {
+    font-size: 0.875rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.problem-content {
+    background: #f7fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: #4a5568;
+    font-size: 0.875rem;
+    min-height: 100px;
+}

@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { SubmitSolutionPage } from './pages/submit-solution/submit-solution.page';
+import { SubmitSolution } from './pages/submit-solution/submit-solution';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/submit-solution', pathMatch: 'full' },
-    { path: 'submit-solution', component: SubmitSolutionPage }
+    { path: '', component: SubmitSolution }
 ];

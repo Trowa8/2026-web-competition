@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header">
+        <h2>MEMBERS</h2>
+        <span class="count">{{ members.length }} members</span>
+    </div>
+    <div class="members-list">
+        <div *ngFor="let member of members" class="member-item">
+            <span class="avatar">👤</span>
+            <span class="name">{{ member }}</span>
+            <button class="btn-view">View →</button>
+        </div>
+    </div>
+</div>

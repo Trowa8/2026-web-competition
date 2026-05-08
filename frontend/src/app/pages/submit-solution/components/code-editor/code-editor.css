@@ -1,0 +1,72 @@
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.editor-container {
+    padding: 1rem;
+}
+
+textarea {
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 1rem;
+    background: #1a202c;
+    color: #a0aec0;
+    border: none;
+    border-radius: 0.5rem;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #667eea;
+}
+
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.editor-footer span {
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}
