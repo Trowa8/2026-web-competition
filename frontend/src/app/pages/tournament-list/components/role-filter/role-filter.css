@@ -1,0 +1,33 @@
+.role-filter {
+    background: white;
+    margin: 0 2rem 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.role-filter span {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.buttons button {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.buttons button.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+}

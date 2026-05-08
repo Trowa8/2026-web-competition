@@ -1,0 +1,8 @@
+<div class="tournament-card" [class.completed]="tournament.completed">
+    <div class="tournament-name">{{ tournament.name }}</div>
+    <div class="tournament-date">📅 {{ tournament.date }}</div>
+    <div class="tournament-teams">👥 {{ tournament.teams }} teams</div>
+    <button (click)="signUp.emit(tournament.id)" [disabled]="tournament.completed">
+        {{ tournament.completed ? 'Completed' : 'Sign up' }}
+    </button>
+</div>

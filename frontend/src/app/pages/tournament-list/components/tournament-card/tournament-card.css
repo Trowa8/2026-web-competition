@@ -1,0 +1,55 @@
+.tournament-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.tournament-card:hover {
+    transform: translateY(-2px);
+}
+
+.tournament-card.completed {
+    opacity: 0.7;
+}
+
+.tournament-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.tournament-date,
+.tournament-teams {
+    color: #666;
+    font-size: 14px;
+    margin: 6px 0;
+}
+
+button {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+button:disabled {
+    background: #aaa;
+    cursor: default;
+}
+
+.tournaments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}

@@ -1,0 +1,42 @@
+<div class="tournament-list-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Tournaments</h1>
+        <p>Join competitive coding tournaments and showcase your skills</p>
+    </div>
+
+    <app-role-filter></app-role-filter>
+
+    <div class="tournaments-container">
+        <div class="tournaments-header">
+            <h2>Upcoming Tournaments</h2>
+            <span>{{ tournaments.length }} tournaments</span>
+        </div>
+
+        <div class="tournaments-list">
+            <app-tournament-card *ngFor="let t of tournaments" [tournament]="t" (signUp)="onSignUp($event)">
+            </app-tournament-card>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="social">
+                <span>🐦 Twitter: @judgeportal</span>
+                <span>📸 Instagram: @judgeportal</span>
+                <span>📘 Facebook: @judgeportal</span>
+            </div>
+        </div>
+    </footer>
+</div>
