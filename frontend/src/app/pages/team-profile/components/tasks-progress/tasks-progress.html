@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-header">
+        <h2>My Tasks</h2>
+        <button class="btn-all" (click)="viewAll.emit()">All →</button>
+    </div>
+    <div class="tasks-list">
+        <div *ngFor="let task of tasks.slice(0, 3)" class="task-item" [class.completed]="task.completed">
+            <div class="task-checkbox">
+                <span *ngIf="task.completed">✅</span>
+                <span *ngIf="!task.completed">⭕</span>
+            </div>
+            <div class="task-info">
+                <span class="task-name">{{ task.name }}</span>
+                <span class="task-deadline">Due: {{ task.deadline }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="progress-summary">
+        <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(completedCount / totalCount) * 100"></div>
+        </div>
+        <span class="progress-text">{{ completedCount }}/{{ totalCount }} completed</span>
+    </div>
+</div>

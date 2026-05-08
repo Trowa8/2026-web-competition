@@ -1,0 +1,92 @@
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.btn-all {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+.tasks-list {
+    padding: 0.5rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.task-item.completed {
+    opacity: 0.7;
+}
+
+.task-item.completed .task-name {
+    text-decoration: line-through;
+}
+
+.task-checkbox {
+    font-size: 1.2rem;
+}
+
+.task-info {
+    flex: 1;
+}
+
+.task-name {
+    display: block;
+    font-size: 0.875rem;
+    color: #333;
+}
+
+.task-deadline {
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+.progress-summary {
+    padding: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 0.7rem;
+    color: #64748b;
+}

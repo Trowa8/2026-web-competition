@@ -1,20 +1,9 @@
 <div class="team-profile-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
-        <div class="nav-links">
-            <a href="#" class="active">Home</a>
-            <a href="#">OurCommunity</a>
-            <a href="#">Tournaments</a>
-            <a href="#">MyTeam</a>
-            <a href="#">Name</a>
-        </div>
-        <div class="user-menu">
-            <span>👤</span>
-            <span>{{ teamName }}</span>
-        </div>
     </nav>
 
-    <div class="hero-section">
+    <div class="hero">
         <h1>Team Profile</h1>
         <p>Manage your team and track performance</p>
     </div>
@@ -27,7 +16,8 @@
 
             <app-team-stats [stats]="stats"></app-team-stats>
 
-            <app-members-list [members]="members"></app-members-list>
+            <app-members-list [members]="members" (viewMember)="onViewMember($event)">
+            </app-members-list>
         </div>
 
         <div class="right-column">
@@ -35,7 +25,13 @@
                 <h3>⏰ Deadline of this task is ending</h3>
                 <div class="deadline-progress">
                     <div class="progress-circle">
-                        <span class="progress-value">{{ completedTasksCount }}/{{ totalTasksCount }}</span>
+                        <svg width="80" height="80" viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="35" fill="none" stroke="#e2e8f0" stroke-width="6" />
+                            <circle cx="40" cy="40" r="35" fill="none" stroke="#10b981" stroke-width="6"
+                                [attr.stroke-dashoffset]="220 - (220 * taskProgressPercent / 100)"
+                                stroke-dasharray="220" stroke-linecap="round" transform="rotate(-90 40 40)" />
+                        </svg>
+                        <span class="progress-text">{{ completedTasksCount }}/{{ totalTasksCount }}</span>
                     </div>
                     <div class="deadline-info">
                         <p>{{ completedTasksCount }} tasks are completed</p>
@@ -56,14 +52,7 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-left">
-                <span>🏆 Judge Portal</span>
-                <p>© 2023 Judge Portal. All rights reserved.</p>
-            </div>
-            <div class="footer-links">
-                <a href="#">Contact us</a>
-                <a href="#">Privacy Policy</a>
-            </div>
+            <span>© 2023 Judge Portal. All rights reserved.</span>
             <div class="contacts">
                 <span>📧 Tournament@gmail.com</span>
                 <span>📞 +380 66 657 66 67</span>

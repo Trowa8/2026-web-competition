@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        <h2>TOURNAMENT HISTORY</h2>
+        <button class="btn-history" (click)="viewHistory.emit()">View history →</button>
+    </div>
+    <div class="tournament-list">
+        <div *ngFor="let tournament of tournaments.slice(0, 3)" class="tournament-item">
+            <div class="tournament-info">
+                <span class="tournament-name">{{ tournament.name }}</span>
+                <span class="tournament-date">{{ tournament.date }}</span>
+            </div>
+            <div class="tournament-result">
+                <span class="position">{{ getPositionEmoji(tournament.position) }} #{{ tournament.position }}</span>
+                <span class="points">{{ tournament.points }} pts</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer" *ngIf="tournaments.length > 3">
+        <button class="btn-view-all" (click)="viewAll.emit()">All tournaments →</button>
+    </div>
+</div>

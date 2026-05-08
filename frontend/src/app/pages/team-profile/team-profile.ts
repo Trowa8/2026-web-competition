@@ -9,7 +9,7 @@ import { TasksProgress } from './components/tasks-progress/tasks-progress';
 export interface TeamMember {
   id: number;
   name: string;
-  role?: string;
+  role: string;
   avatar?: string;
 }
 
@@ -25,24 +25,17 @@ export interface Task {
   id: number;
   name: string;
   completed: boolean;
-  deadline?: string;
+  deadline: string;
 }
 
 @Component({
   selector: 'app-team-profile',
   standalone: true,
-  imports: [
-    CommonModule,
-    TeamHeader,
-    TeamStats,
-    MembersList,
-    TournamentHistory,
-    TasksProgress
-  ],
-  templateUrl: './team-profile.page.html',
-  styleUrls: ['./team-profile.page.scss']
+  imports: [CommonModule, TeamHeader, TeamStats, MembersList, TournamentHistory, TasksProgress],
+  templateUrl: './team-profile.html',
+  styleUrls: ['./team-profile.css']
 })
-export class TeamProfilePage {
+export class TeamProfile {
   teamName = 'Alpha Team';
   teamLogo = '🏆';
   teamDescription = 'Competitive coding team since 2023';
@@ -79,23 +72,38 @@ export class TeamProfilePage {
     { id: 5, name: 'Task 5: Testing & Deployment', completed: false, deadline: '2026-05-15' }
   ];
 
-  completedTasksCount = this.tasks.filter(t => t.completed).length;
-  totalTasksCount = this.tasks.length;
-  taskProgressPercent = (this.completedTasksCount / this.totalTasksCount) * 100;
+  get completedTasksCount(): number {
+    return this.tasks.filter(t => t.completed).length;
+  }
+
+  get totalTasksCount(): number {
+    return this.tasks.length;
+  }
+
+  get taskProgressPercent(): number {
+    return (this.completedTasksCount / this.totalTasksCount) * 100;
+  }
 
   onEditProfile() {
-    alert('Edit team profile clicked');
+    const newName = prompt('Enter new team name:', this.teamName);
+    if (newName && newName.trim()) {
+      this.teamName = newName;
+    }
   }
 
   onViewHistory() {
-    alert('View full tournament history');
+    alert('📊 Повна історія турнірів\n\n' + this.tournaments.map(t => `${t.name}: #${t.position} (${t.points} pts)`).join('\n'));
   }
 
   onViewAllTasks() {
-    alert('View all tasks');
+    alert('📋 Всі завдання\n\n' + this.tasks.map(t => `${t.name} - ${t.completed ? '✅' : '⏳'}`).join('\n'));
   }
 
   onViewAllTournaments() {
-    alert('View all tournaments');
+    alert('🏆 Всі турніри\n\n' + this.tournaments.map(t => `${t.name} - ${t.date}`).join('\n'));
+  }
+
+  onViewMember(member: TeamMember) {
+    alert(`📋 Учасник: ${member.name}\n🎭 Роль: ${member.role}\n✅ Статус: Active`);
   }
 }

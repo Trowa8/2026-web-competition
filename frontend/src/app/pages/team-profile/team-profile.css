@@ -1,0 +1,121 @@
+.team-profile-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.navbar {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-weight: bold;
+    color: #667eea;
+    font-size: 1.5rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #4a5568;
+}
+
+.hero {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.deadline-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.deadline-card h3 {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.deadline-progress {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.progress-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.deadline-info p {
+    margin: 0.25rem 0;
+    color: #4a5568;
+}
+
+.footer {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.contacts {
+    display: flex;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
