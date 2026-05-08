@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Solution #{{ solution.id }}</h2>
+        <span class="status" [class.scored]="solution.status === 'scored'">
+            {{ solution.status === 'scored' ? '✅ Scored' : '⏳ Pending' }}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="info-row"><strong>Task:</strong> {{ solution.taskName }}</div>
+        <div class="info-row"><strong>Team:</strong> {{ solution.teamName }}</div>
+        <div class="info-row"><strong>Submitted:</strong> {{ solution.submittedAt }}</div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Feedback</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label>Detailed Feedback</label>
+            <textarea [(ngModel)]="feedback.text" rows="4"
+                placeholder="Provide detailed feedback to the team..."></textarea>
+        </div>
+
+        <div class="feedback-categories">
+            <div>
+                <label>Code Quality</label>
+                <select [(ngModel)]="feedback.codeQuality">
+                    <option value="excellent">Excellent</option>
+                    <option value="good">Good</option>
+                    <option value="average">Average</option>
+                    <option value="poor">Poor</option>
+                </select>
+            </div>
+            <div>
+                <label>Algorithm</label>
+                <select [(ngModel)]="feedback.algorithm">
+                    <option value="optimal">Optimal</option>
+                    <option value="good">Good</option>
+                    <option value="acceptable">Acceptable</option>
+                    <option value="inefficient">Inefficient</option>
+                </select>
+            </div>
+            <div>
+                <label>Documentation</label>
+                <select [(ngModel)]="feedback.documentation">
+                    <option value="excellent">Excellent</option>
+                    <option value="good">Good</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn-submit" (click)="submitFeedback()">Submit Review</button>
+    </div>
+</div>

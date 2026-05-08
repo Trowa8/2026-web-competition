@@ -1,0 +1,120 @@
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.criteria {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.criteria label {
+    width: 130px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.criteria input {
+    flex: 1;
+    min-width: 150px;
+}
+
+.criteria span {
+    width: 45px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.total-score {
+    display: flex;
+    justify-content: space-between;
+    background: #f7fafc;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+.score-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #10b981;
+}
+
+.quick-scores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.quick-scores button {
+    padding: 0.3rem 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.score-0 {
+    background: #ef4444;
+    color: white;
+}
+
+.score-25 {
+    background: #f97316;
+    color: white;
+}
+
+.score-50 {
+    background: #eab308;
+    color: white;
+}
+
+.score-75 {
+    background: #84cc16;
+    color: white;
+}
+
+.score-85 {
+    background: #22c55e;
+    color: white;
+}
+
+.score-95 {
+    background: #10b981;
+    color: white;
+}
+
+.score-100 {
+    background: #059669;
+    color: white;
+}
+
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}

@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { ReviewSolutionPage } from './pages/review-solution/review-solution.page';
+import { ReviewSolution } from './pages/review-solution/review-solution';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/review-solution', pathMatch: 'full' },
-    { path: 'review-solution', component: ReviewSolutionPage }
+    { path: '', component: ReviewSolution }
 ];

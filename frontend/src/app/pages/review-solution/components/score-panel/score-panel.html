@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Scoring</h2>
+    </div>
+    <div class="card-body">
+        <div class="criteria">
+            <label>Code Quality (0-25)</label>
+            <input type="range" min="0" max="25" [(ngModel)]="criteria.codeQuality">
+            <span>{{ criteria.codeQuality }}/25</span>
+        </div>
+        <div class="criteria">
+            <label>Algorithm (0-30)</label>
+            <input type="range" min="0" max="30" [(ngModel)]="criteria.algorithm">
+            <span>{{ criteria.algorithm }}/30</span>
+        </div>
+        <div class="criteria">
+            <label>Efficiency (0-25)</label>
+            <input type="range" min="0" max="25" [(ngModel)]="criteria.efficiency">
+            <span>{{ criteria.efficiency }}/25</span>
+        </div>
+        <div class="criteria">
+            <label>Documentation (0-20)</label>
+            <input type="range" min="0" max="20" [(ngModel)]="criteria.documentation">
+            <span>{{ criteria.documentation }}/20</span>
+        </div>
+
+        <div class="total-score">
+            <strong>Total Score:</strong>
+            <span class="score-value">{{ totalScore }}/100</span>
+        </div>
+
+        <div class="quick-scores">
+            <button (click)="setQuickScore(0)" class="score-0">0</button>
+            <button (click)="setQuickScore(25)" class="score-25">25</button>
+            <button (click)="setQuickScore(50)" class="score-50">50</button>
+            <button (click)="setQuickScore(75)" class="score-75">75</button>
+            <button (click)="setQuickScore(85)" class="score-85">85</button>
+            <button (click)="setQuickScore(95)" class="score-95">95</button>
+            <button (click)="setQuickScore(100)" class="score-100">100</button>
+        </div>
+
+        <button class="btn-submit" (click)="submitScore()">Submit Score</button>
+    </div>
+</div>
