@@ -1,8 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TournamentInfo } from './components/tournament-info/tournament-info';
+import { TeamsTable } from './components/teams-table/teams-table';
+import { ReviewingPanel } from './components/reviewing-panel/reviewing-panel';
+import { ScoringStatus } from './components/scoring-status/scoring-status';
+import { CodePreview } from './components/code-preview/code-preview';
 
-@Injectable({
-  providedIn: 'root',
+@Component({
+  selector: 'app-tournament',
+  standalone: true,
+  imports: [
+    CommonModule,
+    TournamentInfo,
+    TeamsTable,
+    ReviewingPanel,
+    ScoringStatus,
+    CodePreview
+  ],
+  templateUrl: './tournament.html',
+  styleUrls: ['./tournament.css']
 })
-export class Tournament {
-  
-}
+export class Tournament { }
