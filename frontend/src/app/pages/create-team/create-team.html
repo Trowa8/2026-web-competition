@@ -14,37 +14,58 @@
 
     <div class="main-container">
         <div class="left-column">
-            <app-team-form (teamInfoUpdated)="onTeamInfoUpdated($event)"></app-team-form>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Create</h2>
+                    <span class="badge">Contents</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Team name</label>
+                        <input type="text" [(ngModel)]="teamName" placeholder="Create">
+                    </div>
+                    <div class="form-group">
+                        <label>Description of your team</label>
+                        <textarea [(ngModel)]="description" rows="3" placeholder="Description of your team"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Team image</label>
+                        <input type="file" #fileInput (change)="onLogoUpload($event)" style="display: none">
+                        <button class="btn-upload" (click)="fileInput.click()">📁 Upload</button>
+                    </div>
+                </div>
+            </div>
 
-            <div class="suggested-section">
-                <h3>Suggested Members</h3>
-                <div class="suggested-members">
-                    <div class="suggestion-item" (click)="onMemberAdded({ id: 1, name: 'VouPrchakero3000' })">
-                        <span class="avatar">👤</span>
-                        <span class="name">VouPrchakero3000</span>
-                        <button class="btn-add">+ Add</button>
-                    </div>
-                    <div class="suggestion-item" (click)="onMemberAdded({ id: 2, name: 'Niksulini' })">
-                        <span class="avatar">👤</span>
-                        <span class="name">Niksulini</span>
-                        <button class="btn-add">+ Add</button>
-                    </div>
-                    <div class="suggestion-item" (click)="onMemberAdded({ id: 3, name: 'Stipek' })">
-                        <span class="avatar">👤</span>
-                        <span class="name">Stipek</span>
-                        <button class="btn-add">+ Add</button>
+            <div class="card">
+                <div class="card-header">
+                    <h2>List</h2>
+                    <span class="badge">Suggested</span>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let user of suggestedUsers" class="suggestion-item">
+                        <span class="name">{{ user.name }}</span>
+                        <button class="btn-add" (click)="addMember(user)">+ Add</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="right-column">
-            <app-members-input [members]="team.members" (memberRemoved)="onMemberRemoved($event)">
-            </app-members-input>
-
-            <app-team-preview [team]="team"></app-team-preview>
-
-            <button class="btn-create" (click)="onCreateTeam()">🚀 Create Team</button>
+        <div class="card">
+            <div class="card-header">
+                <h2>Members</h2>
+                <button class="btn-add-member" (click)="showAddMemberForm = !showAddMemberForm">+ Add</button>
+            </div>
+            <div class="add-member-form" *ngIf="showAddMemberForm">
+                <input type="text" [(ngModel)]="newMemberName" placeholder="Member name">
+                <button class="btn-confirm" (click)="addManualMember()">Add</button>
+                <button class="btn-cancel" (click)="showAddMemberForm = false">Cancel</button>
+            </div>
+            <div class="members-list">
+                <div *ngFor="let member of members" class="member-item">
+                    <span class="name">{{ member.name }}</span>
+                    <button class="btn-remove" (click)="removeMember(member.id)">✖</button>
+                </div>
+            </div>
         </div>
     </div>
 

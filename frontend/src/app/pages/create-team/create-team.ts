@@ -1,62 +1,80 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeamForm } from './components/team-form/team-form';
-import { MembersInput } from './components/members-input/members-input';
-import { TeamPreview } from './components/team-preview/team-preview';
+import { FormsModule } from '@angular/forms';
 
-export interface TeamMember {
+type TeamMember = {
   id: number;
   name: string;
-  role?: string;
-}
-
-export interface Team {
-  name: string;
-  description: string;
-  members: TeamMember[];
-}
+};
 
 @Component({
   selector: 'app-create-team',
   standalone: true,
-  imports: [CommonModule, TeamForm, MembersInput, TeamPreview],
+  imports: [CommonModule, FormsModule],
   templateUrl: './create-team.html',
   styleUrls: ['./create-team.css']
 })
 export class CreateTeam {
-  team: Team = {
-    name: '',
-    description: '',
-    members: []
-  };
+  teamName = '';
+  description = '';
+  teamLogo: string | null = null;
 
-  onTeamInfoUpdated(info: { name: string; description: string }) {
-    this.team.name = info.name;
-    this.team.description = info.description;
-  }
+  members: TeamMember[] = [
+    { id: 1, name: 'VovaProfHacker2030' },
+    { id: 2, name: 'NikitaBx' },
+    { id: 3, name: 'Simple' }
+  ];
 
-  onMemberAdded(member: TeamMember) {
-    if (!this.team.members.find(m => m.id === member.id)) {
-      this.team.members = [...this.team.members, member];
+  suggestedUsers = [
+    { id: 4, name: 'User4' },
+    { id: 5, name: 'User5' }
+  ];
+
+  showAddMemberForm = false;
+  newMemberName = '';
+
+  addMember(member: TeamMember) {
+    if (!this.members.find(m => m.id === member.id)) {
+      this.members.push(member);
+      this.suggestedUsers = this.suggestedUsers.filter(u => u.id !== member.id);
     }
   }
 
-  onMemberRemoved(memberId: number) {
-    this.team.members = this.team.members.filter(m => m.id !== memberId);
+  addManualMember() {
+    if (!this.newMemberName.trim()) return;
+    const newMember = {
+      id: Date.now(),
+      name: this.newMemberName
+    };
+    this.members.push(newMember);
+    this.newMemberName = '';
+    this.showAddMemberForm = false;
   }
 
-  onCreateTeam() {
-    if (!this.team.name.trim()) {
-      alert('Будь ласка, введіть назву команди');
+  removeMember(id: number) {
+    const removed = this.members.find(m => m.id === id);
+    this.members = this.members.filter(m => m.id !== id);
+    if (removed) {
+      this.suggestedUsers.push(removed);
+    }
+  }
+
+  onLogoUpload(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.teamLogo = e.target?.result as string;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  createTeam() {
+    if (!this.teamName.trim()) {
+      alert('Введіть назву команди');
       return;
     }
-    if (this.team.members.length === 0) {
-      alert('Будь ласка, додайте хоча б одного учасника');
-      return;
-    }
-
-    localStorage.setItem('createdTeam', JSON.stringify(this.team));
-    alert(`✅ Команда "${this.team.name}" успішно створена з ${this.team.members.length} учасниками!`);
-    console.log('Team created:', this.team);
+    alert(`✅ Команду "${this.teamName}" створено з ${this.members.length} учасниками!`);
   }
 }
