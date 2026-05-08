@@ -1,19 +1,21 @@
 <div class="tournament-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">OurCommunity</a>
-            <a href="#">Tournaments</a>
-            <a href="#">MyTeam</a>
-            <a href="#">Name</a>
-        </div>
     </nav>
 
     <div class="main-container">
         <div class="left-column">
-            <app-tournament-info></app-tournament-info>
+            <app-tournament-info [teamsCount]="tournamentInfo.teamsCount" [startDate]="tournamentInfo.startDate"
+                [endDate]="tournamentInfo.endDate">
+            </app-tournament-info>
             <app-teams-table></app-teams-table>
+            <div class="registration-card">
+                <h3>Reg on tournament</h3>
+                <button class="btn-register" (click)="onSignUp()" [disabled]="isSignedUp">
+                    {{ isSignedUp ? '✅ Registered' : 'Sign up' }}
+                </button>
+                <div class="signup-message" *ngIf="signUpMessage">{{ signUpMessage }}</div>
+            </div>
         </div>
 
         <div class="right-column">
