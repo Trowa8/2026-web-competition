@@ -1,0 +1,64 @@
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.preview-content {
+    text-align: center;
+}
+
+.team-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.preview-content h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.preview-content p {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.member-count {
+    font-size: 0.85rem;
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #f7fafc;
+    border-radius: 0.5rem;
+}
+
+.preview-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.preview-member {
+    padding: 0.25rem 0.75rem;
+    background: #ede9fe;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: #667eea;
+}

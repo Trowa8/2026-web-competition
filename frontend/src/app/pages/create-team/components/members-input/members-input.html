@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Team Members</h2>
+        <span class="count">{{ members.length }} members</span>
+        <button class="btn-add" (click)="showAddForm = !showAddForm">+ Add</button>
+    </div>
+
+    <div class="add-form" *ngIf="showAddForm">
+        <input type="text" [(ngModel)]="newMemberName" placeholder="Member name">
+        <button class="btn-confirm" (click)="addMember()">Add</button>
+        <button class="btn-cancel" (click)="showAddForm = false">Cancel</button>
+    </div>
+
+    <div class="members-list">
+        <div *ngIf="members.length === 0" class="empty-members">
+            <span>👥</span>
+            <p>No members yet. Add members from the left panel.</p>
+        </div>
+
+        <div *ngFor="let member of members" class="member-item">
+            <span class="avatar">👤</span>
+            <span class="name">{{ member.name }}</span>
+            <button class="btn-remove" (click)="removeMember(member.id)">✖</button>
+        </div>
+    </div>
+</div>

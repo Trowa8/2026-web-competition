@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Team Preview</h2>
+    </div>
+    <div class="card-body">
+        <div class="preview-content">
+            <div class="team-icon">🏆</div>
+            <h3>{{ team.name || 'Your Team Name' }}</h3>
+            <p>{{ team.description || 'No description yet' }}</p>
+
+            <div class="member-count">
+                👥 {{ team.members.length }} member(s)
+            </div>
+
+            <div class="preview-members" *ngIf="team.members.length > 0">
+                <div *ngFor="let member of team.members" class="preview-member">
+                    {{ member.name }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

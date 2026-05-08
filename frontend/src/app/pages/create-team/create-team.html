@@ -1,0 +1,60 @@
+<div class="create-team-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+    </nav>
+
+    <div class="hero">
+        <h1>Create Team</h1>
+        <p>Build your dream team and compete together</p>
+    </div>
+
+    <div class="breadcrumb">
+        <span>Home</span> → <span>Create</span>
+    </div>
+
+    <div class="main-container">
+        <div class="left-column">
+            <app-team-form (teamInfoUpdated)="onTeamInfoUpdated($event)"></app-team-form>
+
+            <div class="suggested-section">
+                <h3>Suggested Members</h3>
+                <div class="suggested-members">
+                    <div class="suggestion-item" (click)="onMemberAdded({ id: 1, name: 'VouPrchakero3000' })">
+                        <span class="avatar">👤</span>
+                        <span class="name">VouPrchakero3000</span>
+                        <button class="btn-add">+ Add</button>
+                    </div>
+                    <div class="suggestion-item" (click)="onMemberAdded({ id: 2, name: 'Niksulini' })">
+                        <span class="avatar">👤</span>
+                        <span class="name">Niksulini</span>
+                        <button class="btn-add">+ Add</button>
+                    </div>
+                    <div class="suggestion-item" (click)="onMemberAdded({ id: 3, name: 'Stipek' })">
+                        <span class="avatar">👤</span>
+                        <span class="name">Stipek</span>
+                        <button class="btn-add">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <app-members-input [members]="team.members" (memberRemoved)="onMemberRemoved($event)">
+            </app-members-input>
+
+            <app-team-preview [team]="team"></app-team-preview>
+
+            <button class="btn-create" (click)="onCreateTeam()">🚀 Create Team</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>
