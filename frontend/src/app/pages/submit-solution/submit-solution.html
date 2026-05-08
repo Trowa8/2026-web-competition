@@ -2,11 +2,11 @@
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">OurCommunity</a>
-            <a href="#">Tournaments</a>
-            <a href="#">MyTeam</a>
-            <a href="#">Name</a>
+            <a href="#" (click)="goHome(); $event.preventDefault()">Home</a>
+            <a href="#" (click)="goCommunity(); $event.preventDefault()">OurCommunity</a>
+            <a href="#" (click)="goTournaments(); $event.preventDefault()">Tournaments</a>
+            <a href="#" (click)="goMyTeam(); $event.preventDefault()">MyTeam</a>
+            <a href="#" (click)="goProfile(); $event.preventDefault()">Name</a>
         </div>
     </nav>
 
@@ -17,9 +17,14 @@
 
     <div class="main-container">
         <div class="left-column">
-            <app-team-info></app-team-info>
+            <app-team-info [teamName]="teamName" [isEditing]="isEditingTeam" [newTeamName]="newTeamName"
+                (editTeam)="startEditTeam()" (saveTeam)="saveTeamName()" (cancelEdit)="cancelEditTeam()"
+                (updateName)="newTeamName = $event">
+            </app-team-info>
+
             <app-problem-statement></app-problem-statement>
-            <app-members-list></app-members-list>
+
+            <app-members-list (addMember)="onAddMember($event)"></app-members-list>
         </div>
 
         <div class="right-column">

@@ -1,13 +1,29 @@
 <div class="card">
     <div class="card-header">
-        <h2>MEMBERS</h2>
-        <span class="count">{{ members.length }} members</span>
+        <h2>УЧАСНИКИ</h2>
+        <span class="count">{{ members.length }} учасників</span>
+        <button class="btn-add-member" (click)="showAddForm = !showAddForm">+ Додати</button>
     </div>
+
+    <div class="add-member-form" *ngIf="showAddForm">
+        <input type="text" [(ngModel)]="newMemberName" placeholder="Ім'я учасника" class="member-input">
+        <select [(ngModel)]="newMemberRole" class="member-role">
+            <option>Капітан</option>
+            <option>Співкапітан</option>
+            <option>Учасник</option>
+        </select>
+        <button class="btn-confirm" (click)="addNewMember()">Додати</button>
+        <button class="btn-cancel" (click)="showAddForm = false">Скасувати</button>
+    </div>
+
     <div class="members-list">
-        <div *ngFor="let member of members" class="member-item">
+        <div *ngFor="let member of members; let i = index" class="member-item">
             <span class="avatar">👤</span>
-            <span class="name">{{ member }}</span>
-            <button class="btn-view">View →</button>
+            <div class="member-info">
+                <span class="name">{{ member.name }}</span>
+                <span class="role" (click)="toggleRole(i)">{{ member.role }}</span>
+            </div>
+            <button class="btn-remove" (click)="removeMember(i)">✖</button>
         </div>
     </div>
 </div>

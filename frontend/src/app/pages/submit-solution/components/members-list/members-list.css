@@ -1,57 +1,55 @@
-.card {
-    background: white;
-    border-radius: 1rem;
-    overflow: hidden;
-}
-
-.card-header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-header h2 {
-    color: white;
-    margin: 0;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
-
-.count {
+.btn-add-member {
     background: rgba(255, 255, 255, 0.2);
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    color: white;
-}
-
-.members-list {
-    padding: 0.5rem;
-}
-
-.member-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.avatar {
-    font-size: 1.5rem;
-}
-
-.name {
-    flex: 1;
-    font-weight: 500;
-    color: #333;
-}
-
-.btn-view {
-    background: none;
     border: none;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.add-member-form {
+    padding: 1rem;
+    background: #f7fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.member-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+}
+
+.member-role {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+}
+
+.btn-confirm {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.role {
+    font-size: 0.7rem;
     color: #667eea;
     cursor: pointer;
+}
+
+.role:hover {
+    text-decoration: underline;
 }

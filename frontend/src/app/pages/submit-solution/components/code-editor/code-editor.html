@@ -1,14 +1,23 @@
 <div class="card">
     <div class="card-header">
-        <h2>Code Editor</h2>
-        <span class="badge">Write your solution</span>
+        <h2>Редактор коду</h2>
+        <span class="badge">Напишіть рішення</span>
     </div>
     <div class="editor-container">
-        <textarea [(ngModel)]="code" placeholder="// Write your solution here..." rows="15"></textarea>
+        <div class="editor-toolbar">
+            <button class="btn-example" (click)="loadExample()">📋 Приклад</button>
+            <button class="btn-clear" (click)="clearCode()">🗑️ Очистити</button>
+        </div>
+        <textarea [(ngModel)]="code" placeholder="// Напишіть ваше рішення тут...
+      
+function solve(input) {
+  // Ваш код
+  return result;
+}" rows="12"></textarea>
         <div class="editor-footer">
-            <span>Lines: {{ code.split('\n').length }}</span>
-            <span>Chars: {{ code.length }}</span>
-            <button class="btn-submit" (click)="onSubmit()">🚀 Submit Solution</button>
+            <span>📄 Рядків: {{ lineCount }}</span>
+            <span>🔤 Символів: {{ charCount }}</span>
+            <button class="btn-submit" (click)="onSubmit()">🚀 Надіслати рішення</button>
         </div>
     </div>
 </div>

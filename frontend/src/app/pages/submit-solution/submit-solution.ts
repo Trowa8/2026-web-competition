@@ -13,8 +13,38 @@ import { CodeEditor } from './components/code-editor/code-editor';
   styleUrls: ['./submit-solution.css']
 })
 export class SubmitSolution {
+  teamName = 'Code/Arena';
+  isEditingTeam = false;
+  newTeamName = '';
+
+  goHome() { alert('🏠 Головна сторінка'); }
+  goCommunity() { alert('👥 Наша спільнота'); }
+  goTournaments() { alert('🏆 Турніри'); }
+  goMyTeam() { alert('👤 Моя команда'); }
+  goProfile() { alert('👤 Профіль'); }
+
+  startEditTeam() {
+    this.isEditingTeam = true;
+    this.newTeamName = this.teamName;
+  }
+
+  saveTeamName() {
+    if (this.newTeamName.trim()) {
+      this.teamName = this.newTeamName;
+    }
+    this.isEditingTeam = false;
+  }
+
+  cancelEditTeam() {
+    this.isEditingTeam = false;
+  }
+
+  onAddMember(memberName: string) {
+    console.log('Новий учасник:', memberName);
+  }
+
   onSolutionSubmitted(code: string) {
-    alert('Solution submitted successfully!');
+    alert('✅ Рішення успішно надіслано!');
     console.log(code);
   }
 }

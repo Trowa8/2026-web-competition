@@ -1,13 +1,18 @@
 <div class="card">
     <div class="card-header">
-        <h2>Code/Arena</h2>
-        <span class="badge">Team Profile</span>
+        <h2 *ngIf="!isEditing">{{ teamName }}</h2>
+        <input *ngIf="isEditing" type="text" [(ngModel)]="newTeamName" (input)="updateName.emit(newTeamName)"
+            class="edit-input">
+        <span class="badge">Профіль команди</span>
     </div>
     <div class="card-body">
-        <p>Interact your team and view teammate history.</p>
-        <div class="buttons">
-            <button class="btn-edit">✏️ Edit team</button>
-            <button class="btn-create">➕ Create member</button>
+        <p>Взаємодійте з командою та переглядайте історію учасників.</p>
+        <div class="buttons" *ngIf="!isEditing">
+            <button class="btn-edit" (click)="editTeam.emit()">✏️ Редагувати команду</button>
+        </div>
+        <div class="buttons" *ngIf="isEditing">
+            <button class="btn-save" (click)="saveTeam.emit()">💾 Зберегти</button>
+            <button class="btn-cancel" (click)="cancelEdit.emit()">❌ Скасувати</button>
         </div>
     </div>
 </div>
