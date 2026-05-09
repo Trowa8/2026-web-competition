@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class TeamSummaryResponse(BaseModel):
-    id: str
+    team_id: str
     name: str
     member_count: int
 
