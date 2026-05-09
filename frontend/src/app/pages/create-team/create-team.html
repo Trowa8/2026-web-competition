@@ -1,6 +1,13 @@
 <div class="create-team-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
     </nav>
 
     <div class="hero">
@@ -22,16 +29,26 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Team name</label>
-                        <input type="text" [(ngModel)]="teamName" placeholder="Create">
+                        <input type="text" [(ngModel)]="teamName" placeholder="Enter team name">
                     </div>
                     <div class="form-group">
                         <label>Description of your team</label>
-                        <textarea [(ngModel)]="description" rows="3" placeholder="Description of your team"></textarea>
+                        <textarea [(ngModel)]="description" rows="3" placeholder="Describe your team..."></textarea>
                     </div>
                     <div class="form-group">
                         <label>Team image</label>
-                        <input type="file" #fileInput (change)="onLogoUpload($event)" style="display: none">
-                        <button class="btn-upload" (click)="fileInput.click()">📁 Upload</button>
+                        <div class="logo-area">
+                            <div class="logo-preview" *ngIf="teamLogo">
+                                <img [src]="teamLogo" alt="Logo">
+                                <button class="btn-remove-logo" (click)="teamLogo = null">✖</button>
+                            </div>
+                            <div class="logo-placeholder" *ngIf="!teamLogo">
+                                <span>🏆</span>
+                                <p>No logo</p>
+                            </div>
+                            <input type="file" #fileInput (change)="onLogoUpload($event)" style="display: none">
+                            <button class="btn-upload" (click)="fileInput.click()">📁 Upload</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,28 +61,36 @@
                 <div class="card-body">
                     <div *ngFor="let user of suggestedUsers" class="suggestion-item">
                         <span class="name">{{ user.name }}</span>
-                        <button class="btn-add" (click)="addMember(user)">+ Add</button>
+                        <button class="btn-add" (click)="addSuggestedUser(user)">+ Add</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <h2>Members</h2>
-                <button class="btn-add-member" (click)="showAddMemberForm = !showAddMemberForm">+ Add</button>
-            </div>
-            <div class="add-member-form" *ngIf="showAddMemberForm">
-                <input type="text" [(ngModel)]="newMemberName" placeholder="Member name">
-                <button class="btn-confirm" (click)="addManualMember()">Add</button>
-                <button class="btn-cancel" (click)="showAddMemberForm = false">Cancel</button>
-            </div>
-            <div class="members-list">
-                <div *ngFor="let member of members" class="member-item">
-                    <span class="name">{{ member.name }}</span>
-                    <button class="btn-remove" (click)="removeMember(member.id)">✖</button>
+        <div class="right-column">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Members</h2>
+                    <button class="btn-add-member" (click)="showAddMemberForm = !showAddMemberForm">+ Add</button>
+                </div>
+                <div class="add-member-form" *ngIf="showAddMemberForm">
+                    <input type="text" [(ngModel)]="newMemberName" placeholder="Member name">
+                    <button class="btn-confirm" (click)="addManualMember()">Add</button>
+                    <button class="btn-cancel" (click)="showAddMemberForm = false">Cancel</button>
+                </div>
+                <div class="members-list">
+                    <div *ngIf="members.length === 0" class="empty-members">
+                        <span>👥</span>
+                        <p>No members yet</p>
+                    </div>
+                    <div *ngFor="let member of members" class="member-item">
+                        <span class="name">{{ member.name }}</span>
+                        <button class="btn-remove" (click)="removeMember(member.id)">✖</button>
+                    </div>
                 </div>
             </div>
+
+            <button class="btn-create-team" (click)="createTeam()">Create</button>
         </div>
     </div>
 

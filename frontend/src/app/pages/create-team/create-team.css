@@ -47,7 +47,7 @@
     display: flex;
     gap: 2rem;
     padding: 2rem;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -107,6 +107,50 @@
     padding: 0.75rem;
     border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.logo-preview {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.logo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.btn-remove-logo {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: #f7fafc;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-upload {
@@ -183,7 +227,18 @@
     cursor: pointer;
 }
 
-.btn-create {
+.empty-members {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+}
+
+.empty-members span {
+    font-size: 3rem;
+    display: block;
+}
+
+.btn-create-team {
     width: 100%;
     padding: 1rem;
     background: linear-gradient(135deg, #10b981, #059669);
@@ -228,55 +283,4 @@
         flex-direction: column;
         text-align: center;
     }
-}
-
-.btn-remove {
-    background: #fee2e2;
-    border: none;
-    color: #ef4444;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.btn-add-member {
-    background: #10b981;
-    color: white;
-    border: none;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
-
-.add-member-form {
-    padding: 1rem;
-    background: #f7fafc;
-    display: flex;
-    gap: 0.5rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.add-member-form input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-}
-
-.btn-confirm {
-    background: #10b981;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
-
-.btn-cancel {
-    background: #ef4444;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
 }
