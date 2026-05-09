@@ -1,85 +1,106 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TournamentForm } from './components/tournament-form/tournament-form';
-import { Leaderboard } from './components/leaderboard/leaderboard';
-import { TeamsList } from './components/teams-list/teams-list';
-import { BracketPreview } from './components/bracket-preview/bracket-preview';
+import { FormsModule } from '@angular/forms';
 
-export interface Team {
+type Team = {
   id: number;
   name: string;
   points: number;
   wins: number;
   losses: number;
-}
+};
 
-export interface Tournament {
+type LeaderboardTeam = {
   name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  numberOfTeams: number;
-  teams: Team[];
-  prizePool: string;
-  format: string;
-}
+  points: number;
+  wins: number;
+  losses: number;
+};
 
 @Component({
   selector: 'app-create-tournament',
   standalone: true,
-  imports: [CommonModule, TournamentForm, Leaderboard, TeamsList, BracketPreview],
+  imports: [CommonModule, FormsModule],
   templateUrl: './create-tournament.html',
   styleUrls: ['./create-tournament.css']
 })
 export class CreateTournament {
-  tournament: Tournament = {
-    name: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    numberOfTeams: 8,
-    teams: [],
-    prizePool: '',
-    format: 'single'
-  };
+  tournamentName = '';
+  description = '';
+  startDate = '';
+  endDate = '';
+  numberOfTeams = 8;
+  prizePool = '';
+  format = 'single';
 
-  leaderboardTeams: Team[] = [
-    { id: 1, name: 'Alpha Team', points: 67, wins: 8, losses: 2 },
-    { id: 2, name: 'Beta Squad', points: 42, wins: 5, losses: 5 },
-    { id: 3, name: 'Gamma Force', points: 32, wins: 4, losses: 6 },
-    { id: 4, name: 'Delta Unit', points: 28, wins: 3, losses: 7 }
+  teams: Team[] = [];
+  newTeamName = '';
+  showAddTeamForm = false;
+
+  leaderboardTeams: LeaderboardTeam[] = [
+    { name: 'Alpha Team', points: 67, wins: 8, losses: 2 },
+    { name: 'Beta Squad', points: 42, wins: 5, losses: 5 },
+    { name: 'Gamma Force', points: 32, wins: 4, losses: 6 },
+    { name: 'Delta Unit', points: 28, wins: 3, losses: 7 }
   ];
 
-  onTournamentInfoUpdated(info: Partial<Tournament>) {
-    this.tournament = { ...this.tournament, ...info };
+  suggestedTeams = [
+    { id: 1, name: 'SuperUltraSuper Team' },
+    { id: 2, name: 'BestTeam' },
+    { id: 3, name: 'KareyD3000 Team' }
+  ];
+
+  addTeam() {
+    if (!this.newTeamName.trim()) return;
+    this.teams.push({
+      id: Date.now(),
+      name: this.newTeamName,
+      points: 0,
+      wins: 0,
+      losses: 0
+    });
+    this.newTeamName = '';
+    this.showAddTeamForm = false;
   }
 
-  onTeamAdded(team: Team) {
-    if (!this.tournament.teams.find(t => t.id === team.id)) {
-      this.tournament.teams = [...this.tournament.teams, team];
+  addSuggestedTeam(team: { id: number; name: string }) {
+    if (!this.teams.find(t => t.id === team.id)) {
+      this.teams.push({
+        id: team.id,
+        name: team.name,
+        points: 0,
+        wins: 0,
+        losses: 0
+      });
+      this.suggestedTeams = this.suggestedTeams.filter(t => t.id !== team.id);
     }
   }
 
-  onTeamRemoved(teamId: number) {
-    this.tournament.teams = this.tournament.teams.filter(t => t.id !== teamId);
+  removeTeam(id: number) {
+    const removed = this.teams.find(t => t.id === id);
+    this.teams = this.teams.filter(t => t.id !== id);
+    if (removed) {
+      this.suggestedTeams.push({ id: removed.id, name: removed.name });
+    }
   }
 
-  onCreateTournament() {
-    if (!this.tournament.name.trim()) {
-      alert('Будь ласка, введіть назву турніру');
+  createTournament() {
+    if (!this.tournamentName.trim()) {
+      alert('Введіть назву турніру');
       return;
     }
-    if (!this.tournament.startDate || !this.tournament.endDate) {
-      alert('Будь ласка, виберіть дати турніру');
+    if (!this.startDate || !this.endDate) {
+      alert('Виберіть дати турніру');
       return;
     }
-    if (this.tournament.teams.length < 2) {
-      alert('Будь ласка, додайте хоча б 2 команди');
+    if (this.teams.length < 2) {
+      alert('Додайте хоча б 2 команди');
       return;
     }
+    alert(`✅ Турнір "${this.tournamentName}" створено з ${this.teams.length} командами!`);
+  }
 
-    localStorage.setItem('createdTournament', JSON.stringify(this.tournament));
-    alert(`✅ Турнір "${this.tournament.name}" успішно створено з ${this.tournament.teams.length} командами!`);
-    console.log('Tournament created:', this.tournament);
+  viewAllTeams() {
+    alert('🏆 Всі команди лідерборду\n\n' + this.leaderboardTeams.map(t => `${t.name}: ${t.points} pts (${t.wins}-${t.losses})`).join('\n'));
   }
 }
