@@ -1,6 +1,13 @@
 import { Routes } from '@angular/router';
-import { ReviewSolution } from './pages/review-solution/review-solution';
 
 export const routes: Routes = [
-    { path: '', component: ReviewSolution }
+    {
+        path: 'review-solution',
+        loadComponent: () => import('./pages/review-solution/review-solution').then(m => m.ReviewSolution)
+    },
+    {
+        path: '',
+        redirectTo: '/review-solution',
+        pathMatch: 'full'
+    }
 ];

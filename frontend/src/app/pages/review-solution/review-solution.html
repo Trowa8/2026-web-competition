@@ -1,31 +1,103 @@
 <div class="review-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <span class="nav-text">Tournament</span>
+            <span class="nav-text">Home</span>
+            <span class="nav-text">Tables</span>
+            <span class="nav-text">Profile</span>
+            <span class="nav-text">Search & Info</span>
+            <span class="nav-text">Q&A</span>
+        </div>
     </nav>
 
     <div class="hero">
-        <h1>Review Solution</h1>
-        <p>Evaluate team submission and provide feedback</p>
+        <h1>Reviewing tasks</h1>
     </div>
 
     <div class="main-container">
         <div class="left-column">
-            <app-solution-info [solution]="solution"></app-solution-info>
-            <app-score-panel (scoreSubmitted)="onScoreSubmitted($event)"></app-score-panel>
+            <!-- Judge Panel -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Judge Panel</h2>
+                    <span class="badge">Tasks</span>
+                </div>
+                <div class="card-body">
+                    <div class="task-list">
+                        <div class="task-item">Task/Review</div>
+                        <div class="task-item">Test/Test</div>
+                        <div class="task-item">Solution</div>
+                        <div class="task-item">AI</div>
+                        <div class="task-item">Interview</div>
+                        <div class="task-item">Submit</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Review Status</h2>
+                    <span class="badge">Stats</span>
+                </div>
+                <div class="card-body">
+                    <div class="status-row"><span>Total:</span><span>7</span></div>
+                    <div class="status-row"><span>Solved:</span><span>24</span></div>
+                    <div class="status-row"><span>Waiting for Solution:</span><span>7.8</span></div>
+                </div>
+            </div>
         </div>
 
         <div class="right-column">
-            <app-code-review [code]="solution.code"></app-code-review>
-            <app-feedback-form (feedbackSubmitted)="onScoreSubmitted($event)"></app-feedback-form>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Solution #2847</h2>
+                    <span class="badge">Task A</span>
+                </div>
+                <div class="card-body">
+                    <button class="btn-submit" (click)="onSubmit()">Submit</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Code Preview</h2>
+                    <span class="badge">Snippets</span>
+                </div>
+                <div class="card-body">
+                    <div class="code-preview">A Collection of code snippets and solutions.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Scoring</h2>
+                    <span class="badge">Grades</span>
+                </div>
+                <div class="card-body">
+                    <div class="score-row"><strong>Assignment</strong><span>—</span></div>
+                    <div class="score-row total"><strong>Total Score</strong><span>—</span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Anonymous Team</h2>
+                    <span class="badge">Info</span>
+                </div>
+                <div class="card-body">
+                    <div class="team-info">Team Members<br>Additional Information</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
         <div class="footer-content">
-            <span>© 2023 Judge Portal. All rights reserved.</span>
-            <div class="contacts">
-                <span>📧 Tournament@gmail.com</span>
-                <span>📞 +380 66 657 66 67</span>
+            <span>© 2025 Judge Panel. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="#">Contact us</a>
+                <a href="#">Privacy Policy</a>
             </div>
         </div>
     </footer>
