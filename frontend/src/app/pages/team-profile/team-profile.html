@@ -1,52 +1,91 @@
 <div class="team-profile-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
     </nav>
 
     <div class="hero">
-        <h1>Team Profile</h1>
-        <p>Manage your team and track performance</p>
+        <h1>team profile</h1>
     </div>
 
     <div class="main-container">
         <div class="left-column">
-            <app-team-header [teamName]="teamName" [teamLogo]="teamLogo" [teamDescription]="teamDescription"
-                (editProfile)="onEditProfile()">
-            </app-team-header>
-
-            <app-team-stats [stats]="stats"></app-team-stats>
-
-            <app-members-list [members]="members" (viewMember)="onViewMember($event)">
-            </app-members-list>
-        </div>
-
-        <div class="right-column">
-            <div class="deadline-card">
-                <h3>⏰ Deadline of this task is ending</h3>
-                <div class="deadline-progress">
-                    <div class="progress-circle">
-                        <svg width="80" height="80" viewBox="0 0 80 80">
-                            <circle cx="40" cy="40" r="35" fill="none" stroke="#e2e8f0" stroke-width="6" />
-                            <circle cx="40" cy="40" r="35" fill="none" stroke="#10b981" stroke-width="6"
-                                [attr.stroke-dashoffset]="220 - (220 * taskProgressPercent / 100)"
-                                stroke-dasharray="220" stroke-linecap="round" transform="rotate(-90 40 40)" />
-                        </svg>
-                        <span class="progress-text">{{ completedTasksCount }}/{{ totalTasksCount }}</span>
-                    </div>
-                    <div class="deadline-info">
-                        <p>{{ completedTasksCount }} tasks are completed</p>
-                        <p>Team rating: {{ stats.rating }}</p>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Code/Agents</h2>
+                    <span class="badge">Teams</span>
+                </div>
+                <div class="card-body">
+                    <div class="team-list">
+                        <div class="team-item" (click)="onGo()">Team 1</div>
+                        <div class="team-item" (click)="onGo()">Team 2</div>
                     </div>
                 </div>
             </div>
 
-            <app-tasks-progress [tasks]="tasks" [completedCount]="completedTasksCount" [totalCount]="totalTasksCount"
-                (viewAll)="onViewAllTasks()">
-            </app-tasks-progress>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Team Profile</h2>
+                    <span class="badge">Info</span>
+                </div>
+                <div class="card-body">
+                    <p>Message your team and view tournament history</p>
+                    <button class="btn-go" (click)="onGo()">Go</button>
+                </div>
+            </div>
+        </div>
 
-            <app-tournament-history [tournaments]="tournaments" (viewHistory)="onViewHistory()"
-                (viewAll)="onViewAllTournaments()">
-            </app-tournament-history>
+        <div class="right-column">
+            <div class="card">
+                <div class="card-header">
+                    <h2>TEAM INFO</h2>
+                    <span class="badge">Actions</span>
+                </div>
+                <div class="card-body">
+                    <div class="team-actions">
+                        <button class="btn-delete" (click)="onDeleteTeam()">Delete team</button>
+                        <button class="btn-invite" (click)="onInviteMember()">+ Invite member</button>
+                    </div>
+                    <div class="members-list">
+                        <div *ngFor="let member of members; let i = index" class="member-item">
+                            <div class="member-row">
+                                <label>
+                                    <input type="checkbox" [checked]="member.checked"
+                                        (change)="onMemberCheck(i, $event)">
+                                    <strong>{{ member.name }}</strong>
+                                </label>
+                                <button class="btn-remove-member" (click)="onRemoveMember(i)">✖</button>
+                            </div>
+                            <span class="member-role">{{ member.role }}: {{ member.id }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>TOURNAMENT HISTORY</h2>
+                    <span class="badge">History</span>
+                </div>
+                <div class="card-body">
+                    <div class="tournament-item" (click)="onTournamentClick('Tournament X')">
+                        <strong>Tournament X</strong>
+                        <span class="status">In Play</span>
+                        <span class="date">2020.10.02</span>
+                    </div>
+                    <div class="tournament-item" (click)="onTournamentClick('Tournament Y')">
+                        <strong>Tournament Y</strong>
+                        <span class="status">In Play</span>
+                        <span class="date">Game 76</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -7,6 +7,7 @@
     background: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
 }
 
@@ -34,14 +35,13 @@
 
 .hero h1 {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
 }
 
 .main-container {
     display: flex;
     gap: 2rem;
     padding: 2rem;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -53,42 +53,125 @@
     gap: 1.5rem;
 }
 
-.deadline-card {
+.card {
     background: white;
     border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.card-body {
     padding: 1.5rem;
 }
 
-.deadline-card h3 {
-    color: #ef4444;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-.deadline-progress {
+.team-list {
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.team-item {
+    padding: 0.5rem;
+    background: #f7fafc;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.btn-go {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.team-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-invite {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.members-list {
+    margin-top: 1rem;
+}
+
+.member-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.member-item input {
+    margin-right: 0.5rem;
+}
+
+.member-role {
+    font-size: 0.7rem;
+    color: #667eea;
+    margin-left: 1.5rem;
+}
+
+.tournament-item {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 1.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.progress-circle {
-    position: relative;
-    width: 80px;
-    height: 80px;
+.tournament-item .status {
+    font-size: 0.7rem;
+    color: #10b981;
+    background: #d1fae5;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
 }
 
-.progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.deadline-info p {
-    margin: 0.25rem 0;
-    color: #4a5568;
+.tournament-item .date {
+    font-size: 0.7rem;
+    color: #64748b;
 }
 
 .footer {
@@ -101,6 +184,7 @@
 .footer-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -118,4 +202,60 @@
         flex-direction: column;
         gap: 1rem;
     }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.team-item {
+    padding: 0.5rem;
+    background: #f7fafc;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.team-item:hover {
+    background: #e2e8f0;
+}
+
+.tournament-item {
+    cursor: pointer;
+}
+
+.tournament-item:hover {
+    background: #f7fafc;
+    border-radius: 0.5rem;
+}
+
+.member-item label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.member-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-remove-member {
+    background: #fee2e2;
+    border: none;
+    color: #ef4444;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.btn-remove-member:hover {
+    background: #fecaca;
 }
