@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-tournament',
+  selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './tournament.html',
-  styleUrls: ['./tournament.css']
+  templateUrl: './profile.html',
+  styleUrls: ['./profile.css']
 })
-export class Tournament {
-  onSignUp() {
-    alert('✅ You have successfully registered for the tournament!');
-  }
-}
+export class Profile { }

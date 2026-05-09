@@ -1,27 +1,105 @@
 <div class="tournament-page">
+    <!-- Навігація -->
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a routerLink="/home">Home</a>
+            <a routerLink="/tables">Tables</a>
+            <a routerLink="/profile">Profile</a>
+            <a routerLink="/search-info">Search & Info</a>
+            <a routerLink="/qa">Q&A</a>
+        </div>
     </nav>
+
+    <div class="hero">
+        <h1>Tournament</h1>
+        <p>Year challenge for Master Open 2024.</p>
+    </div>
 
     <div class="main-container">
         <div class="left-column">
-            <app-tournament-info [teamsCount]="tournamentInfo.teamsCount" [startDate]="tournamentInfo.startDate"
-                [endDate]="tournamentInfo.endDate">
-            </app-tournament-info>
-            <app-teams-table></app-teams-table>
-            <div class="registration-card">
-                <h3>Reg on tournament</h3>
-                <button class="btn-register" (click)="onSignUp()" [disabled]="isSignedUp">
-                    {{ isSignedUp ? '✅ Registered' : 'Sign up' }}
-                </button>
-                <div class="signup-message" *ngIf="signUpMessage">{{ signUpMessage }}</div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Reg on tournament</h2>
+                </div>
+                <div class="card-body">
+                    <button class="btn-signup" (click)="onSignUp()">Sign up</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Tournament info</h2>
+                    <span class="badge">Info</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span>Number of teams</span>
+                        <span>16</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Start</span>
+                        <span>03.04.2025</span>
+                    </div>
+                    <div class="info-row">
+                        <span>End</span>
+                        <span>10.04.2025</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="right-column">
-            <app-reviewing-panel></app-reviewing-panel>
-            <app-scoring-status></app-scoring-status>
-            <app-code-preview></app-code-preview>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Teams</h2>
+                    <span class="badge">8 teams</span>
+                </div>
+                <div class="card-body">
+                    <table class="teams-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Team Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Alpha Team</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Beta Squad</td>
+                            <tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Gamma Force</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Delta Unit</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Epsilon</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Zeta</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Eta</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Theta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
