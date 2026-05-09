@@ -1,4 +1,4 @@
-.teams-page {
+.tables-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #667eea, #764ba2);
 }
@@ -7,6 +7,7 @@
     background: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
 }
 
@@ -34,6 +35,7 @@
 
 .hero h1 {
     font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .container {
@@ -53,11 +55,13 @@
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .card-header h2 {
     color: white;
     margin: 0;
+    font-size: 1.25rem;
 }
 
 .badge {
@@ -72,28 +76,53 @@
     padding: 1.5rem;
 }
 
-.teams-grid {
+.leaderboard-header {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-}
-
-.team-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.team-number {
+    grid-template-columns: 60px 1fr 70px 80px;
+    padding: 0.75rem;
+    background: #f7fafc;
+    border-radius: 0.5rem;
     font-weight: 600;
-    color: #667eea;
-    width: 35px;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 70px 80px;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    align-items: center;
+}
+
+.rank {
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .team-name {
+    font-weight: 500;
     color: #333;
+}
+
+.points {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.record {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.btn-view-all {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .footer {
@@ -101,7 +130,18 @@
     background: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 1rem 2rem;
-    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contacts {
+    display: flex;
+    gap: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -110,7 +150,14 @@
         gap: 1rem;
     }
 
-    .teams-grid {
-        grid-template-columns: 1fr;
+    .leaderboard-header,
+    .leaderboard-row {
+        grid-template-columns: 50px 1fr 60px 70px;
+        font-size: 0.7rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 }

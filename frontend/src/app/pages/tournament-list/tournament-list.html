@@ -1,42 +1,41 @@
-<div class="tournament-list-page">
+<div class="teams-page">
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">OurCommunity</a>
-            <a href="#">Tournaments</a>
-            <a href="#">MyTeam</a>
-            <a href="#">Name</a>
+            <a routerLink="/tournament">Tournament</a>
+            <a routerLink="/home">Home</a>
+            <a routerLink="/tables">Tables</a>
+            <a routerLink="/profile">Profile</a>
+            <a routerLink="/search-info">Search & Info</a>
+            <a routerLink="/qa">Q&A</a>
         </div>
     </nav>
 
     <div class="hero">
-        <h1>Tournaments</h1>
-        <p>Join competitive coding tournaments and showcase your skills</p>
+        <h1>Teams</h1>
+        <p>All registered teams</p>
     </div>
 
-    <app-role-filter></app-role-filter>
-
-    <div class="tournaments-container">
-        <div class="tournaments-header">
-            <h2>Upcoming Tournaments</h2>
-            <span>{{ tournaments.length }} tournaments</span>
-        </div>
-
-        <div class="tournaments-list">
-            <app-tournament-card *ngFor="let t of tournaments" [tournament]="t" (signUp)="onSignUp($event)">
-            </app-tournament-card>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>📋 Teams List</h2>
+                <span class="badge">16 teams</span>
+            </div>
+            <div class="card-body">
+                <div class="teams-grid">
+                    <div *ngFor="let team of teams" class="team-item">
+                        <span class="team-number">{{ team.id }}.</span>
+                        <span class="team-name">{{ team.name }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="footer-content">
-            <span>© 2023 Judge Portal. All rights reserved.</span>
-            <div class="social">
-                <span>🐦 Twitter: @judgeportal</span>
-                <span>📸 Instagram: @judgeportal</span>
-                <span>📘 Facebook: @judgeportal</span>
-            </div>
+        <div class="footer-content"><span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">📧 Tournament@gmail.com | 📞 +380 66 657 66 67</div>
         </div>
     </footer>
 </div>

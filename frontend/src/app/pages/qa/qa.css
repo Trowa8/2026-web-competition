@@ -1,4 +1,4 @@
-.teams-page {
+.qa-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #667eea, #764ba2);
 }
@@ -53,6 +53,7 @@
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .card-header h2 {
@@ -72,28 +73,26 @@
     padding: 1.5rem;
 }
 
-.teams-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-}
-
-.team-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
+.qa-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid #e2e8f0;
 }
 
-.team-number {
-    font-weight: 600;
-    color: #667eea;
-    width: 35px;
+.qa-item:last-child {
+    border-bottom: none;
 }
 
-.team-name {
+.qa-item h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
     color: #333;
+}
+
+.qa-item p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.4;
 }
 
 .footer {
@@ -102,15 +101,4 @@
     color: white;
     padding: 1rem 2rem;
     text-align: center;
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .teams-grid {
-        grid-template-columns: 1fr;
-    }
 }

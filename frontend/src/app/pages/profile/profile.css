@@ -1,4 +1,4 @@
-.teams-page {
+.profile-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #667eea, #764ba2);
 }
@@ -7,6 +7,7 @@
     background: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
 }
 
@@ -34,12 +35,16 @@
 
 .hero h1 {
     font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .container {
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .card {
@@ -53,11 +58,13 @@
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .card-header h2 {
     color: white;
     margin: 0;
+    font-size: 1.25rem;
 }
 
 .badge {
@@ -72,28 +79,39 @@
     padding: 1.5rem;
 }
 
-.teams-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-}
-
-.team-item {
+.info-row {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    justify-content: space-between;
+    padding: 0.75rem 0;
     border-bottom: 1px solid #e2e8f0;
 }
 
-.team-number {
+.info-row span:first-child {
     font-weight: 600;
-    color: #667eea;
-    width: 35px;
+    color: #4a5568;
 }
 
-.team-name {
+.info-row span:last-child {
     color: #333;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #64748b;
 }
 
 .footer {
@@ -101,7 +119,18 @@
     background: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 1rem 2rem;
-    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contacts {
+    display: flex;
+    gap: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -110,7 +139,12 @@
         gap: 1rem;
     }
 
-    .teams-grid {
-        grid-template-columns: 1fr;
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 }

@@ -1,0 +1,83 @@
+<div class="search-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a routerLink="/tournament">Tournament</a>
+            <a routerLink="/home">Home</a>
+            <a routerLink="/tables">Tables</a>
+            <a routerLink="/profile">Profile</a>
+            <a routerLink="/search-info">Search & Info</a>
+            <a routerLink="/qa">Q&A</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Search & Info</h1>
+        <p>Find tournaments, teams, and users</p>
+    </div>
+
+    <div class="container">
+        <!-- Картка пошуку -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🔍 Search</h2>
+                <span class="badge">Find</span>
+            </div>
+            <div class="card-body">
+                <div class="search-box">
+                    <input type="text" [(ngModel)]="searchQuery" placeholder="Search tournaments, teams, users..."
+                        class="search-input">
+                    <button class="search-btn" (click)="onSearch()">Search</button>
+                </div>
+
+                <!-- Результати пошуку -->
+                <div class="search-results" *ngIf="searchResults.length > 0">
+                    <div *ngFor="let result of searchResults" class="result-item">
+                        <span class="result-icon">🏆</span>
+                        <span class="result-name">{{ result.name }}</span>
+                        <span class="result-type">{{ result.type }}</span>
+                    </div>
+                </div>
+
+                <div class="search-empty" *ngIf="searched && searchResults.length === 0">
+                    <p>No results found for "{{ searchQuery }}"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>ℹ️ Tournament Info</h2>
+                <span class="badge">Details</span>
+            </div>
+            <div class="card-body">
+                <div class="info-row">
+                    <span>Current Tournament</span>
+                    <span>Code-Arena 2025</span>
+                </div>
+                <div class="info-row">
+                    <span>Status</span>
+                    <span>Active</span>
+                </div>
+                <div class="info-row">
+                    <span>Teams</span>
+                    <span>16</span>
+                </div>
+                <div class="info-row">
+                    <span>Tasks</span>
+                    <span>8</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>

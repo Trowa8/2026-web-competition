@@ -1,8 +1,0 @@
-<div class="role-filter">
-    <span>Join as:</span>
-    <div class="buttons">
-        <button *ngFor="let role of roles" [class.active]="selected === role" (click)="selectRole(role)">
-            {{ role }}
-        </button>
-    </div>
-</div>
