@@ -1,55 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-team-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './team-profile.html',
   styleUrls: ['./team-profile.css']
 })
-export class TeamProfile {
-  members = [
-    { name: 'markovantikio', role: 'Leader', id: '#42', checked: false },
-    { name: 'dlesa_k', role: 'Member', id: '#39', checked: false },
-    { name: 'YIRLOPT', role: 'Member', id: '#116', checked: false }
-  ];
+export class TeamProfileComponent {
+  team = signal({
+    name: 'Cyber Hornets',
+    description: 'Команда для участі в турнірах. Ми фокусуємося на Angular та UI/UX.',
+    captain_id: 'u-1',
+    createdAt: 'May 10, 2026',
+    members: [
+      { id: 'u-1', role: 'Капітан', login: 'Captain_UA' },
+      { id: 'u-2', role: 'Розробник', login: 'Dev_User' }
+    ]
+  });
 
-  onGo() {
-    alert('✅ Перехід до повідомлень команди');
-  }
+  tournaments = signal([
+    { name: 'Angular Cup 2026', dates: '01.06 - 05.06.2026' }
+  ]);
 
-  onDeleteTeam() {
-    if (confirm('Видалити ВСІХ учасників?')) {
-      this.members = [];
-      alert('🗑️ Всіх видалено');
-    }
-  }
+  joinCode = signal('');
 
-  onInviteMember() {
-    const newName = prompt('Введіть ім\'я учасника:');
-    if (newName && newName.trim()) {
-      this.members.push({
-        name: newName.trim(),
-        role: 'Member',
-        id: '#' + Math.floor(Math.random() * 1000),
-        checked: false
-      });
-    }
-  }
+  isCodeValid = computed(() => this.joinCode().length === 6);
 
-  onRemoveMember(index: number) {
-    if (confirm(`Видалити ${this.members[index].name}?`)) {
-      this.members.splice(index, 1);
-    }
-  }
-
-  onMemberCheck(index: number, event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.members[index].checked = input.checked;
-  }
-
-  onTournamentClick(name: string) {
-    alert(`ℹ️ Турнір: ${name}`);
-  }
+  onJoin() { console.log('Joining with:', this.joinCode()); }
 }

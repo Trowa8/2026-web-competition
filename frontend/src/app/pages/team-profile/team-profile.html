@@ -1,101 +1,44 @@
-<div class="team-profile-page">
-    <nav class="navbar">
-        <div class="logo">🏆 Judge Portal</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">OurCommunity</a>
-            <a href="#">Tournaments</a>
-            <a href="#">MyTeam</a>
-            <a href="#">Name</a>
+<div class="profile-container">
+    <header class="header-main">
+        <h1>{{ team().name }}</h1>
+        <p class="meta-info">Створено: {{ team().createdAt }}</p>
+        <div class="btn-group">
+            <button class="btn-yellow">Редагувати</button>
+            <button class="btn-outline">Видалити</button>
         </div>
-    </nav>
+    </header>
 
-    <div class="hero">
-        <h1>team profile</h1>
+    <div class="card-modern">
+        <div class="accent-line"></div>
+        <h3>Про команду</h3>
+        <p class="desc">{{ team().description }}</p>
     </div>
 
-    <div class="main-container">
-        <div class="left-column">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Code/Agents</h2>
-                    <span class="badge">Teams</span>
-                </div>
-                <div class="card-body">
-                    <div class="team-list">
-                        <div class="team-item" (click)="onGo()">Team 1</div>
-                        <div class="team-item" (click)="onGo()">Team 2</div>
-                    </div>
-                </div>
+    <div class="card-modern">
+        <div class="accent-line"></div>
+        <h3>Учасники</h3>
+        <div class="members-grid">
+            @for (m of team().members; track m.id) {
+            <div class="member-card">
+                <span class="m-name">👤 {{ m.login }}</span>
+                <span class="m-role">{{ m.role }}</span>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>Team Profile</h2>
-                    <span class="badge">Info</span>
-                </div>
-                <div class="card-body">
-                    <p>Message your team and view tournament history</p>
-                    <button class="btn-go" (click)="onGo()">Go</button>
-                </div>
-            </div>
+            }
         </div>
 
-        <div class="right-column">
-            <div class="card">
-                <div class="card-header">
-                    <h2>TEAM INFO</h2>
-                    <span class="badge">Actions</span>
-                </div>
-                <div class="card-body">
-                    <div class="team-actions">
-                        <button class="btn-delete" (click)="onDeleteTeam()">Delete team</button>
-                        <button class="btn-invite" (click)="onInviteMember()">+ Invite member</button>
-                    </div>
-                    <div class="members-list">
-                        <div *ngFor="let member of members; let i = index" class="member-item">
-                            <div class="member-row">
-                                <label>
-                                    <input type="checkbox" [checked]="member.checked"
-                                        (change)="onMemberCheck(i, $event)">
-                                    <strong>{{ member.name }}</strong>
-                                </label>
-                                <button class="btn-remove-member" (click)="onRemoveMember(i)">✖</button>
-                            </div>
-                            <span class="member-role">{{ member.role }}: {{ member.id }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>TOURNAMENT HISTORY</h2>
-                    <span class="badge">History</span>
-                </div>
-                <div class="card-body">
-                    <div class="tournament-item" (click)="onTournamentClick('Tournament X')">
-                        <strong>Tournament X</strong>
-                        <span class="status">In Play</span>
-                        <span class="date">2020.10.02</span>
-                    </div>
-                    <div class="tournament-item" (click)="onTournamentClick('Tournament Y')">
-                        <strong>Tournament Y</strong>
-                        <span class="status">In Play</span>
-                        <span class="date">Game 76</span>
-                    </div>
-                </div>
-            </div>
+        <div class="join-form">
+            <label>Вхід для учасників</label>
+            <input type="text" [(ngModel)]="joinCode" placeholder="000000" maxlength="6">
+            <button class="btn-blue-action" [disabled]="joinCode().length !== 6" (click)="onJoin()">Увійти</button>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <span>© 2023 Judge Portal. All rights reserved.</span>
-            <div class="contacts">
-                <span>📧 Tournament@gmail.com</span>
-                <span>📞 +380 66 657 66 67</span>
-            </div>
+    <div class="card-modern">
+        <div class="accent-line"></div>
+        <h3>Історія турнірів</h3>
+        <div class="tournament-entry">
+            <span class="t-title">{{ tournaments()[0].name }}</span>
+            <span class="t-date">{{ tournaments()[0].dates }}</span>
         </div>
-    </footer>
+    </div>
 </div>
