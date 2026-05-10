@@ -1,31 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tournament-detail',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './tournament-detail.html',
-  styleUrls: ['./tournament-detail.css'],
+  styleUrls: ['./tournament-detail.css']
 })
-export class TournamentDetail {
-  tournament = {
-    name: 'CS2 Cup 2024',
-    status: 'registration',
-    description: 'Міжнародний кіберспортивний турнір з CS2',
-    startDate: '1 червня 2024',
-    endDate: '10 червня 2024',
-    location: 'Київ, Україна + Онлайн',
-    gameType: 'CS2',
-    teams: '8/16',
-    prize: '50 000 ₴',
-    organizer: 'CyberSport Ukraine',
-  };
+export class TournamentDetailComponent {
+  tournament = signal({
+    tournament_id: 1,
+    name: 'Kharkiv Open 2025',
+    description: 'Your challenge for Kharkiv Open 2025. Show your best design skills!',
+    start_date: '03.04.2025',
+    registration_deadline: '01.04.2025',
+    created_by: 10,
+    created_at: '2025-01-01'
+  });
 
-  getStatusText() {
-    const map: Record<string, string> = {
-      registration: 'Реєстрація',
-      ongoing: 'Триває',
-      completed: 'Завершено',
-    };
-    return map[this.tournament.status] || this.tournament.status;
+  number_of_teams = signal(16);
+  end_date = signal('10.04.2025');
+
+  register() {
+    console.log('Реєстрація на турнір активована');
   }
 }
