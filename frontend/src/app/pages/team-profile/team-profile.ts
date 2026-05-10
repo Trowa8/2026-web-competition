@@ -10,24 +10,33 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./team-profile.css']
 })
 export class TeamProfileComponent {
-  team = signal({
-    name: 'Cyber Hornets',
-    description: 'Команда для участі в турнірах. Ми фокусуємося на Angular та UI/UX.',
-    captain_id: 'u-1',
-    createdAt: 'May 10, 2026',
+  readonly current_user_id = signal<number>(1);
+  readonly join_code = signal<string>('');
+
+  team = signal<any>({
+    team_id: 77,
+    name: 'Frontend Warriors',
+    description: 'Команда ентузіастів Angular, які прагнуть створювати ідеальні інтерфейси.',
+    owner_id: 1,
+    created_at: '2026-04-10',
     members: [
-      { id: 'u-1', role: 'Капітан', login: 'Captain_UA' },
-      { id: 'u-2', role: 'Розробник', login: 'Dev_User' }
+      { user_id: 1, role: 'Captain' },
+      { user_id: 2, role: 'Developer' },
+      { user_id: 3, role: 'Designer' }
     ]
   });
 
-  tournaments = signal([
-    { name: 'Angular Cup 2026', dates: '01.06 - 05.06.2026' }
+  tournaments = signal<any[]>([
+    {
+      tournament_id: 1,
+      name: 'Spring UI Cup',
+      start_date: '2026-05-15'
+    }
   ]);
 
-  joinCode = signal('');
+  is_captain = computed(() => this.team().owner_id === this.current_user_id());
 
-  isCodeValid = computed(() => this.joinCode().length === 6);
-
-  onJoin() { console.log('Joining with:', this.joinCode()); }
+  on_delete() {
+    if (confirm('Видалити команду?')) console.log('Team deleted');
+  }
 }

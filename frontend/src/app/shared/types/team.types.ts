@@ -1,14 +1,13 @@
 export type TeamMember = {
-    id: number;
-    name: string;
+    user_id: number;
     role: string;
-    avatarUrl?: string;
 };
 
 export type TeamProfile = {
-    id: number;
+    team_id: number;
     name: string;
     description: string;
-    avatarUrl?: string;
+    owner_id: number;
     members: TeamMember[];
+    createdAt: string;
 };

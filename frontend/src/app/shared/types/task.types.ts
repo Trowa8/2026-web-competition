@@ -1,8 +1,7 @@
-export type Task = {
-    taskId: number;
-    title: string;
+export type Tournament = {
+    tournament_id: number;
+    name: string;
     description: string;
-    deadline: string;
-    submissionStart: string;
-    tournamentId: number;
+    startDate: string;
+    registrationDeadline: string;
 };

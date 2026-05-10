@@ -1,13 +1,18 @@
 import { Routes } from '@angular/router';
+import { TeamProfileComponent } from './pages/team-profile/team-profile';
 
 export const routes: Routes = [
     {
         path: 'team-profile',
-        loadComponent: () => import('./pages/team-profile/team-profile').then(m => m.TeamProfile)
+        component: TeamProfileComponent
+    },
+    {
+        path: 'create-team',
+        component: TeamProfileComponent
     },
     {
         path: '',
-        redirectTo: '/team-profile',
+        redirectTo: 'team-profile',
         pathMatch: 'full'
     }
 ];

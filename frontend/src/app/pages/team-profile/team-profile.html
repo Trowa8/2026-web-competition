@@ -1,44 +1,51 @@
-<div class="profile-container">
-    <header class="header-main">
-        <h1>{{ team().name }}</h1>
-        <p class="meta-info">Створено: {{ team().createdAt }}</p>
-        <div class="btn-group">
-            <button class="btn-yellow">Редагувати</button>
-            <button class="btn-outline">Видалити</button>
+<div class="team-container">
+    <header class="header-line">
+        <div class="title-block">
+            <h1 class="team-name">{{ team().name }}</h1>
+            <span class="creation-date">Створено: {{ team().created_at | date:'M/d/yy' }}</span>
+        </div>
+        <div class="header-actions" *ngIf="is_captain()">
+            <button class="btn-edit">Редагувати</button>
+            <button class="btn-delete-link" (click)="on_delete()">Видалити</button>
         </div>
     </header>
 
-    <div class="card-modern">
-        <div class="accent-line"></div>
-        <h3>Про команду</h3>
-        <p class="desc">{{ team().description }}</p>
-    </div>
+    <div class="profile-grid">
+        <div class="main-column">
+            <section class="card">
+                <h2 class="card-title">Опис команди</h2>
+                <p class="card-content">{{ team().description }}</p>
+            </section>
 
-    <div class="card-modern">
-        <div class="accent-line"></div>
-        <h3>Учасники</h3>
-        <div class="members-grid">
-            @for (m of team().members; track m.id) {
-            <div class="member-card">
-                <span class="m-name">👤 {{ m.login }}</span>
-                <span class="m-role">{{ m.role }}</span>
-            </div>
-            }
+            <section class="card">
+                <h2 class="card-title">Історія турнірів</h2>
+                <div class="t-row" *ngFor="let t of tournaments()">
+                    <span class="t-name">{{ t.name }}</span>
+                    <span class="t-date">{{ t.start_date }}</span>
+                </div>
+            </section>
         </div>
 
-        <div class="join-form">
-            <label>Вхід для учасників</label>
-            <input type="text" [(ngModel)]="joinCode" placeholder="000000" maxlength="6">
-            <button class="btn-blue-action" [disabled]="joinCode().length !== 6" (click)="onJoin()">Увійти</button>
-        </div>
-    </div>
+        <aside class="side-column">
+            <section class="card">
+                <h2 class="card-title">Учасники</h2>
+                <ul class="members-list">
+                    <li *ngFor="let m of team().members">
+                        <span class="member-role">{{ m.role }}</span>
+                        <span class="member-id">ID: {{ m.user_id }}</span>
+                    </li>
+                </ul>
 
-    <div class="card-modern">
-        <div class="accent-line"></div>
-        <h3>Історія турнірів</h3>
-        <div class="tournament-entry">
-            <span class="t-title">{{ tournaments()[0].name }}</span>
-            <span class="t-date">{{ tournaments()[0].dates }}</span>
-        </div>
+                <div class="yellow-separator"></div>
+
+                <div class="join-box">
+                    <label class="join-label">Вступ до команди</label>
+                    <div class="input-row">
+                        <input type="text" maxlength="6" [(ngModel)]="join_code" placeholder="000000">
+                        <button class="btn-gray" [disabled]="join_code().length !== 6">Увійти</button>
+                    </div>
+                </div>
+            </section>
+        </aside>
     </div>
 </div>
