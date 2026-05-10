@@ -1,104 +1,111 @@
-<div class="review-page">
-    <nav class="navbar">
-        <div class="logo">🏆 Judge Portal</div>
-        <div class="nav-links">
-            <span class="nav-text">Tournament</span>
-            <span class="nav-text">Home</span>
-            <span class="nav-text">Tables</span>
-            <span class="nav-text">Profile</span>
-            <span class="nav-text">Search & Info</span>
-            <span class="nav-text">Q&A</span>
-        </div>
-    </nav>
+<div class="judge-layout">
+    <aside class="sidebar">
+        <div class="brand">Judge Panel</div>
+        <ul class="nav-list">
+            <li class="nav-item active"><span class="status-icon">✔</span> Task A (15)</li>
+            <li class="nav-item"><span class="status-icon">✔</span> Task B (10)</li>
+            <li class="nav-item"><span class="status-icon">⌛</span> Task C (5)</li>
+            <li class="separator"></li>
+            <li class="nav-item"><span class="status-icon">●</span> All</li>
+            <li class="nav-item"><span class="status-icon">○</span> Unscored</li>
+            <li class="nav-item"><span class="status-icon">✔</span> Scored</li>
+        </ul>
+    </aside>
 
-    <div class="hero">
-        <h1>Reviewing tasks</h1>
-    </div>
+    <main class="main-content">
+        <header class="header-nav">
+            <span class="breadcrumb">Home / Dashboard / Scores / Settings</span>
+            <div class="search-wrapper">
+                <input type="text" placeholder="Search on site...">
+                <span class="search-btn">🔍</span>
+            </div>
+        </header>
 
-    <div class="main-container">
-        <div class="left-column">
-            <!-- Judge Panel -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Judge Panel</h2>
-                    <span class="badge">Tasks</span>
+        <section class="wire-block">
+            <h2 class="block-title">Review Status</h2>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="label">To Review</span>
+                    <span class="val">{{ reviewStats().toReview }}</span>
                 </div>
-                <div class="card-body">
-                    <div class="task-list">
-                        <div class="task-item">Task/Review</div>
-                        <div class="task-item">Test/Test</div>
-                        <div class="task-item">Solution</div>
-                        <div class="task-item">AI</div>
-                        <div class="task-item">Interview</div>
-                        <div class="task-item">Submit</div>
-                    </div>
+                <div class="stat-card">
+                    <span class="label">Scored</span>
+                    <span class="val">{{ reviewStats().scored }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Average Score</span>
+                    <span class="val">{{ reviewStats().avgScore }}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="wire-block text-center">
+            <h2 class="solution-id">Solution #{{ solution().id }}</h2>
+            <p class="task-label">{{ solution().task }}</p>
+            <button class="btn-white">Download</button>
+        </section>
+
+        <section class="wire-block">
+            <h3 class="block-title">Code Preview</h3>
+            <div class="code-box">
+                <pre><code>{{ solution().code }}</code></pre>
+            </div>
+        </section>
+
+        <section class="wire-block text-center">
+            <h2 class="block-title">Scoring</h2>
+            <div class="inputs-row">
+                <div class="input-group">
+                    <label>ALGORITHM</label>
+                    <select [(ngModel)]="scoreAlgo">
+                        <option value="">Select Score</option>
+                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+                        <option [value]="n">{{ n }}</option>
+                        }
+                    </select>
+                    <span class="hint">choose a score from 1 to 10</span>
+                </div>
+                <div class="input-group">
+                    <label>CODE QUALITY</label>
+                    <select [(ngModel)]="scoreQuality">
+                        <option value="">Select Score</option>
+                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+                        <option [value]="n">{{ n }}</option>
+                        }
+                    </select>
+                    <span class="hint">choose a score from 1 to 10</span>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Review Status</h2>
-                    <span class="badge">Stats</span>
-                </div>
-                <div class="card-body">
-                    <div class="status-row"><span>Total:</span><span>7</span></div>
-                    <div class="status-row"><span>Solved:</span><span>24</span></div>
-                    <div class="status-row"><span>Waiting for Solution:</span><span>7.8</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="right-column">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Solution #2847</h2>
-                    <span class="badge">Task A</span>
-                </div>
-                <div class="card-body">
-                    <button class="btn-submit" (click)="onSubmit()">Submit</button>
-                </div>
+            <div class="action-buttons">
+                <button class="btn-white" (click)="nextSolution()">Next →</button>
+                <button class="btn-black" (click)="saveScore()">Save score ✓</button>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Code Preview</h2>
-                    <span class="badge">Snippets</span>
-                </div>
-                <div class="card-body">
-                    <div class="code-preview">A Collection of code snippets and solutions.</div>
+            <div class="comment-container">
+                <label>Judge Comment</label>
+                <textarea [(ngModel)]="comment" placeholder="Judge comment..."></textarea>
+                <span class="hint">Feedback on the solution</span>
+            </div>
+        </section>
+
+        <section class="wire-block">
+            <div class="team-info-footer">
+                <div class="team-avatar"></div>
+                <div class="team-meta">
+                    <strong>Anonymous Team</strong>
+                    <span class="team-status">Team name hidden</span>
+                    <small>Judging in progress</small>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Scoring</h2>
-                    <span class="badge">Grades</span>
-                </div>
-                <div class="card-body">
-                    <div class="score-row"><strong>Assignment</strong><span>—</span></div>
-                    <div class="score-row total"><strong>Total Score</strong><span>—</span></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>Anonymous Team</h2>
-                    <span class="badge">Info</span>
-                </div>
-                <div class="card-body">
-                    <div class="team-info">Team Members<br>Additional Information</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <span>© 2025 Judge Panel. All rights reserved.</span>
+        <footer class="bottom-footer">
+            <span>© 2026 Judge Panel. All rights reserved.</span>
             <div class="footer-links">
                 <a href="#">Contact us</a>
                 <a href="#">Privacy Policy</a>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </main>
 </div>
