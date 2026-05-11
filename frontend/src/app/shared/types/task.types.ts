@@ -4,5 +4,5 @@ export type Task = {
     description: string;
     deadline: string;
     submissionStart: string;
-    tournamentId: number;
+    updatedAt: string;
 };

@@ -1,13 +1,6 @@
 import { Routes } from '@angular/router';
+import { CreateTeam } from './pages/create-team/create-team';
 
 export const routes: Routes = [
-    {
-        path: 'create-team',
-        loadComponent: () => import('./pages/create-team/create-team').then(m => m.CreateTeam)
-    },
-    {
-        path: '',
-        redirectTo: '/create-team',
-        pathMatch: 'full'
-    }
+    { path: 'create-team', component: CreateTeam },
 ];

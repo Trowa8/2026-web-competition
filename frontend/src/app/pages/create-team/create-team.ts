@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TeamCreate } from '../../shared/types/team-create.types';
 
 @Component({
   selector: 'app-create-team',
@@ -10,19 +12,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './create-team.css'
 })
 export class CreateTeam {
-  teamName = signal('');
-  description = signal('');
-  maxMembers = signal(5);
+  private router = inject(Router);
+
+  teamData = signal<TeamCreate>({
+    name: '',
+    description: '',
+    maxMembers: 3
+  });
 
   onCreateTeam() {
-    const newTeam = {
-      name: this.teamName(),
-      description: this.description(),
-      maxMembers: this.maxMembers(),
-      createdAt: new Date().toISOString()
-    };
-
-    console.log('Команда створюється:', newTeam);
-    alert(`Команду "${newTeam.name}" успішно створено!`);
+    console.log('Створення команди з даними:', this.teamData());
+    alert('Команду успішно створено (імітація)!');
   }
 }

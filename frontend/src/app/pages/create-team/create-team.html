@@ -33,7 +33,7 @@
             <div class="main-col split-col">
                 <div class="field-block">
                     <label>Team name</label>
-                    <input type="text" [(ngModel)]="teamName" placeholder="type">
+                    <input type="text" [(ngModel)]="teamData().name" name="teamName" placeholder="type">
                 </div>
                 <div class="description-box">
                     <div class="desc-preview"></div>
@@ -52,7 +52,7 @@
             <div class="main-col">
                 <div class="field-block">
                     <label>Max members</label>
-                    <select [(ngModel)]="maxMembers" class="custom-select">
+                    <select [(ngModel)]="teamData().maxMembers" name="maxMembers" class="custom-select">
                         <option [value]="3">3 осіб</option>
                         <option [value]="5">5 осіб</option>
                         <option [value]="10">10 осіб</option>
