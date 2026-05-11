@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from src.routers.auth import router as auth_router
-<<<<<<<<< Temporary merge branch 1
 from src.routers.tournament import router as tournament_router
 from src.routers.task import router as task_router
 from src.routers.team import router as team_router
