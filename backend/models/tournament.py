@@ -25,6 +25,7 @@ class Tournament(Base):
     status: Mapped[str] = mapped_column(String(36), nullable=False, default="draft")
     created_by: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
+    judge_code: Mapped[str] = mapped_column(String(6), nullable=False, unique=True)
 
     creator: Mapped["User"] = relationship(foreign_keys=[created_by])
     tournament_participations: Mapped[List["TournamentParticipation"]] = relationship(back_populates="tournament", cascade="all, delete-orphan")
