@@ -12,6 +12,11 @@ export const routes: Routes = [
                 canActivate: [authGuard],
             },
             {
+                path: "create-task",
+                loadComponent: () => import("./pages/create-task/create-task").then(m => m.CreateTask),
+                canActivate: [authGuard],
+            },
+            {
                 path: "home",
                 loadComponent: () => import("./pages/home/home").then(m => m.Home),
             },
