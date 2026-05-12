@@ -1,8 +1,13 @@
-export type Team = {
-    teamId: number;
+export type TeamMember = {
+    user_id: number;
+    role: string;
+};
+
+export type TeamProfile = {
+    team_id: number;
     name: string;
     description: string;
-    maxMembers: number;
-    ownerId: number;
+    owner_id: number;
+    members: TeamMember[];
     createdAt: string;
 };

@@ -1,8 +1,13 @@
 export type Solution = {
-    solutionId: number;
-    teamId: number;
-    fileName: string;
-    fileUrl: string;
-    uploadedAt: string;
-    version: number;
+    id: string;
+    taskId: string;
+    githubUrl: string;
+    demoUrl: string;
+    createdAt: string;
+};
+
+export type CreateSolutionDto = {
+    taskId: string;
+    githubUrl: string;
+    demoUrl: string;
 };
