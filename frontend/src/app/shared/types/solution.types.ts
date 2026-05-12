@@ -1,5 +1,5 @@
-export type Solution = {
-    id: string;
+export type SolutionType = {
+    solutionId: string;
     taskId: string;
     githubUrl: string;
     demoUrl: string;
@@ -8,6 +8,12 @@ export type Solution = {
 
 export type CreateSolutionDto = {
     taskId: string;
-    githubUrl: string;
-    demoUrl: string;
+    teamId: string;
+    fileName: string;
+};
+
+export type UploadFileRequest = {
+    taskId: string;
+    teamId: string;
+    file: File;
 };
