@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-title">
+            <h2>MEMBERS</h2>
+            <span class="count">{{ members.length }} members</span>
+        </div>
+        <button class="btn-add" (click)="showAddForm = !showAddForm">+ Add</button>
+    </div>
+
+    <div class="add-form" *ngIf="showAddForm">
+        <input type="text" [(ngModel)]="newMemberName" placeholder="Member name">
+        <select [(ngModel)]="newMemberRole">
+            <option>Captain</option>
+            <option>Co-Captain</option>
+            <option>Member</option>
+        </select>
+        <div class="form-buttons">
+            <button class="btn-confirm" (click)="addNewMember()">Add</button>
+            <button class="btn-cancel-form" (click)="showAddForm = false">Cancel</button>
+        </div>
+    </div>
+
+    <div class="members-list">
+        <div *ngFor="let member of members; let i = index" class="member-item">
+            <div class="member-avatar">👤</div>
+            <div class="member-details">
+                <div class="member-name">{{ member.name }}</div>
+                <div class="member-role">{{ member.role }}</div>
+            </div>
+            <button class="btn-remove" (click)="removeMember(i)">✖</button>
+        </div>
+    </div>
+</div>
