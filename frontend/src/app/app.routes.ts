@@ -40,6 +40,11 @@ export const routes: Routes = [
                 path: "teams",
                 loadComponent: () => import("./pages/tournament-list/tournament-list").then(m => m.TournamentList),
             },
+            {
+                path: 'submit-solution',
+                loadComponent: () => import('./pages/submit-solution/submit-solution').then(m => m.SubmitSolution),
+                canActivate: [authGuard],
+            }
         ],
     },
     {
