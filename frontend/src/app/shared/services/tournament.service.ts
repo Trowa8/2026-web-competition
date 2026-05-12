@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -18,29 +18,10 @@ import {
 export class TournamentService {
     private readonly http = inject(HttpClient);
 
-    private readonly tournamentsSignal = signal<TournamentListItemType[]>([]);
-    private readonly isLoadingSignal = signal(false);
-    private readonly errorSignal = signal<string | null>(null);
-
-    public readonly tournaments = this.tournamentsSignal.asReadonly();
-    public readonly isLoading = this.isLoadingSignal.asReadonly();
-    public readonly error = this.errorSignal.asReadonly();
-
     public async getAllTournaments(): Promise<TournamentListItemType[]> {
-        this.isLoadingSignal.set(true);
-        this.errorSignal.set(null);
-        try {
-            const data = await firstValueFrom(
-                this.http.get<TournamentListItemType[]>(`${environment.apiUrl}/tournaments`)
-            );
-            this.tournamentsSignal.set(data);
-            return data;
-        } catch {
-            this.errorSignal.set('Помилка завантаження турнірів');
-            return [];
-        } finally {
-            this.isLoadingSignal.set(false);
-        }
+        return await firstValueFrom(
+            this.http.get<TournamentListItemType[]>(`${environment.apiUrl}/tournaments`)
+        );
     }
 
     public async getTournamentById(tournamentId: string): Promise<TournamentType> {
@@ -50,7 +31,7 @@ export class TournamentService {
     }
 
     public async createTournament(body: CreateTournamentRequest): Promise<TournamentType> {
-        return await  firstValueFrom(
+        return await firstValueFrom(
             this.http.post<TournamentType>(`${environment.apiUrl}/tournaments`, body)
         );
     }
