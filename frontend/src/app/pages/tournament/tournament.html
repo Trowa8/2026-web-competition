@@ -1,8 +1,8 @@
 <div class="tournament-page">
+    <!-- Навігація -->
     <nav class="navbar">
         <div class="logo">🏆 Judge Portal</div>
         <div class="nav-links">
-            <a routerLink="/tournament">Tournament</a>
             <a routerLink="/home">Home</a>
             <a routerLink="/tables">Tables</a>
             <a routerLink="/profile">Profile</a>
@@ -22,23 +22,38 @@
                 <div class="card-header">
                     <h2>Reg on tournament</h2>
                 </div>
-                <div class="card-body"><button class="btn-signup" (click)="onSignUp()">Sign up</button></div>
+                <div class="card-body">
+                    <button class="btn-signup" (click)="onSignUp()">Sign up</button>
+                </div>
             </div>
+
             <div class="card">
                 <div class="card-header">
-                    <h2>Tournament info</h2><span class="badge">Info</span>
+                    <h2>Tournament info</h2>
+                    <span class="badge">Info</span>
                 </div>
                 <div class="card-body">
-                    <div class="info-row"><span>Number of teams</span><span>16</span></div>
-                    <div class="info-row"><span>Start</span><span>03.04.2025</span></div>
-                    <div class="info-row"><span>End</span><span>10.04.2025</span></div>
+                    <div class="info-row">
+                        <span>Number of teams</span>
+                        <span>16</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Start</span>
+                        <span>03.04.2025</span>
+                    </div>
+                    <div class="info-row">
+                        <span>End</span>
+                        <span>10.04.2025</span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="right-column">
             <div class="card">
                 <div class="card-header">
-                    <h2>Teams</h2><span class="badge">8 teams</span>
+                    <h2>Teams</h2>
+                    <span class="badge">8 teams</span>
                 </div>
                 <div class="card-body">
                     <table class="teams-table">
@@ -56,7 +71,7 @@
                             <tr>
                                 <td>2</td>
                                 <td>Beta Squad</td>
-                            </tr>
+                            <tr>
                             <tr>
                                 <td>3</td>
                                 <td>Gamma Force</td>
@@ -89,8 +104,12 @@
     </div>
 
     <footer class="footer">
-        <div class="footer-content"><span>© 2023 Judge Portal. All rights reserved.</span>
-            <div class="contacts">📧 Tournament@gmail.com | 📞 +380 66 657 66 67</div>
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
         </div>
     </footer>
 </div>

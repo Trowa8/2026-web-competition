@@ -34,7 +34,7 @@ export const routes: Routes = [
             },
             {
                 path: "tournament",
-                loadComponent: () => import("./pages/tournament/tournament").then(m => m.Tournament),
+                loadComponent: () => import('./pages/tournament-detail/tournament-detail').then(m => m.TournamentDetailComponent),
             },
             {
                 path: "teams",
