@@ -1,9 +1,21 @@
-from .auth import *
-from .tournament import *
-from .team import *
-from .user import *
-from .task import *
-from .solution import *
-from .judging import *
-from .results import *
-from .judges import *
+from . import auth
+from . import tournament
+from . import team
+from . import user
+from . import task
+from . import solution
+from . import judging
+from . import results
+from . import judges
+
+__all__ = [
+    "auth",
+    "tournament",
+    "team",
+    "user",
+    "task",
+    "solution",
+    "judging",
+    "results",
+    "judges",
+]

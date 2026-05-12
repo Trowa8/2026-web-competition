@@ -13,16 +13,16 @@
   --duration: 180ms;
   --easing: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --input-bg:              var(--color-white);
-  --input-border-color:    var(--color-border-default);
-  --input-border-hover:    var(--color-grey);
-  --input-text-color:      var(--color-text-primary);
-  --input-placeholder:     var(--color-grey);
-  --input-focus-border:    var(--color-focus-border);
-  --input-focus-ring:      var(--color-focus-ring);
-  --input-icon-color:      var(--color-icon);
-  --input-hint-color:      var(--color-icon);
-  --input-label-color:     var(--color-text-label);
+  --input-bg:var(--color-white);
+  --input-border-color:var(--color-border-default);
+  --input-border-hover:var(--color-grey);
+  --input-text-color:var(--color-text-primary);
+  --input-placeholder:var(--color-grey);
+  --input-focus-border:var(--color-focus-border);
+  --input-focus-ring:var(--color-focus-ring);
+  --input-icon-color:var(--color-icon);
+  --input-hint-color:var(--color-icon);
+  --input-label-color:var(--color-text-label);
 
   display: block;
   max-width: 250px;
@@ -204,11 +204,11 @@
 .input-icon--suffix { right: var(--padding-x); }
 
 .input-field-wrapper:has(.input-icon--prefix) .input-field {
-  padding-left: calc(var(--padding-x) + var(--icon-size) + 6px);
+  padding-left: 35px;
 }
 
 .input-field-wrapper:has(.input-icon--suffix) .input-field {
-  padding-right: calc(var(--padding-x) + var(--icon-size) + 6px);
+  padding-right: 35px;
 }
 
 .input-toggle-btn {

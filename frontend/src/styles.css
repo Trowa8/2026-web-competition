@@ -1,7 +1,4 @@
-
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-
-  :root{
+  :root {
   --color-white: #ffffff;
   --color-fill: #f4f4f5;
   --color-fill-hover: #ebebec;
@@ -13,15 +10,18 @@
   --color-icon: #71717a;
   --color-required: #f43f5e;
 
-
   --main-color: #6366f1;
   --main-hover-color: #4f46e5;
+  
+  --white-color: #ffffff;
+  --main-color: #7670e8;
+  --main-hover-color: #5a5cd8;
+  --danger-color: #ff0000;
+  --main-font-color: #111827;
+  --accent-color: #4338ca;
   --secondary-color: #e5e7eb;
   --main-font-color: #18181b;
   --outline-border-color: #d4d4d8;
-
-
-
 
   /* Focus */
   --color-focus-border: #6366f1;
@@ -53,6 +53,9 @@
     radial-gradient(circle at 50% 50%, rgba(52, 55, 221, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 30% 30%, rgba(16, 230, 158, 0.06) 0%, transparent 50%),
     radial-gradient(circle at 70% 70%, rgba(220, 40, 130, 0.06) 0%, transparent 50%);
+  --outline-border-color: #000000;
+  --link-color: #e94560;
+  --bg-gradient: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
 }
 * {
     margin: 0;
@@ -61,15 +64,15 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #ebe8c4;
-    
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f5f7fa;
 }
 .nav-link {
     cursor: pointer;
 
 }
 
-.nav-link.active {
-    border-radius: 8px;
+button:focus,
+input:focus {
+    outline: none;
 }
