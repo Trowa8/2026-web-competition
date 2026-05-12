@@ -4,7 +4,6 @@
   min-height: 100vh;
 }
 
-/* ─── Header ─────────────────────────────────────────────────────────────── */
 .header {
   position: sticky;
   top: 0;
@@ -24,7 +23,6 @@
   justify-content: space-between;
 }
 
-/* ─── Logo ───────────────────────────────────────────────────────────────── */
 .header__logo {
   display: flex;
   align-items: center;
@@ -44,7 +42,6 @@
   letter-spacing: -0.03em;
 }
 
-/* ─── Nav ────────────────────────────────────────────────────────────────── */
 .header__nav {
   display: flex;
   align-items: center;
@@ -71,7 +68,6 @@
   color: var(--color-text-primary);
 }
 
-/* Реєстрація — виділена */
 .header__nav-link--register {
   background: #6366f1;
   color: #ffffff;
@@ -87,7 +83,6 @@
   color: #ffffff;
 }
 
-/* ─── Content ────────────────────────────────────────────────────────────── */
 .layout__content {
   flex: 1;
   display: flex;

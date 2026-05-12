@@ -11,7 +11,6 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/tournaments/tournaments').then(m => m.Tournaments),
                 canActivate: [authGuard],
             },
-            { path: '', redirectTo: '/tournaments', pathMatch: 'full' },
         ],
     },
     {
@@ -20,14 +19,14 @@ export const routes: Routes = [
         children: [
             {
                 path: 'login',
-                loadChildren: () => import('./pages/login/login').then(m => m.LoginComponent),
+                loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent),
             },
             {
                 path: 'register',
-                loadChildren: () => import('./pages/register/register').then(m => m.RegisterComponent),
+                loadComponent: () => import('./pages/register/register').then(m => m.RegisterComponent),
             }
         ],
     },
 
-    { path: '**', redirectTo: '/tournaments' },
+    { path: '**', redirectTo: '/auth/login' },
 ];

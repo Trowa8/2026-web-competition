@@ -1,10 +1,5 @@
-import { Component } from '@angular/core';
-import { 
-  FormBuilder, 
-  FormGroup, 
-  ReactiveFormsModule, 
-  Validators, 
-} from '@angular/forms';
+import { Component, computed, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UiInputComponent } from '../../shared/ui-input/ui-input';
 import { UiButton } from '../../shared/ui-button/ui-button';
@@ -13,11 +8,12 @@ import { UiButton } from '../../shared/ui-button/ui-button';
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink, UiInputComponent, UiButton],
   templateUrl: './login.html',
-  styleUrls: ['./login.css'],
+  styleUrl: './login.css',
 })
 export class LoginComponent {
   form: FormGroup;
-  isLoading = false;
+
+  private touchedAt = signal(0);
 
   constructor(
     private fb: FormBuilder,
@@ -29,41 +25,36 @@ export class LoginComponent {
     });
   }
 
-  get emailError(): string {
-    const ctrl = this.form.get('email');
-    if (!ctrl?.touched || !ctrl.errors) return '';
-    if (ctrl.errors['required']) return 'Email обов\'язковий';
-    if (ctrl.errors['email']) return 'Некоректний формат email';
+  emailValidationMessage = computed(() => {
+    this.touchedAt();
+    const emailControl = this.form.get('email');
+    if (!emailControl?.touched || !emailControl.errors) return '';
+    if (emailControl.errors['required']) return 'Email обов\'язковий';
+    if (emailControl.errors['email']) return 'Некоректний формат email';
     return '';
-  }
+  });
 
-  get passwordError(): string {
-    const ctrl = this.form.get('password');
-    const val = ctrl?.value || '';
-    if (!ctrl?.touched || !ctrl.errors) return '';
-    if (ctrl.errors['required']) return 'Пароль обов\'язковий';
-    if (ctrl.errors['minlength']) return 'Мінімум 6 символів';
-
-    if (ctrl.errors['pattern']) {
-      if (/\s/.test(val)) return 'Пароль не має містити пробілів';
-      if (!/\p{L}/u.test(val)) return 'Додайте хоча б одну літеру';
-      if (!/[0-9]/.test(val)) return 'Додайте хоча б одну цифру';
-      if (!/[!@#$%^&*]/.test(val)) return 'Додайте спецсимвол';
+  passwordValidationMessage = computed(() => {
+    this.touchedAt();
+    const passwordControl = this.form.get('password');
+    const currentValue = passwordControl?.value || '';
+    if (!passwordControl?.touched || !passwordControl.errors) return '';
+    if (passwordControl.errors['required']) return 'Пароль обов\'язковий';
+    if (passwordControl.errors['minlength']) return 'Мінімум 6 символів';
+    if (passwordControl.errors['pattern']) {
+      if (/\s/.test(currentValue)) return 'Пароль не має містити пробілів';
+      if (!/\p{L}/u.test(currentValue)) return 'Додайте хоча б одну літеру';
+      if (!/[0-9]/.test(currentValue)) return 'Додайте хоча б одну цифру';
+      if (!/[!@#$%^&*]/.test(currentValue)) return 'Додайте спецсимвол';
     }
     return '';
-  }
+  });
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.touchedAt.set(Date.now());
       return;
-    }
-    this.isLoading = true;
-    try {
-      await new Promise(r => setTimeout(r, 1000));
-      this.router.navigate(['/home']);
-    } finally {
-      this.isLoading = false;
     }
   }
 }

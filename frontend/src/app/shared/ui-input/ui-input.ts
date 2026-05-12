@@ -23,7 +23,7 @@ export type InputAlign   = 'left' | 'center' | 'right';
   selector: 'ui-input',
   imports: [CommonModule],
   templateUrl: './ui-input.html',
-  styleUrls: ['./ui-input.css'],
+  styleUrl: './ui-input.css',
 })
 export class UiInputComponent {
   public readonly label: InputSignal<string> = input<string>('');
@@ -37,20 +37,16 @@ export class UiInputComponent {
   public readonly disabled: InputSignal<boolean> = input<boolean>(false);
   public readonly icon: InputSignal<string> = input<string>('');
 
-  // Двостороннє зв'язування
   public readonly status: ModelSignal<InputStatus> = model<InputStatus>('default');
   public readonly value: ModelSignal<string> = model.required<string>();
 
-  // Посилання на DOM-елемент інпута через #input у шаблоні
   protected readonly inputRef: Signal<ElementRef<HTMLInputElement>> =
     viewChild.required<ElementRef<HTMLInputElement>>('input');
 
-  // Локальні змінні
   protected readonly isFocused: WritableSignal<boolean> = signal(false);
   protected readonly showPassword: WritableSignal<boolean> = signal(false);
   protected readonly inputId: string = `ui-input-${Math.random().toString(36).slice(2, 8)}`;
 
-  // Похідні значення
   protected readonly isErrorVisible: Signal<boolean> = computed(() =>
     this.error().length > 0
   );
@@ -66,6 +62,7 @@ export class UiInputComponent {
   protected readonly hasSuffixIcon: Signal<boolean> = computed(() =>
     this.type() === 'password' || this.currentStatus() !== 'default'
   );
+
   protected readonly wrapperClasses: Signal<string> = computed(() => [
     `variant-${this.variant()}`,
     `size-${this.size()}`,
@@ -97,21 +94,24 @@ export class UiInputComponent {
   public blurInput(): void {
     this.inputRef().nativeElement.blur();
   }
+
   protected handleInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     let val = input.value;
 
     if (this.type() === 'number') {
       val = val
-      .replace(/[^0-9.]/g, '')
-      .replace(/^0+(?=\d)/, "") 
+        .replace(/[^0-9.]/g, '')
+        .replace(/^0+(?=\d)/, '');
 
       const parts = val.split('.');
       if (parts.length > 2) val = `${parts[0]}.${parts.slice(1).join('')}`;
     }
 
     if (this.type() === 'tel') {
-      val = val.replace(/[^0-9]/g, '').slice(0, 10);
+      const hasLeadingPlus = val.startsWith('+');
+      const digits = val.replace(/\D/g, '').slice(0, 15);
+      val = hasLeadingPlus ? `+${digits}` : digits;
     }
 
     if (input.value !== val) {
