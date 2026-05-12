@@ -1,7 +1,7 @@
 """Final Polish
 
 Revision ID: 2bcd3188be35
-Revises: c1230d3d72e8
+Revises: None
 Create Date: 2026-04-25 20:48:57.369337
 
 """
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision: str = '2bcd3188be35'
-down_revision: Union[str, Sequence[str], None] = 'c1230d3d72e8'
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
