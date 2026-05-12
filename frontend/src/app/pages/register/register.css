@@ -1,11 +1,11 @@
 :host {
-  --card-max-width: 420px;
+  --card-max-width: 440px;
   --card-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.06),
     0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
-.login-page {
+.register-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
   background-image:var(--color-background);
 }
 
-.login-card {
+.register-card {
   width: 100%;
   max-width: var(--card-max-width);
   background: var(--color-white);
@@ -23,34 +23,33 @@
   padding: 40px 36px;
   box-shadow: var(--card-shadow);
   animation: slideUp 0.35s ease both;
-  align-items: center;
 }
 
-.login-card__header {
+.register-card__header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
-.login-card__logo {
+.register-card__logo {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.login-card__logo-icon {
+.register-card__logo-icon {
   font-size: 28px;
   line-height: 1;
 }
 
-.login-card__logo-text {
+.register-card__logo-text {
   font-size: 22px;
   font-weight: 800;
   color: var(--color-text-primary);
   letter-spacing: -0.03em;
 }
 
-.login-card__title {
+.register-card__title {
   font-size: 24px;
   font-weight: 700;
   color: var(--color-text-primary);
@@ -58,31 +57,34 @@
   letter-spacing: -0.02em;
 }
 
-.login-card__subtitle {
+.register-card__subtitle {
   font-size: 14px;
   color: var(--color-text-label);
   margin: 0;
 }
 
-.login-card__form {
+.register-card__form {
   display: flex;
   flex-direction: column;
   gap: 16px;
   align-items: center;
 }
 
-.login-card__fields {
+.register-card__fields {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.login-card__forgot {
-  display: flex;
-  justify-content: flex-end;
+.register-card__terms {
+  font-size: 12px;
+  color: var(--color-grey);
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
 }
 
-.login-card__divider {
+.register-card__divider {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -91,15 +93,15 @@
   font-size: 13px;
 }
 
-.login-card__divider::before,
-.login-card__divider::after {
+.register-card__divider::before,
+.register-card__divider::after {
   content: '';
   flex: 1;
   height: 1px;
   background: var(--color-border-default);
 }
 
-.login-card__footer {
+.register-card__footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,11 +109,11 @@
   font-size: 14px;
 }
 
-.login-card__footer-text {
+.register-card__footer-text {
   color: var(--color-text-label);
 }
 
-.login-card__link {
+.register-card__link {
   font-size: 14px;
   font-weight: 500;
   color: var(--main-color);
@@ -119,12 +121,12 @@
   transition: color 0.15s ease;
 }
 
-.login-card__link:hover {
+.register-card__link:hover {
   color: var(--main-hover-color);
   text-decoration: underline;
 }
 
-.login-card__link--accent {
+.register-card__link--accent {
   font-weight: 700;
 }
 
