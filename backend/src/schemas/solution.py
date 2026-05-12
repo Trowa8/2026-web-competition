@@ -1,16 +1,26 @@
 from pydantic import BaseModel
-from datetime import datetime
 
 
 class SolutionSummaryResponse(BaseModel):
-    id: str
+    solution_id: str
     team_id: str
     file_name: str
-    uploaded_at: datetime
-    version: int
 
-class MySolutionResponse(BaseModel):
-    id: str
+class SolutionDetailResponse(BaseModel):
+    solution_id: str
     file_name: str
-    uploaded_at: datetime
-    version: int
+    file_url: str
+
+class SolutionCreateRequest(BaseModel):
+    task_id: str
+    team_id: str
+    file_name: str
+
+class SolutionCreateResponse(BaseModel):
+    solution_id: str
+    task_id: str
+    team_id: str
+    file_name: str
+
+class SolutionUploadResponse(BaseModel):
+    file_name: str
