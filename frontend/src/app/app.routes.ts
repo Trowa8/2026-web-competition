@@ -44,7 +44,11 @@ export const routes: Routes = [
                 path: 'submit-solution',
                 loadComponent: () => import('./pages/submit-solution/submit-solution').then(m => m.SubmitSolution),
                 canActivate: [authGuard],
-            }
+            },
+            {
+                path: 'review-solution',
+                loadComponent: () => import('./pages/review-solution/review-solution').then(m => m.ReviewSolutionComponent)
+            },
         ],
     },
     {

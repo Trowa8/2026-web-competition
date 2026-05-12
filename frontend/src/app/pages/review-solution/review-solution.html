@@ -1,24 +1,111 @@
-<div class="container">
-    <h2>Перевірка рішення</h2>
+<div class="judge-layout">
+    <aside class="sidebar">
+        <div class="brand">Judge Panel</div>
+        <ul class="nav-list">
+            <li class="nav-item active"><span class="status-icon">✔</span> Task A (15)</li>
+            <li class="nav-item"><span class="status-icon">✔</span> Task B (10)</li>
+            <li class="nav-item"><span class="status-icon">⌛</span> Task C (5)</li>
+            <li class="separator"></li>
+            <li class="nav-item"><span class="status-icon">●</span> All</li>
+            <li class="nav-item"><span class="status-icon">○</span> Unscored</li>
+            <li class="nav-item"><span class="status-icon">✔</span> Scored</li>
+        </ul>
+    </aside>
 
-    <form (ngSubmit)="submit()">
-        <div class="form-group">
-            <label>ID рішення</label>
-            <input type="text" [(ngModel)]="solutionId" name="solutionId" placeholder="Solution ID" />
-        </div>
+    <main class="main-content">
+        <header class="header-nav">
+            <span class="breadcrumb">Home / Dashboard / Scores / Settings</span>
+            <div class="search-wrapper">
+                <input type="text" placeholder="Search on site...">
+                <span class="search-btn">🔍</span>
+            </div>
+        </header>
 
-        <div class="form-group">
-            <label>Оцінка (0–100)</label>
-            <input type="number" [(ngModel)]="score" name="score" min="0" max="100" />
-        </div>
+        <section class="wire-block">
+            <h2 class="block-title">Review Status</h2>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="label">To Review</span>
+                    <span class="val">{{ reviewStats().toReview }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Scored</span>
+                    <span class="val">{{ reviewStats().scored }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Average Score</span>
+                    <span class="val">{{ reviewStats().avgScore }}</span>
+                </div>
+            </div>
+        </section>
 
-        <div class="form-group">
-            <label>Коментар</label>
-            <textarea [(ngModel)]="comment" name="comment" placeholder="Коментар (необовʼязково)"></textarea>
-        </div>
+        <section class="wire-block text-center">
+            <h2 class="solution-id">Solution #{{ solution().id }}</h2>
+            <p class="task-label">{{ solution().task }}</p>
+            <button class="btn-white">Download</button>
+        </section>
 
-        <button type="submit" [disabled]="isSubmitting()">
-            {{ isSubmitting() ? 'Відправка...' : 'Оцінити' }}
-        </button>
-    </form>
+        <section class="wire-block">
+            <h3 class="block-title">Code Preview</h3>
+            <div class="code-box">
+                <pre><code>{{ solution().code }}</code></pre>
+            </div>
+        </section>
+
+        <section class="wire-block text-center">
+            <h2 class="block-title">Scoring</h2>
+            <div class="inputs-row">
+                <div class="input-group">
+                    <label>ALGORITHM</label>
+                    <select [(ngModel)]="scoreAlgo">
+                        <option value="">Select Score</option>
+                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+                        <option [value]="n">{{ n }}</option>
+                        }
+                    </select>
+                    <span class="hint">choose a score from 1 to 10</span>
+                </div>
+                <div class="input-group">
+                    <label>CODE QUALITY</label>
+                    <select [(ngModel)]="scoreQuality">
+                        <option value="">Select Score</option>
+                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+                        <option [value]="n">{{ n }}</option>
+                        }
+                    </select>
+                    <span class="hint">choose a score from 1 to 10</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-white" (click)="nextSolution()">Next →</button>
+                <button class="btn-black" (click)="saveScore()">Save score ✓</button>
+            </div>
+
+            <div class="comment-container">
+                <label>Judge Comment</label>
+                <textarea [(ngModel)]="comment" placeholder="Judge comment..."></textarea>
+                <span class="hint">Feedback on the solution</span>
+            </div>
+        </section>
+
+        <section class="wire-block">
+            <div class="team-info-footer">
+                <div class="team-avatar"></div>
+                <div class="team-meta">
+                    <strong>Anonymous Team</strong>
+                    <span class="team-status">Team name hidden</span>
+                    <small>Judging in progress</small>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bottom-footer">
+            <span>© 2026 Judge Panel. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="#">Contact us</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </main>
 </div>

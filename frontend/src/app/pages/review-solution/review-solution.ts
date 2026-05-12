@@ -1,39 +1,31 @@
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-review-solution',
-    standalone: true,
-    imports: [FormsModule],
-    templateUrl: './review-solution.html',
-    styleUrl: './review-solution.css',
+  selector: 'app-review-solution',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './review-solution.html',
+  styleUrls: ['./review-solution.css']
 })
-export class ReviewSolution {
-    solutionId = signal('');
-    score = signal<number | null>(null);
-    comment = signal('');
+export class ReviewSolutionComponent {
+  readonly reviewStats = signal({ toReview: 7, scored: 24, avgScore: 7.8 });
+  readonly solution = signal({
+    id: '2847',
+    task: 'Task A',
+    code: '/* Code snippet here, syntax highlighted with dark background */\nfunction validate() {\n  return true;\n}'
+  });
 
-    isSubmitting = signal(false);
+  scoreAlgo = '';
+  scoreQuality = '';
+  comment = '';
 
-    submit() {
-        if (!this.solutionId() || this.score() === null) {
-            alert('Заповніть обовʼязкові поля');
-            return;
-        }
+  saveScore() {
+    console.log('Saved:', { algo: this.scoreAlgo, quality: this.scoreQuality, comment: this.comment });
+  }
 
-        const dto = {
-            solutionId: this.solutionId(),
-            score: this.score(),
-            comment: this.comment(),
-        };
-
-        this.isSubmitting.set(true);
-
-        console.log('Create Evaluation DTO:', dto);
-
-        setTimeout(() => {
-            this.isSubmitting.set(false);
-            alert('Оцінка відправлена (mock)');
-        }, 500);
-    }
+  nextSolution() {
+    console.log('Next solution');
+  }
 }
