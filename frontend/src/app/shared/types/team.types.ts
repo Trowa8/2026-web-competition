@@ -11,3 +11,9 @@ export type TeamProfile = {
     members: TeamMember[];
     createdAt: string;
 };
+
+export type TeamCreate = {
+    name: string;
+    description: string;
+    maxMembers: number;
+};

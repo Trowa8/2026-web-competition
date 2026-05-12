@@ -59,6 +59,10 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import("./pages/create-tournament/create-tournament").then(m => m.CreateTournament),
             },
+            {
+                path: "create-team",
+                loadComponent: () => import("./pages/create-team/create-team").then(m => m.CreateTeam),
+            },
         ],
     },
     {
