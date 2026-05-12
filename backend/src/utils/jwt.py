@@ -5,6 +5,7 @@ from fastapi import Depends, HTTPException, status
 from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import hashlib
 
 from src.config import settings
 from src.schemas.auth import TokenData
@@ -49,3 +50,6 @@ async def get_current_user_id(credentials: Annotated[HTTPAuthorizationCredential
     except InvalidTokenError:
         raise credentials_exception
     return token_data.user_id
+
+def hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
