@@ -5,16 +5,19 @@ export type TaskType = {
     deadline: string;
     tournamentId: number;
 };
-export type CreateTaskRequest={
+
+export type CreateTaskRequest = {
     name: string;
-    description:string;
+    description: string;
     deadline: string;
 };
-export type UpdateTaskRequest={
+
+export type UpdateTaskRequest = {
     name?: string;
     description?: string;
     deadline?: string;
 };
+
 export type SuccessResponse = {
     success: boolean;
 };
