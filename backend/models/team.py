@@ -15,6 +15,6 @@ class Team(Base):
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     members: Mapped[List["User"]] = relationship(back_populates="team", foreign_keys="User.team_id")
-    tournament_participations: Mapped[List["TournamentParticipation"]] = relationship(back_populates="team")
+    tournament_participations: Mapped[List["TournamentParticipation"]] = relationship(back_populates="team", passive_deletes=True)
     solutions: Mapped[List["Solution"]] = relationship(back_populates="team")
     # leaderboard_entries: Mapped[List["Leaderboard"]] = relationship(back_populates="team")

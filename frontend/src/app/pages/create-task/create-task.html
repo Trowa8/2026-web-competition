@@ -1,24 +1,49 @@
-<div class="container">
-    <h2>Створення таски</h2>
+<div class="create-task-page">
+    <h1>Створити нове завдання</h1>
 
-    <form (ngSubmit)="submit()">
+    <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label>Назва</label>
-            <input type="text" [(ngModel)]="title" name="title" placeholder="Введіть назву таски" />
+            <label>Назва завдання <span class="required">*</span></label>
+            <input
+                name="name"
+                [(ngModel)]="task.name"
+                placeholder="Наприклад: Розробка фронтенд-частини"
+                required
+            />
         </div>
 
         <div class="form-group">
-            <label>Опис</label>
-            <textarea [(ngModel)]="description" name="description" placeholder="Введіть опис"></textarea>
+            <label>Опис завдання <span class="required">*</span></label>
+            <textarea
+                name="description"
+                [(ngModel)]="task.description"
+                rows="6"
+                placeholder="Детально опишіть вимоги, функціонал та технології..."
+                required
+            ></textarea>
         </div>
 
         <div class="form-group">
-            <label>ID турніру</label>
-            <input type="text" [(ngModel)]="tournamentId" name="tournamentId" placeholder="Tournament ID" />
+            <label>Дедлайн <span class="required">*</span></label>
+            <input
+                name="deadline"
+                type="datetime-local"
+                [(ngModel)]="task.deadline"
+                required
+            />
         </div>
 
-        <button type="submit" [disabled]="isSubmitting()">
-            {{ isSubmitting() ? 'Створення...' : 'Створити' }}
-        </button>
+        <div class="form-group">
+            <label>ID турніру <span class="required">*</span></label>
+            <input
+                name="tournamentId"
+                type="text"
+                [(ngModel)]="task.tournamentId"
+                placeholder="Введіть ID турніру"
+                required
+            />
+        </div>
+
+        <button type="submit" class="btn-create">Створити завдання</button>
     </form>
 </div>

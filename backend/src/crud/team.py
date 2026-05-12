@@ -25,13 +25,13 @@ async def get_team_members(db: AsyncSession, team_id: str) -> list[User]:
 
 async def get_captain(db: AsyncSession, team_id: str) -> User | None:
     result = await db.execute(
-        select(User).where(User.team_id == team_id, User.is_captain == True)
+        select(User).where(User.team_id == team_id, User.is_captain.is_(True))
     )
     return result.scalar_one_or_none()
 
 async def get_captain_by_team(db: AsyncSession, team_id: str, user_id: str) -> User | None:
     result = await db.execute(
-        select(User).where(User.team_id == team_id, User.id == user_id, User.is_captain == True)
+        select(User).where(User.team_id == team_id, User.id == user_id, User.is_captain.is_(True))
     )
     return result.scalar_one_or_none()
 
@@ -71,3 +71,15 @@ async def appoint_captain(db: AsyncSession, old_captain: User, new_captain: User
     old_captain.is_captain = False
     new_captain.is_captain = True
     await db.commit()
+    
+async def get_team_member_counts(db: AsyncSession) -> dict[str, int]:
+    result = await db.execute(
+        select(User.team_id, func.count(User.id))
+        .where(User.team_id.isnot(None))
+        .group_by(User.team_id)
+    )
+    return {row[0]: row[1] for row in result.all()}
+
+async def get_team_by_name(db: AsyncSession, name: str) -> Team | None:
+    result = await db.execute(select(Team).where(Team.name == name))
+    return result.scalar_one_or_none()

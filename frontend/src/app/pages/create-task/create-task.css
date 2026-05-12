@@ -1,43 +1,48 @@
-.container {
-    max-width: 500px;
+.create-task-page {
+    max-width: 720px;
     margin: 40px auto;
-    padding: 20px;
-    border-radius: 12px;
-    background: #f9f9f9;
-}
-
-h2 {
-    margin-bottom: 20px;
-    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.required {
+    color: #ef4444;
 }
 
 input,
 textarea {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-textarea {
-    min-height: 100px;
-}
-
-button {
     width: 100%;
-    padding: 10px;
-    border: none;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
-    background: black;
+    font-size: 16px;
+}
+
+.btn-create {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
     color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
     cursor: pointer;
 }
 
-button:disabled {
-    background: gray;
+.btn-create:hover {
+    transform: translateY(-2px);
 }

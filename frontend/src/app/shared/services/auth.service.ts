@@ -2,8 +2,9 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
+
 import {
-    User,
+    UserType,
     RegisterRequest,
     RegisterResponse,
     LoginRequest,
@@ -18,68 +19,58 @@ import {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private readonly http = inject(HttpClient);
-    private readonly API_URL = environment.apiUrl;
 
     private readonly authState = signal<{
-        user: User | null;
+        userId: string | null;
         accessToken: string | null;
         refreshToken: string | null;
     }>({
-        user: null,
+        userId: null,
         accessToken: null,
         refreshToken: null,
     });
 
-    public readonly user = computed(() => this.authState().user);
-    public readonly isAuthenticated = computed(() => !!this.authState().user);
+    public readonly userId = computed(() => this.authState().userId);
+    public readonly isAuthenticated = computed(() => !!this.authState().userId);
     public readonly accessToken = computed(() => this.authState().accessToken);
-    public readonly isAdmin = computed(() => this.authState().user?.role === 'admin');
 
     constructor() {
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
-        const userStr = localStorage.getItem('user');
-        if (accessToken && refreshToken && userStr) {
-            try {
-                const user = JSON.parse(userStr);
-                this.authState.set({ user, accessToken, refreshToken });
-            } catch {
-                this.clearStorage();
-            }
+        const userId = localStorage.getItem('userId');
+        if (accessToken && refreshToken && userId) {
+            this.authState.set({ userId, accessToken, refreshToken });
         }
     }
 
-    private saveToStorage(accessToken: string, refreshToken: string, user: User): void {
+    private saveToStorage(accessToken: string, refreshToken: string, userId: string): void {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('userId', userId);
     }
 
     private clearStorage(): void {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        localStorage.removeItem('user');
+        localStorage.removeItem('userId');
     }
 
-    private updateState(user: User, accessToken: string, refreshToken: string): void {
-        this.authState.set({ user, accessToken, refreshToken });
-        this.saveToStorage(accessToken, refreshToken, user);
-    }
-
-    public async register(data: RegisterRequest): Promise<User> {
-        const res = await firstValueFrom<RegisterResponse>(
-            this.http.post<RegisterResponse>(`${this.API_URL}/auth/register`, data)
+    public async register(body: RegisterRequest): Promise<RegisterResponse> {
+        const res = await firstValueFrom(
+            this.http.post<RegisterResponse>(`${environment.apiUrl}/auth/register`, body)
         );
-        this.updateState(res.user, res.accessToken, res.refreshToken);
-        return res.user;
+        this.authState.set({ userId: res.userId, accessToken: res.accessToken, refreshToken: res.refreshToken });
+        this.saveToStorage(res.accessToken, res.refreshToken, res.userId);
+        return res;
     }
 
-    public async login(creds: LoginRequest): Promise<User> {
-        const res = await firstValueFrom<LoginResponse>(
-            this.http.post<LoginResponse>(`${this.API_URL}/auth/login`, creds)
+    public async login(body: LoginRequest): Promise<LoginResponse> {
+        const res = await firstValueFrom(
+            this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, body)
         );
-        this.updateState(res.user, res.accessToken, res.refreshToken);
-        return res.user;
+        this.authState.set({ userId: res.userId, accessToken: res.accessToken, refreshToken: res.refreshToken });
+        this.saveToStorage(res.accessToken, res.refreshToken, res.userId);
+        return res;
     }
 
     public async refreshToken(): Promise<RefreshTokenResponse | null> {
@@ -87,9 +78,9 @@ export class AuthService {
         if (!currentRefreshToken) return null;
 
         try {
-            const request: RefreshTokenRequest = { refreshToken: currentRefreshToken };
-            const res = await firstValueFrom<RefreshTokenResponse>(
-                this.http.post<RefreshTokenResponse>(`${this.API_URL}/auth/refresh`, request)
+            const body: RefreshTokenRequest = { refreshToken: currentRefreshToken };
+            const res = await firstValueFrom(
+                this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh`, body)
             );
             this.authState.update(s => ({ ...s, accessToken: res.accessToken, refreshToken: res.refreshToken }));
             localStorage.setItem('accessToken', res.accessToken);
@@ -102,55 +93,33 @@ export class AuthService {
     }
 
     public async logout(): Promise<void> {
-        this.authState.set({ user: null, accessToken: null, refreshToken: null });
+        this.authState.set({ userId: null, accessToken: null, refreshToken: null });
         this.clearStorage();
     }
 
-    public async getUserById(userId: number): Promise<User | null> {
-        try {
-            return await firstValueFrom<User>(this.http.get<User>(`${this.API_URL}/users/${userId}`));
-        } catch {
-            return null;
-        }
+    public async getCurrentUser(): Promise<UserType> {
+        return await firstValueFrom(
+            this.http.get<UserType>(`${environment.apiUrl}/user/me`)
+        );
     }
 
-    public async getCurrentUser(): Promise<User | null> {
-        try {
-            const user = await firstValueFrom<User>(this.http.get<User>(`${this.API_URL}/users/me`));
-            this.authState.update(s => ({ ...s, user }));
-            localStorage.setItem('user', JSON.stringify(user));
-            return user;
-        } catch {
-            return null;
-        }
+    public async getUserById(userId: string): Promise<UserType> {
+        return await firstValueFrom(
+            this.http.get<UserType>(`${environment.apiUrl}/user/${userId}`)
+        );
     }
 
-    public async updateUser(userId: number, data: UpdateUserRequest): Promise<UpdateUserResponse | null> {
-        try {
-            const res = await firstValueFrom<UpdateUserResponse>(
-                this.http.put<UpdateUserResponse>(`${this.API_URL}/users/${userId}`, data)
-            );
-            const currentUser = this.authState().user;
-            if (currentUser && currentUser.id === userId) {
-                const updated = { ...currentUser, login: data.login || currentUser.login, email: data.email || currentUser.email };
-                this.authState.update(s => ({ ...s, user: updated }));
-                localStorage.setItem('user', JSON.stringify(updated));
-            }
-            return res;
-        } catch {
-            return null;
-        }
+    public async updateUser(userId: string, body: UpdateUserRequest): Promise<UpdateUserResponse> {
+        return await firstValueFrom(
+            this.http.put<UpdateUserResponse>(`${environment.apiUrl}/user/${userId}`, body)
+        );
     }
 
-    public async deleteUser(userId: number): Promise<DeleteUserResponse | null> {
-        try {
-            const res = await firstValueFrom<DeleteUserResponse>(
-                this.http.delete<DeleteUserResponse>(`${this.API_URL}/users/${userId}`)
-            );
-            if (this.authState().user?.id === userId) await this.logout();
-            return res;
-        } catch {
-            return null;
-        }
+    public async deleteUser(userId: string): Promise<DeleteUserResponse> {
+        const res = await firstValueFrom(
+            this.http.delete<DeleteUserResponse>(`${environment.apiUrl}/user/${userId}`)
+        );
+        if (this.authState().userId === userId) await this.logout();
+        return res;
     }
 }
