@@ -35,6 +35,7 @@
         type="button"
         class="input-icon input-icon--suffix input-toggle-btn"
         (click)="togglePassword()"
+        [disabled]="disabled()"
       >
         <i class="fa-solid" [class]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
       </button>
