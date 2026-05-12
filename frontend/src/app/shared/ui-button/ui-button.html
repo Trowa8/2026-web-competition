@@ -1,0 +1,25 @@
+<button
+    [type]="type()"
+    [disabled]="disabled()"
+    class="button"
+    [ngClass]="{
+        'btn-primary': color() === 'primary',
+        'btn-secondary': color() === 'secondary',
+        'btn-outline': color() === 'outline',
+        'btn-leave': color() === 'leave',
+        'btn-align-left': alignment() === 'left',
+        'btn-align-center': alignment() === 'center',
+        'btn-align-right': alignment() === 'right',
+        'btn-disabled': disabled(),
+        'btn-full-width': isFullWidth()
+    }"
+    (click)="onClick.emit()"
+>
+    <ng-content select="[iconLeftSlot]"></ng-content>
+
+    @if (text()) {
+        <span>{{ text() }}</span>
+    }
+    
+    <ng-content select="[iconRightSlot]"></ng-content>
+</button>
