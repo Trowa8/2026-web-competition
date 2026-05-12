@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UiInputComponent } from '../../shared/ui-input/ui-input';
 import { UiButton } from '../../shared/ui-button/ui-button';
 
@@ -17,7 +17,6 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
