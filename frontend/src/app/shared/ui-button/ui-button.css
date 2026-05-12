@@ -1,0 +1,142 @@
+:host {
+    --button-width: 140px;
+    --button-gap: 8px;
+    --button-padding-x: 22px;
+    --button-padding-y: 8px;
+    --button-border-radius: 6px;
+
+    --button-font-size: 1rem;
+    --button-font-weight: 600;
+
+    --button-color: var(--main-font-color);
+    --button-bg: var(--secondary-color);
+    --button-hover-color: var(--white-color);
+    --button-hover-bg: var(--main-color);
+    --button-disabled-color: var(--main-font-color);
+}
+
+button {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--button-gap);
+    width: var(--button-width);
+    overflow: hidden;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    color: var(--button-color);
+    background-color: var(--button-bg);
+    border: none;
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    font-weight: var(--button-font-weight);
+    font-size: var(--button-font-size);
+    transition: all 0.2s ease;
+}
+
+:host:has(.btn-full-width) {
+    --button-max-width: 100%;
+
+    width: 100%;
+}
+
+.btn-disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    --button-color: var(--white-color);
+    --button-bg: var(--main-color);
+    --button-hover-bg: var(--main-hover-color);
+
+    transform: scale(1);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-primary:disabled:hover {
+    transform: scale(1);
+    filter: none;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    --button-color: var(--main-font-color);
+    --button-bg: var(--secondary-color);
+    --button-hover-color: var(--white-color);
+    --button-fill-color: var(--main-color);
+}
+
+.btn-secondary:hover {
+    color: var(--button-hover-color);
+}
+
+.btn-secondary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--button-fill-color);
+    z-index: -1;
+    transition: width 0.5s ease;
+}
+
+.btn-secondary:hover::before {
+    width: 100%;
+}
+
+.btn-secondary:disabled:hover::before {
+    width: 0;
+}
+
+.btn-outline {
+    --button-border-color: var(--outline-border-color);
+
+    border: 1px solid var(--button-border-color);
+    color: inherit;
+}
+
+.btn-leave {
+    --button-color: var(--main-font-color);
+    --button-bg: var(--secondary-color);
+    --button-hover-color: var(--white-color);
+    --button-fill-color: var(--danger-color);
+}
+
+.btn-leave:hover {
+    color: var(--button-hover-color);
+}
+
+.btn-leave::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 0;
+    height: 100%;
+    background-color: var(--button-fill-color);
+    z-index: -1;
+    transition: width 0.5s ease;
+}
+
+.btn-leave:hover::before {
+    width: 220%;
+}
+
+.btn-align-left {
+    text-align: left;
+}
+
+.btn-align-right {
+    text-align: right;
+}
+
+.btn-align-center {
+    text-align: center;
+}

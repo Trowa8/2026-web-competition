@@ -4,10 +4,9 @@ from datetime import datetime
 
 
 class TeamSummaryResponse(BaseModel):
-    id: str
+    team_id: str
     name: str
     member_count: int
-
 
 class TeamMemberResponse(BaseModel):
     user_id: str
@@ -20,7 +19,6 @@ class TeamDetailResponse(BaseModel):
     owner_id: str
     members: List[TeamMemberResponse]
     created_at: datetime
-
 
 class TeamCreateRequest(BaseModel):
     name: str
@@ -48,3 +46,12 @@ class TeamHistoryItemResponse(BaseModel):
     name: str
     place: int
     score: int
+    
+class TeamCodeResponse(BaseModel):
+    team_code: str
+
+class TeamJoinRequest(BaseModel):
+    team_code: str
+
+class AppointCaptainRequest(BaseModel):
+    user_id: str

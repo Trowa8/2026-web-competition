@@ -1,16 +1,60 @@
-export type Tournament = {
-    id: number;
+export type TournamentType = {
+    tournamentId: string;
     name: string;
     description: string;
-    status: 'registration' | 'active' | 'finished';
+    startDate: string;
+    registrationDeadline: string;
+    createdBy: number;
+    createdAt: string;
 };
 
-export type CreateTournamentDto = {
+export type TournamentListItemType = {
+    tournamentId: string;
+    name: string;
+    startDate: string;
+    registrationDeadline: string;
+    createdBy: number;
+    createdAt: string;
+};
+
+export type TournamentUpdatedType = {
+    tournamentId: string;
     name: string;
     description: string;
+    startDate: string;
+    registrationDeadline: string;
+    updatedAt: string;
 };
 
-export type LeaderboardItem = {
+export type LeaderboardEntryType = {
+    rank: number;
+    teamId: string;
     teamName: string;
-    score: number;
+    taskScores: {
+        taskId: string;
+        score: number;
+    }[];
+    total: number;
+};
+
+export type SuccessResponse = {
+    success: boolean;
+};
+
+export type CreateTournamentRequest = {
+    name: string;
+    description?: string;
+    startDate: string;
+    registrationDeadline: string;
+};
+
+export type UpdateTournamentRequest = {
+    name?: string;
+    description?: string;
+    startDate?: string;
+    registrationDeadline?: string;
+};
+
+export type RegisterTeamRequest = {
+    teamId: string;
 };

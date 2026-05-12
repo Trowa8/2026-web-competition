@@ -6,10 +6,9 @@ from datetime import datetime
 class SolutionToJudgeResponse(BaseModel):
     solution_id: str
     task_title: str
-    uploaded_at: datetime
 
 class SolutionJudgeDetailResponse(BaseModel):
-    id: str
+    solution_id: str
     task_title: str
     file_url: str
 
@@ -26,3 +25,11 @@ class MyScoreResponse(BaseModel):
     solution_id: str
     score: int
     comment: Optional[str] = None
+
+class MarkResponse(BaseModel):
+    mark_id: str
+    solution_id: str
+    judge_id: str
+    score: int
+    comment: Optional[str] = None
+    created_at: datetime
