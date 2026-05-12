@@ -41,17 +41,23 @@ export const routes: Routes = [
                 loadComponent: () => import("./pages/tournament-list/tournament-list").then(m => m.TournamentList),
             },
             {
-                path: 'submit-solution',
-                loadComponent: () => import('./pages/submit-solution/submit-solution').then(m => m.SubmitSolution),
+                path: "submit-solution",
+                loadComponent: () => import("./pages/submit-solution/submit-solution").then(m => m.SubmitSolution),
                 canActivate: [authGuard],
             },
             {
-                path: 'review-solution',
-                loadComponent: () => import('./pages/review-solution/review-solution').then(m => m.ReviewSolutionComponent)
+                path: "review-solution",
+                loadComponent: () =>
+                    import("./pages/review-solution/review-solution").then(m => m.ReviewSolutionComponent),
             },
             {
-                path: 'team-profile',
-                loadComponent: () => import('./pages/team-profile/team-profile').then(m => m.TeamProfileComponent)
+                path: "team-profile",
+                loadComponent: () => import("./pages/team-profile/team-profile").then(m => m.TeamProfileComponent),
+            },
+            {
+                path: "create-tournament",
+                loadComponent: () =>
+                    import("./pages/create-tournament/create-tournament").then(m => m.CreateTournament),
             },
         ],
     },
