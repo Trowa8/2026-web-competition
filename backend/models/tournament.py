@@ -27,9 +27,9 @@ class Tournament(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
 
     creator: Mapped["User"] = relationship(foreign_keys=[created_by])
-    tournament_participations: Mapped[List["TournamentParticipation"]] = relationship(back_populates="tournament")
-    tasks: Mapped[List["Task"]] = relationship(back_populates="tournament")
-    user_roles: Mapped[List["TournamentUserRole"]] = relationship(back_populates="tournament")
+    tournament_participations: Mapped[List["TournamentParticipation"]] = relationship(back_populates="tournament", cascade="all, delete-orphan")
+    tasks: Mapped[List["Task"]] = relationship(back_populates="tournament", cascade="all, delete-orphan")
+    user_roles: Mapped[List["TournamentUserRole"]] = relationship(back_populates="tournament", cascade="all, delete-orphan")
 
     @validates("start_date")
     def validate_start_date(self, key, value: datetime):
