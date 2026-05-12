@@ -25,7 +25,7 @@ export class LoginComponent {
     });
   }
 
-  emailValidationMessage = computed(() => {
+  protected emailError = computed(() => {
     this.touchedAt();
     const emailControl = this.form.get('email');
     if (!emailControl?.touched || !emailControl.errors) return '';
@@ -34,7 +34,7 @@ export class LoginComponent {
     return '';
   });
 
-  passwordValidationMessage = computed(() => {
+  protected passwordError = computed(() => {
     this.touchedAt();
     const passwordControl = this.form.get('password');
     const currentValue = passwordControl?.value || '';

@@ -16,7 +16,7 @@
           placeholder="you@gamehub.gg"
           [value]="form.get('email')?.value ?? ''"
           (valueChange)="form.get('email')?.setValue($event)"
-          [error]="emailError"
+          [error]="emailError()"
           [required]="true"
           fa-icon="fa-envelope"
         />
@@ -27,7 +27,7 @@
           placeholder="Введіть пароль"
           [value]="form.get('password')?.value ?? ''"
           (valueChange)="form.get('password')?.setValue($event)"
-          [error]="passwordError"
+          [error]="passwordError()"
           [required]="true"
           icon="fa-lock"
         />
@@ -42,7 +42,7 @@
         text="Увійти"
         color="primary"
         [isFullWidth]="true"
-        alignment="center"
+        align="center"
         variant="solid"
       />
     </form>

@@ -45,7 +45,7 @@ export class RegisterComponent {
     );
   }
 
-  usernameValidationMessage = computed(() => {
+  protected usernameError = computed(() => {
     this.touchedAt();
     const usernameControl = this.form.get('username');
     if (!usernameControl?.touched || !usernameControl.errors) return '';
@@ -54,7 +54,7 @@ export class RegisterComponent {
     return '';
   });
 
-  emailValidationMessage = computed(() => {
+  protected emailError = computed(() => {
     this.touchedAt();
     const emailControl = this.form.get('email');
     if (!emailControl?.touched || !emailControl.errors) return '';
@@ -63,7 +63,7 @@ export class RegisterComponent {
     return '';
   });
 
-  passwordValidationMessage = computed(() => {
+  protected passwordError = computed(() => {
     this.touchedAt();
     const passwordControl = this.form.get('password');
     const currentValue = passwordControl?.value || '';
@@ -79,7 +79,7 @@ export class RegisterComponent {
     return '';
   });
 
-  confirmPasswordValidationMessage = computed(() => {
+  protected confirmPasswordError = computed(() => {
     this.touchedAt();
     const confirmPasswordControl = this.form.get('confirmPassword');
     if (!confirmPasswordControl?.touched) return '';
@@ -88,7 +88,7 @@ export class RegisterComponent {
     return '';
   });
 
-  phoneValidationMessage = computed(() => {
+  protected phoneError = computed(() => {
     this.touchedAt();
     const phoneControl = this.form.get('phone');
     if (!phoneControl?.touched || !phoneControl.errors) return '';

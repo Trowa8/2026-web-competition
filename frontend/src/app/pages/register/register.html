@@ -17,7 +17,7 @@
           placeholder="ProGamer2025"
           [value]="form.get('username')?.value ?? ''"
           (valueChange)="form.get('username')?.setValue($event)"
-          [error]="usernameError"
+          [error]="usernameError()"
           [required]="true"
           icon="fa-user"
         />
@@ -29,14 +29,14 @@
             (valueChange)="form.get('phone')?.setValue($event)"
             [required]="true"
             icon="fa-phone"
-            [error]="phoneError"         />
+            [error]="phoneError()"         />
         <ui-input
           label="Email"
           type="email"
           placeholder="you@gamehub.gg"
           [value]="form.get('email')?.value ?? ''"
           (valueChange)="form.get('email')?.setValue($event)"
-          [error]="emailError"
+          [error]="emailError()"
           [required]="true"
           icon="fa-envelope"
         />
@@ -47,7 +47,7 @@
           placeholder="Мінімум 6 символів"
           [value]="form.get('password')?.value ?? ''"
           (valueChange)="form.get('password')?.setValue($event)"
-          [error]="passwordError"
+          [error]="passwordError()"
           [required]="true"
           hint="Використовуй літери, цифри та символи"
           icon="fa-lock"
@@ -59,7 +59,7 @@
           placeholder="Повтори пароль"
           [value]="form.get('confirmPassword')?.value ?? ''"
           (valueChange)="form.get('confirmPassword')?.setValue($event)"
-          [error]="confirmPasswordError"
+          [error]="confirmPasswordError()"
           [required]="true"
           icon="fa-lock"
         />
@@ -70,7 +70,7 @@
         text="Зареєструватись"
         color="primary"
         [isFullWidth]="true"
-        alignment="center"
+        align="center"
         variant="solid"
       />
     </form>
