@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <h2 *ngIf="!isEditing">{{ teamName }}</h2>
+        <input *ngIf="isEditing" type="text" [(ngModel)]="newTeamName" (input)="updateName.emit(newTeamName)"
+            class="edit-input">
+        <span class="badge">Team Profile</span>
+    </div>
+    <div class="card-body">
+        <p>Interact your team and view teammate history.</p>
+        <div class="buttons" *ngIf="!isEditing">
+            <button class="btn-edit" (click)="editTeam.emit()">✏️ Edit team</button>
+        </div>
+        <div class="buttons" *ngIf="isEditing">
+            <button class="btn-save" (click)="saveTeam.emit()">💾 Save</button>
+            <button class="btn-cancel" (click)="cancelEdit.emit()">❌ Cancel</button>
+        </div>
+    </div>
+</div>

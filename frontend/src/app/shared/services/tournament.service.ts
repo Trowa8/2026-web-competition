@@ -14,7 +14,7 @@ import {
     RegisterTeamRequest,
 } from '../types/tournament.types';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class TournamentService {
     private readonly http = inject(HttpClient);
 

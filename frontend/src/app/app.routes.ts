@@ -12,6 +12,54 @@ export const routes: Routes = [
                 canActivate: [authGuard],
             },
             {
+                path: "create-task",
+                loadComponent: () => import("./pages/create-task/create-task").then(m => m.CreateTask),
+                canActivate: [authGuard],
+            },
+            {
+                path: "home",
+                loadComponent: () => import("./pages/home/home").then(m => m.Home),
+            },
+            {
+                path: "tables",
+                loadComponent: () => import("./pages/tables/tables").then(m => m.Tables),
+            },
+            {
+                path: "search-info",
+                loadComponent: () => import("./pages/search-info/search-info").then(m => m.SearchInfo),
+            },
+            {
+                path: "qa",
+                loadComponent: () => import("./pages/qa/qa").then(m => m.Qa),
+            },
+            {
+                path: "tournament",
+                loadComponent: () => import("./pages/tournament/tournament").then(m => m.Tournament),
+            },
+            {
+                path: "teams",
+                loadComponent: () => import("./pages/tournament-list/tournament-list").then(m => m.TournamentList),
+            },
+            {
+                path: "submit-solution",
+                loadComponent: () => import("./pages/submit-solution/submit-solution").then(m => m.SubmitSolution),
+                canActivate: [authGuard],
+            },
+            {
+                path: "review-solution",
+                loadComponent: () =>
+                    import("./pages/review-solution/review-solution").then(m => m.ReviewSolutionComponent),
+            },
+            {
+                path: "team-profile",
+                loadComponent: () => import("./pages/team-profile/team-profile").then(m => m.TeamProfileComponent),
+            },
+            {
+                path: "create-tournament",
+                loadComponent: () =>
+                    import("./pages/create-tournament/create-tournament").then(m => m.CreateTournament),
+            },
+            {
                 path: "create-team",
                 loadComponent: () => import("./pages/create-team/create-team").then(m => m.CreateTeam),
             },
