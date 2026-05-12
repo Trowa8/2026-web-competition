@@ -1,34 +1,13 @@
-export type SolutionType = {
-    solutionId: string;
+export type Solution = {
+    id: string;
     taskId: string;
-    teamId: string;
-    fileName: string;
+    githubUrl: string;
+    demoUrl: string;
+    createdAt: string;
 };
 
-export type SolutionListItemType = {
-    solutionId: string;
-    teamId: string;
-    fileName: string;
-};
-
-export type SolutionDetailType = {
-    solutionId: string;
-    fileName: string;
-    fileUrl: string;
-};
-
-export type UploadFileResponse = {
-    fileName: string;
-};
-
-export type CreateSolutionRequest = {
+export type CreateSolutionDto = {
     taskId: string;
-    teamId: string;
-    fileName: string;
-};
-
-export type UploadFileRequest = {
-    taskId: string;
-    teamId: string;
-    file: File;
+    githubUrl: string;
+    demoUrl: string;
 };

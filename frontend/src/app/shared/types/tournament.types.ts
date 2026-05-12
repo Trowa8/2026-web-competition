@@ -58,3 +58,13 @@ export type UpdateTournamentRequest = {
 export type RegisterTeamRequest = {
     teamId: string;
 };
+
+export type TournamentTask = {
+    id: number;
+    tournamentId: number;
+    title: string;
+    description: string;
+    assignedTo: string;
+    deadline: string;
+    status: "pending" | "in_progress" | "done";
+};

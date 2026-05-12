@@ -1,0 +1,66 @@
+<div class="page-wrapper">
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo-icon">◉</span>
+            <span class="nav-brand">Home</span>
+        </div>
+        <div class="nav-center">
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+        </div>
+        <div class="nav-right">
+            <span class="icon">🗨</span>
+            <span class="icon">🔔</span>
+            <span class="user-name">Name</span>
+            <div class="avatar-circle"></div>
+        </div>
+    </nav>
+
+    <main class="create-content">
+        <section class="grid-row">
+            <aside class="side-label">Create</aside>
+            <div class="main-col">
+                <h1 class="page-title">Create team</h1>
+                <button class="btn-black-small" (click)="onCreateTeam()">Create</button>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="grid-row">
+            <aside class="side-label">Contents</aside>
+            <div class="main-col split-col">
+                <div class="field-block">
+                    <label>Team name</label>
+                    <input type="text" [(ngModel)]="teamData().name" name="teamName" placeholder="type">
+                </div>
+                <div class="description-box">
+                    <div class="desc-preview"></div>
+                    <div class="desc-text">
+                        <label>Description</label>
+                        <p>Description of team</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="grid-row">
+            <aside class="side-label">Contents</aside>
+            <div class="main-col">
+                <div class="field-block">
+                    <label>Max members</label>
+                    <select [(ngModel)]="teamData().maxMembers" name="maxMembers" class="custom-select">
+                        <option [value]="3">3 осіб</option>
+                        <option [value]="5">5 осіб</option>
+                        <option [value]="10">10 осіб</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <span class="logout-icon">➔</span>
+    </main>
+</div>
