@@ -49,6 +49,10 @@ export const routes: Routes = [
                 path: 'review-solution',
                 loadComponent: () => import('./pages/review-solution/review-solution').then(m => m.ReviewSolutionComponent)
             },
+            {
+                path: 'team-profile',
+                loadComponent: () => import('./pages/team-profile/team-profile').then(m => m.TeamProfileComponent)
+            },
         ],
     },
     {
