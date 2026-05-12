@@ -10,7 +10,6 @@
   --color-icon: #71717a;
   --color-required: #f43f5e;
 
-
   --main-color: #6366f1;
   --main-hover-color: #4f46e5;
   
@@ -23,9 +22,6 @@
   --secondary-color: #e5e7eb;
   --main-font-color: #18181b;
   --outline-border-color: #d4d4d8;
-
-
-
 
   /* Focus */
   --color-focus-border: #6366f1;
@@ -72,8 +68,9 @@ body {
     background: #f5f7fa;
 }
 
-button {
+.nav-link {
     cursor: pointer;
+
 }
 
 button:focus,

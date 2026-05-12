@@ -46,3 +46,12 @@ class TeamHistoryItemResponse(BaseModel):
     name: str
     place: int
     score: int
+    
+class TeamCodeResponse(BaseModel):
+    team_code: str
+
+class TeamJoinRequest(BaseModel):
+    team_code: str
+
+class AppointCaptainRequest(BaseModel):
+    user_id: str
