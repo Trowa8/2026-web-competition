@@ -1,0 +1,140 @@
+<div class="create-tournament-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">Name</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Create Tournament</h1>
+        <p>Set up a new competition and invite teams</p>
+    </div>
+
+    <div class="breadcrumb">
+        <span>Home</span> → <span>Tournaments</span> → <span>Create</span>
+    </div>
+
+    <div class="main-container">
+        <div class="left-column">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Create</h2>
+                    <span class="badge">Contents</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" [(ngModel)]="tournamentName" placeholder="tournamentname@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea [(ngModel)]="description" rows="3" placeholder="Description of tournament"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <div class="date-range">
+                            <input type="date" [(ngModel)]="startDate" placeholder="07 05 2020">
+                            <span>-</span>
+                            <input type="date" [(ngModel)]="endDate" placeholder="07 08 2020">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Number of teams</label>
+                            <select [(ngModel)]="numberOfTeams">
+                                <option [value]="4">4 Teams</option>
+                                <option [value]="8">8 Teams</option>
+                                <option [value]="16">16 Teams</option>
+                                <option [value]="32">32 Teams</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Prize pool</label>
+                            <input type="text" [(ngModel)]="prizePool" placeholder="$0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tournament Format</label>
+                        <div class="radio-group">
+                            <label><input type="radio" value="single" [(ngModel)]="format"> Single Elimination</label>
+                            <label><input type="radio" value="double" [(ngModel)]="format"> Double Elimination</label>
+                            <label><input type="radio" value="round" [(ngModel)]="format"> Round Robin</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>List</h2>
+                    <span class="badge">Suggested Teams</span>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let team of suggestedTeams" class="suggestion-item">
+                        <span class="name">{{ team.name }}</span>
+                        <button class="btn-add" (click)="addSuggestedTeam(team)">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card">
+                <div class="card-header">
+                    <h2>🏆 Leaderboard</h2>
+                    <span class="badge">Top Teams</span>
+                </div>
+                <div class="leaderboard">
+                    <div class="leaderboard-header">
+                        <span>#</span><span>Team</span><span>Points</span><span>W/L</span>
+                    </div>
+                    <div *ngFor="let team of leaderboardTeams; let i = index" class="leaderboard-row">
+                        <span class="rank">{{ i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i+1) }}</span>
+                        <span class="team-name">{{ team.name }}</span>
+                        <span class="points">{{ team.points }}</span>
+                        <span class="record">{{ team.wins }} - {{ team.losses }}</span>
+                    </div>
+                    <button class="btn-view-all" (click)="viewAllTeams()">View All Teams →</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Teams</h2>
+                    <button class="btn-add-team" (click)="showAddTeamForm = !showAddTeamForm">+ Add</button>
+                </div>
+                <div class="add-team-form" *ngIf="showAddTeamForm">
+                    <input type="text" [(ngModel)]="newTeamName" placeholder="Team name">
+                    <button class="btn-confirm" (click)="addTeam()">Add</button>
+                    <button class="btn-cancel" (click)="showAddTeamForm = false">Cancel</button>
+                </div>
+                <div class="teams-list">
+                    <div *ngIf="teams.length === 0" class="empty-teams">
+                        <span>🏆</span>
+                        <p>No teams added yet</p>
+                    </div>
+                    <div *ngFor="let team of teams" class="team-item">
+                        <span class="name">{{ team.name }}</span>
+                        <button class="btn-remove" (click)="removeTeam(team.id)">✖</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-create" (click)="createTournament()">Create</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2023 Judge Portal. All rights reserved.</span>
+            <div class="contacts">
+                <span>📧 Tournament@gmail.com</span>
+                <span>📞 +380 66 657 66 67</span>
+            </div>
+        </div>
+    </footer>
+</div>

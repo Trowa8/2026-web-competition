@@ -1,0 +1,141 @@
+.team-container {
+    padding: 40px 10%;
+    background-color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #FFB300;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+}
+
+.team-name {
+    color: #0D47A1;
+    font-size: 32px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.creation-date {
+    color: #888;
+    font-size: 14px;
+}
+
+.btn-edit {
+    background: #FFB300;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-delete-link {
+    background: none;
+    border: 1px solid #FF5252;
+    color: #D32F2F;
+    padding: 10px 25px;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+}
+
+.card {
+    border: 1px solid #F0F0F0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.card-title {
+    color: #0D47A1;
+    font-size: 18px;
+    margin: 0 0 15px 0;
+    border-left: 4px solid #FFB300;
+    padding-left: 12px;
+    line-height: 1.2;
+}
+
+.card-content {
+    color: #444;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.t-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.members-list li {
+    display: flex;
+    justify-content: space-between;
+    /* Розносимо роль та ID по краях як у дизайні */
+    padding: 8px 0;
+}
+
+.member-role {
+    color: #333;
+    font-weight: 500;
+}
+
+.member-id {
+    color: #D1D1D1;
+    font-size: 12px;
+}
+
+.yellow-separator {
+    border-top: 1px dashed #FFB300;
+    margin: 20px 0;
+}
+
+.join-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.btn-gray {
+    background: #C0C0C0;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 6px;
+}
+
+.btn-gray:not(:disabled) {
+    background: #9E9E9E;
+    cursor: pointer;
+}
