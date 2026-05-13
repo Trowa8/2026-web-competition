@@ -8,7 +8,7 @@ import {
     SolutionListItemType,
     SolutionDetailType,
     UploadFileResponse,
-    CreateSolutionRequest,
+    CreateSolutionDto,
     UploadFileRequest,
 } from '../types/solution.types';
 
@@ -17,7 +17,7 @@ import {
 })
 export class SolutionService {
     private readonly http = inject(HttpClient);
-    public async createSolution(body: CreateSolutionRequest): Promise<SolutionType> {
+    public async createSolution(body: CreateSolutionDto): Promise<SolutionType> {
         return firstValueFrom(
             this.http.post<SolutionType>(`${environment.apiUrl}/solutions`, body)
         );

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-type Tournament = { id: number; name: string; status: string; maxTeams: number; registeredTeams: number };
+import { TournamentListItemType } from '../../../../shared/types/tournament.types';
 
 @Component({
   selector: 'app-tournament-table',
@@ -9,13 +8,5 @@ type Tournament = { id: number; name: string; status: string; maxTeams: number; 
   styleUrls: ['./tournament-table.css'],
 })
 export class TournamentTable {
-  @Input() tournaments: Tournament[] = [];
-
-  getStatusText(status: string): string {
-    const map: Record<string, string> = {
-      draft: 'Чернетка', registration: 'Реєстрація', ongoing: 'Триває',
-      completed: 'Завершено', cancelled: 'Скасовано',
-    };
-    return map[status] || status;
-  }
+  @Input() tournaments: TournamentListItemType[] = [];
 }
