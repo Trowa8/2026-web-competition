@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class TaskScoreResponse(BaseModel):
@@ -7,7 +7,7 @@ class TaskScoreResponse(BaseModel):
     score: int
 
 class LeaderboardEntryResponse(BaseModel):
-    rank: int
+    rank: Optional[int]
     team_id: str
     team_name: str
     task_scores: List[TaskScoreResponse]

@@ -16,8 +16,11 @@ from src.crud.tournament import (
     create_judge_role,
     get_existing_judge_role,
     get_max_judge_code,
+    get_participations_by_tournament,
+    get_task_scores_for_team,
 )
 from src.crud.user import get_user_by_id
+from src.schemas.results import LeaderboardEntryResponse, TaskScoreResponse
 from src.schemas.tournament import (
     TournamentCreateRequest,
     TournamentCreateResponse,
@@ -210,3 +213,22 @@ async def join_as_judge_service(
         user_name=user.username,
     )
     await create_judge_role(db, role)
+    
+async def get_leaderboard_service(
+    db: AsyncSession, tournament_id: str
+) -> list[LeaderboardEntryResponse]:
+    await _get_tournament_or_404(db, tournament_id)
+    participations = await get_participations_by_tournament(db, tournament_id)
+
+    leaderboard = []
+    for p in participations:
+        task_scores_raw = await get_task_scores_for_team(db, tournament_id, p.team_id)
+        leaderboard.append(LeaderboardEntryResponse(
+            rank=p.place,
+            team_id=p.team_id,
+            team_name=p.team_name,
+            task_scores=[TaskScoreResponse(task_id=task_id, score=score) for task_id, score in task_scores_raw],
+            total=p.total_score or 0,
+        ))
+
+    return leaderboard

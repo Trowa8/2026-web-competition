@@ -1,5 +1,9 @@
 from fastapi import HTTPException, status
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.crud.tournament import update_total_score, get_participation_by_team
+from models.solution import Solution
+from models.task import Task
 from models.mark import Mark
 from src.crud.mark import (
     create_mark,
@@ -46,6 +50,21 @@ def _to_response(mark: Mark) -> MarkResponse:
         comment=mark.comment,
         created_at=mark.created_at,
     )
+    
+async def _recalculate_total(db: AsyncSession, solution) -> None:
+    task = await get_task_by_id_only(db, solution.task_id)
+    
+    result = await db.execute(
+        select(func.sum(Mark.score))
+        .join(Solution, Solution.id == Mark.solution_id)
+        .join(Task, Task.id == Solution.task_id)
+        .where(Solution.team_id == solution.team_id, Task.tournament_id == task.tournament_id)
+    )
+    total = result.scalar_one_or_none() or 0
+
+    participation = await get_participation_by_team(db, task.tournament_id, solution.team_id)
+    if participation:
+        await update_total_score(db, participation, total)
 
 async def submit_score_service(
     db: AsyncSession, solution_id: str, data: SubmitScoreRequest, current_user_id: str
@@ -64,6 +83,7 @@ async def submit_score_service(
         comment=data.comment,
     )
     await create_mark(db, mark)
+    await _recalculate_total(db, solution)
     return _to_response(mark)
 
 async def list_marks_service(
@@ -90,4 +110,5 @@ async def update_score_service(
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You can only edit your own marks")
 
     mark = await update_mark(db, mark, data.score, data.comment)
+    await _recalculate_total(db, solution)
     return _to_response(mark)
