@@ -1,9 +1,10 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UiInputComponent } from '../../shared/ui-input/ui-input';
 import { UiButton } from '../../shared/ui-button/ui-button';
 import { TournamentHistory, TeamMember } from '../../shared/types/profile.types';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +12,8 @@ import { TournamentHistory, TeamMember } from '../../shared/types/profile.types'
   templateUrl: './user-profile.html',
   styleUrls: ['./user-profile.css'],
 })
-export class ProfileComponent {
-  readonly userId = signal<number>(1); 
+export class ProfileComponent implements OnInit {
+  private readonly authService = inject(AuthService);
 
   isEditing = signal(false);
   isLoading = signal(false);
@@ -87,10 +88,43 @@ export class ProfileComponent {
     this.editErrors.set(errors);
     if (Object.keys(errors).length > 0) return;
 
-    this.username.set(this.editUsername());
-    this.email.set(this.editEmail());
-    this.isEditing.set(false);
-    this.isSaved.set(true);
-    setTimeout(() => this.isSaved.set(false), 3000);
+    const currentUserId = this.authService.userId();
+    if (!currentUserId) {
+      this.editErrors.set({ ...errors, username: 'Не вдалось визначити поточного користувача' });
+      return;
+    }
+
+    this.isLoading.set(true);
+    try {
+      const updated = await this.authService.updateUser(currentUserId, {
+        login: this.editUsername(),
+        email: this.editEmail(),
+      });
+
+      this.username.set(updated.login);
+      this.email.set(updated.email);
+      this.isEditing.set(false);
+      this.isSaved.set(true);
+      setTimeout(() => this.isSaved.set(false), 3000);
+    } catch (error) {
+      console.error('Failed to save user profile', error);
+      this.editErrors.set({ ...errors, email: 'Не вдалося зберегти зміни. Спробуйте ще раз.' });
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.loadCurrentUser();
+  }
+
+  private async loadCurrentUser(): Promise<void> {
+    try {
+      const currentUser = await this.authService.getCurrentUser();
+      this.username.set(currentUser.login);
+      this.email.set(currentUser.email);
+    } catch (error) {
+      console.error('Failed to load current user', error);
+    }
   }
 }
