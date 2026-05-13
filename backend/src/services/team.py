@@ -79,7 +79,7 @@ async def create_team_service(
         team_id=team.id,
         name=team.name,
         description=team.description,
-        captain_id=current_user_id,
+        owner_id=current_user_id,
         created_at=team.created_at,
     )
 
@@ -90,7 +90,7 @@ async def get_team_service(db: AsyncSession, team_id: str) -> TeamDetailResponse
     return TeamDetailResponse(
         team_id=team.id,
         name=team.name,
-        captain_id=captain.id if captain else None,
+        owner_id=team.owner_id,
         members=[
             TeamMemberResponse(user_id=m.id, role="captain" if m.is_captain else "member")
             for m in members
