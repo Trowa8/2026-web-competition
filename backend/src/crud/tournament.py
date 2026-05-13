@@ -74,19 +74,17 @@ async def create_judge_role(db: AsyncSession, role: TournamentUserRole) -> None:
     
 async def get_participations_by_tournament(db: AsyncSession, tournament_id: str) -> list[TournamentParticipation]:
     result = await db.execute(
-        select(TournamentParticipation)
-        .where(TournamentParticipation.tournament_id == tournament_id)
-        .order_by(TournamentParticipation.place)
+        select(TournamentParticipation).where(TournamentParticipation.tournament_id == tournament_id)
     )
     return result.scalars().all()
 
-async def get_task_scores_for_team(db: AsyncSession, tournament_id: str, team_id: str) -> list[tuple[str, int]]:
+async def get_all_task_scores_for_tournament(db: AsyncSession, tournament_id: str) -> list[tuple[str, str, int]]:
     result = await db.execute(
-        select(Solution.task_id, func.sum(Mark.score))
+        select(Solution.team_id, Solution.task_id, func.sum(Mark.score))
         .join(Mark, Mark.solution_id == Solution.id)
         .join(Task, Task.id == Solution.task_id)
-        .where(Solution.team_id == team_id, Task.tournament_id == tournament_id)
-        .group_by(Solution.task_id)
+        .where(Task.tournament_id == tournament_id)
+        .group_by(Solution.team_id, Solution.task_id)
     )
     return result.all()
 

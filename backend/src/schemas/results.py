@@ -7,7 +7,7 @@ class TaskScoreResponse(BaseModel):
     score: int
 
 class LeaderboardEntryResponse(BaseModel):
-    rank: Optional[int]
+    rank: int
     team_id: str
     team_name: str
     task_scores: List[TaskScoreResponse]
