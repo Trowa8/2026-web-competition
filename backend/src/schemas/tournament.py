@@ -1,15 +1,16 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
+from src.schemas.base import CamelModel
 
 
-class TournamentSummaryResponse(BaseModel):
+class TournamentSummaryResponse(CamelModel):
     id: str
     name: str
     start_date: datetime
     registration_deadline: datetime
 
-class TournamentCreateResponse(BaseModel):
+class TournamentCreateResponse(CamelModel):
     id: str
     name: str
     description: Optional[str] = None
@@ -19,21 +20,21 @@ class TournamentCreateResponse(BaseModel):
     created_by: str
     created_at: datetime
 
-class TournamentCreateRequest(BaseModel):
+class TournamentCreateRequest(CamelModel):
     name: str
     description: Optional[str] = None
     start_date: datetime
     end_date: datetime
     registration_deadline: datetime
 
-class TournamentUpdateRequest(BaseModel):
+class TournamentUpdateRequest(CamelModel):
     name: Optional[str] = None
     description: Optional[str] = None
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
     registration_deadline: Optional[datetime] = None
     
-class TournamentDetailResponse(BaseModel):
+class TournamentDetailResponse(CamelModel):
     id: str
     name: str
     description: Optional[str] = None
@@ -43,11 +44,11 @@ class TournamentDetailResponse(BaseModel):
     created_by: str
     created_at: datetime
     
-class TournamentDeleteResponse(BaseModel):
+class TournamentDeleteResponse(CamelModel):
     success: bool
  
-class RegisterTeamRequest(BaseModel):
+class RegisterTeamRequest(CamelModel):
     team_id: str
  
-class RegisterTeamResponse(BaseModel):
+class RegisterTeamResponse(CamelModel):
     success: bool

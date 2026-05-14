@@ -1,12 +1,12 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
+from src.schemas.base import CamelModel
 
-
-class TaskScoreResponse(BaseModel):
+class TaskScoreResponse(CamelModel):
     task_id: str
     score: int
 
-class LeaderboardEntryResponse(BaseModel):
+class LeaderboardEntryResponse(CamelModel):
     rank: int
     team_id: str
     team_name: str
