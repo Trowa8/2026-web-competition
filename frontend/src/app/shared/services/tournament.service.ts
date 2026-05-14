@@ -11,7 +11,7 @@ import {
     SuccessResponse,
     CreateTournamentRequest,
     UpdateTournamentRequest,
-    RegisterTeamRequest,
+    RegisterTeamRequest
 } from '../types/tournament.types';
 
 @Injectable({ providedIn: "root" })
