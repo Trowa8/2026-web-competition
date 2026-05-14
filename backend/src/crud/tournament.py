@@ -3,6 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from models.tournament import Tournament
 from models.tournament_user_role import TournamentUserRole
 from models.tournament_participation import TournamentParticipation
+from models.solution import Solution
+from models.task import Task
+from models.mark import Mark
 
 async def get_tournament_by_id(db: AsyncSession, tournament_id: str) -> Tournament | None:
     result = await db.execute(select(Tournament).where(Tournament.id == tournament_id))
@@ -68,3 +71,32 @@ async def get_existing_judge_role(db: AsyncSession, tournament_id: str, user_id:
 async def create_judge_role(db: AsyncSession, role: TournamentUserRole) -> None:
     db.add(role)
     await db.commit()   
+    
+async def get_participations_by_tournament(db: AsyncSession, tournament_id: str) -> list[TournamentParticipation]:
+    result = await db.execute(
+        select(TournamentParticipation).where(TournamentParticipation.tournament_id == tournament_id)
+    )
+    return result.scalars().all()
+
+async def get_all_task_scores_for_tournament(db: AsyncSession, tournament_id: str) -> list[tuple[str, str, int]]:
+    result = await db.execute(
+        select(Solution.team_id, Solution.task_id, func.sum(Mark.score))
+        .join(Mark, Mark.solution_id == Solution.id)
+        .join(Task, Task.id == Solution.task_id)
+        .where(Task.tournament_id == tournament_id)
+        .group_by(Solution.team_id, Solution.task_id)
+    )
+    return result.all()
+
+async def get_participation_by_team(db: AsyncSession, tournament_id: str, team_id: str) -> TournamentParticipation | None:
+    result = await db.execute(
+        select(TournamentParticipation).where(
+            TournamentParticipation.tournament_id == tournament_id,
+            TournamentParticipation.team_id == team_id,
+        )
+    )
+    return result.scalar_one_or_none()
+
+async def update_total_score(db: AsyncSession, participation: TournamentParticipation, total: int) -> None:
+    participation.total_score = total
+    await db.commit()

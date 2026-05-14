@@ -1,7 +1,6 @@
-/// <reference types="jasmine" />
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileComponent } from './user-profile.ts';
+import { ProfileComponent } from './user-profile';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
