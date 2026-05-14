@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 from typing import List
 from src.schemas.base import CamelModel
 

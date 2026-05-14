@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import EmailStr
 from typing import Optional
 from datetime import datetime
 from src.schemas.base import CamelModel
