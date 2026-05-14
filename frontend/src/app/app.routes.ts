@@ -20,6 +20,10 @@ export const routes: Routes = [
             { path: "register", loadComponent: () => import("./pages/register/register").then(m => m.RegisterComponent) },
         ],
     },
+    {
+        path: "create-tournament",
+        loadComponent: () => import("./pages/create-tournament/create-tournament").then(m => m.CreateTournamentComponent)
+    },
     { path: "", redirectTo: "tasks", pathMatch: "full" },
     { path: "**", redirectTo: "tasks" }
 ];

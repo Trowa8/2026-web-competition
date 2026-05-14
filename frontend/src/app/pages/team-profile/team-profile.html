@@ -1,13 +1,16 @@
 <div class="dashboard-wrapper">
     <aside class="sidebar">
-        <div class="logo" routerLink="/tasks">Code//Arena</div>
+        <div class="logo" routerLink="/tasks" style="cursor:pointer">Code//Arena</div>
         <nav>
             <div class="nav-label">TOURNAMENTS</div>
-            <a class="nav-item" routerLink="/tasks">Tournament 1</a>
-            <a class="nav-item" routerLink="/tasks">Tournament 2</a>
+            <a class="nav-item" routerLink="/tasks" routerLinkActive="active">View All</a>
+
+            <a class="nav-item" routerLink="/create-tournament" routerLinkActive="active">+ Create New</a>
+
             <div class="nav-divider"></div>
+
             <div class="nav-label">MANAGEMENT</div>
-            <a class="nav-item active" routerLink="/team-profile">My Team</a>
+            <a class="nav-item active" routerLink="/team-profile" routerLinkActive="active">My Team</a>
         </nav>
     </aside>
 
