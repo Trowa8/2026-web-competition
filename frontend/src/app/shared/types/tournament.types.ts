@@ -68,19 +68,3 @@ export type TournamentTask = {
     deadline: string;
     status: "pending" | "in_progress" | "done";
 };
-export type AddLeaderboardEntryRequest = {
-    teamId: string;
-    teamName: string;
-    taskScores?: {
-        taskId: string;
-        score: number;
-    }[];
-};
-
-export type UpdateLeaderboardEntryRequest = {
-    taskScores?: {
-        taskId: string;
-        score: number;
-    }[];
-    total?: number;
-};
