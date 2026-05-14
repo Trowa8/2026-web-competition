@@ -11,15 +11,14 @@ import { TournamentService } from '../../shared/services/tournament.service';
   styleUrls: ['./tournaments.css'],
 })
 export class Tournaments implements OnInit {
-  private tournamentService = inject(TournamentService);
+  public tournamentService = inject(TournamentService);
 
   searchTerm = signal('');
-  tournaments = this.tournamentService.tournaments;
-  isLoading = this.tournamentService.isLoading;
 
   filteredTournaments = computed(() => {
     const search = this.searchTerm().toLowerCase();
-    return search ? this.tournaments().filter(t => t.name.toLowerCase().includes(search)) : this.tournaments();
+    const tournaments = this.tournamentService.tournaments();
+    return search ? tournaments.filter(t => t.name.toLowerCase().includes(search)) : tournaments;
   });
 
   async ngOnInit() {
