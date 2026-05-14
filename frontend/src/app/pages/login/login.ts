@@ -1,62 +1,28 @@
-import { Component, signal, computed } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router'; // Додано Router
-import { AuthService } from '../../shared/services/auth.service'; // Додано AuthService
-import { UiInputComponent } from '../../shared/ui-input/ui-input';
-import { UiButton } from '../../shared/ui-button/ui-button';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, UiInputComponent, UiButton],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  form: FormGroup;
-  private touchedAt = signal(0);
+  loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router
-  ) {
-    this.form = this.fb.group({
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  protected emailError = computed(() => {
-    this.touchedAt();
-    const control = this.form.get('email');
-    if (!control?.touched || !control.errors) return '';
-    if (control.errors['required']) return 'Email обов\'язковий';
-    if (control.errors['email']) return 'Некоректний формат email';
-    return '';
-  });
-
-  protected passwordError = computed(() => {
-    this.touchedAt();
-    const control = this.form.get('password');
-    if (!control?.touched || !control.errors) return '';
-    if (control.errors['required']) return 'Пароль обов\'язковий';
-    return '';
-  });
-
-  async onSubmit(): Promise<void> {
-    this.form.markAllAsTouched();
-    if (this.form.invalid) {
-      console.warn('Форма має помилки, але намагаємось увійти...');
-    }
-
-    try {
-      const credentials = this.form.value;
-      await this.auth.login(credentials);
-
-      this.router.navigate(['/tasks']);
-    } catch (error) {
-      console.error('Login failed', error);
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log('Login Data:', this.loginForm.value);
       this.router.navigate(['/tasks']);
     }
   }
