@@ -1,0 +1,28 @@
+<div class="tasks-container">
+    <header class="tasks-header">
+        <div class="header-text">
+            <h1>Tournaments</h1>
+            <p>Explore and join upcoming coding competitions.</p>
+        </div>
+        <button class="btn-black" routerLink="/create-tournament">+ Create New</button>
+    </header>
+
+    <div class="tournaments-grid">
+        <div class="t-card" *ngFor="let t of tournaments">
+            <div class="t-status" [ngClass]="t.status.toLowerCase()">{{ t.status }}</div>
+
+            <div class="t-content">
+                <h3>{{ t.title }}</h3>
+                <p>{{ t.description }}</p>
+            </div>
+
+            <div class="t-footer">
+                <div class="t-info">
+                    <span>📅 {{ t.date }}</span>
+                    <span>👥 {{ t.participants }}</span>
+                </div>
+                <button class="btn-outline">View Details</button>
+            </div>
+        </div>
+    </div>
+</div>
