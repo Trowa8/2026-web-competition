@@ -37,10 +37,6 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/tournament-detail/tournament-detail').then(m => m.TournamentDetailComponent),
             },
             {
-                path: "teams",
-                loadComponent: () => import("./pages/tournament-list/tournament-list").then(m => m.TournamentList),
-            },
-            {
                 path: "submit-solution",
                 loadComponent: () => import("./pages/submit-solution/submit-solution").then(m => m.SubmitSolution),
                 canActivate: [authGuard],

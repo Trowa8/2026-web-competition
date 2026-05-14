@@ -17,8 +17,8 @@ import {
 @Injectable({ providedIn: "root" })
 export class TournamentService {
     private readonly http = inject(HttpClient);
-
-    public async getAllTournaments(): Promise<TournamentListItemType[]> {
+    
+    public async getAllTournaments(): Promise<TournamentListItemType[]> {  
         return await firstValueFrom(
             this.http.get<TournamentListItemType[]>(`${environment.apiUrl}/tournaments`)
         );
