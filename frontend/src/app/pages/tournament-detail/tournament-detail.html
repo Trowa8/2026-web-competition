@@ -1,45 +1,51 @@
-<div class="tournament-container">
-    <header class="header">
-        <div class="header-left">
-            <div class="logo-circle"></div>
-            <nav>
-                <span>Home</span>
-                <span>Tasks</span>
-                <span>Profile</span>
-            </nav>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search in site">
+<div class="details-page">
+    <header class="tournament-hero">
+        <div class="hero-content">
+            <div class="breadcrumb" routerLink="/tasks">← Back to Tournaments</div>
+            <span class="status-badge">Live Now</span>
+            <h1>Spring Code Challenge 2026</h1>
+            <p class="hero-subtitle">Organized by Google Dev Community • 124 Coders joined</p>
+
+            <div class="hero-actions">
+                <button class="btn-primary">Join Tournament</button>
+                <button class="btn-secondary">Share</button>
+            </div>
         </div>
     </header>
 
-    <main class="main-content">
-        <section class="title-section">
-            <h1>Tournament</h1>
-            <p class="subtitle">{{ tournament().description }}</p>
-        </section>
+    <nav class="tabs-nav">
+        <button [class.active]="activeTab === 'overview'" (click)="setTab('overview')">Overview</button>
+        <button [class.active]="activeTab === 'rules'" (click)="setTab('rules')">Rules & Prizes</button>
+        <button [class.active]="activeTab === 'participants'" (click)="setTab('participants')">Participants</button>
+    </nav>
 
-        <div class="line-divider"></div>
-
-        <section class="action-section">
-            <button class="btn-reg" (click)="register()">Reg on tournament</button>
-        </section>
-
-        <div class="details-grid">
-            <div class="info-box">
-                <h2>Tournament info</h2>
-                <p class="small-info">info</p>
-            </div>
-
-            <div class="stats-box">
-                <span class="label">Number of teams</span>
-                <span class="value">{{ number_of_teams() }}</span>
+    <section class="tab-container">
+        <div *ngIf="activeTab === 'overview'" class="tab-content animate-fade">
+            <div class="info-grid">
+                <div class="info-main">
+                    <h3>About this Tournament</h3>
+                    <p>Welcome to the biggest algorithmic battle of the season. This tournament is designed to test your
+                        problem-solving skills under pressure. You will face 5 challenges ranging from easy to hard.</p>
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000"
+                        alt="Code" class="content-img">
+                </div>
+                <div class="info-sidebar">
+                    <div class="side-card">
+                        <h4>Timeline</h4>
+                        <div class="timeline-item"><strong>Starts:</strong> May 20, 18:00</div>
+                        <div class="timeline-item"><strong>Ends:</strong> May 20, 21:00</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <footer class="footer-dates">
-            <div class="date-row">Start {{ tournament().start_date }}</div>
-            <div class="date-row">End {{ end_date() }}</div>
-        </footer>
-    </main>
+        <div *ngIf="activeTab === 'rules'" class="tab-content animate-fade">
+            <h3>Tournament Rules</h3>
+            <ul>
+                <li>Individual participation only.</li>
+                <li>Plagiarism will lead to immediate disqualification.</li>
+                <li>You can use Python, Java, or C++.</li>
+            </ul>
+        </div>
+    </section>
 </div>
