@@ -3,17 +3,17 @@
         <thead>
             <tr>
                 <th>Назва турніру</th>
-                <th>Статус</th>
-                <th>Команди</th>
+                <th>Початок</th>
+                <th>Реєстрація до</th>
                 <th>Дії</th>
             </tr>
         </thead>
         <tbody>
-            @for (t of tournaments; track t.id) {
+            @for (t of tournaments; track t.tournamentId) {
             <tr class="tournament-row">
                 <td class="tournament-name">{{ t.name }}</td>
-                <td><span class="status-badge">{{ getStatusText(t.status) }}</span></td>
-                <td>{{ t.registeredTeams }}/{{ t.maxTeams }}</td>
+                <td>{{ t.startDate }}</td>
+                <td>{{ t.registrationDeadline }}</td>
                 <td><button class="btn-delete">Видалити</button></td>
             </tr>
             }

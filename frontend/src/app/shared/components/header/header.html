@@ -5,7 +5,7 @@
         </div>
         <nav class="nav">
             <a routerLink="/tournaments" class="nav-link">Турніри</a>
-            @if (isAuthenticated()) {
+            @if (!!user()) {
             <span class="username">{{ user()?.login }}</span>
             <button class="logout-btn" (click)="logout()">Вийти</button>
             } @else {

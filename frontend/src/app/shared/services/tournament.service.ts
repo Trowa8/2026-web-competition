@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -17,8 +17,8 @@ import {
 @Injectable({ providedIn: "root" })
 export class TournamentService {
     private readonly http = inject(HttpClient);
-
-    public async getAllTournaments(): Promise<TournamentListItemType[]> {
+    
+    public async getAllTournaments(): Promise<TournamentListItemType[]> {  
         return await firstValueFrom(
             this.http.get<TournamentListItemType[]>(`${environment.apiUrl}/tournaments`)
         );

@@ -18,9 +18,9 @@ from src.services.task import (
 )
 from src.utils.jwt import get_current_user_id
 
-router = APIRouter(prefix="/tournaments/{tournament_id}/tasks", tags=["tasks"])
+router = APIRouter(prefix="/tasks", tags=["tasks"])
 
-@router.get("", response_model=list[TaskSummaryResponse])
+@router.get("/tournament/{tournament_id}", response_model=list[TaskSummaryResponse])
 async def list_tasks(
     tournament_id: str,
     current_user_id: Annotated[str, Depends(get_current_user_id)],
@@ -28,7 +28,7 @@ async def list_tasks(
 ):
     return await list_tasks_service(db, tournament_id)
 
-@router.post("", response_model=TaskCreateResponse, status_code=201)
+@router.post("/tournament/{tournament_id}", response_model=TaskCreateResponse, status_code=201)    
 async def create_task(
     tournament_id: str,
     data: TaskCreateRequest,
