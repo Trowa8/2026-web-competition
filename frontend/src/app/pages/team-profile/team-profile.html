@@ -1,51 +1,99 @@
-<div class="team-container">
-    <header class="header-line">
-        <div class="title-block">
-            <h1 class="team-name">{{ team().name }}</h1>
-            <span class="creation-date">Створено: {{ team().created_at | date:'M/d/yy' }}</span>
+<div class="dashboard-wrapper">
+    <aside class="sidebar">
+        <div class="logo" routerLink="/tasks" style="cursor:pointer">Code//Arena</div>
+        <nav>
+            <div class="nav-label">TOURNAMENTS</div>
+            <a class="nav-item" routerLink="/tasks" routerLinkActive="active">View All</a>
+            <a class="nav-item" routerLink="/create-tournament" routerLinkActive="active">+ Create New</a>
+
+            <div class="nav-divider"></div>
+
+            <div class="nav-label">MANAGEMENT</div>
+            <a class="nav-item active" routerLink="/team-profile" routerLinkActive="active">My Team</a>
+        </nav>
+
+        <div class="sidebar-action" *ngIf="isDeleted">
+            <button class="btn-create-team-sidebar" (click)="isDeleted = false">
+                <span class="plus-icon">+</span> Create Team
+            </button>
         </div>
-        <div class="header-actions" *ngIf="is_captain()">
-            <button class="btn-edit">Редагувати</button>
-            <button class="btn-delete-link" (click)="on_delete()">Видалити</button>
-        </div>
-    </header>
+    </aside>
 
-    <div class="profile-grid">
-        <div class="main-column">
-            <section class="card">
-                <h2 class="card-title">Опис команди</h2>
-                <p class="card-content">{{ team().description }}</p>
-            </section>
+    <main class="main-content" *ngIf="!isDeleted; else emptyTeam">
+        <header class="top-header">
+            <div class="title-group">
+                <h1>Team Profile</h1>
+                <p>Manage your team and view tournament history.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-outline" (click)="onDelete()">Delete Team</button>
+                <button class="btn-black">Edit Profile</button>
+            </div>
+        </header>
 
-            <section class="card">
-                <h2 class="card-title">Історія турнірів</h2>
-                <div class="t-row" *ngFor="let t of tournaments()">
-                    <span class="t-name">{{ t.name }}</span>
-                    <span class="t-date">{{ t.start_date }}</span>
-                </div>
-            </section>
-        </div>
-
-        <aside class="side-column">
-            <section class="card">
-                <h2 class="card-title">Учасники</h2>
-                <ul class="members-list">
-                    <li *ngFor="let m of team().members">
-                        <span class="member-role">{{ m.role }}</span>
-                        <span class="member-id">ID: {{ m.user_id }}</span>
-                    </li>
-                </ul>
-
-                <div class="yellow-separator"></div>
-
-                <div class="join-box">
-                    <label class="join-label">Вступ до команди</label>
-                    <div class="input-row">
-                        <input type="text" maxlength="6" [(ngModel)]="join_code" placeholder="000000">
-                        <button class="btn-gray" [disabled]="join_code().length !== 6">Увійти</button>
+        <div class="content-sections">
+            <section class="info-row">
+                <h2 class="section-label">TEAM INFO</h2>
+                <div class="info-card">
+                    <div class="team-avatar">AX</div>
+                    <div class="team-details">
+                        <h3>{{ teamData.name }}</h3>
+                        <p>Elite team for algorithmic challenges and competitive programming.</p>
+                        <div class="team-meta">
+                            <span class="invite-badge">Code: <strong>{{ teamData.code }}</strong></span>
+                        </div>
                     </div>
                 </div>
             </section>
-        </aside>
-    </div>
+
+            <section class="info-row">
+                <div class="row-header">
+                    <h2 class="section-label">MEMBERS</h2>
+                    <button class="btn-text" (click)="onInvite()">+ Add Member</button>
+                </div>
+                <div class="members-list">
+                    <div class="member-item" *ngFor="let m of teamData.members">
+                        <div class="user-cell">
+                            <div class="user-avatar-small">{{ m.name[0].toUpperCase() }}</div>
+                            <div class="user-names">
+                                <span class="username">{{ m.name }}</span>
+                                <span class="role">{{ m.role }}</span>
+                            </div>
+                        </div>
+                        <span class="user-id">#{{ m.id }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-row">
+                <h2 class="section-label">HISTORY</h2>
+                <div class="history-grid">
+                    <div class="history-card" *ngFor="let h of teamData.history">
+                        <div class="h-icon">🏆</div>
+                        <div class="h-info">
+                            <h4>{{ h.name }}</h4>
+                            <p>{{ h.place }} Place • {{ h.score }} points</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <ng-template #emptyTeam>
+        <main class="main-content empty-state-wrapper">
+            <div class="empty-container">
+                <div class="illustration-box">
+                    <div class="circle-decoration"></div>
+                    <span class="main-icon">🛡️</span>
+                </div>
+                <h1>No Team Found</h1>
+                <p>You haven't joined or created a team yet. Start your journey by creating a team and inviting your
+                    friends.</p>
+                <button class="btn-black-lg" (click)="isDeleted = false">
+                    Create Your Team
+                </button>
+            </div>
+        </main>
+    </ng-template>
 </div>

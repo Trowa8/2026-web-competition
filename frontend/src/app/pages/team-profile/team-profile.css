@@ -1,141 +1,355 @@
-.team-container {
-    padding: 40px 10%;
-    background-color: #fff;
-    font-family: 'Segoe UI', sans-serif;
+.dashboard-wrapper {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    font-family: 'Inter', sans-serif;
 }
 
-.header-line {
+.sidebar {
+    width: 260px;
+    border-right: 1px solid #f0f0f0;
+    padding: 40px 20px;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 50px;
+    letter-spacing: -1px;
+}
+
+.nav-label {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 800;
+    margin: 24px 0 12px 12px;
+    letter-spacing: 1px;
+}
+
+.nav-item {
+    display: block;
+    padding: 12px 16px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.2s;
+    margin-bottom: 4px;
+}
+
+.nav-item:hover {
+    background: #f0f0f0;
+}
+
+.nav-item.active {
+    background: #000;
+    color: #fff;
+}
+
+.sidebar-action {
+    margin-top: 20px;
+    padding: 0 8px;
+}
+
+.btn-create-team-sidebar {
+    width: 100%;
+    background: #f0fdf4;
+    border: 1px dashed #22c55e;
+    color: #16a34a;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-create-team-sidebar:hover {
+    background: #dcfce7;
+    transform: translateY(-1px);
+}
+
+.main-content {
+    flex: 1;
+    padding: 60px 80px;
+    overflow-y: auto;
+}
+
+.top-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-bottom: 2px solid #FFB300;
-    padding-bottom: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 48px;
 }
 
-.team-name {
-    color: #0D47A1;
-    font-size: 32px;
-    margin: 0;
-    font-weight: 700;
+.top-header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
 }
 
-.creation-date {
-    color: #888;
-    font-size: 14px;
+.top-header p {
+    color: #777;
+    font-size: 16px;
 }
 
-.btn-edit {
-    background: #FFB300;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
+.content-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 900px;
 }
 
-.btn-delete-link {
-    background: none;
-    border: 1px solid #FF5252;
-    color: #D32F2F;
-    padding: 10px 25px;
-    border-radius: 6px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 24px;
-}
-
-.card {
-    border: 1px solid #F0F0F0;
-    border-radius: 12px;
-    padding: 24px;
+.section-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #bbb;
+    letter-spacing: 1px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
 }
 
-.card-title {
-    color: #0D47A1;
-    font-size: 18px;
-    margin: 0 0 15px 0;
-    border-left: 4px solid #FFB300;
-    padding-left: 12px;
-    line-height: 1.2;
+.info-card {
+    display: flex;
+    gap: 24px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    padding: 32px;
+    transition: 0.3s;
 }
 
-.card-content {
-    color: #444;
-    line-height: 1.6;
-    margin: 0;
+.info-card:hover {
+    border-color: #ddd;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-.t-row {
+.team-avatar {
+    width: 80px;
+    height: 80px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 800;
+    border-radius: 18px;
+}
+
+.team-details h3 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.team-details p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.invite-badge {
+    background: #f5f5f5;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #555;
+}
+
+.row-header {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
 }
 
 .members-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    border-top: 1px solid #eee;
 }
 
-.members-list li {
+.member-item {
     display: flex;
     justify-content: space-between;
-    /* Розносимо роль та ID по краях як у дизайні */
-    padding: 8px 0;
+    align-items: center;
+    padding: 20px 8px;
+    border-bottom: 1px solid #f9f9f9;
 }
 
-.member-role {
-    color: #333;
-    font-weight: 500;
+.user-cell {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
 
-.member-id {
-    color: #D1D1D1;
-    font-size: 12px;
+.user-avatar-small {
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
 }
 
-.yellow-separator {
-    border-top: 1px dashed #FFB300;
-    margin: 20px 0;
-}
-
-.join-label {
+.username {
     display: block;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.role {
+    font-size: 13px;
+    color: #888;
+}
+
+.user-id {
+    color: #ccc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.history-card {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 24px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+}
+
+.h-icon {
+    font-size: 24px;
+}
+
+.h-info h4 {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.h-info p {
     font-size: 14px;
     color: #666;
-    margin-bottom: 10px;
 }
 
-.input-row {
+.btn-black {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: white;
+    border: 1px solid #eee;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: #000;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.empty-state-wrapper {
     display: flex;
-    gap: 10px;
-}
-
-.input-row input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #E0E0E0;
-    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
     text-align: center;
 }
 
-.btn-gray {
-    background: #C0C0C0;
-    color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 6px;
+.empty-container {
+    max-width: 440px;
+    animation: slideUp 0.6s ease-out;
 }
 
-.btn-gray:not(:disabled) {
-    background: #9E9E9E;
+.illustration-box {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.main-icon {
+    font-size: 60px;
+}
+
+.empty-container h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -1.5px;
+}
+
+.empty-container p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-size: 17px;
+}
+
+.btn-black-lg {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 18px 48px;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 800;
     cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.btn-black-lg:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

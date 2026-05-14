@@ -1,42 +1,49 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-team-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './team-profile.html',
   styleUrls: ['./team-profile.css']
 })
 export class TeamProfileComponent {
-  readonly current_user_id = signal<number>(1);
-  readonly join_code = signal<string>('');
+  // Початковий стан — команда існує
+  isDeleted = false;
 
-  team = signal<any>({
-    team_id: 77,
-    name: 'Frontend Warriors',
-    description: 'Команда ентузіастів Angular, які прагнуть створювати ідеальні інтерфейси.',
-    owner_id: 1,
-    created_at: '2026-04-10',
+  teamData = {
+    name: 'AlgorithmX',
+    code: 'ALG-792K',
     members: [
-      { user_id: 1, role: 'Captain' },
-      { user_id: 2, role: 'Developer' },
-      { user_id: 3, role: 'Designer' }
+      { id: '42', name: 'maxkovalenko', role: 'Leader' },
+      { id: '89', name: 'olena_k', role: 'Member' },
+      { id: '156', name: 'yura_pro', role: 'Member' }
+    ],
+    history: [
+      { name: 'Tournament Alpha', place: '1st', score: '950' },
+      { name: 'Beta Challenge', place: '3rd', score: '720' },
+      { name: 'Spring Cup', place: '2nd', score: '810' }
     ]
-  });
+  };
 
-  tournaments = signal<any[]>([
-    {
-      tournament_id: 1,
-      name: 'Spring UI Cup',
-      start_date: '2026-05-15'
+  constructor(private router: Router) { }
+
+  onInvite() {
+    const name = prompt('Enter new member name:');
+    if (name) {
+      this.teamData.members.push({
+        id: Math.floor(Math.random() * 999).toString(),
+        name: name,
+        role: 'Member'
+      });
     }
-  ]);
+  }
 
-  is_captain = computed(() => this.team().owner_id === this.current_user_id());
-
-  on_delete() {
-    if (confirm('Видалити команду?')) console.log('Team deleted');
+  onDelete() {
+    if (confirm('Are you sure you want to delete your team? This action cannot be undone.')) {
+      this.isDeleted = true;
+    }
   }
 }
