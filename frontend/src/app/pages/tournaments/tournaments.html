@@ -4,7 +4,7 @@
         <app-tournament-search (search)="onSearch($event)"></app-tournament-search>
         <button class="btn-create">+ Створити турнір</button>
     </div>
-    @if (tournamentService.isLoading()) {
+    @if (isLoading()) {
     <div class="loading">Завантаження...</div>
     } @else {
     <app-tournament-table [tournaments]="filteredTournaments()"></app-tournament-table>
