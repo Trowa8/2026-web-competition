@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -30,6 +30,8 @@ export class AuthService {
         refreshToken: null,
     });
 
+    public readonly user: WritableSignal<UserType | null> = signal(null);
+
     public readonly userId = computed(() => this.authState().userId);
     public readonly isAuthenticated = computed(() => !!this.authState().userId);
     public readonly accessToken = computed(() => this.authState().accessToken);
@@ -38,6 +40,7 @@ export class AuthService {
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
         const userId = localStorage.getItem('userId');
+        
         if (accessToken && refreshToken && userId) {
             this.authState.set({ userId, accessToken, refreshToken });
         }
@@ -53,6 +56,12 @@ export class AuthService {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userId');
+    }
+
+    public async init(): Promise<void> {
+        if (this.userId()) {
+            this.user.set(await this.getUserById(this.userId()!));
+        }
     }
 
     public async register(body: RegisterRequest): Promise<RegisterResponse> {
