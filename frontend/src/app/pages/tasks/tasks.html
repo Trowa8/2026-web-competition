@@ -1,0 +1,67 @@
+<div class="task-wrapper">
+    <div class="task-header-title">
+        <h2><span class="back-arrow">←</span> Task B</h2>
+    </div>
+
+    <div class="task-layout">
+
+        <div class="left-col">
+            <div class="card problem-card">
+                <div class="card-header">
+                    <span class="icon">📄</span>
+                    <h3>Problem Statement</h3>
+                </div>
+                <p class="text-muted">Read the problem carefully and implement the solution according to the logic
+                    described in the documentation.</p>
+            </div>
+        </div>
+
+        <div class="right-col">
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">⚙️</span>
+                    <h3>Constraints</h3>
+                </div>
+                <p class="text-muted">1 ≤ N ≤ 10⁵<br>1 ≤ M ≤ 5 * 10⁵</p>
+            </div>
+
+            <div class="examples-row">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📥</span>
+                        <h3>Input Example</h3>
+                    </div>
+                    <div class="code-block">1 5 10 29 24 02 1 7</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📤</span>
+                        <h3>Output Example</h3>
+                    </div>
+                    <div class="code-block">2</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="icon">📁</span>
+                    <h3>Submission Panel</h3>
+                </div>
+
+                <div class="upload-area" (click)="fileInput.click()">
+                    <p>Drag .zip or .pdf here</p>
+                    <input #fileInput type="file" (change)="onFileSelected($event)" hidden>
+                </div>
+
+                <div class="file-item" *ngIf="selectedFileName">
+                    <span class="file-name">📄 {{ selectedFileName }}</span>
+                    <button class="remove-btn" (click)="selectedFileName = ''">✖</button>
+                </div>
+
+                <button class="submit-btn" (click)="submitTask()">Submit Task</button>
+            </div>
+
+        </div>
+    </div>
+</div>

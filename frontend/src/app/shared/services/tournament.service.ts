@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -16,6 +16,8 @@ import {
 
 @Injectable({ providedIn: "root" })
 export class TournamentService {
+    tournaments = signal<any[]>([]);
+    isLoading = signal<boolean>(false);
     private readonly http = inject(HttpClient);
 
     public async getAllTournaments(): Promise<TournamentListItemType[]> {

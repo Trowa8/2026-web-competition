@@ -1,43 +1,54 @@
-import { Component, inject } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { Router } from "@angular/router";
-//import { TaskService } from "../../shared/services/task.service";
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TaskService } from '../../shared/services/task.service';
+import { CreateTaskDto } from '../../shared/types/task.types';
 
 @Component({
-    selector: "app-create-task",
+    selector: 'app-create-task',
     standalone: true,
-    imports: [FormsModule, CommonModule],
-    templateUrl: "./create-task.html",
-    styleUrl: "./create-task.css",
+    imports: [CommonModule, FormsModule],
+    templateUrl: './create-task.html',
+    styleUrl: './create-task.css'
 })
-export class CreateTask {
-    private readonly router = inject(Router);
-    //private readonly taskService = inject(TaskService);
+export class CreateTaskComponent {
+    task = signal<CreateTaskDto>({
+        title: '',
+        description: '',
+        constraints: '',
+        inputExample: '',
+        outputExample: ''
+    });
 
-    task = {
-        name: "",
-        description: "",
-        deadline: "",
-        tournamentId: "",
-    };
+    isSubmitting = signal(false);
 
-    public async onSubmit(): Promise<void> {
-        if (!this.task.name || !this.task.description || !this.task.deadline || !this.task.tournamentId) {
-            alert("Будь ласка, заповніть всі обов'язкові поля");
+    constructor(
+        public taskService: TaskService,
+        public router: Router
+    ) { }
+
+    onSubmit() {
+        if (!this.task().title || !this.task().description) {
+            alert('Будь ласка, заповніть хоча б назву та опис завдання.');
             return;
         }
 
-        try {
-            // await this.taskService.createTask(this.task.tournamentId, {
-            //     name: this.task.name,
-            //     description: this.task.description,
-            //     deadline: this.task.deadline,
-            // });
-            alert("Завдання успішно створено!");
-            this.router.navigate(["/tournaments"]);
-        } catch {
-            alert("Помилка при створенні завдання");
-        }
+        this.isSubmitting.set(true);
+        this.taskService.createTask(this.task()).subscribe({
+            next: (createdTask) => {
+                this.isSubmitting.set(false);
+                alert('Завдання створено успішно!');
+                this.router.navigate(['/home']);
+            },
+            error: () => {
+                this.isSubmitting.set(false);
+                alert('Помилка при створенні завдання.');
+            }
+        });
+    }
+
+    cancel() {
+        this.router.navigate(['/home']);
     }
 }

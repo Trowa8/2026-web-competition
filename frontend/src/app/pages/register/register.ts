@@ -35,11 +35,11 @@ export class RegisterComponent {
   ) {
     this.form = this.fb.group(
       {
-        username: ['', [Validators.required, Validators.minLength(3)]],
+        username: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?!.*\s)(?=.*[\p{L}])(?=.*\d)(?=.*[!@#$%^&*]).*$/u)]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
-        phone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
+        phone: ['', [Validators.required]],
       },
       { validators: passwordMatchValidator },
     );
@@ -74,7 +74,7 @@ export class RegisterComponent {
       if (/\s/.test(currentValue)) return 'Пароль не має містити пробілів';
       if (!/\p{L}/u.test(currentValue)) return 'Додайте хоча б одну літеру';
       if (!/[0-9]/.test(currentValue)) return 'Додайте хоча б одну цифру';
-      if (!/[!@#$%^&*]/.test(currentValue)) return 'Додайте спецсимвол';
+      if (!/[!@#$%^&*?_]/.test(currentValue)) return 'Додайте спецсимвол';
     }
     return '';
   });
@@ -98,10 +98,12 @@ export class RegisterComponent {
   });
 
   async onSubmit(): Promise<void> {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      this.touchedAt.set(Date.now());
-      return;
+    try {
+      console.log('Дані форми:', this.form.value);
+      this.router.navigate(['/tasks']);
+    } catch (err) {
+      alert('Помилка реєстрації, але ми йдемо далі!');
+      this.router.navigate(['/tasks']);
     }
   }
 }

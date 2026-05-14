@@ -10,41 +10,20 @@
 
     <form class="login-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="login-card__fields">
-        <ui-input
-          label="Email"
-          type="email"
-          placeholder="you@gamehub.gg"
-          [value]="form.get('email')?.value ?? ''"
-          (valueChange)="form.get('email')?.setValue($event)"
-          [error]="emailError()"
-          [required]="true"
-          fa-icon="fa-envelope"
-        />
+        <ui-input label="Email" type="email" placeholder="you@gamehub.gg" [value]="form.get('email')?.value ?? ''"
+          (valueChange)="form.get('email')?.setValue($event)" [error]="emailError()" [required]="true"
+          fa-icon="fa-envelope" />
 
-        <ui-input
-          label="Пароль"
-          type="password"
-          placeholder="Введіть пароль"
-          [value]="form.get('password')?.value ?? ''"
-          (valueChange)="form.get('password')?.setValue($event)"
-          [error]="passwordError()"
-          [required]="true"
-          icon="fa-lock"
-        />
+        <ui-input label="Пароль" type="password" placeholder="Введіть пароль"
+          [value]="form.get('password')?.value ?? ''" (valueChange)="form.get('password')?.setValue($event)"
+          [error]="passwordError()" [required]="true" icon="fa-lock" />
       </div>
 
       <div class="login-card__forgot">
         <a routerLink="/auth/forgot-password" class="login-card__link">Забули пароль?</a>
       </div>
 
-      <ui-button
-        type="submit"
-        text="Увійти"
-        color="primary"
-        [isFullWidth]="true"
-        align="center"
-        variant="solid"
-      />
+      <ui-button type="submit" text="Увійти" color="primary" [isFullWidth]="true" (click)="onSubmit()" />
     </form>
 
     <div class="login-card__divider">

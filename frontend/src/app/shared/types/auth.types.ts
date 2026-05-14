@@ -21,7 +21,7 @@ export type RegisterRequest = {
 export type RegisterResponse = {
     accessToken: string;
     refreshToken: string;
-    userId:string;
+    userId: string;
 };
 
 export type LoginRequest = {
@@ -59,4 +59,9 @@ export type UpdateUserResponse = {
 
 export type DeleteUserResponse = {
     success: boolean;
+};
+
+export type AuthResponse = {
+    token: string;
+    user: any;
 };

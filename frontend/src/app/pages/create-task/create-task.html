@@ -1,49 +1,44 @@
-<div class="create-task-page">
-    <h1>Створити нове завдання</h1>
+<div class="create-task-container">
+    <header class="task-header">
+        <h1 (click)="cancel()" style="cursor:pointer">Admin Panel: New Task</h1>
+        <nav>
+            <button class="btn-link" (click)="router.navigate(['/home'])">Home</button>
+            <button class="btn-link" (click)="router.navigate(['/profile'])">Profile</button>
+        </nav>
+    </header>
 
-    <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label>Назва завдання <span class="required">*</span></label>
-            <input
-                name="name"
-                [(ngModel)]="task.name"
-                placeholder="Наприклад: Розробка фронтенд-частини"
-                required
-            />
+    <main class="form-section">
+        <div class="input-group">
+            <label>Task Title</label>
+            <input type="text" [(ngModel)]="task().title" placeholder="e.g. Problem B: Sort Array">
         </div>
 
-        <div class="form-group">
-            <label>Опис завдання <span class="required">*</span></label>
-            <textarea
-                name="description"
-                [(ngModel)]="task.description"
-                rows="6"
-                placeholder="Детально опишіть вимоги, функціонал та технології..."
-                required
-            ></textarea>
+        <div class="input-group">
+            <label>Problem Statement</label>
+            <textarea [(ngModel)]="task().description" placeholder="Write the task description here..."></textarea>
         </div>
 
-        <div class="form-group">
-            <label>Дедлайн <span class="required">*</span></label>
-            <input
-                name="deadline"
-                type="datetime-local"
-                [(ngModel)]="task.deadline"
-                required
-            />
+        <div class="grid-inputs">
+            <div class="input-group">
+                <label>Input Example</label>
+                <textarea [(ngModel)]="task().inputExample"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Output Example</label>
+                <textarea [(ngModel)]="task().outputExample"></textarea>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>ID турніру <span class="required">*</span></label>
-            <input
-                name="tournamentId"
-                type="text"
-                [(ngModel)]="task.tournamentId"
-                placeholder="Введіть ID турніру"
-                required
-            />
+        <div class="input-group">
+            <label>Constraints</label>
+            <input type="text" [(ngModel)]="task().constraints" placeholder="1 <= N <= 10^5">
         </div>
 
-        <button type="submit" class="btn-create">Створити завдання</button>
-    </form>
+        <div class="actions">
+            <button class="btn-outline" (click)="cancel()">Cancel</button>
+            <button class="btn-black" (click)="onSubmit()" [disabled]="isSubmitting()">
+                {{ isSubmitting() ? 'Saving...' : 'Create Task' }}
+            </button>
+        </div>
+    </main>
 </div>

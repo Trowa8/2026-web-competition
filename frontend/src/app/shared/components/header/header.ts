@@ -10,13 +10,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.css'],
 })
 export class Header {
-  private auth = inject(AuthService);
   private router = inject(Router);
 
-  get user() { return this.auth.user; }
+  constructor(public auth: AuthService) { }
+
+  get user() {
+    return this.auth.user();
+  }
   get isAuthenticated() { return this.auth.isAuthenticated; }
 
   async logout() {
     await this.auth.logout();
     this.router.navigate(['/login']);
   }
+}

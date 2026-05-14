@@ -1,16 +1,13 @@
 <header class="header">
-    <div class="container">
-        <div class="logo">
-            <a routerLink="/">🏆 Турнірний додаток</a>
+    <div class="header__container">
+        <div class="header__logo" routerLink="/">
+            <span class="header__icon">🏆</span>
+            <span class="header__title">Турнірний додаток</span>
         </div>
-        <nav class="nav">
-            <a routerLink="/tournaments" class="nav-link">Турніри</a>
-            @if (isAuthenticated()) {
-            <span class="username">{{ user()?.login }}</span>
-            <button class="logout-btn" (click)="logout()">Вийти</button>
-            } @else {
-            <a routerLink="/login" class="nav-link login-link">Вхід</a>
-            }
+
+        <nav class="header__nav">
+            <a routerLink="/tournaments" class="header__link">Турніри</a>
+            <ui-button text="Вхід" variant="solid" color="primary" routerLink="/auth/login"></ui-button>
         </nav>
     </div>
 </header>

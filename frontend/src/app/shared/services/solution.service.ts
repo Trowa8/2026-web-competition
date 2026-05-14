@@ -1,53 +1,30 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
-
+import { Observable } from 'rxjs';
 import {
-    SolutionType,
     SolutionListItemType,
-    SolutionDetailType,
+    SolutionType,
     UploadFileResponse,
-    CreateSolutionRequest,
-    UploadFileRequest,
+    CreateSolutionDto,
 } from '../types/solution.types';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class SolutionService {
-    private readonly http = inject(HttpClient);
-    public async createSolution(body: CreateSolutionRequest): Promise<SolutionType> {
-        return firstValueFrom(
-            this.http.post<SolutionType>(`${environment.apiUrl}/solutions`, body)
-        );
+    constructor(private http: HttpClient) { }
+
+    getSolutions(): Observable<SolutionListItemType[]> {
+        return this.http.get<SolutionListItemType[]>('/api/solutions');
     }
 
-    public async uploadFile(body: UploadFileRequest): Promise<UploadFileResponse> {
+    submitSolution(data: CreateSolutionDto): Observable<SolutionType> {
+        return this.http.post<SolutionType>('/api/solutions', data);
+    }
+
+    uploadFile(file: File): Observable<UploadFileResponse> {
         const formData = new FormData();
-        formData.append('file', body.file);
-        formData.append('taskId', body.taskId);
-        formData.append('teamId', body.teamId);
-
-        return firstValueFrom(
-            this.http.post<UploadFileResponse>(
-                `${environment.apiUrl}/solutions/upload`,
-                formData
-            )
-        );
-    }
-
-    public async getSolutionsByTask(taskId: string): Promise<SolutionListItemType[]> {
-        return firstValueFrom(
-            this.http.get<SolutionListItemType[]>(`${environment.apiUrl}/solutions/${taskId}`)
-        );
-    }
-
-    public async getSolutionByTaskAndTeam(taskId: string, teamId: string): Promise<SolutionDetailType> {
-        return firstValueFrom(
-            this.http.get<SolutionDetailType>(
-                `${environment.apiUrl}/solutions/${taskId}/${teamId}`
-            )
-        );
+        formData.append('file', file);
+        return this.http.post<UploadFileResponse>('/api/upload', formData);
     }
 }

@@ -27,7 +27,10 @@ export class LoginForm {
     this.isLoading.set(true);
     this.error.set('');
     try {
-      await this.auth.login({ login: this.login(), password: this.password() });
+      await this.auth.login({
+        email: this.login(),
+        password: this.password()
+      });
       this.router.navigate(['/tournaments']);
     } catch {
       this.error.set('Невірний логін або пароль');

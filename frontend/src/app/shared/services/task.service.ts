@@ -1,41 +1,26 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import {
-    TaskType,
-    CreateTaskRequest,
-    UpdateTaskRequest,
-    SuccessResponse,
-} from '../types/task.types';
+import { Observable, tap } from 'rxjs';
+import { TaskType, CreateTaskDto } from '../types/task.types';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-    private readonly http = inject(HttpClient);
+    tasks = signal<TaskType[]>([]);
+    selectedTask = signal<TaskType | null>(null);
 
-    public async createTask(tournamentId: string, body: CreateTaskRequest): Promise<TaskType> {
-        return await firstValueFrom(
-            this.http.post<TaskType>(`${environment.apiUrl}/tasks/${tournamentId}`, body)
+    constructor(private http: HttpClient) { }
+
+    createTask(dto: CreateTaskDto): Observable<TaskType> {
+        return this.http.post<TaskType>('/api/tasks', dto).pipe(
+            tap(newTask => {
+                this.tasks.update(all => [...all, newTask]);
+            })
         );
     }
-    public async getTasksByTournament(tournamentId: string): Promise<TaskType[]> {
-        return await firstValueFrom(
-            this.http.get<TaskType[]>(`${environment.apiUrl}/tasks/${tournamentId}`)
-        );
-    }
-    public async getTaskById(taskId: string): Promise<TaskType> {
-        return await firstValueFrom(
-            this.http.get<TaskType>(`${environment.apiUrl}/tasks/${taskId}`)
-        );
-    }
-    public async updateTask(taskId: string, body: UpdateTaskRequest): Promise<TaskType> {
-        return await firstValueFrom(
-            this.http.put<TaskType>(`${environment.apiUrl}/tasks/${taskId}`, body)
-        );
-    }
-    public async deleteTask(taskId: string): Promise<SuccessResponse> {
-        return await firstValueFrom(
-            this.http.delete<SuccessResponse>(`${environment.apiUrl}/tasks/${taskId}`)
+
+    getTaskById(id: string): Observable<TaskType> {
+        return this.http.get<TaskType>(`/api/tasks/${id}`).pipe(
+            tap(task => this.selectedTask.set(task))
         );
     }
 }

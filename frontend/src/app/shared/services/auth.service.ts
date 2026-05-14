@@ -18,6 +18,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    user = signal<any>(null);
     private readonly http = inject(HttpClient);
 
     private readonly authState = signal<{
