@@ -1,13 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { Team, CreateTeamRequest, UpdateTeamRequest } from '../types/team.types';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TeamService {
-    private http = inject(HttpClient);
-    private apiUrl = environment.apiUrl;
+    constructor(private http: HttpClient) { }
+    private apiUrl = 'api/teams';
 
     async getAll(): Promise<Team[]> {
         return await firstValueFrom<Team[]>(this.http.get<Team[]>(`${this.apiUrl}/teams`));
@@ -35,5 +35,9 @@ export class TeamService {
 
     async removeMember(teamId: number, userId: number): Promise<any> {
         return await firstValueFrom<any>(this.http.delete<any>(`${this.apiUrl}/teams/${teamId}/members/${userId}`));
+    }
+
+    getMyTeam(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/my`);
     }
 }

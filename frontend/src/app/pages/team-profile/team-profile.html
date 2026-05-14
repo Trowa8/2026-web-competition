@@ -1,51 +1,85 @@
-<div class="team-container">
-    <header class="header-line">
-        <div class="title-block">
-            <h1 class="team-name">{{ team().name }}</h1>
-            <span class="creation-date">Створено: {{ team().created_at | date:'M/d/yy' }}</span>
-        </div>
-        <div class="header-actions" *ngIf="is_captain()">
-            <button class="btn-edit">Редагувати</button>
-            <button class="btn-delete-link" (click)="on_delete()">Видалити</button>
-        </div>
-    </header>
+<div class="dashboard-wrapper">
+    <aside class="sidebar">
+        <div class="logo" routerLink="/tasks">Code//Arena</div>
+        <nav>
+            <div class="nav-label">TOURNAMENTS</div>
+            <a class="nav-item" routerLink="/tasks">Tournament 1</a>
+            <a class="nav-item" routerLink="/tasks">Tournament 2</a>
+            <div class="nav-divider"></div>
+            <div class="nav-label">MANAGEMENT</div>
+            <a class="nav-item active" routerLink="/team-profile">My Team</a>
+        </nav>
+    </aside>
 
-    <div class="profile-grid">
-        <div class="main-column">
-            <section class="card">
-                <h2 class="card-title">Опис команди</h2>
-                <p class="card-content">{{ team().description }}</p>
-            </section>
+    <main class="main-content" *ngIf="!isDeleted; else emptyTeam">
+        <header class="top-header">
+            <div class="title-group">
+                <h1>Team Profile</h1>
+                <p>Manage your team and view tournament history.</p>
+            </div>
+            <button class="btn-edit" (click)="onEdit()">Edit</button>
+        </header>
 
-            <section class="card">
-                <h2 class="card-title">Історія турнірів</h2>
-                <div class="t-row" *ngFor="let t of tournaments()">
-                    <span class="t-name">{{ t.name }}</span>
-                    <span class="t-date">{{ t.start_date }}</span>
+        <div class="content-grid">
+            <section class="info-row">
+                <div class="row-label">
+                    <h2>TEAM INFO</h2>
                 </div>
-            </section>
-        </div>
-
-        <aside class="side-column">
-            <section class="card">
-                <h2 class="card-title">Учасники</h2>
-                <ul class="members-list">
-                    <li *ngFor="let m of team().members">
-                        <span class="member-role">{{ m.role }}</span>
-                        <span class="member-id">ID: {{ m.user_id }}</span>
-                    </li>
-                </ul>
-
-                <div class="yellow-separator"></div>
-
-                <div class="join-box">
-                    <label class="join-label">Вступ до команди</label>
-                    <div class="input-row">
-                        <input type="text" maxlength="6" [(ngModel)]="join_code" placeholder="000000">
-                        <button class="btn-gray" [disabled]="join_code().length !== 6">Увійти</button>
+                <div class="row-cards">
+                    <div class="card main-card">
+                        <div class="avatar-box"></div>
+                        <div class="details">
+                            <h3>{{ teamData.name }}</h3>
+                            <p>Elite team for algorithmic challenges.</p>
+                            <span class="code-tag">Code: {{ teamData.code }}</span>
+                        </div>
+                    </div>
+                    <div class="card action-card">
+                        <button class="btn-outline" (click)="onDelete()">Delete team</button>
+                        <button class="btn-black" (click)="onInvite()">+ Invite member</button>
                     </div>
                 </div>
             </section>
-        </aside>
-    </div>
+
+            <section class="info-row">
+                <div class="row-label">
+                    <h2>MEMBERS</h2>
+                </div>
+                <div class="members-list">
+                    <div class="member-item" *ngFor="let m of teamData.members">
+                        <div class="user">
+                            <div class="icon">👤</div>
+                            <div><strong>{{ m.name }}</strong><br><small>{{ m.role }}</small></div>
+                        </div>
+                        <span class="uid">#{{ m.id }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-row">
+                <div class="row-label">
+                    <h2>HISTORY</h2>
+                </div>
+                <div class="history-grid">
+                    <div class="history-card" *ngFor="let h of teamData.history">
+                        <div class="h-icon">🏆</div>
+                        <div>
+                            <h4>{{ h.name }}</h4>
+                            <p>{{ h.place }} Place • Score: {{ h.score }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <ng-template #emptyTeam>
+        <main class="main-content empty-state">
+            <div class="empty-box">
+                <h1>Team Deleted</h1>
+                <p>You can create a new team to continue competing.</p>
+                <button class="btn-black" (click)="isDeleted = false">Create New Team</button>
+            </div>
+        </main>
+    </ng-template>
 </div>

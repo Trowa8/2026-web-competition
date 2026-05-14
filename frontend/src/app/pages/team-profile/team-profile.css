@@ -1,141 +1,186 @@
-.team-container {
-    padding: 40px 10%;
-    background-color: #fff;
-    font-family: 'Segoe UI', sans-serif;
+.dashboard-wrapper {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
 }
 
-.header-line {
+.sidebar {
+    width: 260px;
+    border-right: 1px solid #eee;
+    padding: 40px 20px;
+    background: #fafafa;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+
+.nav-label {
+    font-size: 11px;
+    color: #999;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+.nav-item {
+    display: block;
+    padding: 12px;
+    color: #444;
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    background: #000;
+    color: #fff;
+}
+
+.main-content {
+    flex: 1;
+    padding: 60px 80px;
+    overflow-y: auto;
+}
+
+.top-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 2px solid #FFB300;
-    padding-bottom: 12px;
-    margin-bottom: 30px;
+    align-items: center;
+    margin-bottom: 60px;
 }
 
-.team-name {
-    color: #0D47A1;
-    font-size: 32px;
-    margin: 0;
-    font-weight: 700;
+.top-header h1 {
+    font-size: 38px;
+    font-weight: 800;
 }
 
-.creation-date {
-    color: #888;
-    font-size: 14px;
+.info-row {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
 }
 
-.btn-edit {
-    background: #FFB300;
+.row-label h2 {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.card {
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    gap: 20px;
+}
+
+.avatar-box {
+    width: 60px;
+    height: 60px;
+    background: #eee;
+    border-radius: 8px;
+}
+
+.code-tag {
+    background: #f0f0f0;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.user {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-black {
+    background: #000;
+    color: #fff;
     border: none;
-    padding: 10px 25px;
+    padding: 12px 24px;
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
 }
 
-.btn-delete-link {
-    background: none;
-    border: 1px solid #FF5252;
-    color: #D32F2F;
-    padding: 10px 25px;
+.btn-outline {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
     border-radius: 6px;
-    margin-left: 10px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
-.profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 24px;
-}
-
-.card {
-    border: 1px solid #F0F0F0;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
-}
-
-.card-title {
-    color: #0D47A1;
-    font-size: 18px;
-    margin: 0 0 15px 0;
-    border-left: 4px solid #FFB300;
-    padding-left: 12px;
-    line-height: 1.2;
-}
-
-.card-content {
-    color: #444;
-    line-height: 1.6;
-    margin: 0;
-}
-
-.t-row {
+.empty-state {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80vh;
 }
 
-.members-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.members-list li {
-    display: flex;
-    justify-content: space-between;
-    /* Розносимо роль та ID по краях як у дизайні */
-    padding: 8px 0;
-}
-
-.member-role {
-    color: #333;
-    font-weight: 500;
-}
-
-.member-id {
-    color: #D1D1D1;
-    font-size: 12px;
-}
-
-.yellow-separator {
-    border-top: 1px dashed #FFB300;
-    margin: 20px 0;
-}
-
-.join-label {
-    display: block;
-    font-size: 14px;
-    color: #666;
+.empty-box h1 {
+    font-size: 28px;
     margin-bottom: 10px;
 }
 
-.input-row {
+.empty-box p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.history-card {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 10px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    align-items: center;
 }
 
-.input-row input {
-    flex: 1;
+.h-icon {
+    font-size: 24px;
+    background: #f9f9f9;
     padding: 10px;
-    border: 1px solid #E0E0E0;
-    border-radius: 6px;
+    border-radius: 8px;
+}
+
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    height: 80vh;
 }
 
-.btn-gray {
-    background: #C0C0C0;
-    color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 6px;
-}
-
-.btn-gray:not(:disabled) {
-    background: #9E9E9E;
-    cursor: pointer;
+.empty-box h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
 }
