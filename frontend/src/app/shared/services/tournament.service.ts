@@ -12,6 +12,8 @@ import {
     CreateTournamentRequest,
     UpdateTournamentRequest,
     RegisterTeamRequest,
+    AddLeaderboardEntryRequest,
+    UpdateLeaderboardEntryRequest
 } from '../types/tournament.types';
 
 @Injectable({ providedIn: "root" })
@@ -57,6 +59,23 @@ export class TournamentService {
     public async getTournamentLeaderboard(tournamentId: string): Promise<LeaderboardEntryType[]> {
         return await firstValueFrom(
             this.http.get<LeaderboardEntryType[]>(`${environment.apiUrl}/tournaments/${tournamentId}/leaderboard`)
+        );
+    }
+    public async addLeaderboardEntry(tournamentId: string,body: AddLeaderboardEntryRequest): Promise<LeaderboardEntryType> {
+        return await firstValueFrom(
+            this.http.post<LeaderboardEntryType>(`${environment.apiUrl}/tournaments/${tournamentId}/leaderboard`,body)
+        );
+    }
+
+    public async updateLeaderboardEntry(tournamentId: string,teamId: string,body: UpdateLeaderboardEntryRequest): Promise<LeaderboardEntryType> {
+        return await firstValueFrom(
+            this.http.patch<LeaderboardEntryType>(`${environment.apiUrl}/tournaments/${tournamentId}/leaderboard/${teamId}`,body)
+        );
+    }
+
+   public async deleteLeaderboardEntry(tournamentId: string,teamId: string): Promise<SuccessResponse> {
+        return await firstValueFrom(
+            this.http.delete<SuccessResponse>(`${environment.apiUrl}/tournaments/${tournamentId}/leaderboard/${teamId}`)
         );
     }
 }

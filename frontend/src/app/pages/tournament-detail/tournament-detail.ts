@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TournamentService } from '../../shared/services/tournament.service';
@@ -18,23 +18,21 @@ export class TournamentDetailComponent implements OnInit {
   tournament = signal<TournamentType | null>(null);
   numberOfTeams = signal(16);
   endDate = signal('10.04.2025');
-  isLoading = signal(true);
+
+  isTournamentLoaded = computed(() => this.tournament() !== null);
 
   async ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id') || '1'; // default to '1' if no id
+    const id = this.route.snapshot.paramMap.get('id') || '1'; 
     try {
       const tournamentData = await this.tournamentService.getTournamentById(id);
       this.tournament.set(tournamentData);
-      this.endDate.set(tournamentData.end_date);
+      this.endDate.set(tournamentData.registrationDeadline);
     } catch (error) {
       console.error('Error fetching tournament:', error);
-    } finally {
-      this.isLoading.set(false);
     }
   }
 
   register() {
     console.log('Реєстрація на турнір активована');
-    // TODO: implement registration with service
   }
 }
