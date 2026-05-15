@@ -1,0 +1,28 @@
+<div class="tasks-container">
+    <header class="tasks-header">
+        <div class="header-text">
+            <h1>Турніри</h1>
+            <p>Досліджуйте та приєднуйтесь до майбутніх програмних змагань.</p>
+        </div>
+        <button class="btn-black" routerLink="/create-tournament">+ Create New</button>
+    </header>
+
+    <div class="tournaments-grid">
+        <div class="t-card" *ngFor="let t of tournaments">
+            <div class="t-status" [ngClass]="t.status.toLowerCase()">{{ t.status }}</div>
+
+            <div class="t-content">
+                <h3>{{ t.title }}</h3>
+                <p>{{ t.description }}</p>
+            </div>
+
+            <div class="t-footer">
+                <div class="t-info">
+                    <span>Дата: {{ t.date }}</span>
+                    <span>Кількість учасників: {{ t.participants }}</span>
+                </div>
+                <button class="btn-outline">Переглянути деталі</button>
+            </div>
+        </div>
+    </div>
+</div>
