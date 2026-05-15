@@ -5,7 +5,6 @@
     </div>
 
     <div class="container">
-        <!-- Картка пошуку -->
         <div class="card">
             <div class="card-header">
                 <h2>🔍 Search</h2>
@@ -22,9 +21,8 @@
                     <button class="search-btn" (click)="onSearch()">Search</button>
                 </div>
 
-                <!-- Результати пошуку -->
                 <div class="search-results" *ngIf="searchResults.length > 0">
-                    <div *ngFor="let result of searchResults" class="result-item">
+                    <div *ngFor="let result of searchResults" class="result-item" [routerLink]="['/tournament']">
                         <span class="result-icon">🏆</span>
                         <span class="result-name">{{ result.name }}</span>
                         <span class="result-type">{{ result.type }}</span>

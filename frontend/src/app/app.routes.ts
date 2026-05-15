@@ -68,6 +68,11 @@ export const routes: Routes = [
                 loadComponent: () => import("./pages/create-team/create-team").then(m => m.CreateTeam),
                 canActivate: [authGuard],
             },
+            {
+                path: "user-profile",
+                loadComponent: () => import("./pages/user-profile/user-profile").then(m => m.ProfileComponent),
+                canActivate: [authGuard],
+            }
         ],
     },
     {
