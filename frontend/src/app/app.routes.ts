@@ -19,14 +19,17 @@ export const routes: Routes = [
             {
                 path: "home",
                 loadComponent: () => import("./pages/home/home").then(m => m.Home),
+                canActivate: [authGuard],
             },
             {
                 path: "tables",
                 loadComponent: () => import("./pages/tables/tables").then(m => m.Tables),
+                canActivate: [authGuard],
             },
             {
                 path: "search-info",
                 loadComponent: () => import("./pages/search-info/search-info").then(m => m.SearchInfo),
+                canActivate: [authGuard],
             },
             {
                 path: "qa",
@@ -35,7 +38,8 @@ export const routes: Routes = [
             {
                 path: "tournament",
                 loadComponent: () =>
-                    import("./pages/tournament-detail/tournament-detail").then(m => m.TournamentDetailComponent),
+                    import("./pages/tournament-detail/tournament-detail").then(m => m.TournamentDetailsComponent),
+                canActivate: [authGuard],
             },
             {
                 path: "submit-solution",
@@ -46,19 +50,23 @@ export const routes: Routes = [
                 path: "review-solution",
                 loadComponent: () =>
                     import("./pages/review-solution/review-solution").then(m => m.ReviewSolutionComponent),
+                canActivate: [authGuard],
             },
             {
                 path: "team-profile",
                 loadComponent: () => import("./pages/team-profile/team-profile").then(m => m.TeamProfileComponent),
+                canActivate: [authGuard],
             },
             {
                 path: "create-tournament",
                 loadComponent: () =>
                     import("./pages/create-tournament/create-tournament").then(m => m.CreateTournamentComponent),
+                canActivate: [authGuard],
             },
             {
                 path: "create-team",
                 loadComponent: () => import("./pages/create-team/create-team").then(m => m.CreateTeam),
+                canActivate: [authGuard],
             },
         ],
     },
