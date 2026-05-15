@@ -1,7 +1,7 @@
 export type TournamentStatus = 'upcoming' | 'ongoing' | 'finished';
 
 export type Tournament = {
-    tournamentId: number;
+    tournamentId: string;
     title: string;
     description: string;
     status: TournamentStatus;
