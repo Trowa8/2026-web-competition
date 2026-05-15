@@ -1,0 +1,60 @@
+<div class="profile-layout">
+    <aside class="left-sidebar">
+        <nav class="nav-stack">
+            <div *ngFor="let item of ['Tournament #1', 'Tournament #2', 'Tournament #3']" class="nav-anchor"
+                [class.active]="activeNav() === item" (click)="setNav(item)">
+                {{item}}
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-viewport">
+        <div class="content-bound">
+            <header class="hero-block">
+                <h1 class="hero-title">Team Profile</h1>
+                <p class="hero-desc">History you created with this brand-new team</p>
+                <button class="btn-black btn-fixed-w" (click)="toggleEdit()">
+                    {{ isEditing() ? 'Save' : 'Edit' }}
+                </button>
+            </header>
+
+            <section class="ui-section">
+                <h2 class="caps-label">TEAM INFO</h2>
+                <div class="team-card-grey">
+                    <div class="card-flex-group">
+                        <div class="logo-placeholder" [style.backgroundImage]="'url(' + team().logo + ')'"
+                            [style.backgroundSize]="'cover'" (click)="triggerFileInput()">
+                            <span *ngIf="!team().logo">No Logo</span>
+                        </div>
+
+                        <div class="team-meta">
+                            <ng-container *ngIf="!isEditing(); else editFields">
+                                <h3 class="team-name-big">{{ team().name }}</h3>
+                                <p class="team-bio-text">{{ team().description }}</p>
+                            </ng-container>
+
+                            <ng-template #editFields>
+                                <input [(ngModel)]="team().name" class="edit-input-title">
+                                <textarea [(ngModel)]="team().description" class="edit-input-text"></textarea>
+                            </ng-template>
+
+                            <span class="pub-timestamp">Published: {{ team().published }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="file" id="teamLogoInput" style="display: none" (change)="onFileSelected($event)"
+                    accept="image/*">
+
+                <div class="action-row-flex">
+                    <button class="btn-outline" (click)="triggerFileInput()">Update icon</button>
+                    <div class="invite-box">
+                        <input type="email" placeholder="User email" [(ngModel)]="inviteEmail" class="invite-input">
+                        <button class="btn-black" (click)="onInvite()">+ Invite</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>

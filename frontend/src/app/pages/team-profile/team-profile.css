@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+:host {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    color: #000;
+}
+
+.profile-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left-sidebar {
+    width: 250px;
+    border-right: 1px solid #f2f2f2;
+    padding-top: 60px;
+}
+
+.nav-anchor {
+    padding: 12px 50px;
+    font-weight: 800;
+    font-size: 14px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-anchor.active {
+    color: #000;
+}
+
+.nav-anchor:hover {
+    color: #888;
+}
+
+.main-viewport {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.content-bound {
+    width: 100%;
+    max-width: 820px;
+}
+
+.hero-block {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.hero-title {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin: 0;
+}
+
+.hero-desc {
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.ui-section {
+    margin-bottom: 80px;
+}
+
+.caps-label {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.team-card-grey {
+    background: #f8f8f8;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.card-flex-group {
+    display: flex;
+    gap: 30px;
+}
+
+.logo-placeholder {
+    width: 150px;
+    height: 150px;
+    background: #e0e0e0;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.team-name-big {
+    font-size: 28px;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+}
+
+.pub-timestamp {
+    color: #999;
+    font-size: 14px;
+}
+
+.btn-black {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #000;
+    border: 2px solid #000;
+    padding: 12px 30px;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-fixed-w {
+    width: 130px;
+    display: block;
+    margin: 0 auto;
+}
+
+.action-row-flex {
+    display: flex;
+    gap: 15px;
+}
+
+.member-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.member-identity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-placeholder {
+    width: 42px;
+    height: 42px;
+    background: #eee;
+    border-radius: 50%;
+}
+
+.member-role-tag {
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.history-card-item {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.tourney-thumb {
+    width: 80px;
+    height: 80px;
+    background: #f8f8f8;
+    border-radius: 6px;
+}
+
+.tourney-title-text {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.edit-input-title {
+    display: block;
+    width: 100%;
+    font-size: 28px;
+    font-weight: 900;
+    border: 1px dashed #ccc;
+    background: transparent;
+    margin-bottom: 10px;
+}
+
+.edit-input-text {
+    display: block;
+    width: 100%;
+    height: 60px;
+    font-family: inherit;
+    border: 1px dashed #ccc;
+    background: transparent;
+    margin-bottom: 10px;
+}
+
+.invite-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.invite-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.logo-placeholder {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.3s;
+}
+
+.logo-placeholder:hover {
+    opacity: 0.8;
+}
