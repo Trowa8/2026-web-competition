@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: "app-search-info",
     standalone: true,
-    imports: [CommonModule, RouterModule, FormsModule],
+    imports: [CommonModule, FormsModule, RouterLink],
     templateUrl: "./search-info.html",
     styleUrls: ["./search-info.css"],
 })
