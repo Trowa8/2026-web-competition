@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { LoginComponent } from './pages/login/login';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,9 @@ export const routes: Routes = [
             { path: "register", loadComponent: () => import("./pages/register/register").then(m => m.RegisterComponent) },
         ],
     },
+    { path: 'login', component: LoginComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+
     {
         path: "create-tournament",
         loadComponent: () => import("./pages/create-tournament/create-tournament").then(m => m.CreateTournamentComponent)

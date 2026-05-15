@@ -1,67 +1,34 @@
-export type UserType = {
-    userId: string;
+export type User = {
+    id: string | number;
     login: string;
     email: string;
-    createdAt: string;
+    role: string;
 };
 
-export type UserDetailType = {
-    userId: string;
-    login: string;
-    email: string;
-    updatedAt: string;
-};
-
-export type RegisterRequest = {
-    login: string;
-    password: string;
-    email: string;
-};
-
-export type RegisterResponse = {
-    accessToken: string;
-    refreshToken: string;
-    userId: string;
-};
+export type UserType = User;
 
 export type LoginRequest = {
-    email: string;
+    login: string;
     password: string;
-};
-
-export type LoginResponse = {
-    userId: string;
-    accessToken: string;
-    refreshToken: string;
-};
-
-export type RefreshTokenRequest = {
-    refreshToken: string;
-};
-
-export type RefreshTokenResponse = {
-    accessToken: string;
-    refreshToken: string;
-};
-
-export type UpdateUserRequest = {
-    login: string;
-    email: string;
-    password?: string;
-};
-
-export type UpdateUserResponse = {
-    userId: string;
-    login: string;
-    email: string;
-    updatedAt: string;
-};
-
-export type DeleteUserResponse = {
-    success: boolean;
 };
 
 export type AuthResponse = {
-    token: string;
-    user: any;
+    accessToken: string;
+    refreshToken: string;
+    user: User;
 };
+
+export type LoginResponse = AuthResponse;
+export type RegisterResponse = AuthResponse;
+
+export type RegisterRequest = {
+    username: string;
+    email: string;
+    password: string;
+};
+
+export type RefreshTokenRequest = { refreshToken: string };
+export type RefreshTokenResponse = { accessToken: string; refreshToken: string };
+export type UpdateUserRequest = { username?: string; login?: string; email?: string };
+export type UpdateUserResponse = { user: User };
+export type DeleteUserResponse = { message: string };

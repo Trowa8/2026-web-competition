@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { LoginRequest } from '../../../../shared/types/auth.types';
 
 @Component({
   selector: 'app-login-form',
@@ -27,10 +28,10 @@ export class LoginForm {
     this.isLoading.set(true);
     this.error.set('');
     try {
-      await this.auth.login({
-        email: this.login(),
+      const credentials: LoginRequest = {
+        login: this.login(),
         password: this.password()
-      });
+      };
       this.router.navigate(['/tournaments']);
     } catch {
       this.error.set('Невірний логін або пароль');

@@ -1,29 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../shared/services/auth.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  private authService = inject(AuthService);
+  loginData = { login: '', password: '' };
+  isLoading = signal(false);
+  errorMessage = signal('');
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
-  }
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Login Data:', this.loginForm.value);
-      this.router.navigate(['/tasks']);
-    }
+  onLogin() {
+    this.isLoading.set(true);
+    this.authService.login(this.loginData)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: () => console.log('Logged in'),
+        error: (err) => console.error(err)
+      });
   }
 }
