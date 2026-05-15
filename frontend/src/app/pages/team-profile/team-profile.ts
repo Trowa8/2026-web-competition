@@ -1,42 +1,45 @@
-import { Component, signal, computed } from "@angular/core";
+import { Component, signal, WritableSignal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { Team } from "../../shared/types/team.types";
 
 @Component({
     selector: "app-team-profile",
     standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: "./team-profile.html",
-    styleUrls: ["./team-profile.css"],
+    styleUrl: "./team-profile.css",
 })
 export class TeamProfileComponent {
-    readonly current_user_id = signal<number>(1);
-    readonly join_code = signal<string>("");
+    activeNav = signal("Tournament #1");
+    isEditing = signal(false);
 
-    team = signal<any>({
-        team_id: 77,
-        name: "Frontend Warriors",
-        description: "Команда ентузіастів Angular, які прагнуть створювати ідеальні інтерфейси.",
-        owner_id: 1,
-        created_at: "2026-04-10",
+    team: WritableSignal<Team> = signal({
+        name: "CyberArena",
+        description: "This is the best competitive team for algorithmic challenges.",
+        createdAt: "13.05.2026",
         members: [
-            { user_id: 1, role: "Captain" },
-            { user_id: 2, role: "Developer" },
-            { user_id: 3, role: "Designer" },
+            { name: "Alice", role: "Captain", userId: 1 },
+            { name: "Bob", role: "Member", userId: 2 },
+            { name: "Charlie", role: "Member", userId: 3 },
         ],
+        ownerId: 1,
+        teamId: 1,
     });
 
-    tournaments = signal<any[]>([
-        {
-            tournament_id: 1,
-            name: "Spring UI Cup",
-            start_date: "2026-05-15",
-        },
-    ]);
+    toggleEdit() {
+        this.isEditing.update(value => !value);
+    }
 
-    is_captain = computed(() => this.team().owner_id === this.current_user_id());
+    inviteEmail = "";
+    onInvite() {
+        if (this.inviteEmail) {
+            alert(`Запрошення для ${this.inviteEmail} надіслано!`);
+            this.inviteEmail = "";
+        }
+    }
 
-    on_delete() {
-        if (confirm("Видалити команду?")) console.log("Team deleted");
+    setNav(val: string) {
+        this.activeNav.set(val);
     }
 }

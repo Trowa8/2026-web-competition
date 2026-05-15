@@ -1,7 +1,7 @@
 export type TeamMember = {
     userId: number;
     role: string;
-    joinedAt: string;
+    name: string;
 };
 
 export type Team = {

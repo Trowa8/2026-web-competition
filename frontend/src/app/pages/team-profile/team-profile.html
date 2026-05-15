@@ -1,51 +1,60 @@
-<div class="team-container">
-    <header class="header-line">
-        <div class="title-block">
-            <h1 class="team-name">{{ team().name }}</h1>
-            <span class="creation-date">Створено: {{ team().created_at | date:'M/d/yy' }}</span>
-        </div>
-        <div class="header-actions" *ngIf="is_captain()">
-            <button class="btn-edit">Редагувати</button>
-            <button class="btn-delete-link" (click)="on_delete()">Видалити</button>
-        </div>
-    </header>
+<div class="profile-layout">
+    <aside class="left-sidebar">
+        <nav class="nav-stack">
+            <div
+                *ngFor="let item of ['Турнір #1', 'Турнір #2', 'Турнір #3']"
+                class="nav-anchor"
+                [class.active]="activeNav() === item"
+                (click)="setNav(item)"
+            >
+                {{item}}
+            </div>
+        </nav>
+    </aside>
 
-    <div class="profile-grid">
-        <div class="main-column">
-            <section class="card">
-                <h2 class="card-title">Опис команди</h2>
-                <p class="card-content">{{ team().description }}</p>
-            </section>
+    <main class="main-viewport">
+        <div class="content-bound">
+            <header class="hero-block">
+                <h1 class="hero-title">Профіль команди</h1>
+                <button class="btn-black btn-fixed-w" (click)="toggleEdit()">
+                    {{ isEditing() ? 'Зберегти' : 'Редагувати' }}
+                </button>
+            </header>
 
-            <section class="card">
-                <h2 class="card-title">Історія турнірів</h2>
-                <div class="t-row" *ngFor="let t of tournaments()">
-                    <span class="t-name">{{ t.name }}</span>
-                    <span class="t-date">{{ t.start_date }}</span>
+            <section class="ui-section">
+                <h2 class="caps-label">ІНФОРМАЦІЯ ПРО КОМАНДУ</h2>
+                <div class="team-card-grey">
+                    <div class="card-flex-group">
+                        <div class="team-meta">
+                            @if (!isEditing()) {
+                            <ng-container>
+                                <h3 class="team-name-big">{{ team().name }}</h3>
+                                <p class="team-bio-text">{{ team().description }}</p>
+                            </ng-container>
+                            } @else {
+                            <ng-template>
+                                <input [(ngModel)]="team().name" class="edit-input-title" />
+                                <textarea [(ngModel)]="team().description" class="edit-input-text"></textarea>
+                            </ng-template>
+                            }
+
+                            <span class="pub-timestamp">Створено: {{ team().createdAt }}</span>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        </div>
 
-        <aside class="side-column">
-            <section class="card">
-                <h2 class="card-title">Учасники</h2>
-                <ul class="members-list">
-                    <li *ngFor="let m of team().members">
-                        <span class="member-role">{{ m.role }}</span>
-                        <span class="member-id">ID: {{ m.user_id }}</span>
-                    </li>
-                </ul>
-
-                <div class="yellow-separator"></div>
-
-                <div class="join-box">
-                    <label class="join-label">Вступ до команди</label>
-                    <div class="input-row">
-                        <input type="text" maxlength="6" [(ngModel)]="join_code" placeholder="000000" />
-                        <button class="btn-gray" [disabled]="join_code().length !== 6">Увійти</button>
+                <div class="action-row-flex">
+                    <div class="invite-box">
+                        <input
+                            type="email"
+                            placeholder="Email користувача"
+                            [(ngModel)]="inviteEmail"
+                            class="invite-input"
+                        />
+                        <button class="btn-black" (click)="onInvite()">+ Запросити</button>
                     </div>
                 </div>
             </section>
-        </aside>
-    </div>
+        </div>
+    </main>
 </div>
