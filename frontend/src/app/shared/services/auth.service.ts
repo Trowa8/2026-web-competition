@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject, WritableSignal } from "@angular/core";
+import { Injectable, signal, computed, inject, WritableSignal, Signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { environment } from "../../../environments/environment";
@@ -20,85 +20,82 @@ import {
 export class AuthService {
     private readonly http = inject(HttpClient);
 
-    private readonly authState = signal<{
-        userId: string | null;
-        accessToken: string | null;
-        refreshToken: string | null;
-    }>({
-        userId: null,
-        accessToken: null,
-        refreshToken: null,
-    });
-
     public readonly user: WritableSignal<UserType | null> = signal(null);
 
-    public readonly userId = computed(() => this.authState().userId);
-    public readonly isAuthenticated = computed(() => !!this.authState().userId);
-    public readonly accessToken = computed(() => this.authState().accessToken);
+    public readonly isAuthenticated: Signal<boolean> = computed(() => !!this.user());
 
-    constructor() {
-        const accessToken = localStorage.getItem("accessToken");
-        const refreshToken = localStorage.getItem("refreshToken");
-        const userId = localStorage.getItem("userId");
-
-        if (accessToken && refreshToken && userId) {
-            this.authState.set({ userId, accessToken, refreshToken });
-        }
-    }
-
-    private saveToStorage(accessToken: string, refreshToken: string, userId: string): void {
+    private saveToStorage(accessToken: string, refreshToken: string): void {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("userId", userId);
     }
 
     private clearStorage(): void {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        localStorage.removeItem("userId");
     }
 
     public async init(): Promise<void> {
-        if (this.userId()) {
-            this.user.set(await this.getUserById(this.userId()!));
+        // Mock user for testing purposes. Remove this in production.
+        this.user.set({
+            userId: "1",
+            login: "login",
+            email: "email@example.com",
+            createdAt: "2023-01-01T00:00:00Z",
+        });
+
+        if (!this.isAuthenticated()) {
+            this.user.set(await this.getCurrentUser());
         }
     }
 
     public async register(body: RegisterRequest): Promise<RegisterResponse> {
-        const res = await firstValueFrom(this.http.post<RegisterResponse>(`${environment.apiUrl}/auth/register`, body));
-        this.authState.set({ userId: res.userId, accessToken: res.accessToken, refreshToken: res.refreshToken });
-        this.saveToStorage(res.accessToken, res.refreshToken, res.userId);
+        const res: RegisterResponse = await firstValueFrom(
+            this.http.post<RegisterResponse>(`${environment.apiUrl}/auth/register`, body),
+        );
+
+        this.user.set(res.userId ? await this.getUserById(res.userId) : null);
+
+        this.saveToStorage(res.accessToken, res.refreshToken);
+
         return res;
     }
 
     public async login(body: LoginRequest): Promise<LoginResponse> {
-        const res = await firstValueFrom(this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, body));
-        this.authState.set({ userId: res.userId, accessToken: res.accessToken, refreshToken: res.refreshToken });
-        this.saveToStorage(res.accessToken, res.refreshToken, res.userId);
+        const res: LoginResponse = await firstValueFrom(
+            this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, body),
+        );
+
+        this.user.set(res.userId ? await this.getUserById(res.userId) : null);
+
+        this.saveToStorage(res.accessToken, res.refreshToken);
+
         return res;
     }
 
     public async refreshToken(): Promise<RefreshTokenResponse | null> {
-        const currentRefreshToken = this.authState().refreshToken;
+        const currentRefreshToken = localStorage.getItem("refreshToken");
+
         if (!currentRefreshToken) return null;
 
         try {
             const body: RefreshTokenRequest = { refreshToken: currentRefreshToken };
+
             const res = await firstValueFrom(
                 this.http.post<RefreshTokenResponse>(`${environment.apiUrl}/auth/refresh`, body),
             );
-            this.authState.update(s => ({ ...s, accessToken: res.accessToken, refreshToken: res.refreshToken }));
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
+
+            this.saveToStorage(res.accessToken, res.refreshToken);
+
             return res;
         } catch {
             this.logout();
+
             return null;
         }
     }
 
     public async logout(): Promise<void> {
-        this.authState.set({ userId: null, accessToken: null, refreshToken: null });
+        this.user.set(null);
         this.clearStorage();
     }
 
@@ -116,7 +113,11 @@ export class AuthService {
 
     public async deleteUser(userId: string): Promise<DeleteUserResponse> {
         const res = await firstValueFrom(this.http.delete<DeleteUserResponse>(`${environment.apiUrl}/user/${userId}`));
-        if (this.authState().userId === userId) await this.logout();
+
+        if (this.user() && this.user()!.userId === userId) {
+            await this.logout();
+        }
+
         return res;
     }
 }
