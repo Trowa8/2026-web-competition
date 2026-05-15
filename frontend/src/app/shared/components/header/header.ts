@@ -4,14 +4,13 @@ import { AuthService } from "../../services/auth.service";
 import { UserType } from "../../types/auth.types";
 
 @Component({
-    selector: "app-header",
-    standalone: true,
-    imports: [RouterLink],
-    templateUrl: "./header.html",
-    styleUrls: ["./header.css"],
+  selector: "app-header",
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: "./header.html",
+  styleUrls: ["./header.css"],
 })
 export class Header {
-<<<<<<< HEAD
   private router = inject(Router);
 
   constructor(public auth: AuthService) { }
@@ -26,15 +25,3 @@ export class Header {
     this.router.navigate(['/login']);
   }
 }
-=======
-    private auth = inject(AuthService);
-    private router = inject(Router);
-
-    user: Signal<UserType | null> = computed(() => this.auth.user());
-
-    async logout() {
-        await this.auth.logout();
-        this.router.navigate(["/login"]);
-    }
-}
->>>>>>> main

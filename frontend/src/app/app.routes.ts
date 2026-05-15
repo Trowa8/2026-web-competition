@@ -1,33 +1,26 @@
-import { Routes } from "@angular/router";
-import { LoginComponent } from './pages/login/login';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: "tasks",
-        loadComponent: () => import("./layouts/main-layout/main-layout").then(m => m.MainLayout),
-        children: [
-            { path: "", loadComponent: () => import("./pages/tasks/tasks").then(m => m.TasksComponent) }
-        ],
+        path: 'tasks/review-solution/:id',
+        loadComponent: () => import('./pages/review-solution/review-solution').then(m => m.ReviewSolutionComponent)
     },
     {
-        path: "team-profile",
-        loadComponent: () => import("./pages/team-profile/team-profile").then(m => m.TeamProfileComponent)
+        path: 'tasks',
+        loadComponent: () => import('./pages/tasks/tasks').then(m => m.TasksComponent)
     },
     {
-        path: "auth",
-        loadComponent: () => import("./layouts/auth-layout/auth-layout").then(m => m.AuthLayout),
-        children: [
-            { path: "login", loadComponent: () => import("./pages/login/login").then(m => m.LoginComponent) },
-            { path: "register", loadComponent: () => import("./pages/register/register").then(m => m.RegisterComponent) },
-        ],
+        path: 'tournaments',
+        loadComponent: () => import('./pages/tournaments/tournaments').then(m => m.Tournaments)
     },
-    { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-
     {
-        path: "create-tournament",
-        loadComponent: () => import("./pages/create-tournament/create-tournament").then(m => m.CreateTournamentComponent)
+        path: 'login',
+        loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent)
     },
-    { path: "", redirectTo: "tasks", pathMatch: "full" },
-    { path: "**", redirectTo: "tasks" }
+    {
+        path: 'user-profile',
+        loadComponent: () => import('./pages/user-profile/user-profile').then(m => m.ProfileComponent)
+    },
+    { path: '', redirectTo: 'tasks', pathMatch: 'full' },
+    { path: '**', redirectTo: 'tasks' }
 ];

@@ -31,4 +31,8 @@ export class CreateTournamentComponent {
       alert('Будь ласка, заповніть усі обов’язкові поля.');
     }
   }
+
+  createTournament() {
+    this.onSubmit();
+  }
 }

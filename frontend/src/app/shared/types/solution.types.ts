@@ -1,63 +1,24 @@
-export type SolutionType = {
-<<<<<<< HEAD
-    id: string;
-    taskId: string;
-    content: string;
-    status: string;
-    createdAt: string;
+export type TestResult = {
+  name: string;
+  passed: boolean;
+  message?: string;
 };
 
-export type SolutionListItemType = {
-    id: string;
-    status: string;
-    submittedAt: string;
+export type SolutionStatus = 'pending' | 'completed' | 'failed';
+
+export type Solution = {
+  id: string | number;
+  participantName: string;
+  submittedAt: string;
+  code: string;
+  language: string;
+  status: SolutionStatus;
+  score?: number;
+  feedback?: string;
+  tests?: TestResult[];
 };
 
-export type CreateSolutionDto = {
-    taskId: string;
-    content: string;
-};
-
-export type UploadFileResponse = {
-    fileUrl: string;
-    success: boolean;
-};
-
-export type UploadFileRequest = {
-    file: File;
-    taskId: string;
-=======
-  solutionId: string;
-  taskId: string;
-  teamId: string;
-  fileName: string;
-};
-
-export type SolutionListItemType = {
-  solutionId: string;
-  teamId: string;
-  fileName: string;
-};
-
-export type SolutionDetailType = {
-  solutionId: string;
-  fileName: string;
-  fileUrl: string;
-};
-
-export type UploadFileResponse = {
-  fileName: string;
-};
-
-export type CreateSolutionRequest = {
-  taskId: string;
-  teamId: string;
-  fileName: string;
-};
-
-export type UploadFileRequest = {
-  taskId: string;
-  teamId: string;
-  file: File;
->>>>>>> main
+export type ReviewSolutionRequest = {
+  score: number;
+  feedback: string;
 };

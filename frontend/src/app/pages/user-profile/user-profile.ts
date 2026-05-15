@@ -82,49 +82,35 @@ export class ProfileComponent implements OnInit {
   }
 
   async saveEdit(): Promise<void> {
-    const errors: { username?: string; email?: string } = {};
-    if (this.usernameError()) errors.username = this.usernameError();
-    if (this.emailError()) errors.email = this.emailError();
-    this.editErrors.set(errors);
-    if (Object.keys(errors).length > 0) return;
-
-    const currentUserId = this.authService.userId();
-    if (!currentUserId) {
-      this.editErrors.set({ ...errors, username: 'Не вдалось визначити поточного користувача' });
-      return;
-    }
+    const user = this.authService.currentUser();
+    if (!user) return;
 
     this.isLoading.set(true);
     try {
-      const updated = await this.authService.updateUser(currentUserId, {
+      const updated = await this.authService.updateUser(user.id, {
         login: this.editUsername(),
         email: this.editEmail(),
       });
 
-      this.username.set(updated.login);
-      this.email.set(updated.email);
-      this.isEditing.set(false);
-      this.isSaved.set(true);
-      setTimeout(() => this.isSaved.set(false), 3000);
-    } catch (error) {
-      console.error('Failed to save user profile', error);
-      this.editErrors.set({ ...errors, email: 'Не вдалося зберегти зміни. Спробуйте ще раз.' });
+      if (updated) {
+        this.username.set(updated.login);
+        this.email.set(updated.email);
+        this.isEditing.set(false);
+      }
     } finally {
       this.isLoading.set(false);
     }
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.loadCurrentUser();
+  private async loadCurrentUser(): Promise<void> {
+    const user = await this.authService.getCurrentUser();
+    if (user) {
+      this.username.set(user.login);
+      this.email.set(user.email);
+    }
   }
 
-  private async loadCurrentUser(): Promise<void> {
-    try {
-      const currentUser = await this.authService.getCurrentUser();
-      this.username.set(currentUser.login);
-      this.email.set(currentUser.email);
-    } catch (error) {
-      console.error('Failed to load current user', error);
-    }
+  async ngOnInit(): Promise<void> {
+    await this.loadCurrentUser();
   }
 }

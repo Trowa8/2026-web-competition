@@ -11,6 +11,8 @@ export class AuthService {
     isAuthenticatedSignal = signal<boolean>(!!localStorage.getItem('token'));
     tokenSignal = signal<string | null>(localStorage.getItem('token'));
 
+    userId = computed(() => this.currentUser()?.id);
+
     user = this.currentUser;
     isAuthenticated = computed(() => this.isAuthenticatedSignal());
     accessToken = computed(() => this.tokenSignal());
@@ -40,5 +42,15 @@ export class AuthService {
         this.currentUser.set(null);
         this.isAuthenticatedSignal.set(false);
         this.router.navigate(['/login']);
+    }
+
+    async getCurrentUser() {
+        return this.currentUser();
+    }
+
+    async updateUser(id: string | number, data: any) {
+        this.currentUser.update(prev => prev ? { ...prev, ...data } : null);
+
+        return this.currentUser();
     }
 }

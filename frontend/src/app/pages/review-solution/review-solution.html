@@ -1,90 +1,49 @@
-<div class="judge-layout">
-    <main class="main-content">
-        <header class="header-nav">
-            <span class="breadcrumb">Home / Dashboard / Scores / Settings</span>
-            <div class="search-wrapper">
-                <input type="text" placeholder="Search on site...">
-                <span class="search-btn">🔍</span>
-            </div>
-        </header>
+@if (solutionService.currentSolution(); as sol) {
+<div class="review-wrapper">
+    <div class="nav-header">
+        <a routerLink="/tasks">← До списку</a>
+        <h1>Перевірка рішення #{{ sol.id }}</h1>
+    </div>
 
-        <section class="wire-block">
-            <h2 class="block-title">Review Status</h2>
-            <div class="stats-row">
-                <div class="stat-card">
-                    <span class="label">To Review</span>
-                    <span class="val">{{ reviewStats().toReview }}</span>
-                </div>
-                <div class="stat-card">
-                    <span class="label">Scored</span>
-                    <span class="val">{{ reviewStats().scored }}</span>
-                </div>
-                <div class="stat-card">
-                    <span class="label">Average Score</span>
-                    <span class="val">{{ reviewStats().avgScore }}</span>
-                </div>
-            </div>
-        </section>
+    <div class="review-container">
+        <div class="code-box">
+            <div class="label">MOBA: {{ sol.language | uppercase }}</div>
+            <pre><code>{{ sol.code }}</code></pre>
 
-        <section class="wire-block text-center">
-            <h2 class="solution-id">Solution #{{ solution().id }}</h2>
-            <p class="task-label">{{ solution().task }}</p>
-            <button class="btn-white">Download</button>
-        </section>
-
-        <section class="wire-block">
-            <h3 class="block-title">Code Preview</h3>
-            <div class="code-box">
-                <pre><code>{{ solution().code }}</code></pre>
-            </div>
-        </section>
-
-        <section class="wire-block text-center">
-            <h2 class="block-title">Scoring</h2>
-            <div class="inputs-row">
-                <div class="input-group">
-                    <label>ALGORITHM</label>
-                    <select [(ngModel)]="scoreAlgo">
-                        <option value="">Select Score</option>
-                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
-                        <option [value]="n">{{ n }}</option>
+            <div class="test-results">
+                <h3>Автоматичні тести</h3>
+                <ul class="test-list">
+                    @for (test of sol.tests; track test.name) {
+                    <li [class.failed]="!test.passed">
+                        <span class="dot">●</span>
+                        {{ test.name }}
+                        @if (test.message) {
+                        <span class="error-text">— {{ test.message }}</span>
                         }
-                    </select>
-                    <span class="hint">choose a score from 1 to 10</span>
-                </div>
-                <div class="input-group">
-                    <label>CODE QUALITY</label>
-                    <select [(ngModel)]="scoreQuality">
-                        <option value="">Select Score</option>
-                        @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
-                        <option [value]="n">{{ n }}</option>
-                        }
-                    </select>
-                    <span class="hint">choose a score from 1 to 10</span>
-                </div>
+                    </li>
+                    }
+                </ul>
             </div>
+        </div>
 
-            <div class="action-buttons">
-                <button class="btn-white" (click)="nextSolution()">Next →</button>
-                <button class="btn-black" (click)="saveScore()">Save score ✓</button>
-            </div>
-
-            <div class="comment-container">
-                <label>Judge Comment</label>
-                <textarea [(ngModel)]="comment" placeholder="Judge comment..."></textarea>
-                <span class="hint">Feedback on the solution</span>
-            </div>
-        </section>
-
-        <section class="wire-block">
-            <div class="team-info-footer">
-                <div class="team-avatar"></div>
-                <div class="team-meta">
-                    <strong>Anonymous Team</strong>
-                    <span class="team-status">Team name hidden</span>
-                    <small>Judging in progress</small>
+        <aside class="review-side">
+            <div class="card">
+                <h3>Оцінка ментора</h3>
+                <div class="field">
+                    <label>Бали (0-100)</label>
+                    <input type="number" [(ngModel)]="score" min="0" max="100">
                 </div>
+                <div class="field">
+                    <label>Відгук</label>
+                    <textarea [(ngModel)]="feedback" placeholder="Напишіть коментар..."></textarea>
+                </div>
+                <button class="btn-primary" (click)="onSubmitReview()" [disabled]="isSubmitting()">
+                    {{ isSubmitting() ? 'Збереження...' : 'Підтвердити оцінку' }}
+                </button>
             </div>
-        </section>
-    </main>
+        </aside>
+    </div>
 </div>
+} @else {
+<div class="loading-overlay">Завантаження...</div>
+}
