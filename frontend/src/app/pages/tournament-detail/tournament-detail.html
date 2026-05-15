@@ -1,35 +1,50 @@
-<div class="tournament-container">
-    <main class="main-content">
-        @if (tournament()) {
-        <section class="title-section">
-            <h1>{{ tournament()!.name }}</h1>
-            <p class="subtitle">{{ tournament()!.description }}</p>
-        </section>
+<div class="details-page">
+    <header class="tournament-hero">
+        <div class="hero-content">
+            <div class="breadcrumb" routerLink="/tournaments">← Повенрутись до турнірів</div>
+            <span class="status-badge">Активний зараз</span>
+            <h1>Spring Code Challenge 2026</h1>
+            <p class="hero-subtitle">Організований Google Dev Community • 124 програмісти доєдналися</p>
 
-        <div class="line-divider"></div>
-
-        <section class="action-section">
-            <button class="btn-reg" (click)="register()">Reg on tournament</button>
-        </section>
-
-        <div class="details-grid">
-            <div class="info-box">
-                <h2>Tournament info</h2>
-                <p class="small-info">info</p>
+            <div class="hero-actions">
+                <button class="btn-primary" (click)="register()">Доєднатися</button>
+                <button class="btn-secondary" (click)="share()">Поділитися</button>
             </div>
+        </div>
+    </header>
 
-            <div class="stats-box">
-                <span class="label">Number of teams</span>
-                <span class="value">{{ numberOfTeams() }}</span>
+    <nav class="tabs-nav">
+        <button [class.active]="activeTab === 'overview'" (click)="setTab('overview')">Огляд</button>
+        <button [class.active]="activeTab === 'rules'" (click)="setTab('rules')">Правила та Призи</button>
+        <button [class.active]="activeTab === 'participants'" (click)="setTab('participants')">Учасники</button>
+    </nav>
+
+    <section class="tab-container">
+        <div *ngIf="activeTab === 'overview'" class="tab-content animate-fade">
+            <div class="info-grid">
+                <div class="info-main">
+                    <h3>Про турнір</h3>
+                    <p>Вітаємо у найбільшій алгоритмічній битві сезону. Цей турнір розроблено для перевірки ваших навичок розв'язання проблем під тиском.
+                        Ви зустрінете 5 викликів, які варіюються від простих до складних.</p>
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="Code" class="content-img">
+                </div>
+                <div class="info-sidebar">
+                    <div class="side-card">
+                        <h4>Таймлайн</h4>
+                        <div class="timeline-item"><strong>Початок:</strong> May 20, 18:00</div>
+                        <div class="timeline-item"><strong>Кінець:</strong> May 20, 21:00</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <footer class="footer-dates">
-            <div class="date-row">Start {{ tournament()!.startDate }}</div>
-            <div class="date-row">End {{ tournament()!.registrationDeadline }}</div>
-        </footer>
-        } @else {
-        <div>Tournament not found</div>
-        }
-    </main>
+        <div *ngIf="activeTab === 'rules'" class="tab-content animate-fade">
+            <h3>Правила турніру</h3>
+            <ul>
+                <li>Участь лише індивідуальна.</li>
+                <li>Плагіат призведе до негайного виключення.</li>
+                <li>Ви можете використовувати Python, Java або C++.</li>
+            </ul>
+        </div>
+    </section>
 </div>

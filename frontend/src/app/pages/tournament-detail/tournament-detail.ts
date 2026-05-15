@@ -1,38 +1,37 @@
-import { Component, inject, OnInit, signal, computed } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { TournamentService } from "../../shared/services/tournament.service";
-import { TournamentType } from "../../shared/types/tournament.types";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 
 @Component({
-    selector: "app-tournament-detail",
+    selector: "app-tournament-details",
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
     templateUrl: "./tournament-detail.html",
     styleUrls: ["./tournament-detail.css"],
 })
-export class TournamentDetailComponent implements OnInit {
-    private route = inject(ActivatedRoute);
-    private tournamentService = inject(TournamentService);
+export class TournamentDetailsComponent implements OnInit {
+    activeTab: string = "overview";
+    tournamentId: string | null = null;
 
-    tournament = signal<TournamentType | null>(null);
-    numberOfTeams = signal(16);
+    constructor(private route: ActivatedRoute) {}
 
-    isTournamentLoaded = computed(() => this.tournament() !== null);
-
-    async ngOnInit() {
-        const id = this.route.snapshot.paramMap.get("id") || "1";
-
-        try {
-            const tournamentData = await this.tournamentService.getTournamentById(id);
-
-            this.tournament.set(tournamentData);
-        } catch (error) {
-            console.error("Error fetching tournament:", error);
-        }
+    ngOnInit() {
+        this.tournamentId = this.route.snapshot.paramMap.get("id");
     }
 
-    register() {
-        console.log("Реєстрація на турнір активована");
+    setTab(tab: string) {
+        this.activeTab = tab;
+    }
+
+    register(): void {
+        alert("Ви успішно зареєструвалися на турнір!");
+    }
+
+    share(): void {
+        const url = window.location.href;
+        
+        navigator.clipboard.writeText(url).then(
+            () => alert("Посилання на турнір скопійовано в буфер обміну!"),
+        );
     }
 }
