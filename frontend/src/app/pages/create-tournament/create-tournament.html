@@ -1,25 +1,20 @@
 <div class="page-container">
     <div class="form-layout">
-        <div class="side-label">Step 1</div>
+        <div class="side-label">Крок 1</div>
         <div class="main-content">
-            <h2 class="title">Create Tournament</h2>
-            <p class="subtitle">Set up your new competition</p>
-            <button class="create-btn" [disabled]="isLoading || !tournamentData.name" (click)='onCreateTournament()'>
-                {{ isLoading ? 'Processing...' : 'Launch Tournament' }}
+            <h2 class="title">Створити турнір</h2>
+            <button class="create-btn" [disabled]="isLoading() || !tournamentData.name" (click)="onCreateTournament()">
+                {{ isLoading() ? 'Обробка...' : 'Створити турнір' }}
             </button>
         </div>
 
         <div class="divider"></div>
 
-        <div class="side-label">General</div>
+        <div class="side-label">Основне</div>
         <div class="main-content grid-content">
             <div class="input-block">
-                <label>Title</label>
-                <input type="text" [(ngModel)]="tournamentData.name" placeholder="Grand Slam 2026">
-            </div>
-            <div class="input-block">
-                <label>Location</label>
-                <input type="text" [(ngModel)]="tournamentData.location" placeholder="Kyiv, Ukraine">
+                <label>Назва</label>
+                <input type="text" [(ngModel)]="tournamentData.name" placeholder="Grand Slam 2026" />
             </div>
         </div>
 
@@ -28,17 +23,19 @@
         <div class="side-label">Settings</div>
         <div class="main-content grid-content">
             <div class="input-block">
-                <label>Start Date</label>
-                <input type="date" [(ngModel)]="tournamentData.startDate">
+                <label>Дата початку</label>
+                <input type="date" [(ngModel)]="tournamentData.startDate" />
             </div>
             <div class="input-block">
-                <label>Max Teams</label>
-                <input type="number" [(ngModel)]="tournamentData.maxTeams">
+                <label>Максимальна кількість команд</label>
+                <input type="number" [(ngModel)]="tournamentData.maxTeams" />
             </div>
             <div class="description-full">
-                <label>Description</label>
-                <textarea [(ngModel)]="tournamentData.description"
-                    placeholder="Tell about the rules and prizes..."></textarea>
+                <label>Опис</label>
+                <textarea
+                    [(ngModel)]="tournamentData.description"
+                    placeholder="Tell about the rules and prizes..."
+                ></textarea>
             </div>
         </div>
     </div>

@@ -1,44 +1,45 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TournamentService } from '../../shared/services/tournament.service';
-import { CreateTournamentRequest } from '../../shared/types/tournament.types';
-import { finalize } from 'rxjs/operators';
+import { Component, inject, signal, WritableSignal } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
+import { TournamentType } from "../../shared/types/tournament.types";
 
 @Component({
-  selector: 'app-create-tournament',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './create-tournament.html',
-  styleUrls: ['./create-tournament.css']
+    selector: "app-create-tournament",
+    standalone: true,
+    imports: [CommonModule, FormsModule],
+    templateUrl: "./create-tournament.html",
+    styleUrls: ["./create-tournament.css"],
 })
 export class CreateTournamentComponent {
-  private tournamentService = inject(TournamentService);
-  private router = inject(Router);
+    private router = inject(Router);
 
-  tournamentData: CreateTournamentRequest = {
-    name: '',
-    description: '',
-    startDate: '',
-    location: '',
-    maxTeams: 16
-  };
+    tournamentData: TournamentType = {
+        name: "",
+        description: "",
+        startDate: "",
+        createdAt: "",
+        createdBy: 0,
+        registrationDeadline: "",
+        tournamentId: "",
+    };
 
-  isLoading = false;
+    isLoading: WritableSignal<boolean> = signal<boolean>(false);
 
-  onCreateTournament(): void {
-    if (!this.tournamentData.name.trim()) return;
+    onCreateTournament(): void {
+        if (
+            !this.tournamentData.name.trim() ||
+            !this.tournamentData.startDate ||
+            !this.tournamentData.registrationDeadline
+        ) {
+            return;
+        }
 
-    this.isLoading = true;
-    this.tournamentService.createTournament(this.tournamentData)
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe({
-        next: (res) => {
-          console.log('Tournament created:', res);
-          this.router.navigate(['/tournaments', res.id]);
-        },
-        error: () => alert('Не вдалося створити турнір')
-      });
-  }
+        this.isLoading.set(true);
+
+        setTimeout(() => {
+            this.isLoading.set(false);
+            this.router.navigate(["/tournaments"]);
+        }, 2000);
+    }
 }

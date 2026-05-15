@@ -1,32 +1,31 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import EmailStr
 from typing import Optional
 from datetime import datetime
+from src.schemas.base import CamelModel
 
 
-class UserResponse(BaseModel):
+class UserResponse(CamelModel):
     user_id: str
     login: str
     email: EmailStr
-    role: str
     created_at: datetime
 
 
-class UserUpdateRequest(BaseModel):
+class UserUpdateRequest(CamelModel):
     login: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
 
-class UserUpdateResponse(BaseModel):
+class UserUpdateResponse(CamelModel):
     user_id: str
     login: str
     email: EmailStr
-    role: str
     updated_at: datetime
 
-class UserDeleteResponse(BaseModel):
+class UserDeleteResponse(CamelModel):
     success: bool
 
-class UserTournamentResponse(BaseModel):
+class UserTournamentResponse(CamelModel):
     id: str
     name: str
     start_date: datetime

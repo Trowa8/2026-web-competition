@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Header } from '../../shared/components/header/header';
-import { Footer } from '../../shared/components/footer/footer';
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { Header } from "../../shared/components/header/header";
+import { Footer } from "../../shared/components/footer/footer";
 
 @Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [RouterOutlet, Header, Footer],
-  templateUrl: './main-layout.html',
-  styleUrls: ['./main-layout.css'],
+    selector: "app-main-layout",
+    standalone: true,
+    imports: [RouterOutlet, Header, Footer],
+    templateUrl: "./main-layout.html",
+    styleUrls: ["./main-layout.css"],
 })
-export class MainLayout { }
+export class MainLayout {}

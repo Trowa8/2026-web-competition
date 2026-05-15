@@ -1,27 +1,56 @@
-import { Injectable, signal, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Injectable, signal, inject } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
+import { environment } from "../../../environments/environment";
 
-type Tournament = { id: number; name: string; status: string; maxTeams: number; registeredTeams: number };
+import {
+    TournamentType,
+    TournamentListItemType,
+    TournamentUpdatedType,
+    LeaderboardEntryType,
+    SuccessResponse,
+    CreateTournamentRequest,
+    UpdateTournamentRequest,
+    RegisterTeamRequest,
+} from "../types/tournament.types";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class TournamentService {
-  private http = inject(HttpClient);
-  private tournamentsState = signal<Tournament[]>([]);
-  private loadingState = signal(false);
+    private readonly http = inject(HttpClient);
 
-  tournaments = this.tournamentsState.asReadonly();
-  isLoading = this.loadingState.asReadonly();
-
-  async getAllTournaments(): Promise<Tournament[]> {
-    this.loadingState.set(true);
-    try {
-      const data = await firstValueFrom<Tournament[]>(this.http.get<Tournament[]>(`${environment.apiUrl}/tournaments`));
-      this.tournamentsState.set(data);
-      return data;
-    } finally {
-      this.loadingState.set(false);
+    public async getAllTournaments(): Promise<TournamentListItemType[]> {
+        return await firstValueFrom(this.http.get<TournamentListItemType[]>(`${environment.apiUrl}/tournaments`));
     }
-  }
+
+    public async getTournamentById(tournamentId: string): Promise<TournamentType> {
+        return await firstValueFrom(this.http.get<TournamentType>(`${environment.apiUrl}/tournaments/${tournamentId}`));
+    }
+
+    public async createTournament(body: CreateTournamentRequest): Promise<TournamentType> {
+        return await firstValueFrom(this.http.post<TournamentType>(`${environment.apiUrl}/tournaments`, body));
+    }
+
+    public async updateTournament(tournamentId: string, body: UpdateTournamentRequest): Promise<TournamentUpdatedType> {
+        return await firstValueFrom(
+            this.http.put<TournamentUpdatedType>(`${environment.apiUrl}/tournaments/${tournamentId}`, body),
+        );
+    }
+
+    public async deleteTournament(tournamentId: string): Promise<SuccessResponse> {
+        return await firstValueFrom(
+            this.http.delete<SuccessResponse>(`${environment.apiUrl}/tournaments/${tournamentId}`),
+        );
+    }
+
+    public async registerTeam(tournamentId: string, body: RegisterTeamRequest): Promise<SuccessResponse> {
+        return await firstValueFrom(
+            this.http.post<SuccessResponse>(`${environment.apiUrl}/tournaments/${tournamentId}/register`, body),
+        );
+    }
+
+    public async getTournamentLeaderboard(tournamentId: string): Promise<LeaderboardEntryType[]> {
+        return await firstValueFrom(
+            this.http.get<LeaderboardEntryType[]>(`${environment.apiUrl}/tournaments/${tournamentId}/leaderboard`),
+        );
+    }
 }
