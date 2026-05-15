@@ -6,6 +6,7 @@ import { TeamService } from '../../shared/services/team.service';
 import { CreateTeamRequest } from '../../shared/types/team.type';
 import { finalize, timeout, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { TeamCreate } from '../../shared/types/team.types';
 
 @Component({
   selector: 'app-create-team',
