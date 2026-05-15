@@ -21,7 +21,7 @@ export type RegisterRequest = {
 export type RegisterResponse = {
     accessToken: string;
     refreshToken: string;
-    userId:string;
+    userId: string;
 };
 
 export type LoginRequest = {

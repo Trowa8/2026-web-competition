@@ -3,6 +3,7 @@ export type TournamentType = {
     name: string;
     description: string;
     startDate: string;
+    maxTeams?: number;
     registrationDeadline: string;
     createdBy: number;
     createdAt: string;

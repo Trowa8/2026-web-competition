@@ -1,50 +1,49 @@
 <div class="details-page">
     <header class="tournament-hero">
         <div class="hero-content">
-            <div class="breadcrumb" routerLink="/tasks">← Back to Tournaments</div>
-            <span class="status-badge">Live Now</span>
+            <div class="breadcrumb" routerLink="/tournaments">← Повенрутись до турнірів</div>
+            <span class="status-badge">Активний зараз</span>
             <h1>Spring Code Challenge 2026</h1>
-            <p class="hero-subtitle">Organized by Google Dev Community • 124 Coders joined</p>
+            <p class="hero-subtitle">Організований Google Dev Community • 124 програмісти доєдналися</p>
 
             <div class="hero-actions">
-                <button class="btn-primary">Join Tournament</button>
-                <button class="btn-secondary">Share</button>
+                <button class="btn-primary" (click)="register()">Доєднатися</button>
+                <button class="btn-secondary" (click)="share()">Поділитися</button>
             </div>
         </div>
     </header>
 
     <nav class="tabs-nav">
-        <button [class.active]="activeTab === 'overview'" (click)="setTab('overview')">Overview</button>
-        <button [class.active]="activeTab === 'rules'" (click)="setTab('rules')">Rules & Prizes</button>
-        <button [class.active]="activeTab === 'participants'" (click)="setTab('participants')">Participants</button>
+        <button [class.active]="activeTab === 'overview'" (click)="setTab('overview')">Огляд</button>
+        <button [class.active]="activeTab === 'rules'" (click)="setTab('rules')">Правила та Призи</button>
+        <button [class.active]="activeTab === 'participants'" (click)="setTab('participants')">Учасники</button>
     </nav>
 
     <section class="tab-container">
         <div *ngIf="activeTab === 'overview'" class="tab-content animate-fade">
             <div class="info-grid">
                 <div class="info-main">
-                    <h3>About this Tournament</h3>
-                    <p>Welcome to the biggest algorithmic battle of the season. This tournament is designed to test your
-                        problem-solving skills under pressure. You will face 5 challenges ranging from easy to hard.</p>
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000"
-                        alt="Code" class="content-img">
+                    <h3>Про турнір</h3>
+                    <p>Вітаємо у найбільшій алгоритмічній битві сезону. Цей турнір розроблено для перевірки ваших навичок розв'язання проблем під тиском.
+                        Ви зустрінете 5 викликів, які варіюються від простих до складних.</p>
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="Code" class="content-img">
                 </div>
                 <div class="info-sidebar">
                     <div class="side-card">
-                        <h4>Timeline</h4>
-                        <div class="timeline-item"><strong>Starts:</strong> May 20, 18:00</div>
-                        <div class="timeline-item"><strong>Ends:</strong> May 20, 21:00</div>
+                        <h4>Таймлайн</h4>
+                        <div class="timeline-item"><strong>Початок:</strong> May 20, 18:00</div>
+                        <div class="timeline-item"><strong>Кінець:</strong> May 20, 21:00</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div *ngIf="activeTab === 'rules'" class="tab-content animate-fade">
-            <h3>Tournament Rules</h3>
+            <h3>Правила турніру</h3>
             <ul>
-                <li>Individual participation only.</li>
-                <li>Plagiarism will lead to immediate disqualification.</li>
-                <li>You can use Python, Java, or C++.</li>
+                <li>Участь лише індивідуальна.</li>
+                <li>Плагіат призведе до негайного виключення.</li>
+                <li>Ви можете використовувати Python, Java або C++.</li>
             </ul>
         </div>
     </section>

@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-scoring-status',
-  imports: [],
-  templateUrl: './scoring-status.html',
-  styleUrl: './scoring-status.css',
+    selector: "app-scoring-status",
+    imports: [],
+    templateUrl: "./scoring-status.html",
+    styleUrl: "./scoring-status.css",
 })
-export class ScoringStatus {
-
-}
+export class ScoringStatus {}

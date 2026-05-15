@@ -17,8 +17,6 @@
             <input type="text" [(ngModel)]="demoUrl" name="demoUrl" placeholder="https://youtube.com/..." />
         </div>
 
-        <button type="submit" [disabled]="isSubmitting()">
-            {{ isSubmitting() ? 'Відправка...' : 'Відправити' }}
-        </button>
+        <button type="submit" [disabled]="isSubmitting()">{{ isSubmitting() ? 'Відправка...' : 'Відправити' }}</button>
     </form>
 </div>

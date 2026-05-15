@@ -1,16 +1,4 @@
 <div class="search-page">
-    <nav class="navbar">
-        <div class="logo">🏆 Judge Portal</div>
-        <div class="nav-links">
-            <a routerLink="/tournament">Tournament</a>
-            <a routerLink="/home">Home</a>
-            <a routerLink="/tables">Tables</a>
-            <a routerLink="/profile">Profile</a>
-            <a routerLink="/search-info">Search & Info</a>
-            <a routerLink="/qa">Q&A</a>
-        </div>
-    </nav>
-
     <div class="hero">
         <h1>Search & Info</h1>
         <p>Find tournaments, teams, and users</p>
@@ -25,8 +13,12 @@
             </div>
             <div class="card-body">
                 <div class="search-box">
-                    <input type="text" [(ngModel)]="searchQuery" placeholder="Search tournaments, teams, users..."
-                        class="search-input">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchQuery"
+                        placeholder="Search tournaments, teams, users..."
+                        class="search-input"
+                    />
                     <button class="search-btn" (click)="onSearch()">Search</button>
                 </div>
 
@@ -70,14 +62,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <span>© 2023 Judge Portal. All rights reserved.</span>
-            <div class="contacts">
-                <span>📧 Tournament@gmail.com</span>
-                <span>📞 +380 66 657 66 67</span>
-            </div>
-        </div>
-    </footer>
 </div>
