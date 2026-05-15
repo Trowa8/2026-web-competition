@@ -29,9 +29,7 @@ export class TournamentDetailsComponent implements OnInit {
 
     share(): void {
         const url = window.location.href;
-        
-        navigator.clipboard.writeText(url).then(
-            () => alert("Посилання на турнір скопійовано в буфер обміну!"),
-        );
+
+        navigator.clipboard.writeText(url).then(() => alert("Посилання на турнір скопійовано в буфер обміну!"));
     }
 }

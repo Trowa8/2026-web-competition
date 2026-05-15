@@ -6,7 +6,6 @@
 }
 
 .card-header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -22,7 +21,6 @@
 }
 
 .header-title h2 {
-    color: white;
     margin: 0;
     font-size: 1rem;
     letter-spacing: 1px;
@@ -33,13 +31,12 @@
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
     font-size: 0.7rem;
-    color: white;
 }
 
 .btn-add {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
+
     padding: 0.3rem 0.8rem;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -85,7 +82,7 @@
 
 .btn-confirm {
     background: #10b981;
-    color: white;
+
     border: none;
     padding: 0.4rem 0.8rem;
     border-radius: 0.5rem;
@@ -95,7 +92,7 @@
 
 .btn-cancel-form {
     background: #ef4444;
-    color: white;
+
     border: none;
     padding: 0.4rem 0.8rem;
     border-radius: 0.5rem;

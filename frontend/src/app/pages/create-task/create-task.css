@@ -34,8 +34,7 @@ textarea {
 .btn-create {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(90deg, #4f46e5, #7c3aed);
-    color: white;
+
     border: none;
     border-radius: 10px;
     font-size: 17px;

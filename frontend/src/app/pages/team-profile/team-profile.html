@@ -1,17 +1,4 @@
 <div class="profile-layout">
-    <aside class="left-sidebar">
-        <nav class="nav-stack">
-            <div
-                *ngFor="let item of ['Турнір #1', 'Турнір #2', 'Турнір #3']"
-                class="nav-anchor"
-                [class.active]="activeNav() === item"
-                (click)="setNav(item)"
-            >
-                {{item}}
-            </div>
-        </nav>
-    </aside>
-
     <main class="main-viewport">
         <div class="content-bound">
             <header class="hero-block">
@@ -27,15 +14,15 @@
                     <div class="card-flex-group">
                         <div class="team-meta">
                             @if (!isEditing()) {
-                            <ng-container>
+                            <div>
                                 <h3 class="team-name-big">{{ team().name }}</h3>
                                 <p class="team-bio-text">{{ team().description }}</p>
-                            </ng-container>
+                            </div>
                             } @else {
-                            <ng-template>
+                            <div>
                                 <input [(ngModel)]="team().name" class="edit-input-title" />
                                 <textarea [(ngModel)]="team().description" class="edit-input-text"></textarea>
-                            </ng-template>
+                            </div>
                             }
 
                             <span class="pub-timestamp">Створено: {{ team().createdAt }}</span>

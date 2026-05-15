@@ -1,6 +1,5 @@
 .search-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
 .navbar {
@@ -29,7 +28,7 @@
 
 .hero {
     text-align: center;
-    color: white;
+
     padding: 2rem;
 }
 
@@ -59,7 +58,6 @@
 }
 
 .card-header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -67,7 +65,6 @@
 }
 
 .card-header h2 {
-    color: white;
     margin: 0;
     font-size: 1.25rem;
 }
@@ -77,7 +74,6 @@
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     font-size: 0.7rem;
-    color: white;
 }
 
 .card-body {
@@ -105,8 +101,7 @@
 
 .search-btn {
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
+
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -179,7 +174,7 @@
 .footer {
     margin-top: 2rem;
     background: rgba(0, 0, 0, 0.8);
-    color: white;
+
     padding: 1rem 2rem;
 }
 

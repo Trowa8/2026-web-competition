@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { UiInputComponent } from "../../shared/ui-input/ui-input";
-import { UiButton } from "../../shared/ui-button/ui-button";
+import { UiInputComponent } from "../../shared/components/ui-input/ui-input";
+import { UiButton } from "../../shared/components/ui-button/ui-button";
 import { TournamentHistory, TeamMember } from "../../shared/types/profile.types";
 import { AuthService } from "../../shared/services/auth.service";
 
@@ -50,15 +50,19 @@ export class ProfileComponent implements OnInit {
 
     usernameError = computed(() => {
         const v = this.editUsername();
+
         if (!v) return "Нікнейм обов'язковий";
         if (v.length < 3) return "Мінімум 3 символи";
+
         return "";
     });
 
     emailError = computed(() => {
         const v = this.editEmail();
+
         if (!v) return "Email обов'язковий";
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Некоректний формат email";
+
         return "";
     });
 
@@ -86,13 +90,15 @@ export class ProfileComponent implements OnInit {
         this.editErrors.set(errors);
         if (Object.keys(errors).length > 0) return;
 
-        const currentUserId = this.authService.userId();
+        const currentUserId = this.authService.user()?.userId;
+
         if (!currentUserId) {
             this.editErrors.set({ ...errors, username: "Не вдалось визначити поточного користувача" });
             return;
         }
 
         this.isLoading.set(true);
+
         try {
             const updated = await this.authService.updateUser(currentUserId, {
                 login: this.editUsername(),

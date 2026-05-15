@@ -1,8 +1,3 @@
-.submit-page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-}
-
 .navbar {
     background: white;
     display: flex;
@@ -28,7 +23,7 @@
 
 .hero {
     text-align: center;
-    color: white;
+
     padding: 2rem;
 }
 
@@ -56,7 +51,7 @@
 .footer {
     margin-top: 2rem;
     background: rgba(0, 0, 0, 0.8);
-    color: white;
+
     padding: 1rem 2rem;
 }
 

@@ -11,7 +11,6 @@ import { Team } from "../../shared/types/team.types";
     styleUrl: "./team-profile.css",
 })
 export class TeamProfileComponent {
-    activeNav = signal("Tournament #1");
     isEditing = signal(false);
 
     team: WritableSignal<Team> = signal({
@@ -37,9 +36,5 @@ export class TeamProfileComponent {
             alert(`Запрошення для ${this.inviteEmail} надіслано!`);
             this.inviteEmail = "";
         }
-    }
-
-    setNav(val: string) {
-        this.activeNav.set(val);
     }
 }
