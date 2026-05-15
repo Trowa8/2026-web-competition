@@ -1,10 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Team, CreateTeamRequest, UpdateTeamRequest } from '../types/team.types';
+import { Injectable, inject } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
+import { environment } from "../../../environments/environment";
+import { Team, CreateTeamRequest, UpdateTeamRequest } from "../types/team.types";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class TeamService {
     private http = inject(HttpClient);
     private apiUrl = environment.apiUrl;

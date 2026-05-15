@@ -1,7 +1,7 @@
 .page-wrapper {
     background-color: #ffffff;
     min-height: 100vh;
-    font-family: 'Inter', Arial, sans-serif;
+    font-family: "Inter", Arial, sans-serif;
     position: relative;
     color: #000;
 }
@@ -36,7 +36,7 @@
 }
 
 .avatar-circle::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 10px;
     height: 10px;
@@ -47,7 +47,7 @@
 }
 
 .avatar-circle::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 20px;
     height: 12px;

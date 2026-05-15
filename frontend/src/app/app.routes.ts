@@ -34,7 +34,8 @@ export const routes: Routes = [
             },
             {
                 path: "tournament",
-                loadComponent: () => import('./pages/tournament-detail/tournament-detail').then(m => m.TournamentDetailComponent),
+                loadComponent: () =>
+                    import("./pages/tournament-detail/tournament-detail").then(m => m.TournamentDetailComponent),
             },
             {
                 path: "submit-solution",
@@ -53,7 +54,7 @@ export const routes: Routes = [
             {
                 path: "create-tournament",
                 loadComponent: () =>
-                    import("./pages/create-tournament/create-tournament").then(m => m.CreateTournament),
+                    import("./pages/create-tournament/create-tournament").then(m => m.CreateTournamentComponent),
             },
             {
                 path: "create-team",

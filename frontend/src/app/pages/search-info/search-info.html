@@ -13,8 +13,12 @@
             </div>
             <div class="card-body">
                 <div class="search-box">
-                    <input type="text" [(ngModel)]="searchQuery" placeholder="Search tournaments, teams, users..."
-                        class="search-input">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchQuery"
+                        placeholder="Search tournaments, teams, users..."
+                        class="search-input"
+                    />
                     <button class="search-btn" (click)="onSearch()">Search</button>
                 </div>
 
@@ -58,5 +62,4 @@
             </div>
         </div>
     </div>
-
 </div>

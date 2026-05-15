@@ -1,4 +1,4 @@
-import { Component, InputSignal, output, input, signal, model,ModelSignal } from "@angular/core";
+import { Component, InputSignal, output, input, signal, model, ModelSignal } from "@angular/core";
 
 let nextId = 0;
 @Component({

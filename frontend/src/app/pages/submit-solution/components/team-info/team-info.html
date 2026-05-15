@@ -1,8 +1,13 @@
 <div class="card">
     <div class="card-header">
         <h2 *ngIf="!isEditing">{{ teamName }}</h2>
-        <input *ngIf="isEditing" type="text" [(ngModel)]="newTeamName" (input)="updateName.emit(newTeamName)"
-            class="edit-input">
+        <input
+            *ngIf="isEditing"
+            type="text"
+            [(ngModel)]="newTeamName"
+            (input)="updateName.emit(newTeamName)"
+            class="edit-input"
+        />
         <span class="badge">Team Profile</span>
     </div>
     <div class="card-body">

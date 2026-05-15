@@ -1,23 +1,23 @@
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, signal } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-    selector: 'app-upload-solution',
+    selector: "app-upload-solution",
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './upload-solution.html',
-    styleUrl: './upload-solution.css',
+    templateUrl: "./upload-solution.html",
+    styleUrl: "./upload-solution.css",
 })
 export class UploadSolution {
-    taskId = signal('');
-    githubUrl = signal('');
-    demoUrl = signal('');
+    taskId = signal("");
+    githubUrl = signal("");
+    demoUrl = signal("");
 
     isSubmitting = signal(false);
 
     submit() {
         if (!this.taskId() || !this.githubUrl() || !this.demoUrl()) {
-            alert('Заповніть всі поля');
+            alert("Заповніть всі поля");
             return;
         }
 
@@ -29,11 +29,11 @@ export class UploadSolution {
 
         this.isSubmitting.set(true);
 
-        console.log('Create Solution DTO:', dto);
+        console.log("Create Solution DTO:", dto);
 
         setTimeout(() => {
             this.isSubmitting.set(false);
-            alert('Рішення відправлено (mock)');
+            alert("Рішення відправлено (mock)");
         }, 500);
     }
 }

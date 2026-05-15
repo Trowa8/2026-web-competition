@@ -6,9 +6,15 @@
 
     <div class="main-container">
         <div class="left-column">
-            <app-team-info [teamName]="teamName" [isEditing]="isEditingTeam" [newTeamName]="newTeamName"
-                (editTeam)="startEditTeam()" (saveTeam)="saveTeamName()" (cancelEdit)="cancelEditTeam()"
-                (updateName)="newTeamName = $event">
+            <app-team-info
+                [teamName]="teamName"
+                [isEditing]="isEditingTeam"
+                [newTeamName]="newTeamName"
+                (editTeam)="startEditTeam()"
+                (saveTeam)="saveTeamName()"
+                (cancelEdit)="cancelEditTeam()"
+                (updateName)="newTeamName = $event"
+            >
             </app-team-info>
 
             <app-problem-statement></app-problem-statement>
@@ -20,5 +26,4 @@
             <app-code-editor (submitted)="onSolutionSubmitted($event)"></app-code-editor>
         </div>
     </div>
-
 </div>

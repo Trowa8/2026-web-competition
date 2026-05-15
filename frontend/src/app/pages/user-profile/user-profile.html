@@ -1,179 +1,162 @@
 <div class="topbar">
-  <div class="topbar-left">
-    <div class="topbar-avatar">
-      <i class="fa-solid fa-user-tie"></i>
+    <div class="topbar-left">
+        <div class="topbar-avatar">
+            <i class="fa-solid fa-user-tie"></i>
+        </div>
+        <span class="topbar-name">{{ username() || 'Профіль' }}</span>
     </div>
-    <span class="topbar-name">{{ username() || 'Профіль' }}</span>
-  </div>
-  <div class="topbar-title">Акаунт</div>
-  <a class="topbar-back" href="#">На головну <span>→</span></a>
+    <div class="topbar-title">Акаунт</div>
+    <a class="topbar-back" href="#">На головну <span>→</span></a>
 </div>
 
 <div class="page-wrapper">
-
-  <aside class="sidebar">
-    <div class="team-card">
-      <div class="team-card-header">
-        <h3 class="team-card-title">Команда</h3>
-        <span class="team-tag">Phoenix Squad</span>
-      </div>
-      <ul class="team-list">
-        @for (member of teamMembers(); track member.id) {
-          <li class="team-item">
-            <div class="member-avatar">{{ member.name.slice(0, 1) }}</div>
-            <span class="member-name">{{ member.name }}</span>
-          </li>
-        }
-      </ul>
-    </div>
-  </aside>
-
-  <main class="main-area">
-
-    <section class="profile-header-section">
-      <div class="profile-header-inner">
-        <div class="avatar-circle">
-          <i class="fa-solid fa-user-tie"></i>
-        </div>
-        <div class="profile-meta">
-          <h1 class="profile-username">{{ username() || 'Новий учасник' }}</h1>
-          <span class="profile-badge">Учасник</span>
-          @if (isSaved()) {
-            <span class="save-toast"><i class="fa-solid fa-check"></i> Збережено</span>
-          }
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-pill">
-          <span class="stat-label">Турнірів</span>
-          <span class="stat-value">{{ totalTournaments() }}</span>
-        </div>
-        <div class="stat-pill">
-          <span class="stat-label">Перемог</span>
-          <span class="stat-value">{{ totalWins() }}</span>
-        </div>
-        <div class="stat-pill">
-          <span class="stat-label">У команді</span>
-          <span class="stat-value">{{ teamMembers().length }}</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="settings-section">
-      <div class="settings-header">
-        <h3 class="settings-title">Налаштування акаунту</h3>
-      </div>
-
-      <div class="settings-body">
-
-        @if (!isEditing()) {
-          <div class="info-view">
-            <div class="info-section-row">
-              <span class="info-section-label">Основна інформація</span>
-              <ui-button
-                text="Редагувати"
-                color="primary"
-                variant="solid"
-                (onClick)="startEdit()"
-              />
+    <aside class="sidebar">
+        <div class="team-card">
+            <div class="team-card-header">
+                <h3 class="team-card-title">Команда</h3>
+                <span class="team-tag">Phoenix Squad</span>
             </div>
+            <ul class="team-list">
+                @for (member of teamMembers(); track member.id) {
+                <li class="team-item">
+                    <div class="member-avatar">{{ member.name.slice(0, 1) }}</div>
+                    <span class="member-name">{{ member.name }}</span>
+                </li>
+                }
+            </ul>
+        </div>
+    </aside>
 
-            <div class="settings-fields">
-              <div class="field-row">
-                <span class="field-label">Нікнейм</span>
-                <div class="field-value-wrap">
-                  <span class="field-value" [class.empty]="!username()">
-                    {{ username() || 'Не вказано' }}
-                  </span>
+    <main class="main-area">
+        <section class="profile-header-section">
+            <div class="profile-header-inner">
+                <div class="avatar-circle">
+                    <i class="fa-solid fa-user-tie"></i>
                 </div>
-              </div>
-              <div class="field-row">
-                <span class="field-label">Email</span>
-                <div class="field-value-wrap">
-                  <span class="field-value" [class.empty]="!email()">
-                    {{ email() || 'Не вказано' }}
-                  </span>
+                <div class="profile-meta">
+                    <h1 class="profile-username">{{ username() || 'Новий учасник' }}</h1>
+                    <span class="profile-badge">Учасник</span>
+                    @if (isSaved()) {
+                    <span class="save-toast"><i class="fa-solid fa-check"></i> Збережено</span>
+                    }
                 </div>
-              </div>
             </div>
-          </div>
-        }
+            <div class="stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">Турнірів</span>
+                    <span class="stat-value">{{ totalTournaments() }}</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Перемог</span>
+                    <span class="stat-value">{{ totalWins() }}</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">У команді</span>
+                    <span class="stat-value">{{ teamMembers().length }}</span>
+                </div>
+            </div>
+        </section>
 
-        @if (isEditing()) {
-          <div class="edit-form-panel">
-            <div class="edit-form-title">Редагування профілю</div>
-
-            <div class="form-fields">
-              <ui-input
-                label="Нікнейм"
-                type="text"
-                placeholder="ProGamer2025"
-                [(value)]="editUsername"
-                [error]="editErrors().username || ''"
-                [status]="editErrors().username ? 'error' : editUsername() && !editErrors().username ? 'success' : 'default'"
-              />
-              <ui-input
-                label="Email"
-                type="email"
-                placeholder="your@email.com"
-                [(value)]="editEmail"
-                [error]="editErrors().email || ''"
-                [status]="editErrors().email ? 'error' : editEmail() && !editErrors().email ? 'success' : 'default'"
-              />
+        <section class="settings-section">
+            <div class="settings-header">
+                <h3 class="settings-title">Налаштування акаунту</h3>
             </div>
 
-            <div class="form-actions">
-              <ui-button
-                text="Скасувати"
-                color="leave"
-                variant="outline"
-                (onClick)="cancelEdit()"
-              />
-              <ui-button
-                [text]="isLoading() ? 'Збереження...' : 'Зберегти зміни'"
-                color="primary"
-                variant="solid"
-                [disabled]="isLoading()"
-                (onClick)="saveEdit()"
-              />
+            <div class="settings-body">
+                @if (!isEditing()) {
+                <div class="info-view">
+                    <div class="info-section-row">
+                        <span class="info-section-label">Основна інформація</span>
+                        <ui-button text="Редагувати" color="primary" variant="solid" (onClick)="startEdit()" />
+                    </div>
+
+                    <div class="settings-fields">
+                        <div class="field-row">
+                            <span class="field-label">Нікнейм</span>
+                            <div class="field-value-wrap">
+                                <span class="field-value" [class.empty]="!username()">
+                                    {{ username() || 'Не вказано' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <span class="field-label">Email</span>
+                            <div class="field-value-wrap">
+                                <span class="field-value" [class.empty]="!email()">
+                                    {{ email() || 'Не вказано' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                } @if (isEditing()) {
+                <div class="edit-form-panel">
+                    <div class="edit-form-title">Редагування профілю</div>
+
+                    <div class="form-fields">
+                        <ui-input
+                            label="Нікнейм"
+                            type="text"
+                            placeholder="ProGamer2025"
+                            [(value)]="editUsername"
+                            [error]="editErrors().username || ''"
+                            [status]="editErrors().username ? 'error' : editUsername() && !editErrors().username ? 'success' : 'default'"
+                        />
+                        <ui-input
+                            label="Email"
+                            type="email"
+                            placeholder="your@email.com"
+                            [(value)]="editEmail"
+                            [error]="editErrors().email || ''"
+                            [status]="editErrors().email ? 'error' : editEmail() && !editErrors().email ? 'success' : 'default'"
+                        />
+                    </div>
+
+                    <div class="form-actions">
+                        <ui-button text="Скасувати" color="leave" variant="outline" (onClick)="cancelEdit()" />
+                        <ui-button
+                            [text]="isLoading() ? 'Збереження...' : 'Зберегти зміни'"
+                            color="primary"
+                            variant="solid"
+                            [disabled]="isLoading()"
+                            (onClick)="saveEdit()"
+                        />
+                    </div>
+                </div>
+                }
+
+                <div class="history-header">
+                    <span class="history-title">Участь у турнірах</span>
+                    <span class="history-count">{{ totalTournaments() }} записів</span>
+                </div>
+
+                <div class="history-table-wrap">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Турнір</th>
+                                <th>Дата</th>
+                                <th>Результат</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (t of tournamentHistory(); track t.id) {
+                            <tr class="history-row">
+                                <td class="tour-name">{{ t.name }}</td>
+                                <td class="tour-date">{{ t.date }}</td>
+                                <td class="tour-result">{{ t.result }}</td>
+                                <td>
+                                    <span class="status-badge" [attr.data-status]="tournamentStatus(t)">
+                                        {{ tournamentStatus(t) }}
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-          </div>
-        }
-
-        <div class="history-header">
-          <span class="history-title">Участь у турнірах</span>
-          <span class="history-count">{{ totalTournaments() }} записів</span>
-        </div>
-
-        <div class="history-table-wrap">
-          <table class="history-table">
-            <thead>
-              <tr>
-                <th>Турнір</th>
-                <th>Дата</th>
-                <th>Результат</th>
-                <th>Статус</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (t of tournamentHistory(); track t.id) {
-                <tr class="history-row">
-                  <td class="tour-name">{{ t.name }}</td>
-                  <td class="tour-date">{{ t.date }}</td>
-                  <td class="tour-result">{{ t.result }}</td>
-                  <td>
-                    <span class="status-badge" [attr.data-status]="tournamentStatus(t)">
-                      {{ tournamentStatus(t) }}
-                    </span>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
+        </section>
+    </main>
 </div>
