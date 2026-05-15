@@ -1,19 +1,71 @@
-export type TournamentStatus = 'upcoming' | 'ongoing' | 'finished';
+export type TournamentType = {
+    tournamentId: string;
+    name: string;
+    description: string;
+    startDate: string;
+    maxTeams?: number;
+    registrationDeadline: string;
+    createdBy: number;
+    createdAt: string;
+};
 
-export type Tournament = {
+export type TournamentListItemType = {
+    tournamentId: string;
+    name: string;
+    startDate: string;
+    registrationDeadline: string;
+    createdBy: number;
+    createdAt: string;
+};
+
+export type TournamentUpdatedType = {
+    tournamentId: string;
+    name: string;
+    description: string;
+    startDate: string;
+    registrationDeadline: string;
+    updatedAt: string;
+};
+
+export type LeaderboardEntryType = {
+    rank: number;
+    teamId: string;
+    teamName: string;
+    taskScores: {
+        taskId: string;
+        score: number;
+    }[];
+    total: number;
+};
+
+export type SuccessResponse = {
+    success: boolean;
+};
+
+export type CreateTournamentRequest = {
+    name: string;
+    description?: string;
+    startDate: string;
+    registrationDeadline: string;
+};
+
+export type UpdateTournamentRequest = {
+    name?: string;
+    description?: string;
+    startDate?: string;
+    registrationDeadline?: string;
+};
+
+export type RegisterTeamRequest = {
+    teamId: string;
+};
+
+export type TournamentTask = {
+    id: number;
     tournamentId: number;
     title: string;
     description: string;
-    status: TournamentStatus;
-    startDate: string;
-    endDate: string;
-    maxTeams: number;
-};
-
-export type TournamentCreate = {
-    title: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    maxTeams: number;
+    assignedTo: string;
+    deadline: string;
+    status: "pending" | "in_progress" | "done";
 };

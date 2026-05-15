@@ -1,16 +1,26 @@
-from pydantic import BaseModel
-from datetime import datetime
+from src.schemas.base import CamelModel
 
 
-class SolutionSummaryResponse(BaseModel):
-    id: str
+class SolutionSummaryResponse(CamelModel):
+    solution_id: str
     team_id: str
     file_name: str
-    uploaded_at: datetime
-    version: int
 
-class MySolutionResponse(BaseModel):
-    id: str
+class SolutionDetailResponse(CamelModel):
+    solution_id: str
     file_name: str
-    uploaded_at: datetime
-    version: int
+    file_url: str
+
+class SolutionCreateRequest(CamelModel):
+    task_id: str
+    team_id: str
+    file_name: str
+
+class SolutionCreateResponse(CamelModel):
+    solution_id: str
+    task_id: str
+    team_id: str
+    file_name: str
+
+class SolutionUploadResponse(CamelModel):
+    file_name: str

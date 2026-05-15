@@ -1,0 +1,35 @@
+:host {
+    --checkbox-gap: 10px;
+    --checkbox-outline-width: 1px;
+    --checkbox-outline-offset: 1px;
+
+    --checkbox-disabled-color: var(--color-disabled);
+    --checkbox-disabled-opacity: 0.45;
+    --checkbox-disabled-cursor: not-allowed;
+
+    --checkbox-error-accent-color: var(--color-error);
+    --checkbox-error-outline-color: var(--color-error);
+
+    display: block;
+    font-family: sans-serif;
+}
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--checkbox-gap);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox.is-disabled {
+    cursor: var(--checkbox-disabled-cursor);
+    opacity: var(--checkbox-disabled-opacity);
+    color: var(--checkbox-disabled-color);
+}
+
+.checkbox.is-error {
+    accent-color: var(--checkbox-error-accent-color);
+    outline: var(--checkbox-outline-width) solid var(--checkbox-error-outline-color);
+    outline-offset: var(--checkbox-outline-offset);
+}

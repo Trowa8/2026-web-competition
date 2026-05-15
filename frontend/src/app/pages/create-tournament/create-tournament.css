@@ -1,0 +1,91 @@
+.page-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.side-label {
+    font-size: 24px;
+    color: #ddd;
+    font-weight: 600;
+    padding-top: 5px;
+}
+
+.title {
+    font-size: 48px;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+}
+
+.subtitle {
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.create-btn {
+    background: #ccc;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s;
+}
+
+.create-btn:not(:disabled):hover {
+    background: #333;
+}
+
+.divider {
+    grid-column: 1 / span 2;
+    height: 1px;
+    background: #eee;
+    margin: 20px 0;
+}
+
+.grid-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-block label,
+.description-full label {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+input,
+textarea {
+    padding: 12px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.description-full {
+    grid-column: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}

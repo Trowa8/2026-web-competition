@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from src.schemas.base import CamelModel
 
 
-class AssignJudgeRequest(BaseModel):
+class AssignJudgeRequest(CamelModel):
     user_id: str
 
-class JudgeResponse(BaseModel):
+class JudgeResponse(CamelModel):
     user_id: str
     nickname: str
