@@ -1,0 +1,61 @@
+<div class="home-page">
+    <nav class="navbar">
+        <div class="logo">🏆 Judge Portal</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">OurCommunity</a>
+            <a href="#">Tournaments</a>
+            <a href="#">MyTeam</a>
+            <a href="#">{{ user.isLoggedIn ? user.name : 'Name' }}</a>
+        </div>
+        <div class="user-menu" *ngIf="!user.isLoggedIn">
+            <button class="btn-login" (click)="onLogin()">Login</button>
+            <button class="btn-signup" (click)="onSignup()">Sign up</button>
+        </div>
+        <div class="user-menu" *ngIf="user.isLoggedIn">
+            <span class="avatar">👤</span>
+            <span>{{ user.name }}</span>
+        </div>
+    </nav>
+
+    <app-hero-section [isLoggedIn]="user.isLoggedIn" (login)="onLogin()" (signup)="onSignup()"
+        (selectRole)="onSelectRole($event)">
+    </app-hero-section>
+
+    <div class="role-selection" *ngIf="!user.isLoggedIn">
+        <h3>Join as:</h3>
+        <div class="role-buttons">
+            <button class="role-btn" (click)="onSelectRole('participant')">Participant</button>
+            <button class="role-btn" (click)="onSelectRole('judge')">Judge</button>
+            <button class="role-btn" (click)="onSelectRole('organizer')">Organizer</button>
+        </div>
+    </div>
+    <div class="main-container">
+        <ng-container *ngIf="user.isLoggedIn">
+            <div class="dashboard-grid">
+                <div class="left-column">
+                    <app-user-dashboard [completedTasks]="completedTasksCount" [totalTasks]="totalTasksCount"
+                        [teamRating]="teamRating" [taskProgress]="taskProgressPercent">
+                    </app-user-dashboard>
+
+                    <app-tasks-preview [tasks]="userTasks" (viewAll)="onViewAllTasks()">
+                    </app-tasks-preview>
+                </div>
+
+                <div class="right-column">
+                    <app-featured-tournaments [tournaments]="userTournaments" [title]="'My Tournaments'"
+                        [showViewAll]="true" (signUp)="onSignUp($event)" (viewAll)="onViewAllTournaments()">
+                    </app-featured-tournaments>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!user.isLoggedIn">
+            <app-featured-tournaments [tournaments]="featuredTournaments" [title]="'Upcoming Tournaments'"
+                [showViewAll]="false" (signUp)="onSignUp($event)">
+            </app-featured-tournaments>
+        </ng-container>
+    </div>
+
+    <app-footer></app-footer>
+</div>

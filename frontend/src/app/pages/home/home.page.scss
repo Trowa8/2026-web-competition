@@ -1,0 +1,131 @@
+.home-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #667eea;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+
+        a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+
+            &:hover,
+            &.active {
+                color: #667eea;
+            }
+        }
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .btn-login,
+        .btn-signup {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #667eea;
+            border: 1px solid #667eea;
+
+            &:hover {
+                background: #667eea;
+                color: white;
+            }
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+
+            &:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        .avatar {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.role-selection {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 0 2rem 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    h3 {
+        color: #4a5568;
+        font-size: 1rem;
+    }
+
+    .role-buttons {
+        display: flex;
+        gap: 1rem;
+
+        .role-btn {
+            padding: 0.5rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 2rem;
+            cursor: pointer;
+
+            &:hover {
+                border-color: #667eea;
+                background: #f7fafc;
+            }
+        }
+    }
+}
+
+.main-container {
+    flex: 1;
+    padding: 0 2rem 2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
