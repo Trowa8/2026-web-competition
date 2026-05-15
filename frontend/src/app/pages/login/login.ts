@@ -1,8 +1,8 @@
 import { Component, computed, signal } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { RouterLink } from "@angular/router";
-import { UiInputComponent } from "../../shared/ui-input/ui-input";
-import { UiButton } from "../../shared/ui-button/ui-button";
+import { UiInputComponent } from "../../shared/components/ui-input/ui-input";
+import { UiButton } from "../../shared/components/ui-button/ui-button";
 
 @Component({
     selector: "app-login",

@@ -9,8 +9,8 @@ import {
     Validators,
 } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
-import { UiInputComponent } from "../../shared/ui-input/ui-input";
-import { UiButton } from "../../shared/ui-button/ui-button";
+import { UiInputComponent } from "../../shared/components/ui-input/ui-input";
+import { UiButton } from "../../shared/components/ui-button/ui-button";
 
 const passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get("password")?.value;
