@@ -1,8 +1,8 @@
 <div class="tasks-container">
     <header class="tasks-header">
         <div class="header-text">
-            <h1>Tournaments</h1>
-            <p>Explore and join upcoming coding competitions.</p>
+            <h1>Турніри</h1>
+            <p>Досліджуйте та приєднуйтесь до майбутніх програмних змагань.</p>
         </div>
         <button class="btn-black" routerLink="/create-tournament">+ Create New</button>
     </header>
@@ -18,10 +18,10 @@
 
             <div class="t-footer">
                 <div class="t-info">
-                    <span>📅 {{ t.date }}</span>
-                    <span>👥 {{ t.participants }}</span>
+                    <span>Дата: {{ t.date }}</span>
+                    <span>Кількість учасників: {{ t.participants }}</span>
                 </div>
-                <button class="btn-outline">View Details</button>
+                <button class="btn-outline">Переглянути деталі</button>
             </div>
         </div>
     </div>
